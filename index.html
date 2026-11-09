@@ -11,8 +11,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#7a1f1f">
 <title>Prefeitura Z — Mapa interativo de Knox County</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="fonts.css" rel="stylesheet">
 <style>
 :root{
   --paper:#f4ead2; --paper2:#e9dcbc; --ink:#3a2a1c; --ink2:#6e5537; --red:#80201a; --line:#8a6f4a;
@@ -646,6 +645,17 @@ window.addEventListener('resize',resize);
 resize(); fit(); render();
 if(document.fonts) document.fonts.ready.then(draw);
 })();
+</script>
+<script type="module">
+// Quando aberto como Discord Activity (host <client_id>.discordsays.com), faz o handshake com o Discord.
+const host = location.hostname;
+if (host.endsWith('.discordsays.com') || new URLSearchParams(location.search).has('frame_id')) {
+  const clientId = host.split('.')[0];
+  import('./discord-sdk.js')
+    .then(({ DiscordSDK }) => new DiscordSDK(clientId).ready())
+    .then(() => console.log('[PrefeituraZ] Activity pronta'))
+    .catch(e => console.warn('[PrefeituraZ] SDK do Discord falhou', e));
+}
 </script>
 </body>
 </html>
