@@ -3,659 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Mapa interativo de Knox County do servidor Prefeitura Z (Season 2): cidades, facções e marcadores.">
+<meta name="description" content="Prefeitura Z: servidor de Project Zomboid em Knox County. Entre no Discord, baixe o launcher e jogue.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Prefeitura Z — Mapa interativo de Knox County">
-<meta property="og:description" content="Cidades, facções e ruas de Knox County · Season 2. Clique para abrir o mapa interativo.">
-<meta property="og:image" content="https://sirrakx.github.io/mapa-prefeitura-z/preview.jpg">
+<meta property="og:title" content="Prefeitura Z — Servidor de Project Zomboid">
+<meta property="og:description" content="Sobreviver é a única lei da cidade. Entre no Discord, baixe o launcher e jogue a Season 2 em Knox County.">
+<meta property="og:image" content="https://sirrakx.github.io/mapa-prefeitura-z/img/preview-mapa.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#7a1f1f">
-<title>Prefeitura Z — Mapa interativo de Knox County</title>
-<link href="fonts.css" rel="stylesheet">
-<style>
-:root{
-  --paper:#f4ead2; --paper2:#e9dcbc; --ink:#3a2a1c; --ink2:#6e5537; --red:#80201a; --line:#8a6f4a;
-  --shadow:0 6px 18px rgba(40,25,10,.28);
-}
-*{box-sizing:border-box}
-html,body{margin:0;height:100%;overflow:hidden;background:#5a3b22;font-family:'Libre Baskerville',Georgia,serif;color:var(--ink)}
-#map{position:fixed;inset:0;width:100%;height:100%;cursor:grab;touch-action:none;display:block}
-#map.drag{cursor:grabbing}
-.card{background:var(--paper);border:2px solid var(--ink);border-radius:10px;box-shadow:var(--shadow);position:relative}
-.card::after{content:"";position:absolute;inset:4px;border:1px solid var(--line);border-radius:7px;pointer-events:none}
-#title{position:fixed;top:14px;left:14px;padding:10px 18px 9px;z-index:5;max-width:calc(100% - 28px)}
-#title h1{margin:0;font-family:'IM Fell English SC',serif;font-weight:400;font-size:30px;letter-spacing:.06em;line-height:1}
-#title h1 span{color:var(--red)}
-#title p{margin:4px 0 0;font-size:12px;font-style:italic;color:var(--ink2)}
-#panel{position:fixed;top:14px;right:14px;width:300px;max-height:calc(100% - 170px);display:flex;flex-direction:column;z-index:5}
-#panel .head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px;border-bottom:1px solid var(--line);margin:0 6px}
-#panel .head b{font-family:'IM Fell English SC',serif;font-weight:400;font-size:20px;color:var(--red)}
-#toggle{background:none;border:1px solid var(--ink);border-radius:6px;font:inherit;font-size:12px;padding:2px 8px;cursor:pointer;color:var(--ink)}
-#body{overflow:auto;padding:8px 14px 14px}
-#panel.closed #body{display:none}
-#panel.closed .head{border-bottom:none}
-h3{font-family:'IM Fell English SC',serif;font-weight:400;font-size:17px;margin:12px 0 6px;color:var(--ink)}
-#search{width:100%;padding:7px 10px;border:1.5px solid var(--ink2);border-radius:6px;background:#fbf5e4;font:inherit;font-size:13px;color:var(--ink)}
-#search:focus{outline:2px solid var(--red);outline-offset:1px}
-#cities{list-style:none;margin:6px 0 0;padding:0;max-height:190px;overflow:auto;border:1px solid var(--paper2);border-radius:6px}
-#cities li{padding:5px 9px;font-size:13px;cursor:pointer;display:flex;justify-content:space-between;border-bottom:1px dotted var(--paper2)}
-#cities li:hover,#cities li:focus{background:var(--paper2);outline:none}
-#cities li small{color:var(--ink2);font-style:italic}
-.fac{display:flex;gap:10px;align-items:center;padding:6px 6px;border-radius:8px;cursor:pointer}
-.fac:hover{background:var(--paper2)}
-.fac img{width:46px;height:46px}
-.fac b{font-size:13.5px;display:block}
-.fac small{font-size:11.5px;color:var(--ink2)}
-.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:6px;vertical-align:middle;border:1px solid rgba(0,0,0,.4)}
-.layers label{display:flex;align-items:center;gap:8px;font-size:13px;padding:3px 0;cursor:pointer}
-.layers input{accent-color:var(--red);width:15px;height:15px}
-#marks{font-size:12.5px;margin:4px 0 0;padding:0;list-style:none}
-#marks li{display:flex;justify-content:space-between;align-items:center;padding:3px 0;gap:6px}
-#marks li span{cursor:pointer;flex:1}
-#marks button{background:none;border:none;color:var(--red);cursor:pointer;font-size:14px}
-.hint{font-size:11.5px;color:var(--ink2);font-style:italic;line-height:1.45}
-#coords{position:fixed;left:14px;bottom:14px;padding:8px 14px;font-size:13px;z-index:5;cursor:pointer;min-width:230px}
-#coords b{font-family:'IM Fell English SC',serif;font-weight:400;font-size:15px}
-#coords small{display:block;color:var(--ink2);font-style:italic;font-size:11.5px;margin-top:2px}
-#scale{position:fixed;left:14px;bottom:86px;z-index:5;font-size:11px;color:var(--ink);pointer-events:none;background:var(--paper);border:1.5px solid var(--ink);border-radius:6px;padding:4px 8px 6px;box-shadow:var(--shadow)}
-#scale .bar{height:7px;border:1.5px solid var(--ink);background:repeating-linear-gradient(90deg,var(--ink) 0 25%,var(--paper) 25% 50%);}
-#zoom{position:fixed;right:14px;bottom:14px;display:flex;flex-direction:column;z-index:5;overflow:hidden}
-#zoom button{width:42px;height:40px;background:var(--paper);border:none;border-bottom:1px solid var(--line);font:700 20px 'Libre Baskerville',serif;color:var(--ink);cursor:pointer}
-#zoom button:last-child{border-bottom:none;font-size:13px}
-#zoom button:hover{background:var(--paper2)}
-#popup{position:fixed;z-index:6;width:260px;padding:12px 14px;display:none}
-#popup .x{position:absolute;top:6px;right:9px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--ink);z-index:2}
-#popup img{width:64px;height:64px;float:left;margin:0 10px 4px 0}
-#popup b{display:block;font-size:15px;color:var(--red);margin-top:6px}
-#popup small{font-size:12px;color:var(--ink2)}
-#popup .row{clear:both;display:flex;gap:6px;margin-top:8px}
-#popup .row button,#popup .row input{font:inherit;font-size:12px}
-#popup .row button{border:1px solid var(--ink);background:var(--paper2);border-radius:6px;padding:4px 8px;cursor:pointer;color:var(--ink)}
-#popup .row input{flex:1;min-width:0;padding:4px 7px;border:1px solid var(--ink2);border-radius:6px;background:#fbf5e4}
-#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:7px 14px;border-radius:8px;font-size:13px;z-index:9;opacity:0;transition:opacity .25s;pointer-events:none}
-@media (max-width:700px){
-  #title h1{font-size:22px} #title p{display:none}
-  #panel{top:auto;bottom:70px;right:10px;left:10px;width:auto;max-height:55%}
-  #coords{bottom:10px;left:10px;min-width:0;max-width:calc(100% - 80px)}
-  #zoom{bottom:10px;right:10px}
-  #scale{bottom:76px;left:10px}
-}
-</style>
+<meta name="theme-color" content="#80201a">
+<title>Prefeitura Z</title>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
-<canvas id="map" aria-label="Mapa interativo de Knox County"></canvas>
-
-<div id="title" class="card">
-  <h1>Prefeitura <span>Z</span></h1>
-  <p>Carta de Knox County, Kentucky · Season 2</p>
-</div>
-
-<div id="panel" class="card">
-  <div class="head"><b>Atlas</b><button id="toggle" aria-expanded="true">Recolher</button></div>
-  <div id="body">
-    <h3>Cidades de Knox</h3>
-    <input id="search" type="search" placeholder="Buscar cidade…" autocomplete="off">
-    <ul id="cities"></ul>
-
-    <h3>Facções</h3>
-    <div id="factions"></div>
-
-    <h3>Camadas</h3>
-    <div class="layers">
-      <label><input type="checkbox" id="lyCities" checked> Nomes das cidades</label>
-      <label><input type="checkbox" id="lyStreets" checked> Nomes das ruas (com zoom)</label>
-      <label><input type="checkbox" id="lyFactions" checked> Bases das facções</label>
-      <label><input type="checkbox" id="lyGrid"> Grade de células</label>
-      <label><input type="checkbox" id="lyMarks" checked> Meus marcadores</label>
-    </div>
-
-    <h3>Meus marcadores</h3>
-    <p class="hint">Clique com o botão direito (ou segure no celular) para marcar um local. Fica salvo só neste navegador.</p>
-    <ul id="marks"></ul>
+<header class="top wrap">
+  <div class="bar card">
+    <a class="logo" href="./">Prefeitura <span>Z</span></a>
+    <nav>
+      <a href="./" aria-current="page">Início</a>
+      <a href="mapa/">Mapa</a>
+      <a href="#faccoes">Facções</a>
+    </nav>
   </div>
-</div>
+</header>
 
-<div id="scale"><div class="lbl"></div><div class="bar"></div></div>
-<div id="coords" class="card" title="Clique para copiar"><b>X —  Y —</b><small>Passe o mouse sobre o mapa</small></div>
-<div id="zoom" class="card"><button id="zin" aria-label="Aproximar">+</button><button id="zout" aria-label="Afastar">−</button><button id="zfit" aria-label="Ver tudo">⤢</button></div>
-<div id="popup" class="card" role="dialog"></div>
-<div id="toast"></div>
+<main class="wrap">
+  <div class="hero card">
+    <h1>Prefeitura <span>Z</span></h1>
+    <p class="sub">Servidor de Project Zomboid · Knox County, Kentucky · Season 2</p>
+    <p class="quote">“Sobreviver é a única lei da cidade.”</p>
+    <div class="ctas">
+      <a class="btn primary" data-discord href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18 18 0 0 0-5.6 0L8.6 3a19.6 19.6 0 0 0-4.9 1.4C.6 9 0 13.6.3 18.1a19.8 19.8 0 0 0 6 3l1.3-2a12.7 12.7 0 0 1-2-1l.5-.4a14 14 0 0 0 11.8 0l.5.4a12.7 12.7 0 0 1-2 1l1.3 2a19.7 19.7 0 0 0 6-3c.5-5.2-.8-9.7-3.4-13.7ZM8.5 15.3c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4Zm7 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4Z"/></svg>
+        Entrar no Discord
+      </a>
+      <a class="btn ghost" href="mapa/">Ver o mapa</a>
+    </div>
+  </div>
 
-<script>
-(async function(){
-const DATA = await (await fetch('data.json')).json();
-let VEC=null; fetch('vec.json').then(r=>r.json()).then(v=>{VEC=v; draw();});
-const TILE = DATA.tile, LEVELS = DATA.levels;
-const WORLD_W = 19800, WORLD_H = 15700;
+  <section id="como-entrar">
+    <div class="card">
+      <h2>Como entrar no servidor</h2>
+      <ol class="steps">
+        <li><span class="n">I</span><b>Entre no Discord</b><p>Toda a comunidade, os avisos e o suporte ficam lá.</p></li>
+        <li><span class="n">II</span><b>Baixe o Launcher</b><p>O link do launcher da Prefeitura Z está no Discord. O servidor é só por ele, sem IP nem senha.</p></li>
+        <li><span class="n">III</span><b>Abra e jogue</b><p>O launcher deixa os mods em dia e te leva direto pro servidor.</p></li>
+      </ol>
+    </div>
+  </section>
 
-const FACTIONS = [
-  {id:'last_honest_man', name:'União da Margem',      street:'Marvin Pl',  town:'Riverside',  x:6230,  y:5494,  color:'#236eb9'},
-  {id:'muldraugh',       name:'Guarda da Sucata',     street:'Harris St',  town:'Muldraugh',  x:10846, y:9533,  color:'#c81e19'},
-  {id:'salvage_rites',   name:'Vigília do Crepúsculo',street:'Winter Dr',  town:'Echo Creek (igreja)', x:3542, y:11207, color:'#823caa'},
-];
-FACTIONS.forEach(f=>{ f.img=new Image(); f.img.src='emb_'+f.id+'.png'; f.img.onload=()=>draw(); });
+  <section id="mapa">
+    <div class="card mapcard">
+      <img src="img/preview-mapa.jpg" alt="Prévia do mapa de Knox County com cidades e bases das facções" loading="lazy">
+      <div class="txt">
+        <h2>Mapa de Knox County</h2>
+        <p>Todas as cidades, ruas e bases das facções da Season 2. Dá pra buscar cidade, ver coordenadas e marcar seus próprios pontos.</p>
+        <a class="btn ghost" href="mapa/">Abrir o mapa</a>
+      </div>
+    </div>
+  </section>
 
-const CITIES = DATA.labels.map(([n,x,y,k])=>({name:n,x,y,mod:k==='m'})).sort((a,b)=>a.name.localeCompare(b.name));
+  <section id="faccoes">
+    <div class="card">
+      <h2>Facções</h2>
+      <div class="facs" id="facs"></div>
+    </div>
+  </section>
+</main>
 
-const cv = document.getElementById('map'), ctx = cv.getContext('2d');
-const MX=19802, MY=15702, MARGIN=1300;
-function loadImg(src){const i=new Image(); i.onload=()=>{i.ok=true; draw();}; i.src=src; return i;}
-const IMG={wood:loadImg('wood.jpg'),paper:loadImg('paper.jpg'),ruler:loadImg('obj_ruler.png'),pencil:loadImg('obj_pencil.png'),
-  divider:loadImg('obj_divider.png'),coffee:loadImg('obj_coffee.png'),rose:loadImg('obj_rose.png')};
-// objects lying on the table: [image, world x, world y, tiles per image pixel]
-const OBJECTS=[['coffee',23400,11800,7],['ruler',-4400,-900,4.8],['pencil',-10200,17500,4.2],['divider',21500,-4300,4.4]];
-let patW=null, patP=null;
-let W=0,H=0,DPR=1;
-const view = {cx:WORLD_W/2, cy:WORLD_H/2, z:0.05}; // z = screen px per tile
-let minZ=0.02, maxZ=4;
+<footer>Prefeitura Z · comunidade de Project Zomboid. Não é afiliado à The Indie Stone.</footer>
 
-function resize(){
-  DPR = Math.min(window.devicePixelRatio||1, 2);
-  W = window.innerWidth; H = window.innerHeight;
-  cv.width = Math.round(W*DPR); cv.height = Math.round(H*DPR);
-  minZ = Math.min(W/36000, H/30000);
-  draw();
-}
-function fit(){
-  const z = Math.min(W/12500, H/11500);
-  view.z = z; view.cx = 9600; view.cy = 9800;
-}
-const w2s = (x,y)=>[(x-view.cx)*view.z + W/2, (y-view.cy)*view.z + H/2];
-const s2w = (sx,sy)=>[(sx-W/2)/view.z + view.cx, (sy-H/2)/view.z + view.cy];
-
-// ---- tiles
-const cache = new Map();
-function tile(li,tx,ty){
-  const k=li+'_'+tx+'_'+ty;
-  let t=cache.get(k);
-  if(!t){ t=new Image(); t.decoding='async'; t.onload=()=>{t.ok=true; draw();}; t.src='tiles/'+k+'.jpg'; cache.set(k,t); }
-  return t;
-}
-function drawLevel(li){
-  const L=LEVELS[li], tpp=L.tpp;
-  const [x0,y0]=s2w(0,0), [x1,y1]=s2w(W,H);
-  const span=TILE*tpp;
-  const ax=Math.max(0,Math.floor(x0/span)), bx=Math.min(L.nx-1,Math.floor(x1/span));
-  const ay=Math.max(0,Math.floor(y0/span)), by=Math.min(L.ny-1,Math.floor(y1/span));
-  let complete=true;
-  for(let ty=ay;ty<=by;ty++) for(let tx=ax;tx<=bx;tx++){
-    const t=tile(li,tx,ty);
-    if(!t.ok){complete=false;continue;}
-    const [sx,sy]=w2s(tx*span-1,ty*span-1);
-    const w=t.naturalWidth*tpp*view.z, h=t.naturalHeight*tpp*view.z;
-    ctx.drawImage(t, Math.floor(sx), Math.floor(sy), Math.ceil(w)+1, Math.ceil(h)+1);
-  }
-  return complete;
-}
-function pickLevel(){
-  const screenTpp = 1/(view.z*DPR);
-  let li=LEVELS.length-1;
-  for(let i=0;i<LEVELS.length;i++){ if(LEVELS[i].tpp <= screenTpp*1.15){ li=i; break; } }
-  return li;
-}
-
-// ---- cartography table
-function drawTable(){
-  const [ox,oy]=w2s(0,0);
-  if(IMG.wood.ok){
-    if(!patW) patW=ctx.createPattern(IMG.wood,'repeat');
-    const sc=Math.max(0.14,Math.min(1.4,view.z*2600/1024));
-    patW.setTransform(new DOMMatrix().translate(ox,oy).scale(sc));
-    ctx.fillStyle=patW;
-  } else ctx.fillStyle='#6e4a2c';
-  ctx.fillRect(0,0,W,H);
-  // objects under/around the sheet
-  for(const [k,x,y,tpp] of OBJECTS){
-    const im=IMG[k]; if(!im.ok) continue;
-    const [sx,sy]=w2s(x,y), w=im.naturalWidth*tpp*view.z, h=im.naturalHeight*tpp*view.z;
-    if(sx>W||sy>H||sx+w<0||sy+h<0) continue;
-    ctx.drawImage(im,sx,sy,w,h);
-  }
-  // paper sheet with shadow
-  const [ax,ay]=w2s(-MARGIN,-MARGIN), [bx,by]=w2s(MX+MARGIN,MY+MARGIN);
-  ctx.save();
-  ctx.shadowColor='rgba(25,12,4,.55)'; ctx.shadowBlur=Math.max(8,Math.min(40,view.z*500)); ctx.shadowOffsetX=ctx.shadowOffsetY=Math.max(4,Math.min(18,view.z*200));
-  if(IMG.paper.ok){ if(!patP) patP=ctx.createPattern(IMG.paper,'repeat'); patP.setTransform(new DOMMatrix().translate(ax,ay)); ctx.fillStyle=patP; } else ctx.fillStyle='#f4ead2';
-  ctx.fillRect(ax,ay,bx-ax,by-ay);
-  ctx.restore();
-  // aged edge
-  const g=ctx.createLinearGradient(ax,0,ax+Math.max(10,MARGIN*0.5*view.z),0);
-  ctx.save(); ctx.strokeStyle='rgba(150,115,70,.35)'; ctx.lineWidth=Math.max(2,view.z*60); ctx.strokeRect(ax,ay,bx-ax,by-ay); ctx.restore();
-  drawBorder();
-}
-function drawBorder(){
-  const ink='#3a2a1c', light='#f5ecd2';
-  const lw=v=>Math.max(1,v*view.z);
-  // outer double frame
-  for(const [o,w] of [[MARGIN-90,26],[MARGIN-150,8]]){
-    const [a,b]=w2s(-o,-o), [c,d]=w2s(MX+o,MY+o);
-    ctx.strokeStyle=ink; ctx.lineWidth=lw(w); ctx.strokeRect(a,b,c-a,d-b);
-  }
-  // checkered scale band (1000 tiles each)
-  const b0=60,b1=200;
-  const band=(x0,y0,x1,y1,dark)=>{const [p,q]=w2s(x0,y0),[r,t]=w2s(x1,y1); ctx.fillStyle=dark?ink:light; ctx.fillRect(p,q,r-p,t-q);};
-  for(let i=0,x=0;x<MX;i++,x+=1000){ const x2=Math.min(MX,x+1000); band(x,-b1,x2,-b0,i%2==0); band(x,MY+b0,x2,MY+b1,i%2==0); }
-  for(let i=0,y=0;y<MY;i++,y+=1000){ const y2=Math.min(MY,y+1000); band(-b1,y,-b0,y2,i%2==0); band(MX+b0,y,MX+b1,y2,i%2==0); }
-  { const [a,b]=w2s(-b1,-b1),[c,d]=w2s(MX+b1,MY+b1); ctx.strokeStyle=ink; ctx.lineWidth=lw(10); ctx.strokeRect(a,b,c-a,d-b); }
-  { const [a,b]=w2s(-b0,-b0),[c,d]=w2s(MX+b0,MY+b0); ctx.strokeStyle=ink; ctx.lineWidth=lw(14); ctx.strokeRect(a,b,c-a,d-b); }
-  // coordinates
-  const fs=Math.max(9,Math.min(18,view.z*170));
-  if(view.z>0.018){
-    ctx.fillStyle=ink; ctx.font=`${fs}px 'Libre Baskerville', Georgia, serif`;
-    ctx.textAlign='center'; ctx.textBaseline='bottom';
-    for(let x=0;x<=MX;x+=2000){ let [sx,sy]=w2s(x,-b1-40); ctx.fillText(x,sx,sy); [sx,sy]=w2s(x,MY+b1+40); ctx.textBaseline='top'; ctx.fillText(x,sx,sy); ctx.textBaseline='bottom'; }
-    ctx.textBaseline='middle';
-    for(let y=0;y<=MY;y+=2000){ let [sx,sy]=w2s(-b1-60,y); ctx.textAlign='right'; ctx.fillText(y,sx,sy); [sx,sy]=w2s(MX+b1+60,y); ctx.textAlign='left'; ctx.fillText(y,sx,sy); }
-  }
-  // corner ornaments
-  for(const [cx,cy] of [[-MARGIN+120,-MARGIN+120],[MX+MARGIN-120,-MARGIN+120],[-MARGIN+120,MY+MARGIN-120],[MX+MARGIN-120,MY+MARGIN-120]]){
-    const [x,y]=w2s(cx,cy), r=110*view.z;
-    ctx.fillStyle=light; ctx.strokeStyle=ink; ctx.lineWidth=lw(10);
-    ctx.fillRect(x-r,y-r,2*r,2*r); ctx.strokeRect(x-r,y-r,2*r,2*r);
-    ctx.fillStyle='#80201a'; ctx.beginPath(); ctx.moveTo(x,y-r*.7); ctx.lineTo(x+r*.24,y); ctx.lineTo(x,y+r*.7); ctx.lineTo(x-r*.24,y); ctx.fill();
-    ctx.fillStyle=ink; ctx.beginPath(); ctx.moveTo(x-r*.7,y); ctx.lineTo(x,y-r*.24); ctx.lineTo(x+r*.7,y); ctx.lineTo(x,y+r*.24); ctx.fill();
-  }
-  // title on the top margin
-  if(view.z>0.018){
-    const [tx,ty]=w2s(MX/2,-760);
-    ctx.font=`${Math.max(14,view.z*300)}px 'IM Fell English SC', Georgia, serif`; ctx.fillStyle=ink; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText('Carta de Knox County · Prefeitura Z',tx,ty);
-  }
-}
-function drawRose(){
-  const im=IMG.rose; if(!im.ok) return;
-  const tpp=2.1, w=im.naturalWidth*tpp*view.z; const [sx,sy]=w2s(17300,9300);
-  ctx.globalAlpha=.92; ctx.drawImage(im,sx-w/2,sy-w/2,w,w); ctx.globalAlpha=1;
-}
-function vignette(){
-  const g=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*0.35,W/2,H/2,Math.max(W,H)*0.75);
-  g.addColorStop(0,'rgba(255,220,150,0)'); g.addColorStop(1,'rgba(30,15,5,.35)');
-  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-}
-
-// ---- crisp vector layer for deep zoom (same data the raster was drawn from)
-const VSTYLE={0:['#84b2c9'],1:['#ffffff','#78706a'],2:['#faf6ec','#78706a'],3:['#f5f0e4','#78706a'],4:['#cdbea0','#78706a'],5:['#f0ece1','#78706a'],6:['#6e645f'],7:['#928676']};
-const LW={11:14,12:10,13:6,14:4,15:5};
-function drawVectors(){
-  if(!VEC || view.z*DPR < 0.45) return;
-  const [x0,y0]=s2w(0,0), [x1,y1]=s2w(W,H);
-  ctx.save();
-  ctx.setTransform(DPR*view.z,0,0,DPR*view.z,DPR*(W/2-view.cx*view.z),DPR*(H/2-view.cy*view.z));
-  const px=1/view.z; // one screen pixel in tiles
-  for(const f of VEC){
-    if(f[3]<x0||f[1]>x1||f[4]<y0||f[2]>y1) continue;
-    const k=f[0], rings=f[5];
-    if(k>=10){ // line roads
-      const st=VSTYLE[k-10]||VSTYLE[5];
-      ctx.strokeStyle=st[0]; ctx.lineWidth=LW[k]||12; ctx.lineJoin='round'; ctx.lineCap='butt';
-      for(const r of rings){ ctx.beginPath(); ctx.moveTo(r[0],r[1]); for(let i=2;i<r.length;i+=2) ctx.lineTo(r[i],r[i+1]); ctx.stroke(); }
-      continue;
-    }
-    const st=VSTYLE[k];
-    ctx.beginPath();
-    for(const r of rings){ ctx.moveTo(r[0],r[1]); for(let i=2;i<r.length;i+=2) ctx.lineTo(r[i],r[i+1]); ctx.closePath(); }
-    ctx.fillStyle=st[0]; ctx.fill('evenodd');
-    if(k===0||k===7){ ctx.strokeStyle=st[0]; ctx.lineWidth=2.2; ctx.stroke(); }
-    if(st[1]){ ctx.strokeStyle=st[1]; ctx.lineWidth=Math.max(px,Math.min(1.2,px*1.4)); ctx.stroke(); }
-    else if(k===7){ ctx.strokeStyle='rgba(90,80,68,.55)'; ctx.lineWidth=px*0.8; ctx.stroke(); }
-  }
-  ctx.restore();
-}
-
-// ---- server registry, drawn on the paper beyond the river (world units)
-const REG={x:280,y:360,w:10800,h:4240};
-const REG_ROWS=[['NOME','Prefeitura Z'],['TEMPORADA','2ª Season — desde 23/10/2026'],['VERSÃO','Build 42 · Multiplayer'],['MAPA BASE','Muldraugh, KY (Knox County)'],['MAPAS DE MOD','8 regiões adicionadas']];
-function drawRegistry(){
-  const {x,y,w,h}=REG; const [sx,sy]=w2s(x,y), z=view.z;
-  if(sx>W||sy>H||sx+w*z<0||sy+h*z<0) return;
-  const rr=(ox,oy,ww,hh,r)=>{ctx.beginPath(); ctx.roundRect(ox,oy,ww,hh,r);};
-  ctx.save();
-  ctx.shadowColor='rgba(60,40,20,.35)'; ctx.shadowBlur=Math.max(4,40*z); ctx.shadowOffsetX=ctx.shadowOffsetY=Math.max(2,60*z);
-  rr(sx,sy,w*z,h*z,120*z); ctx.fillStyle='#f6eed6'; ctx.fill(); ctx.restore();
-  ctx.strokeStyle='#3a2a1c'; ctx.lineWidth=Math.max(1.5,28*z); rr(sx,sy,w*z,h*z,120*z); ctx.stroke();
-  ctx.lineWidth=Math.max(.7,8*z); rr(sx+72*z,sy+72*z,(w-144)*z,(h-144)*z,80*z); ctx.stroke();
-  if(z*170<4) return;
-  const T=(t,tx,ty,size,font,color,align='left')=>{ctx.font=`${font} ${size*z}px 'Libre Baskerville', Georgia, serif`; ctx.fillStyle=color; ctx.textAlign=align; ctx.textBaseline='top'; ctx.fillText(t,sx+tx*z,sy+ty*z);};
-  T('Registro do Servidor',280,230,256,'700','#80201a');
-  ctx.strokeStyle='#3a2a1c'; ctx.lineWidth=Math.max(1,12*z); ctx.beginPath(); ctx.moveTo(sx+280*z,sy+600*z); ctx.lineTo(sx+(w-280)*z,sy+600*z); ctx.stroke();
-  REG_ROWS.forEach(([k,v],i)=>{ const yy=740+i*472; ctx.font=`700 ${120*z}px Arial, sans-serif`; ctx.fillStyle='#78603c'; ctx.textAlign='left'; ctx.textBaseline='top'; ctx.fillText(k,sx+280*z,sy+yy*z); T(v,280,yy+144,184,'400','#3a2a1c'); });
-  const c2=4720; T('Cidades de Knox',c2,740,176,'700','#3a2a1c');
-  CITIES.forEach((c,i)=>{ const cx=c2+Math.floor(i/7)*1960, cy=1080+(i%7)*312;
-    ctx.fillStyle='#3a2a1c'; ctx.beginPath(); ctx.arc(sx+(cx+36)*z,sy+(cy+92)*z,36*z,0,7); ctx.fill();
-    T(c.name,cx+128,cy,168,'400','#3a2a1c'); });
-  T('“Sobreviver é a única lei da cidade.”',c2,h-380,144,'italic 400','#6e5537');
-}
-
-// ---- overlay helpers
-function halo(text,x,y,size,color,opts={}){
-  ctx.font = `${opts.italic?'italic ':''}${opts.bold===false?'':'700 '}${size}px 'Libre Baskerville', Georgia, serif`;
-  ctx.textAlign = opts.align||'center'; ctx.textBaseline = opts.base||'alphabetic';
-  ctx.lineJoin='round'; ctx.lineWidth = Math.max(3,size*0.32); ctx.strokeStyle='rgba(255,252,242,.95)';
-  ctx.strokeText(text,x,y); ctx.fillStyle=color; ctx.fillText(text,x,y);
-}
-function tack(x,y,color,k=1){
-  const hx=x+7*k, hy=y-16*k, r=4.6*k;
-  ctx.lineCap='round';
-  ctx.strokeStyle='rgba(50,30,15,.6)'; ctx.lineWidth=2.4*k; ctx.beginPath(); ctx.moveTo(x+1,y+1); ctx.lineTo(hx+1,hy+1); ctx.stroke();
-  ctx.strokeStyle='#9a9aa0'; ctx.lineWidth=1.8*k; ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(hx,hy); ctx.stroke();
-  ctx.fillStyle='rgba(50,30,15,.45)'; ctx.beginPath(); ctx.arc(hx+1.2,hy+1.6,r,0,7); ctx.fill();
-  ctx.fillStyle=color; ctx.beginPath(); ctx.arc(hx,hy,r,0,7); ctx.fill();
-  ctx.strokeStyle='rgba(0,0,0,.45)'; ctx.lineWidth=1; ctx.stroke();
-  ctx.fillStyle='rgba(255,255,255,.65)'; ctx.beginPath(); ctx.arc(hx-r*.35,hy-r*.35,r*.32,0,7); ctx.fill();
-  return [hx,hy,r];
-}
-
-function drawGrid(){
-  const step = view.z>0.35 ? 256 : 1000;
-  const [x0,y0]=s2w(0,0), [x1,y1]=s2w(W,H);
-  ctx.strokeStyle='rgba(70,50,30,.28)'; ctx.lineWidth=1;
-  ctx.beginPath();
-  for(let x=Math.ceil(x0/step)*step;x<=x1;x+=step){const [sx]=w2s(x,0); ctx.moveTo(Math.round(sx)+.5,0); ctx.lineTo(Math.round(sx)+.5,H);}
-  for(let y=Math.ceil(y0/step)*step;y<=y1;y+=step){const [,sy]=w2s(0,y); ctx.moveTo(0,Math.round(sy)+.5); ctx.lineTo(W,Math.round(sy)+.5);}
-  ctx.stroke();
-  if(step===256 && view.z>0.6){
-    for(let x=Math.ceil(x0/step)*step;x<=x1;x+=step) for(let y=Math.ceil(y0/step)*step;y<=y1;y+=step){
-      const [sx,sy]=w2s(x,y); halo(`${x/256},${y/256}`,sx+4,sy+13,10,'rgba(70,50,30,.75)',{align:'left',bold:false});
-    }
-  }
-}
-
-function drawStreets(){
-  if(view.z < 0.75) return;
-  const size = Math.min(14, 9 + (view.z-0.75)*3);
-  ctx.font = `italic ${size}px 'Libre Baskerville', Georgia, serif`;
-  const placed=[];
-  const [x0,y0]=s2w(-50,-50), [x1,y1]=s2w(W+50,H+50);
-  for(const [name,width,pts] of DATA.streets){
-    let best=null,bl=0;
-    for(let i=0;i<pts.length-1;i++){
-      const a=pts[i],b=pts[i+1];
-      if(Math.max(a[0],b[0])<x0||Math.min(a[0],b[0])>x1||Math.max(a[1],b[1])<y0||Math.min(a[1],b[1])>y1) continue;
-      const [ax,ay]=w2s(a[0],a[1]), [bx,by]=w2s(b[0],b[1]);
-      // clip to screen roughly by taking visible midpoint
-      const l=Math.hypot(bx-ax,by-ay);
-      if(l>bl){bl=l;best=[ax,ay,bx,by];}
-    }
-    if(!best) continue;
-    const tw=ctx.measureText(name).width;
-    if(bl < tw+24) continue;
-    let [ax,ay,bx,by]=best;
-    let mx=(ax+bx)/2, my=(ay+by)/2;
-    // keep the label on screen if the segment is long
-    if(mx<0||mx>W||my<0||my>H){
-      const t=Math.max(0,Math.min(1, ((W/2-ax)*(bx-ax)+(H/2-ay)*(by-ay))/((bx-ax)**2+(by-ay)**2)));
-      mx=ax+(bx-ax)*t; my=ay+(by-ay)*t;
-    }
-    if(mx<-20||mx>W+20||my<-20||my>H+20) continue;
-    let ang=Math.atan2(by-ay,bx-ax); if(ang>Math.PI/2) ang-=Math.PI; if(ang<-Math.PI/2) ang+=Math.PI;
-    const r=Math.max(tw,size)/2+6;
-    if(placed.some(p=>Math.hypot(p[0]-mx,p[1]-my)<p[2]+r)) continue;
-    placed.push([mx,my,r]);
-    ctx.save(); ctx.translate(mx,my); ctx.rotate(ang);
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.lineJoin='round'; ctx.lineWidth=3.2; ctx.strokeStyle='rgba(252,247,233,.92)'; ctx.strokeText(name,0,0);
-    ctx.fillStyle='#4a3a2a'; ctx.fillText(name,0,0);
-    ctx.restore();
-  }
-}
-
-let hits=[];
-function drawCities(){
-  const size = Math.max(12, Math.min(22, 11 + view.z*22));
-  const placed=[];
-  const order=[...CITIES].sort((a,b)=>(a.mod-b.mod));
-  ctx.font=`700 ${size}px 'Libre Baskerville', Georgia, serif`;
-  for(const c of order){
-    const [px,py]=w2s(c.x,c.y), tw=ctx.measureText(c.name).width;
-    const r=[px-tw/2-4,py-size*1.5,px+tw/2+4,py+4];
-    c._hide=placed.some(q=>!(r[2]<q[0]||r[0]>q[2]||r[3]<q[1]||r[1]>q[3]));
-    if(!c._hide) placed.push(r);
-  }
-  for(const c of CITIES){
-    if(c._hide) continue;
-    const [sx,sy]=w2s(c.x,c.y);
-    if(sx<-200||sx>W+200||sy<-60||sy>H+60) continue;
-    ctx.fillStyle='#24232d'; ctx.strokeStyle='#fff'; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.arc(sx,sy,Math.max(3,size*0.2),0,7); ctx.fill(); ctx.stroke();
-    halo(c.name,sx,sy-size*0.45,size,'#24232d');
-  }
-}
-function drawFactions(){
-  const k = Math.max(1, Math.min(1.8, 0.9+view.z*0.8));
-  for(const f of FACTIONS){
-    const [sx,sy]=w2s(f.x,f.y);
-    const [hx,hy,r]=tack(sx,sy,f.color,k);
-    hits.push({type:'fac',f,x:hx,y:hy,r:r+8});
-    if(view.z>0.45) halo(f.name,hx+r+5,hy+4,12+view.z*2,f.color,{align:'left',italic:true});
-  }
-}
-let MARKS=[];
-try{ MARKS=JSON.parse(localStorage.getItem('przMarks')||'[]'); }catch(e){ MARKS=[]; }
-function saveMarks(){ try{ localStorage.setItem('przMarks',JSON.stringify(MARKS)); }catch(e){} renderMarks(); }
-function drawMarks(){
-  for(const m of MARKS){
-    const [sx,sy]=w2s(m.x,m.y);
-    const [hx,hy,r]=tack(sx,sy,'#e0a020',1.1);
-    hits.push({type:'mark',m,x:hx,y:hy,r:r+8});
-    halo(m.name,hx+r+5,hy+4,12,'#6b4a10',{align:'left',italic:true});
-  }
-}
-
-const ly = id=>document.getElementById(id).checked;
-let raf=0;
-function draw(){ if(raf) return; raf=requestAnimationFrame(()=>{raf=0; render();}); }
-function render(){
-  ctx.setTransform(DPR,0,0,DPR,0,0);
-  drawTable();
-  ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality='high';
-  drawLevel(0);
-  const li=pickLevel();
-  if(li>1) drawLevel(Math.max(1,li-1));
-  if(li>0) drawLevel(li);
-  drawVectors();
-  drawRegistry();
-  drawRose();
-  hits=[];
-  if(ly('lyGrid')) drawGrid();
-  if(ly('lyStreets')) drawStreets();
-  if(ly('lyCities')) drawCities();
-  if(ly('lyMarks')) drawMarks();
-  if(ly('lyFactions')) drawFactions();
-  vignette();
-  updateScale();
-  if(popupAt) placePopup();
-}
-
-// ---- scale bar
-function updateScale(){
-  const target=120/view.z; const steps=[10,25,50,100,250,500,1000,2000,4000];
-  let s=steps[0]; for(const v of steps) if(v<=target) s=v;
-  const el=document.getElementById('scale');
-  el.querySelector('.bar').style.width=(s*view.z)+'px';
-  el.querySelector('.lbl').textContent=s+' tiles';
-}
-
-// ---- interaction
-function zoomAt(f,sx,sy){
-  const nz=Math.max(minZ,Math.min(maxZ,view.z*f));
-  const [wx,wy]=s2w(sx,sy);
-  view.z=nz; view.cx=wx-(sx-W/2)/nz; view.cy=wy-(sy-H/2)/nz; clamp(); draw();
-}
-function clamp(){
-  view.cx=Math.max(-7000,Math.min(WORLD_W+8000,view.cx));
-  view.cy=Math.max(-5000,Math.min(WORLD_H+6000,view.cy));
-}
-cv.addEventListener('wheel',e=>{e.preventDefault(); zoomAt(Math.exp(-e.deltaY*0.0015),e.clientX,e.clientY);},{passive:false});
-
-const ptrs=new Map(); let dragStart=null, moved=false, pinch=null, longT=null;
-cv.addEventListener('pointerdown',e=>{
-  cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
-  moved=false;
-  if(ptrs.size===1){ dragStart={x:e.clientX,y:e.clientY,cx:view.cx,cy:view.cy}; cv.classList.add('drag');
-    if(e.pointerType==='touch'){ clearTimeout(longT); longT=setTimeout(()=>{ if(!moved){ openAddMark(e.clientX,e.clientY);} },650); } }
-  if(ptrs.size===2){ const [a,b]=[...ptrs.values()]; pinch={d:Math.hypot(a.x-b.x,a.y-b.y),z:view.z}; clearTimeout(longT); }
-});
-cv.addEventListener('pointermove',e=>{
-  showCoords(e.clientX,e.clientY);
-  if(!ptrs.has(e.pointerId)) return;
-  ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
-  if(ptrs.size===2&&pinch){
-    const [a,b]=[...ptrs.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y);
-    zoomAt((pinch.z*d/pinch.d)/view.z,(a.x+b.x)/2,(a.y+b.y)/2); moved=true; return;
-  }
-  if(dragStart){
-    const dx=e.clientX-dragStart.x, dy=e.clientY-dragStart.y;
-    if(Math.abs(dx)+Math.abs(dy)>4){ moved=true; clearTimeout(longT); }
-    view.cx=dragStart.cx-dx/view.z; view.cy=dragStart.cy-dy/view.z; clamp(); draw();
-  }
-});
-function endPtr(e){
-  ptrs.delete(e.pointerId); clearTimeout(longT);
-  if(ptrs.size<2) pinch=null;
-  if(ptrs.size===0){ cv.classList.remove('drag');
-    if(dragStart && !moved && e.type==='pointerup' && e.button!==2) clickAt(e.clientX,e.clientY);
-    dragStart=null; }
-  else { const p=[...ptrs.values()][0]; dragStart={x:p.x,y:p.y,cx:view.cx,cy:view.cy}; }
-}
-cv.addEventListener('pointerup',endPtr); cv.addEventListener('pointercancel',endPtr);
-cv.addEventListener('contextmenu',e=>{e.preventDefault(); openAddMark(e.clientX,e.clientY);});
-cv.addEventListener('dblclick',e=>zoomAt(2,e.clientX,e.clientY));
-window.addEventListener('keydown',e=>{
-  if(e.target.tagName==='INPUT') return;
-  if(e.key==='+'||e.key==='=') zoomAt(1.5,W/2,H/2);
-  else if(e.key==='-') zoomAt(1/1.5,W/2,H/2);
-  else if(e.key==='Escape') closePopup();
-  else { const d=80/view.z; const m={ArrowLeft:[-d,0],ArrowRight:[d,0],ArrowUp:[0,-d],ArrowDown:[0,d]}[e.key]; if(m){view.cx+=m[0];view.cy+=m[1];draw();} }
-});
-document.getElementById('zin').onclick=()=>zoomAt(1.6,W/2,H/2);
-document.getElementById('zout').onclick=()=>zoomAt(1/1.6,W/2,H/2);
-document.getElementById('zfit').onclick=()=>{flyTo(9600,9800,Math.min(W/12500,H/11500));};
-
-function nearestCity(x,y){
-  let best=null,bd=1e9; for(const c of CITIES){const d=Math.hypot(c.x-x,c.y-y); if(d<bd){bd=d;best=c;}}
-  return [best,bd];
-}
-let lastCoord=null;
-function showCoords(sx,sy){
-  const [x,y]=s2w(sx,sy); const X=Math.round(x), Y=Math.round(y);
-  lastCoord=[X,Y];
-  const el=document.getElementById('coords');
-  const [c,d]=nearestCity(X,Y);
-  const where = d<500 ? `em ${c.name}` : `a ${(d/1000).toFixed(1).replace('.',',')} mil tiles de ${c.name}`;
-  el.innerHTML=`<b>X ${X} &nbsp;·&nbsp; Y ${Y}</b><small>${where} · célula ${Math.floor(X/256)},${Math.floor(Y/256)}</small>`;
-}
-document.getElementById('coords').onclick=async()=>{
-  if(!lastCoord) return;
-  try{ await navigator.clipboard.writeText(`${lastCoord[0]},${lastCoord[1]}`); toast('Coordenadas copiadas: '+lastCoord.join(', ')); }
-  catch(e){ toast('Não deu para copiar aqui: '+lastCoord.join(', ')); }
-};
-
-function flyTo(x,y,z){
-  const s={cx:view.cx,cy:view.cy,z:view.z}, t0=performance.now(), dur=650;
-  const e={cx:x,cy:y,z:z??Math.max(view.z,0.9)};
-  (function step(now){
-    const t=Math.min(1,(now-t0)/dur), k=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-    view.cx=s.cx+(e.cx-s.cx)*k; view.cy=s.cy+(e.cy-s.cy)*k;
-    view.z=Math.exp(Math.log(s.z)+(Math.log(e.z)-Math.log(s.z))*k);
-    render(); if(t<1) requestAnimationFrame(step);
-  })(t0);
-}
-
-// ---- popup
-const pop=document.getElementById('popup'); let popupAt=null;
-function placePopup(){
-  const [sx,sy]=w2s(popupAt[0],popupAt[1]);
-  let x=sx+16, y=sy-pop.offsetHeight-10;
-  if(x+pop.offsetWidth>W-10) x=sx-pop.offsetWidth-16;
-  if(y<10) y=sy+16;
-  pop.style.left=x+'px'; pop.style.top=y+'px';
-}
-function openPopup(html,wx,wy){ pop.innerHTML='<button class="x" aria-label="Fechar">×</button>'+html; pop.style.display='block'; popupAt=[wx,wy]; pop.querySelector('.x').onclick=closePopup; placePopup(); }
-function closePopup(){ pop.style.display='none'; popupAt=null; }
-function clickAt(sx,sy){
-  for(const h of hits.slice().reverse()){
-    if(Math.hypot(h.x-sx,h.y-sy)<=h.r){
-      if(h.type==='fac') return openFaction(h.f);
-      if(h.type==='mark') return openMark(h.m);
-    }
-  }
-  closePopup();
-}
-function openFaction(f){
-  openPopup(`<img src="emb_${f.id}.png" alt=""><small>Base de facção</small><b>${f.name}</b><small>${f.street} · ${f.town}<br>X ${f.x} · Y ${f.y}</small>
-   <div class="row"><button data-a="go">Aproximar</button><button data-a="copy">Copiar coordenadas</button></div>`,f.x,f.y);
-  pop.querySelector('[data-a=go]').onclick=()=>flyTo(f.x,f.y,2.5);
-  pop.querySelector('[data-a=copy]').onclick=async()=>{try{await navigator.clipboard.writeText(`${f.x},${f.y}`);toast('Coordenadas copiadas');}catch(e){toast(`${f.x},${f.y}`);}};
-}
-function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function openMark(m){
-  openPopup(`<small>Meu marcador</small><b style="color:#6b4a10">${esc(m.name)}</b><small>X ${m.x} · Y ${m.y}</small>
-   <div class="row"><button data-a="del">Apagar</button></div>`,m.x,m.y);
-  pop.querySelector('[data-a=del]').onclick=()=>{MARKS=MARKS.filter(o=>o!==m); saveMarks(); closePopup(); draw();};
-}
-function openAddMark(sx,sy){
-  const [x,y]=s2w(sx,sy); const X=Math.round(x),Y=Math.round(y);
-  openPopup(`<small>Novo marcador · X ${X} · Y ${Y}</small><b>Marcar este local</b>
-    <form class="row"><input placeholder="Nome (ex.: minha base)" maxlength="40"><button>Salvar</button></form>`,X,Y);
-  const inp=pop.querySelector('input'); setTimeout(()=>inp.focus(),30);
-  pop.querySelector('form').onsubmit=ev=>{ev.preventDefault(); const n=inp.value.trim()||'Marcador'; MARKS.push({name:n,x:X,y:Y}); saveMarks(); closePopup(); draw(); toast('Marcador salvo');};
-}
-function toast(t){const el=document.getElementById('toast'); el.textContent=t; el.style.opacity=1; clearTimeout(el._t); el._t=setTimeout(()=>el.style.opacity=0,1800);}
-
-// ---- side panel
-const ul=document.getElementById('cities');
-function renderCities(q=''){
-  const n=q.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-  ul.innerHTML='';
-  for(const c of CITIES){
-    if(n && !c.name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(n)) continue;
-    const li=document.createElement('li'); li.tabIndex=0;
-    li.innerHTML=`<span>${c.name}</span><small>${c.x}, ${c.y}</small>`;
-    li.onclick=()=>flyTo(c.x,c.y,1.1);
-    li.onkeydown=e=>{if(e.key==='Enter')li.onclick();};
-    ul.appendChild(li);
-  }
-}
-document.getElementById('search').addEventListener('input',e=>renderCities(e.target.value));
-document.getElementById('search').addEventListener('keydown',e=>{if(e.key==='Enter'){const f=ul.querySelector('li'); if(f) f.onclick();}});
-renderCities();
-const fd=document.getElementById('factions');
-for(const f of FACTIONS){
-  const d=document.createElement('div'); d.className='fac'; d.tabIndex=0;
-  d.innerHTML=`<img src="emb_${f.id}.png" alt=""><div><b>${f.name}<span class="dot" style="background:${f.color}"></span></b><small>${f.street} · ${f.town}</small></div>`;
-  d.onclick=()=>{flyTo(f.x,f.y,2); setTimeout(()=>openFaction(f),680);};
-  fd.appendChild(d);
-}
-function renderMarks(){
-  const m=document.getElementById('marks'); m.innerHTML='';
-  if(!MARKS.length){ m.innerHTML='<li class="hint">Nenhum marcador ainda.</li>'; return; }
-  MARKS.forEach(mk=>{const li=document.createElement('li');
-    li.innerHTML=`<span>📍 ${esc(mk.name)}</span><button aria-label="Apagar">×</button>`;
-    li.querySelector('span').onclick=()=>flyTo(mk.x,mk.y,2);
-    li.querySelector('button').onclick=()=>{MARKS=MARKS.filter(o=>o!==mk); saveMarks(); draw();};
-    m.appendChild(li);});
-}
-renderMarks();
-document.querySelectorAll('.layers input').forEach(i=>i.onchange=draw);
-const panel=document.getElementById('panel'), tg=document.getElementById('toggle');
-tg.onclick=()=>{panel.classList.toggle('closed'); const c=panel.classList.contains('closed'); tg.textContent=c?'Abrir':'Recolher'; tg.setAttribute('aria-expanded',!c);};
-if(window.innerWidth<700) tg.onclick();
-
-window.addEventListener('resize',resize);
-resize(); fit(); render();
-if(document.fonts) document.fonts.ready.then(draw);
-})();
-</script>
-<script type="module">
-// Quando aberto como Discord Activity (host <client_id>.discordsays.com), faz o handshake com o Discord.
-const host = location.hostname;
-if (host.endsWith('.discordsays.com') || new URLSearchParams(location.search).has('frame_id')) {
-  const clientId = host.split('.')[0];
-  import('./discord-sdk.js')
-    .then(({ DiscordSDK }) => new DiscordSDK(clientId).ready())
-    .then(() => console.log('[PrefeituraZ] Activity pronta'))
-    .catch(e => console.warn('[PrefeituraZ] SDK do Discord falhou', e));
-}
-</script>
+<script src="site.js"></script>
 </body>
 </html>
