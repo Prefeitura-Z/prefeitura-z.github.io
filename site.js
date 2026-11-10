@@ -1,6 +1,6 @@
 // Configuração do site. Troque o link de convite aqui quando tiver um permanente.
 const SITE = {
-  discord: '', // ex.: 'https://discord.gg/XXXXXXX'
+  discord: 'https://discord.gg/QaEtPDbVpK',
 };
 
 // Mesmas facções do mapa (mapa/index.html).
