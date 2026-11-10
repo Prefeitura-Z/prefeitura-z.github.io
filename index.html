@@ -98,7 +98,7 @@
   const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
   document.getElementById('s-data').textContent = `${s.day} de ${meses[(s.month||1)-1]}`;
   document.getElementById('s-hora').textContent = `${s.year} · ${pad(s.hour)}:${pad(s.minute)}`;
-  document.getElementById('s-clima').textContent = s.weather;
+  document.getElementById('s-clima').textContent = ({ 'Ceu limpo': 'Céu limpo' })[s.weather] || s.weather;
   document.getElementById('s-temp').textContent = `${Number(s.temperature).toFixed(1).replace('.', ',')} °C · vento ${Math.round(s.windKph)} km/h`;
   document.getElementById('s-atual').textContent = 'Atualizado ' + haQuanto(d.statusEm || d.atualizadoEm) + '.';
 })();
