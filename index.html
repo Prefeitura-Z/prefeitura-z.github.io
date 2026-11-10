@@ -20,6 +20,7 @@
     <nav>
       <a href="./" aria-current="page">Início</a>
       <a href="mapa/">Mapa</a>
+      <a href="ranking.html">Ranking</a>
       <a href="#faccoes">Facções</a>
     </nav>
   </div>
@@ -38,6 +39,18 @@
       <a class="btn ghost" href="mapa/">Ver o mapa</a>
     </div>
   </div>
+
+  <section id="agora">
+    <div class="card">
+      <div class="h2row"><h2>Agora em Knox County</h2><span class="pill" id="pill"><i></i><span>Carregando…</span></span></div>
+      <div class="status">
+        <div class="stat"><small>Sobreviventes online</small><b id="s-online">–</b></div>
+        <div class="stat"><small>Data no jogo</small><b id="s-data">–</b><span id="s-hora"></span></div>
+        <div class="stat"><small>Clima</small><b id="s-clima">–</b><span id="s-temp"></span></div>
+      </div>
+      <p class="muted" id="s-atual" style="margin:12px 0 0"></p>
+    </div>
+  </section>
 
   <section id="como-entrar">
     <div class="card">
@@ -72,5 +85,22 @@
 <footer>Prefeitura Z · comunidade de Project Zomboid. Não é afiliado à The Indie Stone.</footer>
 
 <script src="site.js"></script>
+<script src="dados.js"></script>
+<script>
+(async () => {
+  const d = await carregarDados();
+  const pill = document.getElementById('pill'), txt = pill.querySelector('span');
+  if (!d || !d.status) { txt.textContent = 'Sem dados ainda'; document.getElementById('s-atual').textContent = 'Os dados do servidor aparecem aqui assim que o publicador estiver ligado.'; return; }
+  const s = d.status, on = servidorOnline(d);
+  pill.classList.add(on ? 'on' : 'off'); txt.textContent = on ? 'Servidor online' : 'Servidor offline';
+  document.getElementById('s-online').textContent = on ? s.onlinePlayers : 0;
+  const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  document.getElementById('s-data').textContent = `${s.day} de ${meses[(s.month||1)-1]}`;
+  document.getElementById('s-hora').textContent = `${s.year} · ${pad(s.hour)}:${pad(s.minute)}`;
+  document.getElementById('s-clima').textContent = s.weather;
+  document.getElementById('s-temp').textContent = `${Number(s.temperature).toFixed(1).replace('.', ',')} °C · vento ${Math.round(s.windKph)} km/h`;
+  document.getElementById('s-atual').textContent = 'Atualizado ' + haQuanto(d.statusEm || d.atualizadoEm) + '.';
+})();
+</script>
 </body>
 </html>

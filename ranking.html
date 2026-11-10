@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ranking dos sobreviventes da Prefeitura Z e registro de óbitos.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prefeitura Z — Ranking e óbitos">
+<meta property="og:description" content="Quem mais matou zumbis, quem sobrevive há mais tempo e quem tombou em Knox County.">
+<meta property="og:image" content="https://prefeitura-z.github.io/img/preview-mapa.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#80201a">
+<title>Ranking — Prefeitura Z</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="top wrap">
+  <div class="bar card">
+    <a class="logo" href="./">Prefeitura <span>Z</span></a>
+    <nav>
+      <a href="./">Início</a>
+      <a href="mapa/">Mapa</a>
+      <a href="ranking.html" aria-current="page">Ranking</a>
+      <a href="./#faccoes">Facções</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <div class="card">
+      <div class="h2row"><h2>Ranking</h2><span class="muted" id="r-atual"></span></div>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <table class="rank">
+        <thead><tr><th>#</th><th>Sobrevivente</th><th style="text-align:right" id="r-col">Zumbis</th></tr></thead>
+        <tbody id="r-body"><tr><td colspan="3" class="muted">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="obitos">
+    <div class="card">
+      <div class="h2row"><h2>Registro de óbitos</h2><span class="muted">Últimas mortes no servidor</span></div>
+      <ul class="obitos" id="o-list"><li class="muted">Carregando…</li></ul>
+    </div>
+  </section>
+</main>
+
+<footer>Prefeitura Z · comunidade de Project Zomboid. Não é afiliado à The Indie Stone.</footer>
+
+<script src="dados.js"></script>
+<script>
+const ABAS = [
+  { k: 'pve',       nome: 'Zumbis',        col: 'Zumbis mortos' },
+  { k: 'horas',     nome: 'Sobrevivência', col: 'Tempo vivo', fmt: h => h >= 24 ? `${Math.floor(h / 24)} d ${h % 24} h` : `${h} h` },
+  { k: 'npcs',      nome: 'NPCs',          col: 'NPCs eliminados' },
+  { k: 'pvp',       nome: 'PvP',           col: 'Abates PvP' },
+];
+const TOP = 20;
+let D = null, aba = ABAS[0];
+
+function desenharRanking() {
+  document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.k === aba.k));
+  document.getElementById('r-col').textContent = aba.col;
+  const body = document.getElementById('r-body');
+  const lista = (D && D.ranking || []).filter(j => (j[aba.k] || 0) > 0)
+    .sort((a, b) => b[aba.k] - a[aba.k]).slice(0, TOP);
+  if (!lista.length) { body.innerHTML = `<tr><td colspan="3" class="muted">${D ? 'Ninguém pontuou aqui ainda.' : 'Os dados do servidor aparecem aqui assim que o publicador estiver ligado.'}</td></tr>`; return; }
+  body.innerHTML = lista.map((j, i) =>
+    `<tr><td class="n">${i + 1}</td><td>${esc(j.nome)}</td><td class="v">${esc(aba.fmt ? aba.fmt(j[aba.k]) : j[aba.k].toLocaleString('pt-BR'))}</td></tr>`).join('');
+}
+
+function desenharObitos() {
+  const ul = document.getElementById('o-list');
+  const m = D && D.mortes || [];
+  if (!m.length) { ul.innerHTML = `<li class="muted">${D ? 'Nenhuma morte registrada. Por enquanto.' : 'Os dados do servidor aparecem aqui assim que o publicador estiver ligado.'}</li>`; return; }
+  const fmtData = iso => new Date(iso).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+  ul.innerHTML = m.map(o => `<li><span><b>${esc(o.nome)}</b> · <span class="c">${esc(o.causa)}</span>${o.horas != null ? ` <small>· sobreviveu ${o.horas >= 24 ? Math.floor(o.horas / 24) + ' d' : o.horas + ' h'}</small>` : ''}</span><small>${fmtData(o.quando)}</small></li>`).join('');
+}
+
+const tabs = document.getElementById('tabs');
+for (const a of ABAS) {
+  const b = document.createElement('button');
+  b.type = 'button'; b.role = 'tab'; b.dataset.k = a.k; b.textContent = a.nome;
+  b.onclick = () => { aba = a; desenharRanking(); };
+  tabs.appendChild(b);
+}
+
+(async () => {
+  D = await carregarDados();
+  if (D) document.getElementById('r-atual').textContent = 'Atualizado ' + haQuanto(D.rankingEm || D.atualizadoEm);
+  desenharRanking(); desenharObitos();
+})();
+</script>
+</body>
+</html>
