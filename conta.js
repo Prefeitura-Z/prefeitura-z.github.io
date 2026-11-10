@@ -18,10 +18,23 @@ const Conta = {
     if (!r.ok) throw new Error(d.erro || 'Não deu certo. Tente de novo.');
     return d;
   },
-  async eu() {
-    if (!this.ativo || !this.token()) return null;
-    try { return await this.api('/me'); } catch { return null; }
+  // Primeira chamada fica guardada (o topo e a página usam a mesma); eu(true) busca de novo.
+  eu(novo) {
+    if (!this.ativo || !this.token()) return Promise.resolve(null);
+    if (!this._p || novo) this._p = this.api('/me').catch(() => null);
+    return this._p;
   },
 };
 
 document.querySelectorAll('[data-conta]').forEach(a => { if (!Conta.ativo) a.hidden = true; });
+
+// Mostra o nome/foto no botão "Minha conta" do topo quando a pessoa está logada.
+Conta.topo = eu => {
+  const a = document.getElementById('topo-conta');
+  if (!a || !eu) return;
+  const sp = a.querySelector('span');
+  if (eu.avatar) a.querySelector('svg').outerHTML = `<img src="${esc(eu.avatar)}" alt="">`;
+  if (sp) sp.textContent = eu.nome;
+};
+
+Conta.eu().then(Conta.topo);

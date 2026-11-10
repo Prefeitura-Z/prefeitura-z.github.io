@@ -6,103 +6,94 @@
 <meta name="description" content="Prefeitura Z: servidor de Project Zomboid em Knox County. Entre no Discord, baixe o launcher e jogue.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Prefeitura Z — Servidor de Project Zomboid">
-<meta property="og:description" content="Sobreviver é a única lei da cidade. Entre no Discord, baixe o launcher e jogue a Season 2 em Knox County.">
-<meta property="og:image" content="https://prefeitura-z.github.io/img/preview-mapa.jpg">
+<meta property="og:description" content="A cidade caiu. Você ainda não. Entre no Discord, baixe o launcher e jogue a Season 2 em Knox County.">
+<meta property="og:image" content="https://prefeitura-z.github.io/img/knox-cinematic.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#80201a">
+<meta name="theme-color" content="#111411">
+<link rel="icon" href="img/brasao.png">
 <title>Prefeitura Z</title>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
-<header class="top wrap">
-  <div class="bar card">
-    <a class="logo" href="./">Prefeitura <span>Z</span></a>
-    <nav>
-      <a href="./" aria-current="page">Início</a>
-      <a href="mapa/">Mapa</a>
-      <a href="loja.html">Loja</a>
-      <a href="ranking.html">Ranking</a>
-      <a href="#faccoes">Facções</a>
-      <a href="conta.html" data-conta>Minha conta</a>
-    </nav>
-  </div>
-</header>
+<header id="topo" data-pagina="inicio"></header>
 
-<main class="wrap">
-  <div class="hero card">
-    <h1>Prefeitura <span>Z</span></h1>
-    <p class="sub">Servidor de Project Zomboid · Knox County, Kentucky · Season 2</p>
-    <p class="quote">“Sobreviver é a única lei da cidade.”</p>
-    <div class="ctas">
-      <a class="btn primary" data-discord href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18 18 0 0 0-5.6 0L8.6 3a19.6 19.6 0 0 0-4.9 1.4C.6 9 0 13.6.3 18.1a19.8 19.8 0 0 0 6 3l1.3-2a12.7 12.7 0 0 1-2-1l.5-.4a14 14 0 0 0 11.8 0l.5.4a12.7 12.7 0 0 1-2 1l1.3 2a19.7 19.7 0 0 0 6-3c.5-5.2-.8-9.7-3.4-13.7ZM8.5 15.3c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4Zm7 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4Z"/></svg>
-        Entrar no Discord
-      </a>
-      <a class="btn ghost" href="mapa/">Ver o mapa</a>
-    </div>
-  </div>
-
-  <section id="agora">
-    <div class="card">
-      <div class="h2row"><h2>Agora em Knox County</h2><span class="pill" id="pill"><i></i><span>Carregando…</span></span></div>
-      <div class="status">
-        <div class="stat"><small>Sobreviventes online</small><b id="s-online">–</b></div>
-        <div class="stat"><small>Data no jogo</small><b id="s-data">–</b><span id="s-hora"></span></div>
-        <div class="stat"><small>Clima</small><b id="s-clima">–</b><span id="s-temp"></span></div>
-      </div>
-      <p class="muted" id="s-atual" style="margin:12px 0 0"></p>
-    </div>
-  </section>
-
-  <section id="como-entrar">
-    <div class="card">
-      <h2>Como entrar no servidor</h2>
-      <ol class="steps">
-        <li><span class="n">I</span><b>Entre no Discord</b><p>Toda a comunidade, os avisos e o suporte ficam lá.</p></li>
-        <li><span class="n">II</span><b>Baixe o Launcher</b><p>O link do launcher da Prefeitura Z está no Discord. O servidor é só por ele, sem IP nem senha.</p></li>
-        <li><span class="n">III</span><b>Abra e jogue</b><p>O launcher deixa os mods em dia e te leva direto pro servidor.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section id="mapa">
-    <div class="card mapcard">
-      <img src="img/preview-mapa.jpg" alt="Prévia do mapa de Knox County com cidades e bases das facções" loading="lazy">
-      <div class="txt">
-        <h2>Mapa de Knox County</h2>
-        <p>Todas as cidades, ruas e bases das facções da Season 2. Dá pra buscar cidade, ver coordenadas e marcar seus próprios pontos.</p>
-        <a class="btn ghost" href="mapa/">Abrir o mapa</a>
+<main>
+  <section class="cinema-hero">
+    <div class="cinema-art" role="img" aria-label="Ilustração de uma rua abandonada em Kentucky ao por do sol, com a prefeitura e um sobrevivente de mochila"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span class="line"></span>Knox County, Kentucky · Season 2</div>
+      <h1>A cidade caiu.<br><em>Você ainda não.</em></h1>
+      <p>Sobreviver é a única lei da cidade.<br>Escreva a sua história na Prefeitura Z.</p>
+      <div class="hero-actions">
+        <a class="button primary" data-discord href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5 5 4C2 8 1 13 2 17l4 2 2-3m8-11 3-1c3 4 4 9 3 13l-4 2-2-3M6 15c4 2 8 2 12 0M7 5c3-1 7-1 10 0"/><circle cx="8" cy="11" r="1"/><circle cx="16" cy="11" r="1"/></svg> Entrar no Discord</a>
+        <a class="button secondary" href="#como-entrar">Como jogar</a>
       </div>
     </div>
   </section>
 
-  <section id="faccoes">
-    <div class="card">
-      <h2>Facções</h2>
-      <div class="facs" id="facs"></div>
+  <section class="world-status" id="agora">
+    <div class="status-intro">
+      <span class="eyebrow">A cidade não para</span>
+      <h2>Enquanto você<br>estava fora.</h2>
+      <span class="status-badge" id="pill"><i></i> <span>Carregando…</span></span>
+    </div>
+    <div class="stat"><span id="i-online"></span><strong id="s-online">–<small>&nbsp;</small></strong></div>
+    <div class="stat"><span id="i-data"></span><strong id="s-data">–<small>&nbsp;</small></strong></div>
+    <div class="stat"><span id="i-clima"></span><strong id="s-clima">–<small>&nbsp;</small></strong></div>
+  </section>
+
+  <div class="home-grid">
+    <a class="explore-map" href="mapa/">
+      <div class="section-top"><span class="eyebrow">01 / Explore o território</span><span id="i-mapa"></span></div>
+      <h2>Conheça o terreno.<br>Escolha seu próximo passo.</h2>
+      <p>Cidades, ruas, bases das facções e seus próprios pontos no mapa de Knox County.</p>
+      <span class="text-link" id="l-mapa">Abrir o mapa de Knox</span>
+      <img class="map-peek" src="img/preview-mapa.jpg" alt="" loading="lazy">
+    </a>
+    <section class="factions-panel" id="faccoes">
+      <div class="section-top"><span class="eyebrow">02 / Encontre seu lugar</span><span id="i-fac"></span></div>
+      <h2>Ninguém sobrevive<br>sozinho por muito tempo.</h2>
+      <div class="faction-list" id="facs"></div>
+    </section>
+  </div>
+
+  <section class="join-section" id="como-entrar">
+    <div class="section-heading"><span class="eyebrow">Seu primeiro dia</span><h2>A cidade espera por você.</h2></div>
+    <div class="steps">
+      <article><span>01</span><div><h3>Entre no Discord</h3><p>Toda a comunidade, os avisos e o suporte ficam lá.</p></div></article>
+      <article><span>02</span><div><h3>Baixe o launcher</h3><p>O link do launcher está no Discord. O servidor é só por ele, sem IP nem senha.</p></div></article>
+      <article><span>03</span><div><h3>Comece a sobreviver</h3><p>O launcher deixa os mods em dia e te leva direto pro servidor. Seu próximo capítulo começa aqui.</p></div></article>
     </div>
   </section>
 </main>
 
-<footer>Prefeitura Z · comunidade de Project Zomboid. Não é afiliado à The Indie Stone.</footer>
+<footer id="rodape"></footer>
 
 <script src="site.js"></script>
 <script src="dados.js"></script>
 <script src="conta.js"></script>
 <script>
+document.getElementById('i-online').innerHTML = icone('users') + ' Sobreviventes online';
+document.getElementById('i-data').innerHTML = icone('clock') + ' Data no jogo';
+document.getElementById('i-clima').innerHTML = icone('sun') + ' Clima em Knox';
+document.getElementById('i-mapa').innerHTML = icone('map');
+document.getElementById('i-fac').innerHTML = icone('users');
+document.getElementById('l-mapa').insertAdjacentHTML('beforeend', ' ' + icone('arrow'));
+
 (async () => {
   const d = await carregarDados();
   const pill = document.getElementById('pill'), txt = pill.querySelector('span');
-  if (!d || !d.status) { txt.textContent = 'Sem dados ainda'; document.getElementById('s-atual').textContent = 'Os dados do servidor aparecem aqui assim que o publicador estiver ligado.'; return; }
+  const por = (id, grande, peq) => document.getElementById(id).innerHTML = `${esc(grande)}<small>${esc(peq)}</small>`;
+  if (!d || !d.status) { txt.textContent = 'Sem dados do servidor'; return; }
   const s = d.status, on = servidorOnline(d);
-  pill.classList.add(on ? 'on' : 'off'); txt.textContent = on ? 'Servidor online' : 'Servidor offline';
-  document.getElementById('s-online').textContent = on ? s.onlinePlayers : 0;
-  const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-  document.getElementById('s-data').textContent = `${s.day} de ${meses[(s.month||1)-1]}`;
-  document.getElementById('s-hora').textContent = `${s.year} · ${pad(s.hour)}:${pad(s.minute)}`;
-  document.getElementById('s-clima').textContent = ({ 'Ceu limpo': 'Céu limpo' })[s.weather] || s.weather;
-  document.getElementById('s-temp').textContent = `${Number(s.temperature).toFixed(1).replace('.', ',')} °C · vento ${Math.round(s.windKph)} km/h`;
-  document.getElementById('s-atual').textContent = 'Atualizado ' + haQuanto(d.statusEm || d.atualizadoEm) + '.';
+  pill.classList.add(on ? 'on' : 'off');
+  txt.textContent = (on ? 'Servidor online' : 'Servidor offline') + ' · ' + haQuanto(d.statusEm || d.atualizadoEm);
+  const n = on ? s.onlinePlayers : 0;
+  por('s-online', pad(n), n === 1 ? 'sobrevivente' : 'sobreviventes');
+  const meses = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+  por('s-data', `${pad(s.day)} ${meses[(s.month || 1) - 1]}`, `${s.year} · ${pad(s.hour)}:${pad(s.minute)}`);
+  const clima = ({ 'Ceu limpo': 'Céu limpo' })[s.weather] || s.weather;
+  por('s-clima', `${Number(s.temperature).toFixed(1).replace('.', ',')}°`, `${clima} · vento ${Math.round(s.windKph)} km/h`);
 })();
 </script>
 </body>
