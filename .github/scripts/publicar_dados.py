@@ -16,7 +16,7 @@ Variáveis de ambiente (segredos do GitHub):
   PTERO_KEY     chave de API do painel (de preferência de um subusuário só com leitura de arquivos)
   PTERO_LUA_DIR pasta Lua dentro do servidor (padrão: /.cache/Lua)
 """
-import json, os, sys, urllib.parse, urllib.request
+import json, os, sys, urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timezone
 
 MAX_MORTES = 40
@@ -31,14 +31,14 @@ def ler_arquivo(caminho):
     pasta, nome = caminho.rsplit("/", 1)
     q = urllib.parse.quote(pasta or "/")
     req = urllib.request.Request(f"{base}/api/client/servers/{srv}/files/list?directory={q}", headers=h)
-    with urllib.request.urlopen(req, timeout=30) as r:
+    with _abrir(req, 30) as r:
         lista = json.load(r)
     meta = next((i["attributes"] for i in lista.get("data", []) if i["attributes"]["name"] == nome), None)
     if not meta:
         return None, None
     req = urllib.request.Request(
         f"{base}/api/client/servers/{srv}/files/contents?file={urllib.parse.quote(caminho)}", headers=h)
-    with urllib.request.urlopen(req, timeout=60) as r:
+    with _abrir(req, 60) as r:
         bruto = r.read()
     try:
         texto = bruto.decode("utf-8")
@@ -98,6 +98,15 @@ def montar(status_txt, status_em, rank_txt, rank_em, mortes_txt, loja_txt=None, 
     return {"versao": 1, "loja": loja, "atualizadoEm": datetime.now(timezone.utc).isoformat(),
             "statusEm": status_em, "rankingEm": rank_em,
             "status": status, "ranking": ranking, "mortes": mortes}
+
+
+def _abrir(req, timeout):
+    try:
+        return urllib.request.urlopen(req, timeout=timeout)
+    except urllib.error.HTTPError as e:
+        corpo = e.read()[:600].decode("utf-8", "replace")
+        srv = e.headers.get("Server", "?")
+        sys.exit(f"Painel respondeu HTTP {e.code} em {req.full_url.split('?')[0]} (server={srv}): {corpo}")
 
 
 def main(saida):
