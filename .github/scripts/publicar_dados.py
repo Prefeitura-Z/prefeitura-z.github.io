@@ -10,11 +10,15 @@ e grava dados.json (resumo público) na pasta indicada.
 
 NÃO vão para o site: login dos jogadores, nível de acesso, coordenadas e nome de quem matou.
 
-Variáveis de ambiente (segredos do GitHub):
-  PTERO_URL     ex.: https://painel.lurahosting.com.br
-  PTERO_SERVER  ex.: b63cfc04
-  PTERO_KEY     chave de API do painel (de preferência de um subusuário só com leitura de arquivos)
-  PTERO_LUA_DIR pasta Lua dentro do servidor (padrão: /.cache/Lua)
+Variáveis de ambiente (segredos do GitHub). Duas formas de acesso:
+  SFTP (usada pela Lura, porque a API do painel fica atrás do Cloudflare):
+    PTERO_SFTP_HOST  ex.: node.exemplo.com.br  (aceita sftp://host:porta)
+    PTERO_SFTP_PORT  padrão 2022
+    PTERO_SFTP_USER  ex.: usuario.b63cfc04
+    PTERO_SFTP_PASS  senha do subusuário (só leitura de arquivos + SFTP)
+  ou API do painel:
+    PTERO_URL, PTERO_SERVER, PTERO_KEY
+  PTERO_LUA_DIR  pasta Lua dentro do servidor (padrão: /.cache/Lua)
 """
 import json, os, sys, urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timezone
@@ -22,8 +26,41 @@ from datetime import datetime, timezone
 MAX_MORTES = 40
 
 
+def _decodificar(bruto):
+    try:
+        return bruto.decode("utf-8")
+    except UnicodeDecodeError:
+        return bruto.decode("latin-1")  # Kahlua grava em Latin-1
+
+
+_sftp = None
+
+
+def ler_arquivo_sftp(caminho):
+    global _sftp
+    if _sftp is None:
+        import paramiko
+        host = os.environ["PTERO_SFTP_HOST"].strip()
+        porta = int(os.environ.get("PTERO_SFTP_PORT") or 2022)
+        if host.startswith("sftp://"): host = host[7:]
+        host = host.rstrip("/")
+        if ":" in host: host, p = host.rsplit(":", 1); porta = int(p)
+        t = paramiko.Transport((host, porta))
+        t.connect(username=os.environ["PTERO_SFTP_USER"].strip(), password=os.environ["PTERO_SFTP_PASS"])
+        _sftp = paramiko.SFTPClient.from_transport(t)
+    try:
+        st = _sftp.stat(caminho)
+    except FileNotFoundError:
+        return None, None
+    with _sftp.open(caminho, "rb") as f:
+        bruto = f.read()
+    return _decodificar(bruto), datetime.fromtimestamp(st.st_mtime, timezone.utc).isoformat()
+
+
 def ler_arquivo(caminho):
     """Retorna (texto, data_modificacao_iso) ou (None, None) se não existir."""
+    if os.environ.get("PTERO_SFTP_HOST"):
+        return ler_arquivo_sftp(caminho)
     base = os.environ["PTERO_URL"].rstrip("/")
     srv = os.environ["PTERO_SERVER"]
     h = {"Authorization": "Bearer " + os.environ["PTERO_KEY"], "Accept": "application/json",
@@ -40,11 +77,7 @@ def ler_arquivo(caminho):
         f"{base}/api/client/servers/{srv}/files/contents?file={urllib.parse.quote(caminho)}", headers=h)
     with _abrir(req, 60) as r:
         bruto = r.read()
-    try:
-        texto = bruto.decode("utf-8")
-    except UnicodeDecodeError:
-        texto = bruto.decode("latin-1")  # Kahlua grava em Latin-1
-    return texto, meta.get("modified_at")
+    return _decodificar(bruto), meta.get("modified_at")
 
 
 def causa_simples(c):
@@ -110,8 +143,10 @@ def _abrir(req, timeout):
 
 
 def main(saida):
-    if not (os.environ.get("PTERO_URL") and os.environ.get("PTERO_SERVER") and os.environ.get("PTERO_KEY")):
-        print("Segredos PTERO_URL / PTERO_SERVER / PTERO_KEY ainda não configurados. Nada a fazer.")
+    tem_sftp = os.environ.get("PTERO_SFTP_HOST") and os.environ.get("PTERO_SFTP_USER") and os.environ.get("PTERO_SFTP_PASS")
+    tem_api = os.environ.get("PTERO_URL") and os.environ.get("PTERO_SERVER") and os.environ.get("PTERO_KEY")
+    if not (tem_sftp or tem_api):
+        print("Segredos de acesso ao servidor ainda não configurados. Nada a fazer.")
         with open(os.environ.get("GITHUB_OUTPUT", os.devnull), "a") as f: f.write("pular=1\n")
         return
     lua = os.environ.get("PTERO_LUA_DIR") or "/.cache/Lua"

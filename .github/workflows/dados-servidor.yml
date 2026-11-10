@@ -28,7 +28,13 @@ jobs:
           PTERO_SERVER: ${{ secrets.PTERO_SERVER }}
           PTERO_KEY: ${{ secrets.PTERO_KEY }}
           PTERO_LUA_DIR: ${{ secrets.PTERO_LUA_DIR }}
-        run: python3 .github/scripts/publicar_dados.py "$RUNNER_TEMP/dados.json"
+          PTERO_SFTP_HOST: ${{ secrets.PTERO_SFTP_HOST }}
+          PTERO_SFTP_PORT: ${{ secrets.PTERO_SFTP_PORT }}
+          PTERO_SFTP_USER: ${{ secrets.PTERO_SFTP_USER }}
+          PTERO_SFTP_PASS: ${{ secrets.PTERO_SFTP_PASS }}
+        run: |
+          if [ -n "$PTERO_SFTP_HOST" ]; then python3 -m pip install -q --user paramiko==3.5.0; fi
+          python3 .github/scripts/publicar_dados.py "$RUNNER_TEMP/dados.json"
       - name: Enviar para a branch "dados"
         if: steps.ler.outputs.pular != '1'
         run: |
