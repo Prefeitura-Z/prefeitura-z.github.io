@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Prefeitura Z: Depois da Queda. RPG de sobrevivência no navegador, com o abrigo da União da Margem. Entre com a conta do site.">
 <meta property="og:title" content="Prefeitura Z: Depois da Queda">
-<meta property="og:description" content="Entre no abrigo da União da Margem, fale com o Prefeito, o Wolf e o Bashar e prepare sua primeira saída.">
+<meta property="og:description" content="Entre no abrigo da União da Margem, pegue seu kit e saia pelo portão. O Quarteirão da Entrada ainda tem dono.">
 <meta property="og:image" content="https://prefeitura-z.github.io/img/knox-cinematic.jpg">
 <meta name="theme-color" content="#1b1f1c">
 <link rel="icon" href="../img/brasao.png">
@@ -20,9 +20,9 @@
 <section id="tela-entrar" class="tela capa" hidden>
   <div class="capa-conteudo">
     <a class="voltar" href="../">← Prefeitura Z</a>
-    <span class="rotulo">Prova visual · União da Margem</span>
+    <span class="rotulo">RPG de sobrevivência · União da Margem</span>
     <h1>Depois<br><em>da Queda</em></h1>
-    <p>Chegue ao abrigo da União da Margem, ande pelo pátio e fale com quem mantém o lugar de pé: o Prefeito no registro, o Wolf na oficina e o Bashar no rádio.</p>
+    <p>Chegue ao abrigo da União da Margem, pegue seu kit com o Wolf, aceite o contrato do Bashar e saia pelo portão. Do lado de fora, o Quarteirão da Entrada ainda tem dono.</p>
     <button type="button" class="botao primario" id="btn-entrar">Entrar com Discord para jogar</button>
     <p class="nota">O jogo usa a mesma conta do site. Seu personagem fica salvo no servidor e abre em qualquer computador.</p>
     <p class="erro" id="entrar-erro" role="alert"></p>
@@ -54,7 +54,7 @@
       <div id="opcoes-aparencia"></div>
       <fieldset class="grupo"><legend>Origem</legend>
         <div class="origens" id="opcoes-origem"></div>
-        <p class="nota">Nesta prova visual a origem é só história. Os bônus pequenos chegam com o combate.</p>
+        <p class="nota">Cada origem dá um bônus pequeno nas expedições. Não dá pra trocar depois.</p>
       </fieldset>
       <p class="erro" id="criar-erro" role="alert"></p>
       <button type="submit" class="botao primario" id="btn-criar">Entrar no abrigo</button>
@@ -76,10 +76,22 @@
   </div>
   <nav class="hud-menu" aria-label="Menu do jogo">
     <button type="button" id="btn-bipe" title="Bipe (B)">Bipe <kbd>B</kbd></button>
+    <button type="button" id="btn-mochila" title="Mochila (I)">Mochila <kbd>I</kbd></button>
     <button type="button" id="btn-gestao" title="Gestão (G)" hidden>Gestão <kbd>G</kbd></button>
     <button type="button" id="btn-ajuda" title="Controles">Controles</button>
     <button type="button" id="btn-ajustes" title="Ajustes">Ajustes</button>
   </nav>
+  <!-- expedição: tudo aqui vem do roteiro que o servidor mandou -->
+  <div class="exp-hud" id="exp-hud" hidden>
+    <div class="exp-topo"><span class="rotulo" id="exp-area">Quarteirão da Entrada</span><b id="exp-rota"></b><span id="exp-fase" aria-live="polite"></span></div>
+    <div class="exp-barras">
+      <div><span>Vida</span><b id="exp-vida-n"></b><i class="barra vida"><i id="exp-vida"></i></i></div>
+      <div><span>Mochila</span><b id="exp-carga-n"></b><i class="barra"><i id="exp-carga"></i></i></div>
+      <div><span>Paradas</span><b id="exp-parada-n"></b><i class="barra rota"><i id="exp-parada"></i></i></div>
+    </div>
+    <ol class="exp-feed" id="exp-feed"></ol>
+    <div class="exp-pe"><span id="exp-tempo"></span><button type="button" class="botao perigo" id="btn-recuar">Recuar pro abrigo</button></div>
+  </div>
   <p class="demo-aviso" id="demo-aviso" hidden>Prévia visual: sem login e sem salvar no servidor</p>
   <button type="button" class="perto" id="btn-perto" hidden></button>
   <p class="torrada" id="torrada" role="status" hidden></p>
@@ -123,6 +135,43 @@
     <p class="nota">Sair aqui também encerra o login no site.</p>
   </div>
 
+  <div class="painel centro-painel medio" id="rotas" role="dialog" aria-labelledby="rotas-t" hidden>
+    <div class="painel-topo"><h2 id="rotas-t">Rotas · Quarteirão da Entrada</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <p class="atributos" id="rotas-voce"></p>
+    <ul class="lista rotas-lista" id="rotas-lista"></ul>
+    <p class="nota" id="rotas-msg" aria-live="polite">A expedição acontece sozinha. Dá pra recuar a qualquer momento e ficar com o que já foi revistado.</p>
+  </div>
+
+  <div class="painel centro-painel medio" id="mochila" role="dialog" aria-labelledby="mochila-t" hidden>
+    <div class="painel-topo"><h2 id="mochila-t">Mochila e armazém</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <p class="atributos" id="mochila-voce"></p>
+    <div class="xp"><span id="mochila-xp-n"></span><i class="barra rota"><i id="mochila-xp"></i></i></div>
+    <p class="ferido" id="mochila-ferido" hidden></p>
+    <h3>Equipamento</h3>
+    <ul class="lista" id="mochila-equip"></ul>
+    <h3>Guardado no armazém</h3>
+    <ul class="lista" id="mochila-itens"></ul>
+    <p class="nota" id="mochila-msg" aria-live="polite"></p>
+  </div>
+
+  <div class="painel centro-painel medio" id="loja" role="dialog" aria-labelledby="loja-t" hidden>
+    <div class="painel-topo"><h2 id="loja-t">Oficina do Wolf</h2><span class="creditos" id="loja-creditos"></span><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <div class="abas" role="tablist" id="loja-abas">
+      <button type="button" role="tab" data-aba="comprar">Comprar</button><button type="button" role="tab" data-aba="vender">Vender</button><button type="button" role="tab" data-aba="reparar">Reparar</button><button type="button" role="tab" data-aba="fabricar">Bancada</button>
+    </div>
+    <ul class="lista" id="loja-lista"></ul>
+    <p class="nota" id="loja-msg" aria-live="polite"></p>
+  </div>
+
+  <div class="painel centro-painel" id="relatorio" role="dialog" aria-labelledby="relatorio-t" hidden>
+    <span class="rotulo" id="relatorio-rota"></span>
+    <h2 id="relatorio-t"></h2>
+    <p id="relatorio-texto"></p>
+    <ul class="lista" id="relatorio-lista"></ul>
+    <p class="nota" id="relatorio-nota"></p>
+    <button type="button" class="botao primario" id="btn-relatorio-ok">Voltar pro abrigo</button>
+  </div>
+
   <div class="painel centro-painel largo" id="gestao" role="dialog" aria-labelledby="gestao-t" hidden>
     <div class="painel-topo"><h2 id="gestao-t">Gestão · Equipe</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
     <div class="gestao-grade">
@@ -145,7 +194,9 @@
 
 <script src="mundo.js"></script>
 <script src="arte.js"></script>
+<script src="area.js"></script>
 <script src="motor.js"></script>
+<script src="expedicao.js"></script>
 <script src="rede.js"></script>
 <script src="app.js"></script>
 </body>

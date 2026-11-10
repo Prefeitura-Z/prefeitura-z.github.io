@@ -15,6 +15,9 @@ const Token = {
   ler() { try { return localStorage.getItem('przToken') || ''; } catch { return ''; } },
   salvar(t) { try { t ? localStorage.setItem('przToken', t) : localStorage.removeItem('przToken'); } catch {} },
 };
+// relógio do servidor: a expedição é desenhada pela hora dele, não pela do computador de quem joga
+let desvio = 0;
+const agoraServidor = () => Date.now() + desvio;
 class ErroApi extends Error { constructor(msg, status, dados) { super(msg); this.status = status; this.dados = dados; } }
 
 const api = window.PZ_DEMO ? PZ.demoApi() : {
@@ -26,6 +29,7 @@ const api = window.PZ_DEMO ? PZ.demoApi() : {
       r = await fetch(API + caminho, { method, headers: { Authorization: 'Bearer ' + t, ...(body ? { 'Content-Type': 'application/json' } : {}) }, body: body ? JSON.stringify(body) : undefined });
     } catch { throw new ErroApi('Sem conexão com o servidor do site. Confira sua internet e tente de novo.', 0); }
     const d = await r.json().catch(() => ({}));
+    if (d.agora) desvio = d.agora - Date.now();
     if (r.status === 401) Token.salvar('');
     if (!r.ok && r.status !== 409) throw new ErroApi(d.erro || 'Não deu certo. Tente de novo.', r.status, d);
     return { status: r.status, ...d };
@@ -36,6 +40,13 @@ const api = window.PZ_DEMO ? PZ.demoApi() : {
   equipe() { return this.chamar('/game/admin/equipe'); },
   contas(q) { return this.chamar('/game/admin/contas?q=' + encodeURIComponent(q)); },
   papel(b) { return this.chamar('/game/admin/papel', { method: 'POST', body: b }); },
+  catalogo() { return this.chamar('/game/catalogo'); },
+  iniciar(rota) { return this.chamar('/game/expedicao/iniciar', { method: 'POST', body: { rota } }); },
+  concluir(id) { return this.chamar('/game/expedicao/concluir', { method: 'POST', body: { id } }); },
+  recuar(id) { return this.chamar('/game/expedicao/recuar', { method: 'POST', body: { id } }); },
+  equipar(id, tirar) { return this.chamar('/game/equipar', { method: 'POST', body: { id, tirar } }); },
+  usar(item, chave) { return this.chamar('/game/usar', { method: 'POST', body: { item, chave } }); },
+  loja(b) { return this.chamar('/game/loja', { method: 'POST', body: b }); },
   async bilhete() { return (await this.chamar('/game/presenca/bilhete', { method: 'POST' })).bilhete; },
   salaUrl: API.replace(/^http/, 'ws') + '/game/presenca',
   async sair() { try { await fetch(API + '/logout', { method: 'POST', headers: { Authorization: 'Bearer ' + Token.ler() } }); } catch {} Token.salvar(''); },
@@ -46,7 +57,7 @@ const api = window.PZ_DEMO ? PZ.demoApi() : {
 const TELAS = ['tela-entrar', 'tela-carregando', 'tela-criar', 'tela-jogo'];
 function mostrar(id) { for (const t of TELAS) $(t).hidden = t !== id; document.body.dataset.tela = id; }
 
-let estado = null, motor = null;
+let estado = null, motor = null, catalogo = null, cena = null;
 
 async function iniciar() {
   // volta do login: /jogo/#token=...
@@ -60,6 +71,7 @@ async function iniciar() {
   $('carregando-erro').hidden = true; $('carregando-msg').textContent = 'Conferindo sua conta…';
   try {
     estado = await api.eu();
+    catalogo = catalogo || await api.catalogo();
   } catch (e) {
     if (e.status === 401) return mostrar('tela-entrar');
     $('carregando-msg').textContent = e.message;
@@ -67,7 +79,8 @@ async function iniciar() {
     return;
   }
   if (!estado.personagem) return abrirCriacao();
-  entrarNoAbrigo();
+  if (estado.expedicao) entrarNaExpedicao();   // recarregou no meio da rua: continua de onde o relógio está
+  else entrarNoAbrigo();
 }
 
 $('btn-entrar').onclick = () => api.entrar();
@@ -95,7 +108,7 @@ function abrirCriacao() {
     <fieldset class="grupo"><legend>${rot}</legend><div class="escolhas ${k === 'pele' || k === 'corCabelo' ? 'amostras' : ''}">
       ${OPCOES[k].map(([v, n]) => `<button type="button" data-k="${k}" data-v="${v}" aria-pressed="false" title="${esc(n)}" ${k === 'pele' ? `style="--amostra:${A.PELE[v]}"` : k === 'corCabelo' ? `style="--amostra:${A.CABELO[v]}"` : ''}><span>${esc(n)}</span></button>`).join('')}
     </div></fieldset>`).join('');
-  $('opcoes-origem').innerHTML = ORIGENS.map(([v, n, d]) => `<button type="button" class="origem" data-origem="${v}" aria-pressed="false"><b>${n}</b><small>${d}</small></button>`).join('');
+  $('opcoes-origem').innerHTML = ORIGENS.map(([v, n, d]) => `<button type="button" class="origem" data-origem="${v}" aria-pressed="false"><b>${n}</b><small>${d}</small>${catalogo?.origens?.[v] ? `<small class="bonus">${esc(catalogo.origens[v])}</small>` : ''}</button>`).join('');
   marcarEscolhas();
   $('criar-erro').textContent = '';
   mostrar('tela-criar');
@@ -136,7 +149,7 @@ $('form-criar').onsubmit = async e => {
   criando = true; $('btn-criar').disabled = true; $('btn-criar').textContent = 'Criando…'; $('criar-erro').textContent = '';
   try {
     const r = await api.criar({ nome, aparencia: ap, origem });
-    estado.personagem = r.personagem;
+    estado = { ...estado, ...(await api.eu()), personagem: r.personagem };
     entrarNoAbrigo(true);
   } catch (err) {
     $('criar-erro').textContent = err.message;
@@ -147,11 +160,28 @@ $('form-criar').onsubmit = async e => {
 const ajustes = (() => { try { return JSON.parse(localStorage.getItem('pzAjustes') || '{}'); } catch { return {}; } })();
 const salvarAjustes = () => { try { localStorage.setItem('pzAjustes', JSON.stringify(ajustes)); } catch {} };
 
+function atualizarFicha() {
+  const p = estado.personagem, e = estado.estado;
+  $('hud-nome').textContent = p.nome;
+  $('hud-sub').textContent = `Nível ${p.nivel} · ${ORIGENS.find(o => o[0] === p.origem)?.[1] || ''}${e ? ` · ${e.creditos} créditos` : ''}${e?.ferido ? ' · ferido' : ''}`;
+}
+// tudo que o servidor devolve passa por aqui: a tela nunca soma recurso por conta própria
+function absorver(r) {
+  if (!r || !estado) return;
+  if (r.personagem) estado.personagem = r.personagem;
+  else if (r.flags) estado.personagem.flags = r.flags;
+  if (r.estado) estado.estado = r.estado;
+  if ('expedicao' in r) estado.expedicao = r.expedicao;
+  atualizarFicha(); atualizarBipe();
+}
+
 function entrarNoAbrigo(novo) {
   mostrar('tela-jogo');
+  cena = null;
+  $('tela-jogo').dataset.modo = 'abrigo';
+  $('exp-hud').hidden = true;
   const p = estado.personagem;
-  $('hud-nome').textContent = p.nome;
-  $('hud-sub').textContent = `Nível ${p.nivel} · ${ORIGENS.find(o => o[0] === p.origem)?.[1] || ''}`;
+  atualizarFicha();
   $('hud-papel').hidden = estado.papel === 'jogador';
   $('hud-papel').textContent = { proprietario: 'Proprietário', administrador: 'Administrador', moderador: 'Moderador', suporte: 'Suporte' }[estado.papel] || '';
   $('btn-gestao').hidden = !estado.permissoes?.gestao;
@@ -214,9 +244,11 @@ function abrirPainel(id, foco) {
 }
 function fecharPainel(semFoco) {
   if (!painelAberto) return;
-  $(painelAberto).hidden = true;
+  const id = painelAberto;
+  $(id).hidden = true;
   painelAberto = null;
   motor?.pausar(false);
+  if (id === 'relatorio') return entrarNoAbrigo();   // fechar o relatório (botão ou Esc) é voltar pro abrigo
   if (!semFoco) $('cena').focus();
 }
 document.addEventListener('keydown', e => {
@@ -225,6 +257,7 @@ document.addEventListener('keydown', e => {
   const campo = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
   if (painelAberto === 'conversa' && !campo && /^[1-9]$/.test(e.key)) { const b = $('conversa-opcoes').querySelectorAll('button')[+e.key - 1]; if (b) { e.preventDefault(); b.click(); } return; }
   if (painelAberto || campo) return;
+  if (e.code === 'KeyI') { e.preventDefault(); abrirMochila(); }
   if (e.code === 'KeyB') { e.preventDefault(); abrirBipe(); }
   if (e.code === 'KeyG' && estado?.permissoes?.gestao) { e.preventDefault(); abrirGestao(); }
 });
@@ -261,32 +294,231 @@ function falar(txt, tag) {
 let enviando = false;
 async function escolher(npc, D, op, botao) {
   if (!op || enviando) return;
+  if (op.abre === 'rotas') return abrirRotas();
   if (npc.local || op.local) return falar(op.local || '…');
   enviando = true; botao.disabled = true; botao.setAttribute('aria-busy', 'true');
   try {
     const r = await api.interagir(npc.id, op.id);
     const R = D.respostas[op.id] || {};
-    if (r.flags) estado.personagem.flags = r.flags;
+    absorver(r);
     if (r.erro) falar(r.erro, 'Tente de novo');
     else if (!r.ok) falar(r.motivo || 'Agora não.', 'Falta um passo antes');
-    else if (r.novo) { falar(R.novo || R.ok || '…'); concluirObjetivos(); }
-    else if (r.demo) falar(R.demo || '…', 'Serviço em construção nesta prova visual');
+    else if (r.abre) { falar(R.ok || '…'); r.abre === 'armazem' ? abrirMochila() : abrirLoja(r.abre.split(':')[1]); }
+    else if (r.novo) falar(R.novo || R.ok || '…');
+    else if (r.demo) falar(R.demo || '…', 'Chega numa próxima etapa');
     else falar(R.ok || R.novo || '…');
     atualizarBipe();
   } catch (e) {
     falar(e.status === 401 ? 'Sua sessão do site acabou. Entre de novo pra continuar.' : e.message, 'Erro');
-    if (e.status === 401) setTimeout(() => { fecharPainel(); presenca?.desligar(); motor?.parar(); mostrar('tela-entrar'); }, 1800);
+    if (e.status === 401) setTimeout(sessaoAcabou, 1800);
   } finally { enviando = false; botao.disabled = false; botao.removeAttribute('aria-busy'); }
 }
 
+// ---------- pedidos que mexem em recurso ----------
+function sessaoAcabou() { painelAberto && ($(painelAberto).hidden = true); painelAberto = null; presenca?.desligar(); motor?.parar(); cena = null; mostrar('tela-entrar'); }
+const novaChave = () => [...crypto.getRandomValues(new Uint8Array(12))].map(x => x.toString(16).padStart(2, '0')).join('');
+let ocupado = false;
+// Cada clique ganha uma chave. Se a rede cair no meio, o pedido é repetido com a MESMA chave e o servidor não conta duas vezes.
+async function pedir(botao, msg, fazer) {
+  if (ocupado) return null;
+  ocupado = true; if (botao) { botao.disabled = true; botao.setAttribute('aria-busy', 'true'); }
+  const chave = novaChave();
+  try {
+    let r;
+    try { r = await fazer(chave); } catch (e) { if (e.status !== 0) throw e; r = await fazer(chave); }
+    absorver(r);
+    if (r.erro && msg) msg.textContent = r.erro;
+    return r;
+  } catch (e) {
+    absorver(e.dados);
+    if (msg) msg.textContent = e.status === 401 ? 'Sua sessão do site acabou. Entre de novo pra continuar.' : e.message;
+    if (e.status === 401) setTimeout(sessaoAcabou, 1800);
+    return null;
+  } finally { ocupado = false; if (botao?.isConnected) { botao.disabled = false; botao.removeAttribute('aria-busy'); } }
+}
+const item = id => catalogo.itens[id] || { nome: id, tipo: '' };
+const TIPO = { arma: 'Arma', protecao: 'Proteção', mochila: 'Mochila', ferramenta: 'Ferramenta', material: 'Material', consumivel: 'Consumível', missao: 'Missão' };
+const efeito = d => d.ataque ? `+${d.ataque} de ataque` : d.defesa ? `+${d.defesa} de defesa` : d.capacidade ? `${d.capacidade} de espaço` : d.sucataExtra ? `+${d.sucataExtra} sucata por parada` : '';
+function linhaVoce() {
+  const e = estado.estado, a = e.atributos;
+  return `<span>Vida <b>${a.vidaMax}</b></span><span>Ataque <b>${a.ataque}</b></span><span>Defesa <b>${a.defesa}</b></span><span>Mochila <b>${a.capacidade}</b></span><span>Kits de campo <b>${e.itens.suprimento || 0}</b></span><span>Créditos <b>${e.creditos}</b></span>`;
+}
+const textoFerido = () => `Você está ferido: vida máxima menor até ${new Date(estado.estado.feridoAte * 1000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} ou até usar um curativo.`;
+
+// ---------- rotas (portão) ----------
+const FALTA = { contrato_visto: 'Peça um contrato ao Bashar.', rota1_concluida: 'Conclua a Rua de Cima primeiro.', registro_entregue: 'Entregue o registro de rota ao Bashar.' };
+function abrirRotas() {
+  const f = estado.personagem.flags || {}, e = estado.estado;
+  $('rotas-voce').innerHTML = linhaVoce() + (e.ferido ? `<span class="ferido">${esc(textoFerido())}</span>` : '');
+  $('rotas-lista').innerHTML = Object.entries(catalogo.rotas).map(([id, r]) => {
+    const falta = !f.kit_recebido ? 'Pegue seu kit com o Wolf.' : r.requer && !f[r.requer] ? FALTA[r.requer] || 'Ainda não liberada.' : '';
+    const semKit = !falta && r.custo > (e.itens.suprimento || 0);
+    const inimigos = [...new Set(r.pontos.flatMap(p => p.enc))].map(k => catalogo.inimigos[k]?.nome || k).join(', ');
+    return `<li class="${falta ? 'trancada' : ''}"><span>
+      <b>${esc(r.nome)}</b> <i class="perigo-n" title="Perigo ${r.perigo} de 3">${'●'.repeat(r.perigo)}${'○'.repeat(3 - r.perigo)}</i>
+      <small>${esc(r.resumo)}</small>
+      <small>${r.pontos.filter(p => p.enc.length).length} paradas · ${esc(inimigos)} · traz ${esc(r.saque.map(k => item(k).nome.toLowerCase()).join(', '))}</small>
+      <small>${r.custo ? `Gasta ${r.custo} kit de campo` : 'Não gasta kit de campo'}${falta ? ' · ' + esc(falta) : semKit ? ' · Falta kit de campo: o Wolf vende e a bancada dele faz.' : ''}</small></span>
+      <button type="button" class="botao ${falta || semKit ? '' : 'primario'}" data-rota="${esc(id)}" ${falta || semKit ? 'disabled' : ''}>${falta ? 'Trancada' : 'Sair pelo portão'}</button></li>`;
+  }).join('');
+  abrirPainel('rotas', $('rotas-lista').querySelector('button:not(:disabled)') || undefined);
+}
+$('rotas-lista').onclick = async ev => {
+  const b = ev.target.closest('[data-rota]'); if (!b) return;
+  const r = await pedir(b, $('rotas-msg'), () => api.iniciar(b.dataset.rota));
+  if (estado.expedicao) { fecharPainel(true); entrarNaExpedicao(); }
+  else if (r && !r.erro) $('rotas-msg').textContent = 'O portão não abriu. Tente de novo.';
+};
+
+// ---------- expedição ----------
+const relogio = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+function entrarNaExpedicao() {
+  mostrar('tela-jogo');
+  presenca?.desligar(); presenca = null; $('hud-online').hidden = true;   // na rua cada um está por conta própria
+  if (motor) motor.parar();
+  $('tela-jogo').dataset.modo = 'expedicao';
+  $('btn-perto').hidden = true; $('demo-aviso').hidden = true;
+  $('exp-hud').hidden = false; $('exp-feed').innerHTML = '';
+  recuoArmado = false; $('btn-recuar').textContent = 'Recuar pro abrigo'; $('btn-recuar').disabled = false;
+  atualizarFicha();
+  const ex = estado.expedicao;
+  cena = new PZ.Expedicao($('cena'), {
+    expedicao: ex, catalogo, aparencia: estado.personagem.aparencia, reduzir: !!ajustes.reduzir,
+    agora: agoraServidor, mudou: mostrarExpedicao, fim: () => fecharExpedicao(ex.id, false),
+  });
+  motor = cena.motor; PZ.motorAtual = motor; PZ.cenaAtual = cena;
+  $('cena').focus();
+}
+function mostrarExpedicao(h) {
+  $('exp-rota').textContent = h.rota; $('exp-fase').textContent = h.fase;
+  $('exp-vida-n').textContent = `${h.vida}/${h.vidaMax}`; $('exp-vida').style.width = `${100 * h.vida / h.vidaMax}%`;
+  $('exp-vida').parentElement.classList.toggle('baixa', h.vida / h.vidaMax < 0.35);
+  $('exp-carga-n').textContent = `${h.carga}/${h.capacidade}`; $('exp-carga').style.width = `${Math.min(100, 100 * h.carga / h.capacidade)}%`;
+  $('exp-parada-n').textContent = `${h.feitas}/${h.total}`; $('exp-parada').style.width = `${100 * h.feitas / Math.max(1, h.total)}%`;
+  $('exp-tempo').textContent = h.restante ? `Volta em ${relogio(h.restante)} · ${h.xp} XP até aqui` : 'Chegando ao portão…';
+  $('exp-feed').innerHTML = h.feed.map(l => `<li class="${l.cls}">${esc(l.txt)}</li>`).join('');
+  if (h.voltando && !recuoArmado) $('btn-recuar').hidden = true; else $('btn-recuar').hidden = false;
+}
+let recuoArmado = false, fechando = false;
+$('btn-recuar').onclick = () => {
+  if (!estado.expedicao) return;
+  if (!recuoArmado) { recuoArmado = true; $('btn-recuar').textContent = 'Confirmar: voltar com o que já revistei'; setTimeout(() => { recuoArmado = false; $('btn-recuar').textContent = 'Recuar pro abrigo'; }, 4000); return; }
+  fecharExpedicao(estado.expedicao.id, true);
+};
+// Pede o fechamento ao servidor. Ele confere a hora dele; se ainda não deu, a gente espera e pergunta de novo.
+async function fecharExpedicao(id, recuo, tentativa = 0) {
+  if (fechando && !tentativa) return;
+  fechando = true; $('btn-recuar').disabled = true;
+  let r = null;
+  try { r = await (recuo ? api.recuar(id) : api.concluir(id)); }
+  catch (e) { if (e.status === 401) { fechando = false; return sessaoAcabou(); } if (e.status === 404) r = { expedicao: null }; }
+  if (r?.relatorio) { fechando = false; absorver(r); return mostrarRelatorio(r.relatorio); }
+  if (r && 'expedicao' in r && !r.expedicao) { fechando = false; absorver(r); return entrarNoAbrigo(); }   // já foi fechada em outro lugar
+  if (tentativa > 40) { fechando = false; $('exp-fase').textContent = 'Sem resposta do servidor. Recarregue a página: sua expedição está guardada.'; return; }
+  setTimeout(() => fecharExpedicao(id, recuo, tentativa + 1), Math.min(6000, 900 + tentativa * 400));
+}
+const TITULO_FIM = {
+  concluida: ['Rota concluída', 'Você foi até o fim da rota e voltou pro portão.'],
+  mochila: ['Mochila cheia', 'Não cabia mais nada, então você voltou antes do fim da rota com tudo que pegou.'],
+  recuo: ['Você recuou', 'Voltou antes do fim e ficou com o que já tinha revistado.'],
+  derrota: ['Você caiu', 'Te carregaram de volta. O que estava revistado antes da queda veio junto.'],
+};
+function mostrarRelatorio(rel) {
+  cena?.parar();
+  $('exp-hud').hidden = true;
+  const [titulo, texto] = TITULO_FIM[rel.motivo] || TITULO_FIM.concluida;
+  $('relatorio-rota').textContent = `${rel.nomeRota} · ${relogio(rel.fora)} fora · ${rel.paradas}/${rel.totalParadas} paradas`;
+  $('relatorio-t').textContent = titulo; $('relatorio-texto').textContent = texto;
+  const li = [];
+  li.push(`<li><span><b>+${rel.xp} XP</b>${rel.bonus ? '<small>Inclui o bônus da primeira vez nesta rota</small>' : ''}</span></li>`);
+  if (rel.nivelDepois > rel.nivelAntes) li.push(`<li class="destaque"><span><b>Nível ${rel.nivelDepois}</b><small>Mais vida e mais ataque</small></span></li>`);
+  for (const [k, q] of Object.entries(rel.itens || {})) li.push(`<li><span><b>${q} × ${esc(item(k).nome)}</b><small>${esc(TIPO[item(k).tipo] || '')}</small></span></li>`);
+  if (rel.creditos) li.push(`<li><span><b>+${rel.creditos} créditos</b></span></li>`);
+  if (rel.equip) li.push(`<li class="destaque"><span><b>${esc(item(rel.equip).nome)}</b><small>${esc(efeito(item(rel.equip)))} · está no seu armazém, equipe na Mochila</small></span></li>`);
+  const perd = Object.entries(rel.perdidos || {}).map(([k, q]) => `${q} ${item(k).nome}`);
+  if (perd.length) li.push(`<li class="vazio"><span>Ficou pra trás por falta de espaço: ${esc(perd.join(', '))}</span></li>`);
+  $('relatorio-lista').innerHTML = li.join('');
+  const notas = [];
+  if (rel.ferido) notas.push('Você está ferido por 10 minutos: vida máxima menor. Um curativo resolve na hora.');
+  const g = rel.desgaste || {}; if (g.arma || g.protecao) notas.push(`O equipamento gastou (arma −${g.arma || 0}, proteção −${g.protecao || 0}). O Wolf conserta.`);
+  $('relatorio-nota').textContent = notas.join(' ');
+  abrirPainel('relatorio', $('btn-relatorio-ok'));
+}
+$('btn-relatorio-ok').onclick = () => fecharPainel();
+
+// ---------- mochila e armazém ----------
+function desenharMochila() {
+  const e = estado.estado, p = estado.personagem, fora = !!estado.expedicao;
+  $('mochila-voce').innerHTML = linhaVoce();
+  $('mochila-xp-n').textContent = p.xpProximo ? `Nível ${p.nivel} · ${p.xpNoNivel}/${p.xpProximo} XP` : `Nível ${p.nivel} (máximo)`;
+  $('mochila-xp').style.width = `${p.xpProximo ? 100 * p.xpNoNivel / p.xpProximo : 100}%`;
+  $('mochila-ferido').hidden = !e.ferido; if (e.ferido) $('mochila-ferido').textContent = textoFerido();
+  $('mochila-equip').innerHTML = e.equipamento.length ? e.equipamento.map(q => { const d = item(q.item); return `<li class="${q.equipado ? 'destaque' : ''}"><span><b>${esc(d.nome)}</b>
+    <small>${esc(TIPO[d.tipo] || '')} · ${esc(efeito(d))} · condição ${q.condicao}%${q.condicao < 40 ? ' (rendendo menos)' : ''}</small></span>
+    <button type="button" class="botao" data-equip="${esc(q.id)}" data-tirar="${q.equipado ? 1 : 0}" ${fora ? 'disabled' : ''}>${q.equipado ? 'Tirar' : 'Equipar'}</button></li>`; }).join('')
+    : '<li class="vazio">Nada ainda. O Wolf tem um kit separado pra você na oficina.</li>';
+  const itens = Object.entries(e.itens);
+  $('mochila-itens').innerHTML = itens.length ? itens.map(([k, q]) => { const d = item(k); return `<li><span><b>${q} × ${esc(d.nome)}</b><small>${esc(d.desc || '')}</small></span>
+    ${k === 'curativo' && e.ferido && !fora ? '<button type="button" class="botao primario" data-usar="curativo">Usar</button>' : ''}</li>`; }).join('')
+    : '<li class="vazio">Vazio. O que você trouxer da rua fica guardado aqui.</li>';
+  if (fora) $('mochila-msg').textContent = 'Você está na rua: dá pra olhar, mas trocar equipamento só no abrigo.';
+}
+function abrirMochila() { $('mochila-msg').textContent = ''; desenharMochila(); abrirPainel('mochila'); }
+$('btn-mochila').onclick = abrirMochila;
+$('mochila').onclick = async ev => {
+  const b = ev.target.closest('[data-equip], [data-usar]'); if (!b) return;
+  $('mochila-msg').textContent = '';
+  if (b.dataset.usar) { const r = await pedir(b, $('mochila-msg'), ch => api.usar('curativo', ch)); if (r && !r.erro) $('mochila-msg').textContent = 'Curativo feito. Você está inteiro de novo.'; }
+  else await pedir(b, $('mochila-msg'), () => api.equipar(b.dataset.equip, b.dataset.tirar === '1'));
+  desenharMochila();
+};
+
+// ---------- oficina do Wolf ----------
+let abaLoja = 'comprar';
+function desenharLoja() {
+  const e = estado.estado, cr = e.creditos;
+  $('loja-creditos').textContent = `${cr} créditos`;
+  document.querySelectorAll('#loja-abas [data-aba]').forEach(b => b.setAttribute('aria-selected', b.dataset.aba === abaLoja));
+  let h = '';
+  if (abaLoja === 'comprar') h = catalogo.loja.map(k => { const d = item(k); return `<li><span><b>${esc(d.nome)}</b><small>${esc([TIPO[d.tipo], efeito(d), d.desc].filter(Boolean).join(' · '))}</small></span>
+    <button type="button" class="botao" data-loja="comprar" data-item="${esc(k)}" ${cr < d.compra ? 'disabled title="Faltam créditos"' : ''}>${d.compra} créditos</button></li>`; }).join('');
+  else if (abaLoja === 'vender') {
+    const v = Object.entries(e.itens).filter(([k]) => item(k).venda);
+    h = v.length ? v.map(([k, q]) => { const d = item(k); return `<li><span><b>${q} × ${esc(d.nome)}</b><small>${d.venda} créditos cada</small></span><span class="acoes">
+      <button type="button" class="botao" data-loja="vender" data-item="${esc(k)}" data-qtd="1">Vender 1</button>
+      ${q > 1 ? `<button type="button" class="botao" data-loja="vender" data-item="${esc(k)}" data-qtd="${q}">Vender tudo (+${q * d.venda})</button>` : ''}</span></li>`; }).join('')
+      : '<li class="vazio">Nada pra vender. Sucata, tecido e peças vêm da rua.</li>';
+  } else if (abaLoja === 'reparar') {
+    const g = e.equipamento.filter(q => q.condicao < 100);
+    h = g.length ? g.map(q => { const custo = Math.ceil((100 - q.condicao) * catalogo.reparoPorPonto); return `<li><span><b>${esc(item(q.item).nome)}</b><small>Condição ${q.condicao}%${q.equipado ? ' · equipado' : ''}</small></span>
+      <button type="button" class="botao" data-loja="reparar" data-id="${esc(q.id)}" ${cr < custo ? 'disabled title="Faltam créditos"' : ''}>Consertar por ${custo}</button></li>`; }).join('')
+      : '<li class="vazio">Tudo inteiro. Equipamento gasto bate e protege menos, então volte depois das saídas.</li>';
+  } else h = Object.entries(catalogo.receitas).map(([k, r]) => {
+    const pode = Object.entries(r.gasta).every(([m, n]) => (e.itens[m] || 0) >= n);
+    return `<li><span><b>${esc(r.nome)}</b><small>Gasta ${esc(Object.entries(r.gasta).map(([m, n]) => `${n} ${item(m).nome.toLowerCase()} (você tem ${e.itens[m] || 0})`).join(' e '))}</small></span>
+      <button type="button" class="botao" data-loja="fabricar" data-receita="${esc(k)}" ${pode ? '' : 'disabled title="Falta material"'}>Fazer</button></li>`; }).join('');
+  $('loja-lista').innerHTML = h;
+}
+function abrirLoja(aba) { abaLoja = aba || 'comprar'; $('loja-msg').textContent = ''; desenharLoja(); abrirPainel('loja', $('loja-abas').querySelector(`[data-aba="${abaLoja}"]`)); }
+$('loja-abas').onclick = ev => { const b = ev.target.closest('[data-aba]'); if (!b) return; abaLoja = b.dataset.aba; $('loja-msg').textContent = ''; desenharLoja(); };
+$('loja-lista').onclick = async ev => {
+  const b = ev.target.closest('[data-loja]'); if (!b) return;
+  const d = b.dataset;
+  $('loja-msg').textContent = '';
+  const r = await pedir(b, $('loja-msg'), chave => api.loja({ acao: d.loja, chave, item: d.item, qtd: d.qtd ? +d.qtd : 1, id: d.id, receita: d.receita }));
+  if (r && !r.erro) {
+    $('loja-msg').textContent = d.loja === 'comprar' ? `${item(d.item).nome}: comprado.${['arma', 'protecao', 'mochila', 'ferramenta'].includes(item(d.item).tipo) ? ' Equipe na Mochila (I).' : ''}`
+      : d.loja === 'vender' ? `Vendido por ${(+d.qtd) * item(d.item).venda} créditos.` : d.loja === 'reparar' ? 'Consertado.' : 'Feito na bancada.';
+  }
+  desenharLoja();
+};
+
 // ---------- Bipe ----------
 let feitosAntes = null;
-function concluirObjetivos() {
-  const f = estado.personagem.flags || {};
-  for (const o of M.OBJETIVOS) if (!o.futuro && o.feito(f) && feitosAntes && !feitosAntes.has(o.id)) torrada(`Bipe: ${o.titulo} concluído`);
-}
 function atualizarBipe() {
   const f = estado.personagem.flags || {};
+  // objetivo que acabou de ser cumprido avisa uma vez
+  for (const o of M.OBJETIVOS) if (!o.futuro && o.feito(f) && feitosAntes && !feitosAntes.has(o.id)) torrada(`Bipe: ${o.titulo} concluído`);
   feitosAntes = new Set(M.OBJETIVOS.filter(o => !o.futuro && o.feito(f)).map(o => o.id));
   const atual = M.OBJETIVOS.find(o => !o.feito(f));
   $('objetivo').innerHTML = atual ? `<span class="rotulo">Objetivo · ${esc(atual.id)}</span><b>${esc(atual.titulo)}</b><span>${esc(atual.texto)}</span>` : '';
@@ -306,7 +538,7 @@ $('aj-outros').onchange = e => { ajustes.verOutros = e.target.checked; salvarAju
 $('aj-reduzir').onchange = e => { ajustes.reduzir = e.target.checked; salvarAjustes(); if (motor) motor.reduzir = ajustes.reduzir; };
 $('aj-zoom-mais').onclick = () => motor?.mudarZoom(1);
 $('aj-zoom-menos').onclick = () => motor?.mudarZoom(-1);
-$('btn-sair').onclick = async () => { fecharPainel(true); presenca?.desligar(); presenca = null; motor?.parar(); motor = null; await api.sair(); mostrar('tela-entrar'); };
+$('btn-sair').onclick = async () => { fecharPainel(true); presenca?.desligar(); presenca = null; motor?.parar(); motor = null; cena = null; await api.sair(); mostrar('tela-entrar'); };
 
 // ---------- gestão ----------
 const NOMES_PAPEL = { jogador: 'Jogador', suporte: 'Suporte', moderador: 'Moderador', administrador: 'Administrador', proprietario: 'Proprietário' };

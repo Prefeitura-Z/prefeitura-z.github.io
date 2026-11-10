@@ -22,6 +22,8 @@ class Motor {
     this.cv = canvas; this.g = canvas.getContext('2d');
     this.m = mundo; this.op = op;
     this.reduzir = !!op.reduzir;
+    this.assistir = !!op.assistir;   // expedição: o boneco segue o roteiro do servidor, sem controle
+    this.atores = [];                // quem mais aparece na cena (inimigos da rua)
     this.pausado = false;
     this.teclas = new Set();
     this.t = 0;
@@ -84,6 +86,7 @@ class Motor {
     this.h = {
       kd: e => {
         if (this.pausado || ehCampo(e)) return;
+        if (this.assistir) { if (e.key === '+' || e.key === '=') this.mudarZoom(1); else if (e.key === '-') this.mudarZoom(-1); return; }
         if (TECLAS[e.code]) { this.teclas.add(e.code); this.p.caminho = null; this.p.aoChegar = null; e.preventDefault(); }
         else if (e.code === 'KeyE' || (e.code === 'Space' && this.perto)) { if (this.perto) { e.preventDefault(); this.op.interagir(this.perto); } }
         else if (e.key === '+' || e.key === '=') this.mudarZoom(1);
@@ -127,7 +130,7 @@ class Motor {
   }
 
   clique(e) {
-    if (this.pausado) return;
+    if (this.pausado || this.assistir) return;
     const r = this.cv.getBoundingClientRect();
     const w = this.paraMundo(e.clientX - r.left, e.clientY - r.top);
     // NPC tem prioridade: clicar no corpo dele conta, mesmo com chão ou objeto atrás
@@ -210,6 +213,8 @@ class Motor {
       if (p.caminho) { p.preso = andou < 1e-4 ? p.preso + dt : 0; if (p.preso > 0.5) { p.caminho = null; p.aoChegar = null; p.preso = 0; } }
     }
 
+    if (this.op.roteiro) this.op.roteiro(this, dt);
+
     // NPC mais perto no alcance
     let perto = null, melhor = ALCANCE;
     for (const n of this.npcs) { const d = this.dist(n); if (d <= melhor) { melhor = d; perto = n; } }
@@ -280,6 +285,7 @@ class Motor {
     for (const n of this.npcs) lista.push({ prof: n.px + n.py, npc: n });
     for (const mo of this.moradores) lista.push({ prof: mo.px + mo.py, mor: mo });
     for (const o of this.outros.values()) lista.push({ prof: o.px + o.py, mor: o });
+    for (const a of this.atores) lista.push({ prof: a.x + a.y, extra: a });
     lista.sort((a, b) => a.prof - b.prof);
 
     const ps = A.iso(p.x, p.y), jb = { x0: ps.x - 11, x1: ps.x + 11, y0: ps.y - 56, y1: ps.y };
@@ -293,8 +299,18 @@ class Motor {
         g.globalAlpha = 1;
       } else if (it.ator) {
         this.sombra(g, p.x, p.y);
-        const q = this.quadroDe(p.folha, p.dir, p.anda ? 'anda' : 'parado', p.anda ? 10 : 4);
+        if (p.caido) { g.save(); g.translate(Math.round(ps.x), Math.round(ps.y - 6)); g.rotate(Math.PI / 2); g.drawImage(p.folha[p.dir].parado[0], -A.PX, -A.PY + 10); g.restore(); continue; }
+        const est = p.estado || (p.anda ? 'anda' : 'parado');
+        const q = p.quadro != null ? p.folha[p.dir][est][p.quadro] : this.quadroDe(p.folha, p.dir, est, est === 'anda' ? 10 : est === 'trabalha' ? 6 : 4);
         g.drawImage(q, Math.round(ps.x - A.PX), Math.round(ps.y - A.PY));
+      } else if (it.extra) {
+        const a = it.extra, c = A.iso(a.x, a.y), e = a.escala || 1;
+        if (a.alpha <= 0) continue;
+        g.globalAlpha = a.alpha == null ? 1 : a.alpha;
+        g.fillStyle = '#00000045'; g.beginPath(); g.ellipse(c.x, c.y, 11 * e, 5 * e, 0, 0, 7); g.fill();
+        const q = a.quadro != null ? a.folha[a.dir][a.estado][a.quadro] : this.quadroDe(a.folha, a.dir, a.estado, a.estado === 'anda' ? 7 : 3);
+        g.drawImage(q, Math.round(c.x - A.PX * e), Math.round(c.y - A.PY * e + (a.afunda || 0)), Math.round(A.QW * e), Math.round(A.QH * e));
+        g.globalAlpha = 1;
       } else if (it.npc) {
         const n = it.npc, c = A.iso(n.px, n.py);
         this.sombra(g, n.px, n.py);
@@ -354,6 +370,7 @@ class Motor {
       g.fillStyle = tag ? '#D4AC66' : '#d9e3d2'; g.fillText(txt, s.x, s.y - 2);
     }
     g.textAlign = 'left';
+    if (this.op.sobre) this.op.sobre(this, g);
   }
 
   sombra(g, x, y) { const c = A.iso(x, y); g.fillStyle = '#00000045'; g.beginPath(); g.ellipse(c.x, c.y, 11, 5, 0, 0, 7); g.fill(); }

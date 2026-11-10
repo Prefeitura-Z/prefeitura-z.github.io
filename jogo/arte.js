@@ -31,6 +31,10 @@ const CHAO = [
   { base: '#2e4a52', var: ['#335560', '#2a434a', '#3a5e66'], marca: 'agua' },
   { base: '#6a645a', var: ['#757064', '#5d5850', '#807a6c'], marca: 'cascalho' },
   { base: '#4a3a2c', var: ['#544232', '#403226', '#5a4836'], marca: 'arado' },
+  { base: '#3c3f40', var: ['#404344', '#383b3c', '#434647'], marca: 'asfalto' },
+  { base: '#77786f', var: ['#7d7e75', '#70716a', '#84857b'], marca: 'calcada' },
+  { base: '#3c3f40', var: ['#404344', '#383b3c', '#434647'], marca: 'faixaX' },
+  { base: '#3c3f40', var: ['#404344', '#383b3c', '#434647'], marca: 'faixaY' },
 ];
 
 function losango(g, cx, cy) {
@@ -66,6 +70,12 @@ function desenharChao(mundo) {
       g.strokeStyle = tom(st.base, 0.78); g.lineWidth = 1; losango(g, cx, cy + 0.5); g.stroke();
       if (r() > 0.6) { g.strokeStyle = tom(st.base, 0.7); g.beginPath(); const a = (r() - 0.5) * 30; g.moveTo(cx + a, cy - 6); g.lineTo(cx + a + 6, cy); g.lineTo(cx + a + 3, cy + 5); g.stroke(); }
       if (r() > 0.85) { g.fillStyle = '#4c4a4433'; g.beginPath(); g.ellipse(cx + (r() - 0.5) * 20, cy, 9, 4, 0, 0, 7); g.fill(); }
+    }
+    if (st.marca === 'calcada') { g.strokeStyle = tom(st.base, 0.8); g.lineWidth = 1; losango(g, cx, cy + 0.5); g.stroke(); if (r() > 0.8) { g.fillStyle = '#566D4A'; g.fillRect(cx + Math.round((r() - 0.5) * 30), cy + Math.round((r() - 0.5) * 10), 3, 2); } }
+    if (st.marca === 'asfalto' || st.marca === 'faixaX' || st.marca === 'faixaY') {
+      if (r() > 0.7) { g.strokeStyle = '#2a2c2d'; g.lineWidth = 1; g.beginPath(); const a = (r() - 0.5) * 34; g.moveTo(cx + a, cy - 5); g.lineTo(cx + a - 5, cy); g.lineTo(cx + a + 2, cy + 6); g.stroke(); }
+      if (r() > 0.88) { g.fillStyle = '#2f313233'; g.beginPath(); g.ellipse(cx + (r() - 0.5) * 20, cy, 11, 5, 0, 0, 7); g.fill(); }
+      if (st.marca !== 'asfalto' && r() > 0.25) { const k = st.marca === 'faixaX' ? 1 : -1; g.strokeStyle = '#a89a58'; g.lineWidth = 2; g.beginPath(); g.moveTo(cx - 9 * k, cy - 4.5); g.lineTo(cx + 9 * k, cy + 4.5); g.stroke(); }
     }
     if (st.marca === 'madeira') { g.strokeStyle = tom(st.base, 0.72); for (let k = -2; k <= 2; k++) { g.beginPath(); g.moveTo(cx - HW / 2 + k * 8 - 8, cy - HH / 2 + k * 4 + 4 + 8 - 8); g.lineTo(cx + HW / 2 + k * 8 - 8, cy + HH / 2 + k * 4 + 4 - 8); g.stroke(); } }
     if (st.marca === 'arado') { g.strokeStyle = '#33281e'; for (let k = -1; k <= 1; k++) { g.beginPath(); g.moveTo(cx - 20 + k * 10, cy - 6 + k * 5 + 6); g.lineTo(cx + k * 10, cy + 4 + k * 5 - 4 + 6); g.stroke(); } }
@@ -121,11 +131,47 @@ const ALTURA = {
   bancada: 20, gerador: 22, pneus: 16, carcaca: 26, tambor: 22, ferramentas: 42, antena: 120, mesaRadio: 20,
   beliche: 40, cama: 12, armario: 44, barraca: 40, tenda: 52, maca: 14, caixaMedica: 16, tanque: 70, planta: 10,
   quadro: 44, poste: 86, fogueira: 10, banco: 10, cerca: 18, casinha: 22, arvore: 110,
+  bloco: 60, carro: 24, barricada: 22, entulho: 8, placaRua: 40,
 };
 
 function desenharObjeto(g, o, t) {
-  const { x, y, w, d } = o, h = ALTURA[o.tipo] || 20, r = rng(x * 131 + y * 71);
+  const { x, y, w, d } = o, h = o.h || ALTURA[o.tipo] || 20, r = rng(x * 131 + y * 71);
   switch (o.tipo) {
+    // prédio da rua, uma célula por vez (ordena certo com quem passa). o.sul / o.leste = tem fachada pra rua
+    case 'bloco': {
+      caixa(g, x, y, 1, 1, h, o.cor || '#6b6258');
+      const andares = Math.max(1, Math.floor(h / 30));
+      for (const face of ['esq', 'dir']) {
+        if (!(face === 'esq' ? o.sul : o.leste)) continue;
+        for (let k = 0; k < andares; k++) {
+          const v0 = (k * 30 + 10) / h, v1 = (k * 30 + 25) / h, s = r();
+          if (k === 0 && o.porta === face) { placa(g, x, y, 1, 1, face, 0.3, 0.72, 0, 24 / h, h, '#1c1a18'); placa(g, x, y, 1, 1, face, 0.3, 0.72, 10 / h, 13 / h, h, '#6e5a44'); continue; }
+          if (k === 0 && o.vitrine) { placa(g, x, y, 1, 1, face, 0.08, 0.92, 5 / h, 24 / h, h, '#1e2426'); placa(g, x, y, 1, 1, face, 0.08, 0.92, 25 / h, 29 / h, h, o.vitrine); if (s > 0.5) placa(g, x, y, 1, 1, face, 0.15, 0.6, 9 / h, 20 / h, h, '#6e5a44'); continue; }
+          placa(g, x, y, 1, 1, face, 0.22, 0.78, v0, v1, h, s > 0.82 ? '#D4AC6655' : '#1e2426');
+          if (s < 0.35) { placa(g, x, y, 1, 1, face, 0.22, 0.78, v0 + 3 / h, v0 + 6 / h, h, '#6e5a44'); placa(g, x, y, 1, 1, face, 0.22, 0.78, v0 + 9 / h, v0 + 12 / h, h, '#7a6650'); }
+          else if (s < 0.5) placa(g, x, y, 1, 1, face, 0.22, 0.5, v0, v1, h, '#3a4648');
+        }
+        if (r() > 0.75) placa(g, x, y, 1, 1, face, 0.05, 0.3, 0, 0.18, h, '#566D4A88');
+      }
+      if (o.topo && r() > 0.6) caixa(g, x + 0.3, y + 0.3, 0.4, 0.4, 8, '#4a4a46', h);
+      break;
+    }
+    case 'carro': {
+      const cor = o.cor || '#5a6a72', ao = w >= d;
+      caixa(g, x + 0.08, y + 0.14, w - 0.16, d - 0.28, 11, cor, 5);
+      if (ao) caixa(g, x + 0.5, y + 0.2, w - 1.05, d - 0.4, 9, { topo: tom(cor, 1.1), esq: '#1e2426', dir: '#161a1c' }, 16);
+      else caixa(g, x + 0.2, y + 0.5, w - 0.4, d - 1.05, 9, { topo: tom(cor, 1.1), esq: '#1e2426', dir: '#161a1c' }, 16);
+      for (const [a, b] of ao ? [[0.4, d - 0.14], [w - 0.4, d - 0.14]] : [[w - 0.14, 0.4], [w - 0.14, d - 0.4]]) { const p = iso(x + a, y + b); g.fillStyle = '#131313'; g.beginPath(); g.ellipse(p.x, p.y - 4, 5, 5, 0, 0, 7); g.fill(); g.fillStyle = '#3a3a3a'; g.fillRect(p.x - 1, p.y - 5, 2, 2); }
+      placa(g, x + 0.08, y + 0.14, w - 0.16, d - 0.28, ao ? 'esq' : 'dir', 0.55, 0.9, 0.35, 0.95, 16, '#A65F3D77');
+      break;
+    }
+    case 'barricada': { const ao = w >= d;
+      for (let k = 0; k < (ao ? w : d) * 2; k++) caixa(g, ao ? x + k * 0.5 + 0.04 : x + 0.3, ao ? y + 0.3 : y + k * 0.5 + 0.04, ao ? 0.42 : 0.4, ao ? 0.4 : 0.42, 10 + (k % 2) * 3, '#9B8D66');
+      caixa(g, ao ? x + 0.1 : x + 0.42, ao ? y + 0.42 : y + 0.1, ao ? w - 0.2 : 0.14, ao ? 0.14 : d - 0.2, 4, '#6e5a44', 15);
+      { const p = iso(x + w / 2, y + d / 2); g.fillStyle = COR.aviso; g.fillRect(p.x - 3, p.y - 26, 6, 5); }
+      break; }
+    case 'entulho': { const p = iso(x + 0.5, y + 0.5); for (let k = 0; k < 7; k++) { g.fillStyle = ['#5a5550', '#6e6a62', '#4a4642', '#7a5a3e'][k % 4]; g.fillRect(Math.round(p.x + (r() - 0.5) * 30), Math.round(p.y + (r() - 0.5) * 12 - 3), 3 + Math.floor(r() * 5), 2 + Math.floor(r() * 3)); } break; }
+    case 'placaRua': { const p = iso(x + 0.5, y + 0.5); g.fillStyle = '#4a4a46'; g.fillRect(p.x - 1, p.y - h, 2, h); g.fillStyle = o.cor || '#74A6A1'; g.fillRect(p.x - 12, p.y - h - 2, 24, 10); g.fillStyle = '#1b1f1c'; g.fillRect(p.x - 9, p.y - h + 1, 18, 1); g.fillRect(p.x - 9, p.y - h + 4, 12, 1); break; }
     case 'muro': {
       // chapas de metal e madeira remendadas
       const cores = ['#7b6a58', '#6b7072', '#8a5a3e', '#5e665c'];
@@ -215,15 +261,17 @@ function desenharObjeto(g, o, t) {
 
 // caixa de tela aproximada de um objeto (pra oclusão e clique)
 function caixaTela(o) {
-  const h = ALTURA[o.tipo] || 20;
+  const h = o.h || ALTURA[o.tipo] || 20;
   const l = iso(o.x, o.y + o.d).x, rr = iso(o.x + o.w, o.y).x, top = iso(o.x, o.y).y - h - 6, bot = iso(o.x + o.w, o.y + o.d).y;
   if (o.tipo === 'arvore') return { x0: l - 14, x1: rr + 14, y0: top, y1: bot };
   return { x0: l, x1: rr, y0: top, y1: bot };
 }
-const ALTOS = new Set(['muro', 'pilar', 'portao', 'guarita', 'arquivo', 'estante', 'antena', 'beliche', 'armario', 'barraca', 'tenda', 'tanque', 'quadro', 'poste', 'arvore', 'ferramentas', 'caixas']);
+const ALTOS = new Set(['muro', 'pilar', 'portao', 'guarita', 'arquivo', 'estante', 'antena', 'beliche', 'armario', 'barraca', 'tenda', 'tanque', 'quadro', 'poste', 'arvore', 'ferramentas', 'caixas', 'bloco']);
 
 // ---------- pessoas ----------
 const PELE = { p1: '#F1C9A5', p2: '#E0A982', p3: '#C68B62', p4: '#A0694A', p5: '#7A4E35', p6: '#5A3826' };
+// pele dos infectados: fora das opções do jogador
+const PELE_Z = { z1: '#93a48c', z2: '#a9ad92', z3: '#7f8f88' };
 const CABELO = { c1: '#1E1A17', c2: '#4A2E1E', c3: '#7A4A2A', c4: '#B98A4A', c5: '#8A8F93', c6: '#9A3A2A' };
 const ROUPA = {
   jaqueta: { torso: '#A65F3D', detalhe: '#7a4228', calca: '#33383B', bota: '#2a2522', manga: '#A65F3D' },
@@ -237,6 +285,11 @@ const ROUPA = {
   guarda: { torso: '#5c6650', detalhe: '#3e4636', calca: '#3e4636', bota: '#1e1c1a', manga: '#5c6650', bolsos: true },
   morador1: { torso: '#7a6a8a', detalhe: '#5a4a6a', calca: '#3E4F66', bota: '#2a2522', manga: '#7a6a8a' },
   morador2: { torso: '#8a7a4a', detalhe: '#6a5a34', calca: '#4a3e34', bota: '#2a2522', manga: '#8a7a4a' },
+  // infectados
+  errante: { torso: '#6c6a5a', detalhe: '#4e4c40', calca: '#3a3c40', bota: '#2a2522', manga: '#6c6a5a' },
+  errante2: { torso: '#5a6470', detalhe: '#444c56', calca: '#4a4034', bota: '#2a2522', manga: '#8f8a78' },
+  corredor: { torso: '#8a4a3e', detalhe: '#6a342c', calca: '#33383B', bota: '#3a2e24', manga: '#b0a590' },
+  porteiro: { torso: '#3e4a56', detalhe: '#9B8D66', calca: '#2c3238', bota: '#1e1c1a', manga: '#3e4a56', colete: true, coleteCor: '#9B8D66' },
 };
 // aparências prontas dos NPCs (mesmo corpo do jogador, pra mesma escala e pivô)
 const NPC_AP = {
@@ -247,6 +300,15 @@ const NPC_AP = {
   morador1: { corpo: 'a', pele: 'p1', cabelo: 'coque', corCabelo: 'c6', roupa: 'morador1' },
   morador2: { corpo: 'b', pele: 'p6', cabelo: 'cacheado', corCabelo: 'c1', roupa: 'morador2' },
 };
+// infectados da rua. "escala" aumenta o desenho inteiro (o chefe é maior)
+const INIMIGO_AP = {
+  errante: [
+    { corpo: 'b', pele: 'z1', cabelo: 'curto', corCabelo: 'c1', roupa: 'errante', zumbi: true },
+    { corpo: 'a', pele: 'z2', cabelo: 'longo', corCabelo: 'c2', roupa: 'errante2', zumbi: true },
+  ],
+  corredor: [{ corpo: 'a', pele: 'z3', cabelo: 'raspado', corCabelo: 'c1', roupa: 'corredor', zumbi: true }],
+  porteiro: [{ corpo: 'b', pele: 'z1', cabelo: 'raspado', corCabelo: 'c5', roupa: 'porteiro', zumbi: true, bone: true, machado: true, escala: 1.4 }],
+};
 
 const QW = 48, QH = 80, PX = 24, PY = 74;
 const DIRS = ['SE', 'SW', 'NE', 'NW'];
@@ -255,13 +317,14 @@ const DIRS = ['SE', 'SW', 'NE', 'NW'];
 function quadroPessoa(ap, dir, estado, f) {
   const c = document.createElement('canvas'); c.width = QW; c.height = QH;
   const g = c.getContext('2d');
-  const R = ROUPA[ap.roupa] || ROUPA.jaqueta, pele = PELE[ap.pele] || PELE.p2, cab = CABELO[ap.corCabelo] || CABELO.c1;
+  const R = ROUPA[ap.roupa] || ROUPA.jaqueta, pele = PELE[ap.pele] || PELE_Z[ap.pele] || PELE.p2, cab = CABELO[ap.corCabelo] || CABELO.c1;
   const frente = dir === 'SE' || dir === 'SW', lado = dir === 'SE' || dir === 'NE' ? 1 : -1;
   const largo = ap.corpo === 'b' ? 2 : 0;
   const fase = estado === 'anda' ? (f / 8) * Math.PI * 2 : 0;
   const passo = Math.sin(fase), bob = estado === 'anda' ? Math.round(Math.abs(Math.sin(fase)) * 1) : (estado === 'parado' && f % 4 >= 2 ? 1 : 0);
   const px = (x, y, w, h, cor) => { g.fillStyle = cor; g.fillRect(Math.round(x), Math.round(y), w, h); };
-  const cx = PX, topo = 22 + bob;
+  const zumbi = !!ap.zumbi, atq = estado === 'ataca' ? f : -1, golpe = atq >= 2 && atq <= 3;
+  const cx = PX + (golpe ? lado * 2 : 0), topo = 22 + bob + (zumbi ? 1 : 0);
 
   // pernas
   const pernaY = 56 + bob, pernaH = PY - pernaY;
@@ -275,8 +338,8 @@ function quadroPessoa(ap, dir, estado, f) {
   const bracoBalanço = estado === 'anda' ? Math.round(-passo * 2) : 0;
   const trab = estado === 'trabalha' ? Math.round(Math.sin(f / 6 * Math.PI * 2) * 2) : 0;
   const ladoFundo = lado > 0 ? tx - 3 : tx + tw - 1;
-  px(ladoFundo, ty + 2 - bracoBalanço, 4, 13, tom(R.manga, 0.75));
-  px(ladoFundo, ty + 15 - bracoBalanço, 4, 3, tom(pele, 0.8));
+  if (zumbi) { px(lado > 0 ? tx + tw - 3 : tx - 7, ty + 2 + (f % 2), 10, 4, tom(R.manga, 0.75)); px(lado > 0 ? tx + tw + 7 : tx - 10, ty + 2 + (f % 2), 3, 4, tom(pele, 0.8)); }
+  else { px(ladoFundo, ty + 2 - bracoBalanço, 4, 13, tom(R.manga, 0.75)); px(ladoFundo, ty + 15 - bracoBalanço, 4, 3, tom(pele, 0.8)); }
 
   // tronco
   px(tx, ty, tw, 21, R.torso);
@@ -292,8 +355,22 @@ function quadroPessoa(ap, dir, estado, f) {
 
   // braço da frente
   const ladoFrente = lado > 0 ? tx + tw - 1 : tx - 3;
+  const metal = '#aab1b5';
+  if (zumbi) {
+    const sobe = golpe ? -3 : 0, bx = lado > 0 ? tx + tw - 2 : tx - 10;
+    if (R.colete && frente) px(tx + 4, ty + 7, tw - 8, 6, '#6a1f1a');
+    else if (frente) px(tx + 3 + (ap.corpo === 'b' ? 3 : 0), ty + 8, 5, 6, '#6a1f1a');
+    px(bx, ty + 5 + sobe, 12, 4, R.manga); px(lado > 0 ? bx + 12 : bx - 3, ty + 5 + sobe, 3, 4, pele);
+    if (ap.machado) { const mx = lado > 0 ? bx + 13 : bx - 3; px(mx, ty - 9 + sobe, 2, 18, '#5a4a38'); px(lado > 0 ? mx + 1 : mx - 5, ty - 9 + sobe, 6, 6, metal); }
+  } else if (atq >= 0) {
+    // golpe em três tempos: arma no alto, desce pra frente, recolhe
+    if (atq < 2) { px(ladoFrente, ty - 7, 4, 12, R.manga); px(ladoFrente, ty - 10, 4, 3, pele); px(ladoFrente + 1, ty - 24, 2, 15, metal); }
+    else if (atq < 4) { const bx = lado > 0 ? ladoFrente + 1 : ladoFrente - 8; px(bx, ty + 3, 11, 4, R.manga); px(lado > 0 ? bx + 11 : bx - 3, ty + 3, 3, 4, pele); px(lado > 0 ? bx + 13 : bx - 15, ty + 5, 13, 2, metal); px(lado > 0 ? bx + 22 : bx - 15, ty + 3, 4, 5, '#ffffff'); }
+    else { px(ladoFrente, ty + 2, 4, 13, R.manga); px(ladoFrente, ty + 15, 4, 3, pele); px(ladoFrente + lado * 3, ty + 12, 2, 12, metal); }
+  } else {
   px(ladoFrente, ty + 2 + bracoBalanço - trab, 4, 13, R.manga);
   px(ladoFrente, ty + 15 + bracoBalanço - trab, 4, 3, pele);
+  }
   if (estado === 'trabalha') px(ladoFrente + lado * 2, ty + 14 + bracoBalanço - trab, 2, 6, '#8f979c');
 
   // pescoço e cabeça
@@ -316,6 +393,7 @@ function quadroPessoa(ap, dir, estado, f) {
     const ox = lado > 0 ? 3 : 1;
     px(hx + ox + 1, hy + 5, 2, 2, '#1a1612'); px(hx + ox + 6, hy + 5, 2, 2, '#1a1612');
     px(hx + ox + 3, hy + 9, 3, 1, tom(pele, 0.7));
+    if (zumbi) { px(hx + ox + 1, hy + 4, 3, 3, '#2a2420'); px(hx + ox + 6, hy + 4, 3, 3, '#2a2420'); px(hx + ox + 2, hy + 5, 1, 1, '#e8e2a8'); px(hx + ox + 7, hy + 5, 1, 1, '#e8e2a8'); px(hx + ox + 2, hy + 9, 5, 2, '#6a1f1a'); }
     if (ap.barba) px(hx + 1, hy + 8, 10, 4, tom(cab, 1.05));
     if (ap.oculos) { px(hx + ox, hy + 4, 4, 4, '#2a2a2a'); px(hx + ox + 5, hy + 4, 4, 4, '#2a2a2a'); px(hx + ox + 1, hy + 5, 2, 2, '#a8c8d0'); px(hx + ox + 6, hy + 5, 2, 2, '#a8c8d0'); }
   }
@@ -342,11 +420,12 @@ function folha(ap) {
       parado: [0, 1, 2, 3].map(f => quadroPessoa(ap, d, 'parado', f)),
       anda: [0, 1, 2, 3, 4, 5, 6, 7].map(f => quadroPessoa(ap, d, 'anda', f)),
       trabalha: [0, 1, 2, 3, 4, 5].map(f => quadroPessoa(ap, d, 'trabalha', f)),
+      ataca: [0, 1, 2, 3, 4, 5].map(f => quadroPessoa(ap, d, 'ataca', f)),
     };
   }
   cacheSprites.set(k, s);
   return s;
 }
 
-PZ.arte = { COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, NPC_AP, PELE, CABELO, ROUPA, QW, QH, PX, PY, DIRS };
+PZ.arte = { COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, QW, QH, PX, PY, DIRS };
 })();

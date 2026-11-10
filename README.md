@@ -2,7 +2,7 @@
 
 - `index.html`, `site.css`, `site.js`: página inicial (Discord, como entrar pelo launcher, mapa, facções). O link do Discord fica em `site.js` (`SITE.discord`).
 - `mapa/`: mapa interativo de Knox County. `mapa/#X,Y` abre o mapa já centralizado na coordenada.
-- `jogo/`: **Prefeitura Z: Depois da Queda**, etapa 1 (prova visual do abrigo da União da Margem). Entra com a mesma conta do site (Discord); personagem e progresso ficam na API (`worker/src/jogo.js`, tabelas `characters`, `role_assignments`, `admin_audit`).
+- `jogo/`: **Prefeitura Z: Depois da Queda** (abrigo da União da Margem e a primeira área de fora, o Quarteirão da Entrada). Entra com a mesma conta do site (Discord); personagem e progresso ficam na API (`worker/src/jogo.js`, tabelas `characters`, `role_assignments`, `admin_audit`).
 
 Site estático (sem build). Para publicar no GitHub Pages:
 Settings → Pages → Source: "Deploy from a branch" → branch `main`, pasta `/ (root)`.
@@ -41,5 +41,16 @@ Isso roda numa sala em Durable Object (`worker/src/sala.js`, ligação `ABRIGO` 
 - O servidor limita ritmo, tamanho e velocidade das mensagens, e a mesma conta só fica conectada em um lugar por vez.
 - `GET /game/publico` devolve só quantos estão no abrigo (usado na página inicial).
 - Dá pra desligar em Ajustes → "Ver quem está no abrigo".
+- Os jogadores só se veem no abrigo. Na rua cada um faz a sua expedição.
+
+## Jogo: expedições, estoque e oficina
+
+Quem decide tudo é o servidor (`worker/src/regras.js` tem as regras puras; `worker/src/expedicao.js` grava no D1):
+
+- `POST /game/expedicao/iniciar` sorteia uma semente, simula a rota inteira na hora e guarda o resultado. O navegador recebe o roteiro e só desenha, pela hora do servidor. Recarregar a página continua do mesmo ponto.
+- `POST /game/expedicao/concluir` (depois do fim) ou `/recuar` (antes) entrega o prêmio uma vez só: a expedição passa de `andamento` pra `premiando` e pra `encerrada` dentro do mesmo lote, e um índice único deixa só uma expedição ativa por personagem.
+- Loja, bancada, reparo e curativo (`POST /game/loja`, `/game/usar`) usam recibo em `game_ledger`: cada clique manda uma `chave`, e o mesmo pedido repetido não cobra nem paga duas vezes.
+- Créditos são moeda só do jogo, ganhos jogando. Não tem compra com dinheiro de verdade, troca entre jogadores nem PRZ Coins.
+- Mudou algum número em `regras.js`? Suba `VERSAO`. Expedições em andamento terminam com o resultado que já estava guardado.
 
 As áreas de fora do abrigo não têm presença: cada jogador sai sozinho.
