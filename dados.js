@@ -1,13 +1,21 @@
 // Lê os dados do servidor publicados na branch "dados" (atualiza a cada ~5 min).
-const DADOS_URL = (new URLSearchParams(location.search).get('dados'))
-  || 'https://raw.githubusercontent.com/Prefeitura-Z/prefeitura-z.github.io/dados/dados.json';
+const DADOS_PARAM = new URLSearchParams(location.search).get('dados');
+// 1º: API do GitHub (cache de 1 min). Se estourar o limite de acessos, cai pro raw (cache de até 5 min).
+const DADOS_FONTES = DADOS_PARAM ? [DADOS_PARAM] : [
+  'https://api.github.com/repos/Prefeitura-Z/prefeitura-z.github.io/contents/dados.json?ref=dados',
+  'https://raw.githubusercontent.com/Prefeitura-Z/prefeitura-z.github.io/dados/dados.json',
+];
 
 async function carregarDados() {
-  try {
-    const r = await fetch(DADOS_URL + (DADOS_URL.includes('?') ? '&' : '?') + 't=' + Math.floor(Date.now() / 60000), { cache: 'no-store' });
-    if (!r.ok) return null;
-    return await r.json();
-  } catch (e) { return null; }
+  for (const url of DADOS_FONTES) {
+    try {
+      const api = url.includes('api.github.com');
+      const r = await fetch(api ? url : url + (url.includes('?') ? '&' : '?') + 't=' + Math.floor(Date.now() / 60000),
+        api ? { headers: { Accept: 'application/vnd.github.raw+json' } } : { cache: 'no-store' });
+      if (r.ok) return await r.json();
+    } catch (e) { /* tenta a próxima fonte */ }
+  }
+  return null;
 }
 
 const pad = n => String(n).padStart(2, '0');
