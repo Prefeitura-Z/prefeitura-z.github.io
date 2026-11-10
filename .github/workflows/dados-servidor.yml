@@ -21,6 +21,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           sparse-checkout: .github/scripts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Ler arquivos do servidor e montar dados.json
         id: ler
         env:
@@ -33,8 +36,8 @@ jobs:
           PTERO_SFTP_USER: ${{ secrets.PTERO_SFTP_USER }}
           PTERO_SFTP_PASS: ${{ secrets.PTERO_SFTP_PASS }}
         run: |
-          if [ -n "$PTERO_SFTP_HOST" ]; then python3 -m pip install -q --user paramiko==3.5.0; fi
-          python3 .github/scripts/publicar_dados.py "$RUNNER_TEMP/dados.json"
+          if [ -n "$PTERO_SFTP_HOST" ]; then python -m pip install -q paramiko==3.5.0; fi
+          python .github/scripts/publicar_dados.py "$RUNNER_TEMP/dados.json"
       - name: Enviar para a branch "dados"
         if: steps.ler.outputs.pular != '1'
         run: |
