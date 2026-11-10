@@ -2,6 +2,9 @@
 // A conta do jogo é a mesma do site (Discord); nada aqui confia em id enviado pelo navegador.
 // O proprietário vem do segredo OWNER_DISCORD_ID; os outros papéis ficam em role_assignments com auditoria.
 
+import { nivelDe } from './regras.js';
+import { rotasExpedicao, estadoDoJogador, estadoPublico, darKit, entregarRegistro } from './expedicao.js';
+
 const agora = () => Math.floor(Date.now() / 1000);
 const id = () => [...crypto.getRandomValues(new Uint8Array(10))].map(x => x.toString(16).padStart(2, '0')).join('');
 
@@ -23,20 +26,22 @@ export const ORIGENS = ['brigadista', 'mecanico', 'batedor', 'socorrista', 'trab
 export const ACOES_NPC = {
   prefeito: {
     registro: { marca: 'registrado' },
-    armazem: { requer: 'registrado', demo: true },
+    armazem: { requer: 'registrado', abre: 'armazem' },
     projetos: { requer: 'registrado', demo: true },
     ajudar: {},
   },
   wolf: {
     kit: { requer: 'registrado', marca: 'kit_recebido' },
-    comprar: { requer: 'registrado', demo: true },
-    vender: { requer: 'registrado', demo: true },
-    reparar: { requer: 'registrado', demo: true },
+    comprar: { requer: 'kit_recebido', abre: 'loja:comprar' },
+    vender: { requer: 'kit_recebido', abre: 'loja:vender' },
+    reparar: { requer: 'kit_recebido', abre: 'loja:reparar' },
+    fabricar: { requer: 'kit_recebido', abre: 'loja:fabricar' },
     dica: {},
   },
   bashar: {
     trabalho: { requer: 'kit_recebido', marca: 'contrato_visto' },
-    ativos: { requer: 'contrato_visto', demo: true },
+    entregar: { requer: 'contrato_visto', especial: 'registro' },
+    ativos: { requer: 'contrato_visto' },
     regiao: {},
   },
 };
@@ -80,7 +85,7 @@ function personagemPublico(c) {
   if (!c) return null;
   return {
     nome: c.nome, aparencia: JSON.parse(c.aparencia), origem: c.origem,
-    nivel: c.nivel, xp: c.xp, flags: JSON.parse(c.flags || '{}'), versao: c.versao, criado: c.criado,
+    ...nivelDe(c.xp), xp: c.xp, flags: JSON.parse(c.flags || '{}'), versao: c.versao, criado: c.criado,
   };
 }
 
@@ -133,11 +138,18 @@ export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
   const papel = await papelDe(env, u.discord_id);
 
   if (pathname === '/game/me' && req.method === 'GET') {
-    const c = await env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(u.discord_id).first();
+    let c = await env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(u.discord_id).first();
+    let s = null;
+    if (c) {
+      // quem pegou o kit antes de o equipamento existir recebe agora (o recibo impede repetir)
+      if (JSON.parse(c.flags || '{}').kit_recebido) await darKit(env, u.discord_id);
+      s = await estadoDoJogador(env, u.discord_id, c);
+    }
     return json(env, {
       conta: { nome: u.nome, avatar: u.avatar }, papel,
       permissoes: { gestao: pode.verGestao(papel), equipe: pode.gerirEquipe(papel) },
       personagem: personagemPublico(c),
+      estado: s ? estadoPublico(s) : null, expedicao: s ? s.expedicao : null, agora: Date.now(),
     });
   }
 
@@ -174,15 +186,33 @@ export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
     if (!c) return erro(env, 409, 'Crie seu personagem primeiro.');
     const flags = JSON.parse(c.flags || '{}');
     if (acao.requer && !flags[acao.requer]) return json(env, { ok: false, motivo: MOTIVO_REQUER[acao.requer], flags });
+    if (acao.especial === 'registro') {
+      if (flags.registro_entregue) return json(env, { ok: true, flags });
+      const r = await entregarRegistro(env, u.discord_id);
+      if (r === 'recusado') return json(env, { ok: false, motivo: 'Você ainda não trouxe o registro. Ele está no posto do fim da Rua de Cima.', flags });
+      const c2 = await env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(u.discord_id).first();
+      const s2 = await estadoDoJogador(env, u.discord_id, c2);
+      return json(env, { ok: true, novo: 'registro_entregue', flags: s2.flags, personagem: personagemPublico(c2), estado: estadoPublico(s2) });
+    }
     if (acao.marca && !flags[acao.marca]) {
       flags[acao.marca] = agora();
       // versão evita que duas abas sobrescrevam flags uma da outra
       const up = await env.DB.prepare('UPDATE characters SET flags = ?, versao = versao + 1, atualizado = ? WHERE discord_id = ? AND versao = ?')
         .bind(JSON.stringify(flags), agora(), u.discord_id, c.versao).run();
       if (!up.meta.changes) return erro(env, 409, 'Seu personagem mudou em outra aba. Tente de novo.');
+      if (acao.marca === 'kit_recebido') {
+        await darKit(env, u.discord_id);
+        const c2 = await env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(u.discord_id).first();
+        return json(env, { ok: true, novo: acao.marca, flags, estado: estadoPublico(await estadoDoJogador(env, u.discord_id, c2)) });
+      }
       return json(env, { ok: true, novo: acao.marca, flags });
     }
-    return json(env, { ok: true, demo: !!acao.demo, flags });
+    return json(env, { ok: true, demo: !!acao.demo, abre: acao.abre, flags });
+  }
+
+  if (/^\/game\/(catalogo|expedicao\/|equipar|usar|loja)/.test(pathname)) {
+    const r = await rotasExpedicao(req, env, u, pathname, json, erro, ler, personagemPublico);
+    if (r) return r;
   }
 
   // ---------- gestão ----------

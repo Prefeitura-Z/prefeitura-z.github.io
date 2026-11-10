@@ -106,7 +106,7 @@ const DIALOGOS = {
     ],
     respostas: {
       registro: { novo: 'Pronto, seu nome tá no livro. Isso te dá um canto no armazém e lugar na fila da sopa. Passa no Wolf, na oficina, que ele tem um kit separado pra você.', ok: 'Tá registrado desde que chegou. Ninguém some do meu livro.' },
-      armazem: { demo: 'O armazém fica aqui atrás. Cada um tem a sua prateleira, e ninguém mexe na dos outros.' },
+      armazem: { ok: 'O armazém fica aqui atrás. Cada um tem a sua prateleira, e ninguém mexe na dos outros.' },
       projetos: { demo: 'Portão novo, gerador e reservatório. Uma coisa de cada vez, com o que vocês trouxerem lá de fora.' },
       ajudar: { ok: 'Fala com o Bashar no rádio. Ele sempre tem alguém pra achar.' },
     },
@@ -118,13 +118,15 @@ const DIALOGOS = {
       { id: 'comprar', rotulo: 'Comprar' },
       { id: 'vender', rotulo: 'Vender' },
       { id: 'reparar', rotulo: 'Reparar' },
+      { id: 'fabricar', rotulo: 'Usar a bancada' },
       { id: 'dica', rotulo: 'Alguma dica?' },
     ],
     respostas: {
       kit: { novo: 'Barra de portão reforçada, jaqueta de ronda remendada e uma mochila de lona. É o que sobrou do estoque, então cuida.', ok: 'Já te dei o kit. Se quebrou, traz que eu vejo.' },
-      comprar: { demo: 'Hoje a prateleira tá vazia. Volta quando o pessoal trouxer coisa da rua.' },
-      vender: { demo: 'Tudo que você trouxer eu avalio aqui. Mas primeiro você precisa sair e voltar com alguma coisa.' },
-      reparar: { demo: 'Nada pra consertar ainda. Isso é bom sinal.' },
+      comprar: { ok: 'Olha à vontade. Fiado só pra quem já morreu.' },
+      vender: { ok: 'Põe na bancada que eu avalio.' },
+      reparar: { ok: 'Deixa eu ver o estrago.' },
+      fabricar: { ok: 'A bancada é sua. Só não me deixa parafuso espalhado.' },
       dica: { ok: 'Mochila cheia volta pra casa. Quem insiste com mochila cheia não volta.' },
     },
   },
@@ -132,18 +134,20 @@ const DIALOGOS = {
     abertura: f => f.contrato_visto ? 'O rádio não parou. Sempre tem alguém chamando.' : 'Tem um posto sem resposta do outro lado da rua. Antes de pensar em salvar a cidade, vamos descobrir quem ainda tá lá.',
     opcoes: [
       { id: 'trabalho', rotulo: 'Tenho algum trabalho?' },
+      { id: 'entregar', rotulo: 'Entregar o registro' },
       { id: 'ativos', rotulo: 'Ver contratos ativos' },
       { id: 'regiao', rotulo: 'Informações da região' },
     ],
     respostas: {
       trabalho: { novo: 'O posto da rua de cima parou de responder faz dois dias. Anotei o contrato no seu Bipe. O guarda abre o portão quando a rota estiver pronta.', ok: 'Seu contrato tá no Bipe. Não tem pressa, mas também não tem eternidade.' },
-      ativos: { demo: 'Um contrato aberto: o posto da rua de cima. Os outros chegam pelo rádio quando você voltar de lá.' },
+      entregar: { novo: 'Então o posto caiu faz dias e ninguém avisou. Isso muda a ronda. Toma, é o combinado. E fica esperto: o registro fala de alguém trancado no entreposto da rua de cima.', ok: 'Já tenho o registro. Agora o problema é o entreposto.' },
+      ativos: { ok: 'O posto da rua de cima, a ronda do quarteirão e o entreposto. O guarda do portão tem o mapa.' },
       regiao: { ok: 'Quarteirão da Entrada: muito errante e pouca coisa boa. Dá sucata leve e tecido, pra quem tiver paciência.' },
     },
   },
   guarda: {
-    abertura: () => 'Portão fechado até a rota da rua de cima estar marcada. Ordem do Bashar.',
-    opcoes: [{ id: 'mapa', rotulo: 'Ver o mapa de rotas', local: 'A primeira rota sai daqui pro Quarteirão da Entrada. Ela abre na próxima etapa do projeto.' }],
+    abertura: f => !f.kit_recebido ? 'Sem kit ninguém passa. Fala com o Wolf na oficina.' : !f.contrato_visto ? 'Portão fechado até o Bashar te dar um contrato. Ordem dele.' : 'Quer sair? Escolhe a rota e eu abro. Mochila cheia, você volta.',
+    opcoes: [{ id: 'mapa', rotulo: 'Ver o mapa de rotas', abre: 'rotas' }],
     respostas: {},
   },
 };
@@ -153,7 +157,11 @@ const OBJETIVOS = [
   { id: 'T01', titulo: 'Registro de chegada', texto: 'Fale com o Prefeito na administração.', feito: f => !!f.registrado },
   { id: 'T02', titulo: 'Ferramenta na mão', texto: 'Pegue seu kit com o Wolf, na oficina.', feito: f => !!f.kit_recebido },
   { id: 'T03', titulo: 'O rádio ainda chama', texto: 'Peça um trabalho ao Bashar na central de rádio.', feito: f => !!f.contrato_visto },
-  { id: 'T04', titulo: 'Do lado de fora', texto: 'A primeira rota abre na próxima etapa do projeto.', feito: () => false, futuro: true },
+  { id: 'T04', titulo: 'Do lado de fora', texto: 'Fale com o Guarda no portão e faça a rota da Rua de Cima.', feito: f => !!f.rota1_concluida },
+  { id: 'T05', titulo: 'O posto respondeu', texto: 'Entregue o registro de rota ao Bashar.', feito: f => !!f.registro_entregue },
+  { id: 'T06', titulo: 'Nada se perde', texto: 'Venda alguma coisa da rua pro Wolf.', feito: f => !!f.vendeu },
+  { id: 'T07', titulo: 'O dono do entreposto', texto: 'Vença o Porteiro na rota do Entreposto. Vá bem equipado.', feito: f => !!f.porteiro_vencido },
+  { id: 'T08', titulo: 'Mais longe', texto: 'As próximas áreas chegam nas próximas etapas.', feito: () => false, futuro: true },
 ];
 
 PZ.mundo = { T, LARG, ALT, chao, OBJ, NPCS, MORADORES, SPAWN, DIALOGOS, OBJETIVOS };

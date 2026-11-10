@@ -74,3 +74,46 @@ CREATE TABLE IF NOT EXISTS admin_audit (
   criado INTEGER NOT NULL
 );
 CREATE INDEX IF NOT EXISTS audit_data ON admin_audit(criado);
+
+-- Depois da Queda, etapa 2: estoque, equipamento, expedições e recibos
+CREATE TABLE IF NOT EXISTS game_inventory (
+  discord_id TEXT NOT NULL,
+  item TEXT NOT NULL,
+  qtd INTEGER NOT NULL DEFAULT 0 CHECK (qtd >= 0),
+  PRIMARY KEY (discord_id, item)
+);
+CREATE TABLE IF NOT EXISTS game_equipment (
+  id TEXT PRIMARY KEY,
+  discord_id TEXT NOT NULL,
+  item TEXT NOT NULL,
+  condicao INTEGER NOT NULL DEFAULT 100,
+  equipado INTEGER NOT NULL DEFAULT 0,
+  criado INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS equip_dono ON game_equipment(discord_id);
+CREATE TABLE IF NOT EXISTS game_expeditions (
+  id TEXT PRIMARY KEY,
+  discord_id TEXT NOT NULL,
+  rota TEXT NOT NULL,
+  semente INTEGER NOT NULL,
+  regras INTEGER NOT NULL,
+  inicio INTEGER NOT NULL,
+  fim INTEGER NOT NULL,
+  status TEXT NOT NULL,
+  sim TEXT NOT NULL,
+  resultado TEXT,
+  encerrada_em INTEGER
+);
+-- uma expedição por personagem de cada vez: o banco recusa a segunda
+CREATE UNIQUE INDEX IF NOT EXISTS exp_ativa ON game_expeditions(discord_id) WHERE status IN ('andamento', 'premiando');
+CREATE INDEX IF NOT EXISTS exp_dono ON game_expeditions(discord_id, inicio);
+-- recibo de cada ação econômica: garante que um clique repetido não vale duas vezes
+CREATE TABLE IF NOT EXISTS game_ledger (
+  id TEXT PRIMARY KEY,
+  discord_id TEXT NOT NULL,
+  tipo TEXT NOT NULL,
+  dados TEXT NOT NULL,
+  estado TEXT NOT NULL,
+  criado INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS ledger_dono ON game_ledger(discord_id, criado);
