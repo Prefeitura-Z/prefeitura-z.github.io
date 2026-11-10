@@ -35,7 +35,7 @@ jobs:
           PTERO_SFTP_PORT: ${{ secrets.PTERO_SFTP_PORT }}
           PTERO_SFTP_USER: ${{ secrets.PTERO_SFTP_USER }}
           PTERO_SFTP_PASS: ${{ secrets.PTERO_SFTP_PASS }}
-          SITE_API: ${{ vars.SITE_API }}
+          SITE_API: https://prz-site.prefeituraz.workers.dev
           SITE_BRIDGE_SECRET: ${{ secrets.SITE_BRIDGE_SECRET }}
         run: |
           if [ -n "$PTERO_SFTP_HOST" ]; then python -m pip install -q paramiko==3.5.0; fi

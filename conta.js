@@ -1,6 +1,6 @@
 // Conta do site: login com Discord e compras com PRZcoins (API no Cloudflare Workers).
 // Enquanto CONTA_API estiver vazio, o login fica escondido e a loja só mostra a vitrine.
-const CONTA_API = '';
+const CONTA_API = 'https://prz-site.prefeituraz.workers.dev';
 
 const Conta = {
   ativo: !!CONTA_API,
