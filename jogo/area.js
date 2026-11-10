@@ -26,7 +26,8 @@ const OBJ = [];
 const obj = (tipo, x, y, w = 1, d = 1, extra = {}) => OBJ.push({ tipo, x, y, w, d, solido: true, ...extra });
 
 // muro do abrigo, com o portão aberto pra rua
-for (let y = 0; y <= 25; y++) if (y < 11 || y > 13) obj('muro', 1, y);
+obj('muro',1,0,1,11,{trecho:{eixo:'y',de:0,ate:10.5,linha:1.5}});
+obj('muro',1,14,1,12,{trecho:{eixo:'y',de:14.5,ate:26,linha:1.5}});
 obj('pilar', 1, 10); obj('pilar', 1, 14);
 obj('sacos', 2, 10); obj('sacos', 2, 14);
 

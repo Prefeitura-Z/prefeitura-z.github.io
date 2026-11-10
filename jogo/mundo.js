@@ -31,15 +31,25 @@ preencher(T.CASCALHO, 19, 10, 20, 14);
 const OBJ = [];
 const obj = (tipo, x, y, w = 1, d = 1, extra = {}) => OBJ.push({ tipo, x, y, w, d, solido: true, ...extra });
 
-// muro remendado em volta, um bloco por célula pra ordenar certo
-for (let x = 6; x <= 33; x++) { obj('muro', x, 7); if (x < 17 || x > 21) obj('muro', x, 33); }
-for (let y = 8; y <= 32; y++) { obj('muro', 6, y); obj('muro', 33, y); }
+// Trechos contínuos, com eixos e encontros explícitos. O motor fatia só o desenho.
+obj('muro', 6, 7, 28, 1, { trecho: { eixo: 'x', de: 6.5, ate: 33.5, linha: 7.5 } });
+obj('muro', 6, 33, 11, 1, { trecho: { eixo: 'x', de: 6.5, ate: 17.5, linha: 33.5 } });
+obj('muro', 22, 33, 12, 1, { trecho: { eixo: 'x', de: 21.5, ate: 33.5, linha: 33.5 } });
+obj('muro', 6, 8, 1, 25, { trecho: { eixo: 'y', de: 7.5, ate: 33.5, linha: 6.5 } });
+obj('muro', 33, 8, 1, 25, { trecho: { eixo: 'y', de: 7.5, ate: 33.5, linha: 33.5 } });
+for (const [x, y] of [[6, 7], [33, 7], [6, 33], [33, 33]]) obj('cantoMuro', x, y, 1, 1, { solido: false });
 obj('pilar', 17, 33); obj('pilar', 21, 33);
 obj('portao', 18, 33, 3, 1);
 obj('guarita', 22, 34, 2, 2);
 obj('sacos', 16, 31); obj('sacos', 22, 31); obj('sacos', 16, 30);
 
 // administração (Prefeito)
+// Paredes abertas para o pátio, com colisão correspondente à arte.
+obj('paredeAbrigo', 7, 8, 7, 1, { placa: 'ADMINISTRAÇÃO', cor: '#776e5e', trecho: { eixo: 'x', de: 7.5, ate: 14, linha: 8.5 } });
+obj('paredeAbrigo', 7, 9, 1, 6, { cor: '#776e5e', trecho: { eixo: 'y', de: 8.5, ate: 15, linha: 7.5 } });
+obj('paredeAbrigo', 25, 8, 8, 1, { placa: 'OFICINA DO WOLF', cor: '#706650', trecho: { eixo: 'x', de: 25, ate: 33.5, linha: 8.5 } });
+obj('paredeAbrigo', 7, 16, 7, 1, { placa: 'CENTRAL DE RÁDIO', cor: '#566963', trecho: { eixo: 'x', de: 7.5, ate: 14, linha: 16.5 } });
+obj('paredeAbrigo', 7, 17, 1, 6, { cor: '#566963', trecho: { eixo: 'y', de: 16.5, ate: 23, linha: 7.5 } });
 obj('mesa', 10, 11, 3, 1);
 obj('arquivo', 8, 9); obj('arquivo', 8, 10); obj('estante', 9, 9, 2, 1);
 obj('caixas', 13, 9); obj('caixas', 12, 9);

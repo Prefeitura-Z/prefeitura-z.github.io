@@ -109,7 +109,8 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .lateral { top: 64px; right: 12px; width: min(340px, calc(100% - 24px)); max-height: calc(100% - 80px); overflow: auto; }
 
 .conversa { left: 50%; bottom: 16px; transform: translateX(-50%); width: min(720px, calc(100% - 24px)); display: grid; grid-template-columns: 96px 1fr; gap: 16px; border-color: var(--lona); }
-#conversa-retrato { width: 96px; height: 90px; image-rendering: pixelated; background: var(--carvao3); border-radius: 6px; border: 1px solid var(--linha); }
+#conversa-retrato { width: 96px; height: 96px; image-rendering: auto; background: var(--carvao3); border-radius: 6px; border: 1px solid var(--linha); }
+.hud-menu img { image-rendering: pixelated; flex-shrink: 0; }
 .conversa h2 small { font: 500 12px var(--mono); color: var(--luz); text-transform: none; letter-spacing: 0; margin-left: 6px; }
 #conversa-fala { margin: 6px 0 10px; font-size: 16px; min-height: 2.9em; }
 .tag { display: inline-block; font: 500 11px var(--mono); color: var(--luz); border: 1px dashed #6b5a35; border-radius: 4px; padding: 2px 6px; margin-bottom: 10px; }
@@ -160,7 +161,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   .demo-aviso { top: auto; bottom: 64px; left: 8px; font-size: 11px; }
   [data-tela="tela-jogo"] .perto:not([hidden]) ~ .demo-aviso { display: none; }
   .conversa { grid-template-columns: 56px 1fr; gap: 10px; bottom: 60px; padding: 12px; max-height: calc(100% - 140px); overflow: auto; }
-  #conversa-retrato { width: 56px; height: 52px; }
+  #conversa-retrato { width: 56px; height: 56px; }
   .opcoes kbd { display: none; }
   .lateral { top: auto; bottom: 60px; left: 8px; right: 8px; width: auto; max-height: 60%; }
   .torrada { top: auto; bottom: 110px; }
@@ -218,3 +219,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   .exp-barras { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .abas button { padding: 7px 8px; }
 }
+
+/* Imagens de itens mantêm os rótulos, quantidades e ações da fase1. */
+.icone-item{width:48px;height:48px;flex:0 0 48px;image-rendering:pixelated;object-fit:contain;background:#111a1680;border:1px solid #77836150;border-radius:6px;padding:3px}.lista li>.icone-item+span{flex:1;min-width:0}.lista li{align-items:center}
+@media(max-width:600px){.icone-item{width:40px;height:40px;flex-basis:40px}.lista li{gap:8px}}

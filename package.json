@@ -1,0 +1,15 @@
+{
+  "name": "prefeitura-z-jogo-arte",
+  "version": "1.4.0",
+  "private": true,
+  "description": "Ferramentas de arte e homologação local do jogo Prefeitura Z",
+  "scripts": {
+    "assets:build": "node scripts/exportar-arte.cjs",
+    "verify:arte": "node scripts/verificar-arte.cjs",
+    "verify:fase1": "node scripts/verificar-fase1.cjs",
+    "preview:jogo": "node scripts/servir-jogo-teste.cjs"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "0.1.100"
+  }
+}

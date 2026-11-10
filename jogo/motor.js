@@ -29,12 +29,20 @@ class Motor {
     this.t = 0;
     this.chao = A.desenharChao(mundo);
     this.solido = new Uint8Array(mundo.LARG * mundo.ALT);
-    for (let i = 0; i < this.solido.length; i++) if (mundo.chao[i] === mundo.T.AGUA) this.solido[i] = 1;
-    this.estaticos = mundo.OBJ.map(o => {
-      if (o.solido) for (let y = o.y; y < o.y + o.d; y++) for (let x = o.x; x < o.x + o.w; x++) this.marcar(x, y);
-      // profundidade pelo centro da base: quem está na frente de uma mesa larga fica na frente dela
-      return { ...o, prof: o.x + o.w / 2 + o.y + o.d / 2 + 0.49, caixa: A.caixaTela(o), alto: A.ALTOS.has(o.tipo) };
-    });
+    this.solidoFisico = new Uint8Array(mundo.LARG * mundo.ALT);
+    this.colisoresParede = [];
+    for (let i = 0; i < this.solido.length; i++) if (mundo.chao[i] === mundo.T.AGUA) this.solido[i] = this.solidoFisico[i] = 1;
+    for (const o of mundo.OBJ) {
+      if (!o.solido) continue;
+      const parede = A.geometriaParede?.(o);
+      if (parede) this.colisoresParede.push(parede);
+      for (let y = o.y; y < o.y + o.d; y++) for (let x = o.x; x < o.x + o.w; x++) this.marcar(x, y, !parede);
+    }
+    // Ordenação por segmentos curtos evita uma parede inteira saltar à frente do ator.
+    this.estaticos = mundo.OBJ.flatMap(o => A.partesDesenho?.(o) || [o]).map(o => ({
+      ...o, prof: A.profundidadeObjeto ? A.profundidadeObjeto(o) : o.x + o.w / 2 + o.y + o.d / 2 + 0.49,
+      caixa: A.caixaTela(o), alto: A.ALTOS.has(o.tipo),
+    }));
     this.luzes = mundo.OBJ.filter(o => ['poste', 'pilar', 'fogueira', 'mesa'].includes(o.tipo)).map(o => {
       const p = A.iso(o.x + o.w / 2, o.y + o.d / 2), h = A.ALTURA[o.tipo];
       return { x: p.x + (o.tipo === 'poste' ? 9 : 0), y: p.y - (o.tipo === 'fogueira' ? 8 : o.tipo === 'mesa' ? h + 6 : h - 2), r: o.tipo === 'fogueira' ? 90 : o.tipo === 'mesa' ? 50 : 70 };
@@ -64,12 +72,24 @@ class Motor {
     requestAnimationFrame(t => this.quadro(t));
   }
 
-  marcar(x, y) { if (x >= 0 && y >= 0 && x < this.m.LARG && y < this.m.ALT) this.solido[y * this.m.LARG + x] = 1; }
+  marcar(x, y, fisico = true) {
+    if (x < 0 || y < 0 || x >= this.m.LARG || y >= this.m.ALT) return;
+    const i = y * this.m.LARG + x;
+    this.solido[i] = 1;
+    if (fisico) this.solidoFisico[i] = 1;
+  }
   bloqueado(cx, cy) { return cx < 0 || cy < 0 || cx >= this.m.LARG || cy >= this.m.ALT || this.solido[cy * this.m.LARG + cx] === 1; }
   livre(x, y) {
+    if (x - RAIO < 0 || y - RAIO < 0 || x + RAIO > this.m.LARG || y + RAIO > this.m.ALT) return false;
+    // A colisão das paredes usa a mesma espessura que aparece no desenho.
+    for (const r of this.colisoresParede) {
+      if (x + RAIO < r.x || x - RAIO > r.x + r.w || y + RAIO < r.y || y - RAIO > r.y + r.d) continue;
+      const nx = Math.max(r.x, Math.min(x, r.x + r.w)), ny = Math.max(r.y, Math.min(y, r.y + r.d));
+      if ((x - nx) ** 2 + (y - ny) ** 2 < RAIO * RAIO) return false;
+    }
     for (let cy = Math.floor(y - RAIO); cy <= Math.floor(y + RAIO); cy++)
       for (let cx = Math.floor(x - RAIO); cx <= Math.floor(x + RAIO); cx++) {
-        if (!this.bloqueado(cx, cy)) continue;
+        if (!this.solidoFisico[cy * this.m.LARG + cx]) continue;
         // círculo contra quadrado da célula
         const nx = Math.max(cx, Math.min(x, cx + 1)), ny = Math.max(cy, Math.min(y, cy + 1));
         if ((x - nx) ** 2 + (y - ny) ** 2 < RAIO * RAIO) return false;
@@ -136,7 +156,7 @@ class Motor {
     // NPC tem prioridade: clicar no corpo dele conta, mesmo com chão ou objeto atrás
     const npc = this.npcs.filter(n => {
       const p = A.iso(n.px, n.py);
-      return w.sx > p.x - 12 && w.sx < p.x + 12 && w.sy > p.y - 58 && w.sy < p.y + 4;
+      return w.sx > p.x - A.QW * .45 && w.sx < p.x + A.QW * .45 && w.sy > p.y - (A.PY - 4) && w.sy < p.y + 4;
     }).sort((a, b) => (b.px + b.py) - (a.px + a.py))[0];
     if (npc) {
       if (this.dist(npc) <= ALCANCE) { this.p.caminho = null; this.op.interagir(npc); return; }
@@ -191,6 +211,7 @@ class Motor {
   atualizar(dt) {
     this.t += dt;
     const p = this.p;
+    const passoX=p.x,passoY=p.y;
     let vx = 0, vy = 0;
     if (!this.pausado) {
       let sx = 0, sy = 0;
@@ -202,7 +223,11 @@ class Motor {
       } else if (p.caminho && p.caminho.length) {
         const alvo = p.caminho[0], dx = alvo.x - p.x, dy = alvo.y - p.y, d = Math.hypot(dx, dy);
         if (d < 0.08) { p.caminho.shift(); if (!p.caminho.length) { p.caminho = null; const f = p.aoChegar; p.aoChegar = null; if (f) f(); } }
-        else { vx = dx / d * VEL; vy = dy / d * VEL; }
+        else {
+          // Não ultrapassar o ponto da rota em um frame lento e oscilar ao redor dele.
+          const velocidade = Math.min(VEL, d / Math.max(dt, 1e-6));
+          vx = dx / d * velocidade; vy = dy / d * velocidade;
+        }
       }
     }
     p.anda = false;
@@ -214,6 +239,7 @@ class Motor {
     }
 
     if (this.op.roteiro) this.op.roteiro(this, dt);
+    this.animarPassos(p,Math.hypot(p.x-passoX,p.y-passoY));
 
     // NPC mais perto no alcance
     let perto = null, melhor = ALCANCE;
@@ -222,10 +248,11 @@ class Motor {
     for (const n of this.npcs) n.dirAtual = this.dist(n) < 3.2 && !n.trabalha ? (dirDe(this.p.x - n.px, this.p.y - n.py) || n.dirBase) : n.dirBase;
 
     for (const mo of this.moradores) {
-      if (mo.espera > 0) { mo.espera -= dt; mo.anda = false; continue; }
+      if (mo.espera > 0) { mo.espera -= dt; mo.anda = false; mo.faseAndar=0; continue; }
       const [tx, ty] = mo.rota[mo.alvo], dx = tx + 0.5 - mo.px, dy = ty + 0.5 - mo.py, d = Math.hypot(dx, dy);
       if (d < 0.05) { mo.alvo = (mo.alvo + 1) % mo.rota.length; mo.espera = 1.5 + Math.random() * 2; continue; }
       const v = Math.min(d, 1.3 * dt); mo.px += dx / d * v; mo.py += dy / d * v; mo.dir = dirDe(dx, dy) || mo.dir; mo.anda = true;
+      this.animarPassos(mo,v);
     }
 
     // outros jogadores: a rede manda a posição 5x por segundo; aqui o boneco anda até ela
@@ -234,6 +261,7 @@ class Motor {
       if (d > 5) { o.px = o.tx; o.py = o.ty; o.anda = false; o.dir = o.dirRede; }
       else if (d > 0.03) { const v = Math.min(d, VEL * 1.25 * dt); o.px += dx / d * v; o.py += dy / d * v; o.dir = dirDe(dx, dy) || o.dir; o.anda = true; }
       else { o.anda = false; o.dir = o.dirRede; }
+      this.animarPassos(o,d>5?0:Math.min(d,VEL*1.25*dt));
     }
     this.op.posicao?.(p, performance.now());
 
@@ -248,7 +276,7 @@ class Motor {
     // câmera segue com suavização e não mostra além do mapa
     const ps = A.iso(p.x, p.y), alvoX = ps.x, alvoY = ps.y - 30;
     const k = this.reduzir ? 1 : 1 - Math.exp(-dt * 6);
-    this.cam.x += (alvoX - this.cam.x) * k; this.cam.y += (alvoY - this.cam.y) * k;
+    if (!this.cam.fixa) { this.cam.x += (alvoX - this.cam.x) * k; this.cam.y += (alvoY - this.cam.y) * k; }
     const meiaW = this.W / 2 / this.zoom, meiaH = this.H / 2 / this.zoom;
     const minX = A.iso(0, this.m.ALT).x + meiaW, maxX = A.iso(this.m.LARG, 0).x - meiaW;
     const minY = -40 + meiaH, maxY = A.iso(this.m.LARG, this.m.ALT).y - meiaH;
@@ -260,6 +288,12 @@ class Motor {
     const fs = folha[dir][estado];
     return fs[Math.max(0, Math.floor(this.t * ritmo)) % fs.length];
   }
+
+  animarPassos(ator,distancia) {
+    if(!ator.anda||distancia>2){ator.faseAndar=0;return;}
+    ator.faseAndar=((ator.faseAndar||0)+distancia/2.65)%1;
+  }
+  quadroAndando(folha,dir,ator){const fs=folha[dir].anda;return fs[Math.floor((ator.faseAndar||0)*fs.length)%fs.length];}
 
   desenhar() {
     const g = this.g, z = this.zoom, d = this.dpr;
@@ -288,7 +322,7 @@ class Motor {
     for (const a of this.atores) lista.push({ prof: a.x + a.y, extra: a });
     lista.sort((a, b) => a.prof - b.prof);
 
-    const ps = A.iso(p.x, p.y), jb = { x0: ps.x - 11, x1: ps.x + 11, y0: ps.y - 56, y1: ps.y };
+    const ps = A.iso(p.x, p.y), jb = { x0: ps.x - A.QW * .38, x1: ps.x + A.QW * .38, y0: ps.y - (A.PY - 4), y1: ps.y };
     const tt = this.reduzir ? 0 : this.t;
     for (const it of lista) {
       if (it.o) {
@@ -301,7 +335,7 @@ class Motor {
         this.sombra(g, p.x, p.y);
         if (p.caido) { g.save(); g.translate(Math.round(ps.x), Math.round(ps.y - 6)); g.rotate(Math.PI / 2); g.drawImage(p.folha[p.dir].parado[0], -A.PX, -A.PY + 10); g.restore(); continue; }
         const est = p.estado || (p.anda ? 'anda' : 'parado');
-        const q = p.quadro != null ? p.folha[p.dir][est][p.quadro] : this.quadroDe(p.folha, p.dir, est, est === 'anda' ? 10 : est === 'trabalha' ? 6 : 4);
+        const q = p.quadro != null ? p.folha[p.dir][est][p.quadro] : est==='anda'?this.quadroAndando(p.folha,p.dir,p):this.quadroDe(p.folha, p.dir, est, est === 'trabalha' ? 6 : 4);
         g.drawImage(q, Math.round(ps.x - A.PX), Math.round(ps.y - A.PY));
       } else if (it.extra) {
         const a = it.extra, c = A.iso(a.x, a.y), e = a.escala || 1;
@@ -318,7 +352,7 @@ class Motor {
       } else {
         const mo = it.mor, c = A.iso(mo.px, mo.py);
         this.sombra(g, mo.px, mo.py);
-        g.drawImage(this.quadroDe(mo.folha, mo.dir, mo.anda ? 'anda' : 'parado', mo.anda ? 8 : 4), Math.round(c.x - A.PX), Math.round(c.y - A.PY));
+        g.drawImage(mo.anda?this.quadroAndando(mo.folha,mo.dir,mo):this.quadroDe(mo.folha,mo.dir,'parado',4), Math.round(c.x - A.PX), Math.round(c.y - A.PY));
       }
     }
 
@@ -344,7 +378,7 @@ class Motor {
     g.setTransform(d, 0, 0, d, 0, 0);
     g.textAlign = 'center';
     for (const n of this.npcs) {
-      const s = this.paraTela(n.px, n.py, 64);
+      const s = this.paraTela(n.px, n.py, A.PY + 4);
       if (s.x < -50 || s.x > this.W + 50 || s.y < -20 || s.y > this.H + 80) continue;
       const ativo = n === this.perto;
       g.font = '600 12px Inter, system-ui, sans-serif';
@@ -355,14 +389,14 @@ class Motor {
         g.font = '500 11px "IBM Plex Mono", monospace';
         const msg = 'E · conversar';
         const lw = g.measureText(msg).width + 12;
-        g.fillStyle = 'rgba(20,22,20,.85)'; g.fillRect(Math.round(s.x - lw / 2), Math.round(s.y + 8), Math.round(lw), 18);
-        g.fillStyle = '#f1eee5'; g.fillText(msg, s.x, s.y + 21);
+        g.fillStyle = 'rgba(20,22,20,.85)'; g.fillRect(Math.round(s.x - lw / 2), Math.round(s.y - 39), Math.round(lw), 18);
+        g.fillStyle = '#f1eee5'; g.fillText(msg, s.x, s.y - 26);
       }
     }
     // nomes dos outros jogadores: mais discretos que os dos NPCs, com a etiqueta da equipe quando tiver
     g.font = '500 11px Inter, system-ui, sans-serif';
     for (const o of this.outros.values()) {
-      const s = this.paraTela(o.px, o.py, 62);
+      const s = this.paraTela(o.px, o.py, A.PY+4);
       if (s.x < -60 || s.x > this.W + 60 || s.y < -20 || s.y > this.H + 80) continue;
       const tag = ETIQUETA[o.papel], txt = tag ? `${o.nome} · ${tag}` : o.nome;
       const larg = g.measureText(txt).width + 12;

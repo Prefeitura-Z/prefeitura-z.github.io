@@ -60,6 +60,8 @@ function mostrar(id) { for (const t of TELAS) $(t).hidden = t !== id; document.b
 let estado = null, motor = null, catalogo = null, cena = null;
 
 async function iniciar() {
+  // Carrega sprites e retratos; o desenho local permanece como fallback.
+  await A.carregarAssets?.();
   // volta do login: /jogo/#token=...
   const h = new URLSearchParams(location.hash.slice(1));
   if (h.get('token')) Token.salvar(h.get('token'));
@@ -102,7 +104,7 @@ const sorteio = arr => arr[Math.floor(Math.random() * arr.length)][0];
 let ap = null, origem = 'batedor', previaT = 0, previaDir = 0;
 
 function abrirCriacao() {
-  ap = { corpo: sorteio(OPCOES.corpo), pele: sorteio(OPCOES.pele), cabelo: sorteio(OPCOES.cabelo), corCabelo: sorteio(OPCOES.corCabelo), roupa: 'jaqueta' };
+  ap = {...A.perfisExportacao.sobrevivente_jaqueta};
   const grupos = { corpo: 'Corpo', pele: 'Tom de pele', cabelo: 'Cabelo', corCabelo: 'Cor do cabelo', roupa: 'Roupa inicial' };
   $('opcoes-aparencia').innerHTML = Object.entries(grupos).map(([k, rot]) => `
     <fieldset class="grupo"><legend>${rot}</legend><div class="escolhas ${k === 'pele' || k === 'corCabelo' ? 'amostras' : ''}">
@@ -116,12 +118,14 @@ function abrirCriacao() {
   requestAnimationFrame(desenharPrevia);
 }
 function marcarEscolhas() {
+  document.querySelectorAll('[data-modelo]').forEach(b=>b.setAttribute('aria-pressed',A.chaveAparencia(ap)===A.chaveAparencia(A.perfisExportacao['sobrevivente_'+b.dataset.modelo])));
   document.querySelectorAll('#opcoes-aparencia [data-k]').forEach(b => b.setAttribute('aria-pressed', ap[b.dataset.k] === b.dataset.v));
   document.querySelectorAll('[data-origem]').forEach(b => b.setAttribute('aria-pressed', b.dataset.origem === origem));
 }
 $('opcoes-aparencia').onclick = e => { const b = e.target.closest('[data-k]'); if (!b) return; ap[b.dataset.k] = b.dataset.v; marcarEscolhas(); };
 $('opcoes-origem').onclick = e => { const b = e.target.closest('[data-origem]'); if (!b) return; origem = b.dataset.origem; marcarEscolhas(); };
 $('btn-girar').onclick = () => { previaDir = (previaDir + 1) % 4; };
+$('modelos-pixel').onclick=e=>{const b=e.target.closest('[data-modelo]');if(!b)return;ap={...A.perfisExportacao['sobrevivente_'+b.dataset.modelo]};marcarEscolhas();};
 $('btn-sortear').onclick = () => { for (const k of ['corpo', 'pele', 'cabelo', 'corCabelo', 'roupa']) ap[k] = sorteio(OPCOES[k]); marcarEscolhas(); };
 
 function desenharPrevia(t) {
@@ -267,6 +271,12 @@ document.querySelectorAll('[data-fechar]').forEach(b => b.onclick = () => fechar
 function retrato(npcAp) {
   const c = $('conversa-retrato'), g = c.getContext('2d');
   g.clearRect(0, 0, c.width, c.height); g.imageSmoothingEnabled = false;
+  const i = ['prefeito', 'wolf', 'bashar'].indexOf(npcAp.roupa);
+  if (A.retratoAtlas && i >= 0) {
+    const w = A.retratoAtlas.width / 3;
+    g.drawImage(A.retratoAtlas, i * w, 0, w, A.retratoAtlas.height, 0, 0, c.width, c.height);
+    return;
+  }
   const q = A.folha(npcAp).SE.parado[0];
   g.drawImage(q, 8, 12, 32, 30, 0, 0, c.width, c.width * 30 / 32);
 }
@@ -337,6 +347,7 @@ async function pedir(botao, msg, fazer) {
   } finally { ocupado = false; if (botao?.isConnected) { botao.disabled = false; botao.removeAttribute('aria-busy'); } }
 }
 const item = id => catalogo.itens[id] || { nome: id, tipo: '' };
+const iconeItem=id=>'<img class="icone-item" src="assets/'+esc(A.arquivoIconeItem(id))+'" alt="" width="48" height="48" loading="lazy" decoding="async">';
 const TIPO = { arma: 'Arma', protecao: 'Proteção', mochila: 'Mochila', ferramenta: 'Ferramenta', material: 'Material', consumivel: 'Consumível', missao: 'Missão' };
 const efeito = d => d.ataque ? `+${d.ataque} de ataque` : d.defesa ? `+${d.defesa} de defesa` : d.capacidade ? `${d.capacidade} de espaço` : d.sucataExtra ? `+${d.sucataExtra} sucata por parada` : '';
 function linhaVoce() {
@@ -432,9 +443,9 @@ function mostrarRelatorio(rel) {
   const li = [];
   li.push(`<li><span><b>+${rel.xp} XP</b>${rel.bonus ? '<small>Inclui o bônus da primeira vez nesta rota</small>' : ''}</span></li>`);
   if (rel.nivelDepois > rel.nivelAntes) li.push(`<li class="destaque"><span><b>Nível ${rel.nivelDepois}</b><small>Mais vida e mais ataque</small></span></li>`);
-  for (const [k, q] of Object.entries(rel.itens || {})) li.push(`<li><span><b>${q} × ${esc(item(k).nome)}</b><small>${esc(TIPO[item(k).tipo] || '')}</small></span></li>`);
-  if (rel.creditos) li.push(`<li><span><b>+${rel.creditos} créditos</b></span></li>`);
-  if (rel.equip) li.push(`<li class="destaque"><span><b>${esc(item(rel.equip).nome)}</b><small>${esc(efeito(item(rel.equip)))} · está no seu armazém, equipe na Mochila</small></span></li>`);
+  for (const [k, q] of Object.entries(rel.itens || {})) li.push(`<li>${iconeItem(k)}<span><b>${q} × ${esc(item(k).nome)}</b><small>${esc(TIPO[item(k).tipo] || '')}</small></span></li>`);
+  if (rel.creditos) li.push(`<li>${iconeItem('creditos')}<span><b>+${rel.creditos} créditos</b></span></li>`);
+  if (rel.equip) li.push(`<li class="destaque">${iconeItem(rel.equip)}<span><b>${esc(item(rel.equip).nome)}</b><small>${esc(efeito(item(rel.equip)))} · está no seu armazém, equipe na Mochila</small></span></li>`);
   const perd = Object.entries(rel.perdidos || {}).map(([k, q]) => `${q} ${item(k).nome}`);
   if (perd.length) li.push(`<li class="vazio"><span>Ficou pra trás por falta de espaço: ${esc(perd.join(', '))}</span></li>`);
   $('relatorio-lista').innerHTML = li.join('');
@@ -453,12 +464,12 @@ function desenharMochila() {
   $('mochila-xp-n').textContent = p.xpProximo ? `Nível ${p.nivel} · ${p.xpNoNivel}/${p.xpProximo} XP` : `Nível ${p.nivel} (máximo)`;
   $('mochila-xp').style.width = `${p.xpProximo ? 100 * p.xpNoNivel / p.xpProximo : 100}%`;
   $('mochila-ferido').hidden = !e.ferido; if (e.ferido) $('mochila-ferido').textContent = textoFerido();
-  $('mochila-equip').innerHTML = e.equipamento.length ? e.equipamento.map(q => { const d = item(q.item); return `<li class="${q.equipado ? 'destaque' : ''}"><span><b>${esc(d.nome)}</b>
+  $('mochila-equip').innerHTML = e.equipamento.length ? e.equipamento.map(q => { const d = item(q.item); return `<li class="${q.equipado ? 'destaque' : ''}">${iconeItem(q.item)}<span><b>${esc(d.nome)}</b>
     <small>${esc(TIPO[d.tipo] || '')} · ${esc(efeito(d))} · condição ${q.condicao}%${q.condicao < 40 ? ' (rendendo menos)' : ''}</small></span>
     <button type="button" class="botao" data-equip="${esc(q.id)}" data-tirar="${q.equipado ? 1 : 0}" ${fora ? 'disabled' : ''}>${q.equipado ? 'Tirar' : 'Equipar'}</button></li>`; }).join('')
     : '<li class="vazio">Nada ainda. O Wolf tem um kit separado pra você na oficina.</li>';
   const itens = Object.entries(e.itens);
-  $('mochila-itens').innerHTML = itens.length ? itens.map(([k, q]) => { const d = item(k); return `<li><span><b>${q} × ${esc(d.nome)}</b><small>${esc(d.desc || '')}</small></span>
+  $('mochila-itens').innerHTML = itens.length ? itens.map(([k, q]) => { const d = item(k); return `<li>${iconeItem(k)}<span><b>${q} × ${esc(d.nome)}</b><small>${esc(d.desc || '')}</small></span>
     ${k === 'curativo' && e.ferido && !fora ? '<button type="button" class="botao primario" data-usar="curativo">Usar</button>' : ''}</li>`; }).join('')
     : '<li class="vazio">Vazio. O que você trouxer da rua fica guardado aqui.</li>';
   if (fora) $('mochila-msg').textContent = 'Você está na rua: dá pra olhar, mas trocar equipamento só no abrigo.';
@@ -480,22 +491,22 @@ function desenharLoja() {
   $('loja-creditos').textContent = `${cr} créditos`;
   document.querySelectorAll('#loja-abas [data-aba]').forEach(b => b.setAttribute('aria-selected', b.dataset.aba === abaLoja));
   let h = '';
-  if (abaLoja === 'comprar') h = catalogo.loja.map(k => { const d = item(k); return `<li><span><b>${esc(d.nome)}</b><small>${esc([TIPO[d.tipo], efeito(d), d.desc].filter(Boolean).join(' · '))}</small></span>
+  if (abaLoja === 'comprar') h = catalogo.loja.map(k => { const d = item(k); return `<li>${iconeItem(k)}<span><b>${esc(d.nome)}</b><small>${esc([TIPO[d.tipo], efeito(d), d.desc].filter(Boolean).join(' · '))}</small></span>
     <button type="button" class="botao" data-loja="comprar" data-item="${esc(k)}" ${cr < d.compra ? 'disabled title="Faltam créditos"' : ''}>${d.compra} créditos</button></li>`; }).join('');
   else if (abaLoja === 'vender') {
     const v = Object.entries(e.itens).filter(([k]) => item(k).venda);
-    h = v.length ? v.map(([k, q]) => { const d = item(k); return `<li><span><b>${q} × ${esc(d.nome)}</b><small>${d.venda} créditos cada</small></span><span class="acoes">
+    h = v.length ? v.map(([k, q]) => { const d = item(k); return `<li>${iconeItem(k)}<span><b>${q} × ${esc(d.nome)}</b><small>${d.venda} créditos cada</small></span><span class="acoes">
       <button type="button" class="botao" data-loja="vender" data-item="${esc(k)}" data-qtd="1">Vender 1</button>
       ${q > 1 ? `<button type="button" class="botao" data-loja="vender" data-item="${esc(k)}" data-qtd="${q}">Vender tudo (+${q * d.venda})</button>` : ''}</span></li>`; }).join('')
       : '<li class="vazio">Nada pra vender. Sucata, tecido e peças vêm da rua.</li>';
   } else if (abaLoja === 'reparar') {
     const g = e.equipamento.filter(q => q.condicao < 100);
-    h = g.length ? g.map(q => { const custo = Math.ceil((100 - q.condicao) * catalogo.reparoPorPonto); return `<li><span><b>${esc(item(q.item).nome)}</b><small>Condição ${q.condicao}%${q.equipado ? ' · equipado' : ''}</small></span>
+    h = g.length ? g.map(q => { const custo = Math.ceil((100 - q.condicao) * catalogo.reparoPorPonto); return `<li>${iconeItem(q.item)}<span><b>${esc(item(q.item).nome)}</b><small>Condição ${q.condicao}%${q.equipado ? ' · equipado' : ''}</small></span>
       <button type="button" class="botao" data-loja="reparar" data-id="${esc(q.id)}" ${cr < custo ? 'disabled title="Faltam créditos"' : ''}>Consertar por ${custo}</button></li>`; }).join('')
       : '<li class="vazio">Tudo inteiro. Equipamento gasto bate e protege menos, então volte depois das saídas.</li>';
   } else h = Object.entries(catalogo.receitas).map(([k, r]) => {
     const pode = Object.entries(r.gasta).every(([m, n]) => (e.itens[m] || 0) >= n);
-    return `<li><span><b>${esc(r.nome)}</b><small>Gasta ${esc(Object.entries(r.gasta).map(([m, n]) => `${n} ${item(m).nome.toLowerCase()} (você tem ${e.itens[m] || 0})`).join(' e '))}</small></span>
+    return `<li>${iconeItem(k)}<span><b>${esc(r.nome)}</b><small>Gasta ${esc(Object.entries(r.gasta).map(([m, n]) => `${n} ${item(m).nome.toLowerCase()} (você tem ${e.itens[m] || 0})`).join(' e '))}</small></span>
       <button type="button" class="botao" data-loja="fabricar" data-receita="${esc(k)}" ${pode ? '' : 'disabled title="Falta material"'}>Fazer</button></li>`; }).join('');
   $('loja-lista').innerHTML = h;
 }
