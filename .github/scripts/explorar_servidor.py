@@ -31,6 +31,11 @@ def walk(p, depth, filtro=None, maxn=400):
     rec(p, 0)
     for f, sz in out[:maxn]: print(f"  {f}  {sz}")
 
+if os.environ.get("BUSCA") == "dirs":
+    for a in s.listdir_attr(ws := "/steamapps/workshop/content/108600"):
+        try: print(a.filename, "->", ", ".join(sorted(s.listdir(f"{ws}/{a.filename}/mods"))))
+        except Exception as e: print(a.filename, e)
+    sys.exit(0)
 extra = [x for x in (os.environ.get("LISTAR") or "").split(";") if x.strip()]
 if extra:
     for e in extra:
