@@ -100,6 +100,21 @@ p{color:var(--muted);line-height:1.75}
 .faction:hover{background:#ffffff06}
 .faction:hover>svg{color:var(--accent)}
 
+.game-banner{margin:28px var(--gut) 0;display:grid;grid-template-columns:1fr 1.25fr;border:1px solid var(--border);background:var(--surface);overflow:hidden}
+.game-text{padding:28px;display:flex;flex-direction:column;justify-content:center}
+.game-text h2{font-size:26px}
+.game-text p{font-size:13px;max-width:400px}
+.game-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:8px}
+.game-shot{position:relative;display:block;min-height:260px;background:#1b1f1c}
+.game-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;image-rendering:pixelated;transition:transform .5s}
+.game-shot:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--surface),#191c1800 28%)}
+.game-banner:hover .game-shot img{transform:scale(1.03)}
+.jogo-ficha{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.jogo-ficha canvas{width:72px;height:120px;image-rendering:pixelated;background:var(--surface2);border:1px solid var(--border)}
+.jogo-ficha .nome{font:28px var(--display);text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
+.jogo-ficha .dados{flex:1;min-width:200px}
+.jogo-ficha .dados p{margin:6px 0 0;font-size:13px}
+.jogo-tag{display:inline-block;font:500 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--bg);padding:2px 8px;margin-left:8px;vertical-align:middle}
 .join-section{margin:58px var(--gut)}
 .section-heading .eyebrow{display:block;margin-bottom:12px}
 .section-heading h2{font-size:30px}
@@ -198,6 +213,10 @@ ol.passos b{color:var(--text)}
   .stat{padding-left:22px}
 }
 @media(max-width:760px){
+  .game-banner{grid-template-columns:1fr}
+  .game-shot{min-height:190px;order:-1}
+  .game-shot:after{background:linear-gradient(0deg,var(--surface),#191c1800 35%)}
+  .game-text{padding:20px 16px}
   body{font-size:14px}
   .site-header{min-height:0;flex-wrap:wrap;padding:16px var(--gut) 0;gap:12px}
   .brand img{width:40px;height:44px}
@@ -236,7 +255,7 @@ ol.passos b{color:var(--text)}
   .saldo{border-left:0;padding-left:0}
   table.rank td.n{width:38px}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}a,button{transition:none}.button.primary:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}a,button{transition:none}.button.primary:hover{transform:none}.game-shot img{transition:none}.game-banner:hover .game-shot img{transform:none}}
 .ganhar{display:flex;align-items:center;gap:14px 34px;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;margin:0 0 30px}
 .ganhar>div{display:flex;align-items:baseline;gap:10px}
 .ganhar strong{font:34px var(--display);color:var(--accent);line-height:1}

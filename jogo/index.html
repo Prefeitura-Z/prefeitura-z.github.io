@@ -46,6 +46,7 @@
       </div>
     </div>
     <div class="criar-form">
+      <a class="voltar" href="../">← Prefeitura Z</a>
       <h1>Quem chegou ao portão?</h1>
       <label class="campo" for="nome"><span>Nome</span>
         <input id="nome" name="nome" maxlength="20" autocomplete="off" spellcheck="false" placeholder="Como vão te chamar no abrigo" required>
@@ -67,9 +68,11 @@
 
   <div class="hud-topo">
     <div class="ficha">
+      <a class="hud-site" href="../" title="Voltar pro site da Prefeitura Z"><img src="../img/brasao.png" alt="Site da Prefeitura Z" width="26" height="26"></a>
       <b id="hud-nome"></b><span id="hud-sub"></span><span class="papel" id="hud-papel" hidden></span>
     </div>
     <div class="objetivo" id="objetivo" aria-live="polite"></div>
+    <button type="button" class="online" id="hud-online" hidden disabled></button>
   </div>
   <nav class="hud-menu" aria-label="Menu do jogo">
     <button type="button" id="btn-bipe" title="Bipe (B)">Bipe <kbd>B</kbd></button>
@@ -113,8 +116,11 @@
   <div class="painel centro-painel" id="ajustes" role="dialog" aria-labelledby="ajustes-t" hidden>
     <div class="painel-topo"><h2 id="ajustes-t">Ajustes</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
     <label class="check" for="aj-reduzir"><input type="checkbox" id="aj-reduzir"> Reduzir efeitos (fumaça, balanço das árvores, câmera e ciclo de luz)</label>
+    <label class="check" for="aj-outros"><input type="checkbox" id="aj-outros"> Ver quem está no abrigo e aparecer pros outros jogadores</label>
     <div class="linha"><span>Zoom</span><button type="button" class="botao" id="aj-zoom-menos">−</button><button type="button" class="botao" id="aj-zoom-mais">+</button></div>
+    <p class="links-site"><a href="../">Site da Prefeitura Z</a><a href="../conta.html">Minha conta</a><a href="../mapa/">Mapa de Knox</a></p>
     <button type="button" class="botao perigo" id="btn-sair">Sair da conta</button>
+    <p class="nota">Sair aqui também encerra o login no site.</p>
   </div>
 
   <div class="painel centro-painel largo" id="gestao" role="dialog" aria-labelledby="gestao-t" hidden>
@@ -140,6 +146,7 @@
 <script src="mundo.js"></script>
 <script src="arte.js"></script>
 <script src="motor.js"></script>
+<script src="rede.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

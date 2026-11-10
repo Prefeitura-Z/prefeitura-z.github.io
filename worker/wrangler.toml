@@ -10,3 +10,12 @@ SITE = "https://prefeitura-z.github.io"
 binding = "DB"
 database_name = "prz-site"
 database_id = "COLOCADO_PELO_DEPLOY"
+
+# sala do abrigo: jogadores online se veem (WebSocket). Classe com SQLite roda no plano gratuito.
+[[durable_objects.bindings]]
+name = "ABRIGO"
+class_name = "SalaAbrigo"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["SalaAbrigo"]

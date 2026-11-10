@@ -30,3 +30,16 @@ Crie em Settings → Secrets and variables → Actions → `OWNER_DISCORD_ID`; o
 O proprietário dá e tira os papéis administrador, moderador e suporte pelo painel Gestão (tecla G), sempre com motivo, e tudo fica na auditoria.
 
 Para testar local: `wrangler dev` na pasta `worker` com `SITE=http://localhost:8765`, e abrir `http://localhost:8765/jogo/?api=http://localhost:8787` (o `?api=` só vale em localhost).
+
+## Jogo: jogadores online no abrigo
+
+Quem está no abrigo vê os outros andando, com o nome do personagem (e a etiqueta Dono/Admin/Mod/Suporte quando tiver).
+Isso roda numa sala em Durable Object (`worker/src/sala.js`, ligação `ABRIGO` no `wrangler.toml`), por WebSocket:
+
+- O navegador pede um bilhete de 30 s em `POST /game/presenca/bilhete` (com a sessão) e abre `wss://…/game/presenca?b=…`.
+- Só passam posição, direção e visual. O ID do Discord nunca vai pros outros jogadores. Não tem chat.
+- O servidor limita ritmo, tamanho e velocidade das mensagens, e a mesma conta só fica conectada em um lugar por vez.
+- `GET /game/publico` devolve só quantos estão no abrigo (usado na página inicial).
+- Dá pra desligar em Ajustes → "Ver quem está no abrigo".
+
+As áreas de fora do abrigo não têm presença: cada jogador sai sozinho.

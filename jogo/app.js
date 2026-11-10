@@ -36,6 +36,8 @@ const api = window.PZ_DEMO ? PZ.demoApi() : {
   equipe() { return this.chamar('/game/admin/equipe'); },
   contas(q) { return this.chamar('/game/admin/contas?q=' + encodeURIComponent(q)); },
   papel(b) { return this.chamar('/game/admin/papel', { method: 'POST', body: b }); },
+  async bilhete() { return (await this.chamar('/game/presenca/bilhete', { method: 'POST' })).bilhete; },
+  salaUrl: API.replace(/^http/, 'ws') + '/game/presenca',
   async sair() { try { await fetch(API + '/logout', { method: 'POST', headers: { Authorization: 'Bearer ' + Token.ler() } }); } catch {} Token.salvar(''); },
   entrar() { location.href = API + '/auth/login?volta=jogo'; },
 };
@@ -158,12 +160,35 @@ function entrarNoAbrigo(novo) {
   motor = new PZ.Motor($('cena'), M, {
     aparencia: p.aparencia, reduzir: !!ajustes.reduzir,
     interagir: abrirConversa, perto: mostrarPerto, aviso: torrada,
+    posicao: (pos, agora) => presenca?.posicao(pos, agora),
   });
+  ligarPresenca();
   PZ.motorAtual = motor; // só leitura, ajuda a testar e depurar no console
   atualizarBipe();
   if (novo || !ajustes.viuAjuda) abrirAjuda();
   else $('cena').focus();
 }
+
+// ---------- outros jogadores no abrigo ----------
+let presenca = null;
+function ligarPresenca() {
+  presenca?.desligar(); presenca = null;
+  const el = $('hud-online');
+  if (!api.bilhete || ajustes.verOutros === false) { el.hidden = true; return; }
+  presenca = new PZ.Presenca({ url: api.salaUrl, bilhete: () => api.bilhete(), mudou: mostrarOnline });
+  motor.outros = presenca.outros;
+  presenca.ligar();
+}
+function mostrarOnline(est, n) {
+  const el = $('hud-online');
+  el.hidden = est === 'desligado';
+  el.dataset.estado = est;
+  el.disabled = est !== 'outraAba';
+  el.textContent = est === 'online' ? (n ? `${n + 1} no abrigo` : 'Só você no abrigo')
+    : est === 'outraAba' ? 'Jogo aberto em outro lugar · voltar pra cá' : 'Procurando os outros…';
+  if (est === 'outraAba') torrada('Você abriu o jogo em outra aba. Nesta aqui os outros não te veem mais.');
+}
+$('hud-online').onclick = () => { if (presenca?.estado === 'outraAba') presenca.ligar(); };
 
 function mostrarPerto(npc) {
   const b = $('btn-perto');
@@ -250,7 +275,7 @@ async function escolher(npc, D, op, botao) {
     atualizarBipe();
   } catch (e) {
     falar(e.status === 401 ? 'Sua sessão do site acabou. Entre de novo pra continuar.' : e.message, 'Erro');
-    if (e.status === 401) setTimeout(() => { fecharPainel(); motor?.parar(); mostrar('tela-entrar'); }, 1800);
+    if (e.status === 401) setTimeout(() => { fecharPainel(); presenca?.desligar(); motor?.parar(); mostrar('tela-entrar'); }, 1800);
   } finally { enviando = false; botao.disabled = false; botao.removeAttribute('aria-busy'); }
 }
 
@@ -276,11 +301,12 @@ $('btn-bipe').onclick = abrirBipe;
 function abrirAjuda() { abrirPainel('ajuda'); }
 $('btn-ajuda').onclick = abrirAjuda;
 $('btn-ajuda-ok').onclick = () => { ajustes.viuAjuda = true; salvarAjustes(); fecharPainel(); };
-$('btn-ajustes').onclick = () => { $('aj-reduzir').checked = !!ajustes.reduzir; abrirPainel('ajustes'); };
+$('btn-ajustes').onclick = () => { $('aj-reduzir').checked = !!ajustes.reduzir; $('aj-outros').checked = ajustes.verOutros !== false; $('aj-outros').closest('label').hidden = !api.bilhete; abrirPainel('ajustes'); };
+$('aj-outros').onchange = e => { ajustes.verOutros = e.target.checked; salvarAjustes(); if (motor) { motor.outros = new Map(); ligarPresenca(); } };
 $('aj-reduzir').onchange = e => { ajustes.reduzir = e.target.checked; salvarAjustes(); if (motor) motor.reduzir = ajustes.reduzir; };
 $('aj-zoom-mais').onclick = () => motor?.mudarZoom(1);
 $('aj-zoom-menos').onclick = () => motor?.mudarZoom(-1);
-$('btn-sair').onclick = async () => { fecharPainel(true); motor?.parar(); motor = null; await api.sair(); mostrar('tela-entrar'); };
+$('btn-sair').onclick = async () => { fecharPainel(true); presenca?.desligar(); presenca = null; motor?.parar(); motor = null; await api.sair(); mostrar('tela-entrar'); };
 
 // ---------- gestão ----------
 const NOMES_PAPEL = { jogador: 'Jogador', suporte: 'Suporte', moderador: 'Moderador', administrador: 'Administrador', proprietario: 'Proprietário' };

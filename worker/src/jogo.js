@@ -92,7 +92,42 @@ async function garantirConta(env, u) {
 
 async function ler(req) { try { return await req.json(); } catch { return null; } }
 
-export async function rotasJogo(req, env, u, pathname, json, erro) {
+// ---------- presença no abrigo ----------
+const BILHETE_SEG = 30;
+const chaveBilhete = env => env.DISCORD_CLIENT_SECRET;
+
+// Chamado sem sessão (o navegador não manda cabeçalho em WebSocket). Quem prova a conta é o bilhete
+// assinado pelo servidor, que vale 30 s e só é entregue pra quem tem sessão e personagem.
+export async function entrarNaSala(req, env, hmac, igual) {
+  if (req.headers.get('Upgrade') !== 'websocket') return new Response('Esperava WebSocket.', { status: 426 });
+  if (req.headers.get('Origin') !== env.SITE) return new Response('Origem não permitida.', { status: 403 });
+  if (!env.ABRIGO) return new Response('Presença desligada.', { status: 503 });
+  const [did, exp, assinatura] = String(new URL(req.url).searchParams.get('b') || '').split('.');
+  if (!/^\d{5,25}$/.test(did || '') || !/^\d{10}$/.test(exp || '') || Number(exp) < agora()) return new Response('Bilhete vencido.', { status: 401 });
+  const certo = (await hmac(chaveBilhete(env), `ws.${did}.${exp}`)).slice(0, 40);
+  if (!igual(assinatura || '', certo)) return new Response('Bilhete inválido.', { status: 401 });
+  const c = await env.DB.prepare(
+    "SELECT c.nome, c.aparencia FROM characters c JOIN game_accounts g ON g.discord_id = c.discord_id WHERE c.discord_id = ? AND g.estado = 'ativo'"
+  ).bind(did).first();
+  if (!c) return new Response('Sem personagem.', { status: 403 });
+  const papel = await papelDe(env, did);
+  const h = new Headers(req.headers);
+  h.set('X-PZ-Jogador', encodeURIComponent(JSON.stringify({ did, n: c.nome, ap: JSON.parse(c.aparencia), pp: papel === 'jogador' ? undefined : papel })));
+  return env.ABRIGO.get(env.ABRIGO.idFromName('uniao-da-margem')).fetch(new Request('https://sala/entrar', { headers: h }));
+}
+
+// Número público pro site: quantos estão no abrigo. Sem nomes. O navegador guarda por 30 s.
+export async function abrigoPublico(env, cors) {
+  let n = 0;
+  if (env.ABRIGO) {
+    try { n = (await (await env.ABRIGO.get(env.ABRIGO.idFromName('uniao-da-margem')).fetch('https://sala/contar')).json()).n | 0; } catch { n = 0; }
+  }
+  return new Response(JSON.stringify({ noAbrigo: n }), {
+    headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=30', ...cors },
+  });
+}
+
+export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
   const conta = await garantirConta(env, u);
   if (conta.estado !== 'ativo') return erro(env, 403, 'Sua conta está suspensa no jogo.');
   const papel = await papelDe(env, u.discord_id);
@@ -121,6 +156,13 @@ export async function rotasJogo(req, env, u, pathname, json, erro) {
     const c = await env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(u.discord_id).first();
     if (!r.meta.changes) return json(env, { personagem: personagemPublico(c), jaExistia: true }, 409);
     return json(env, { personagem: personagemPublico(c) }, 201);
+  }
+
+  if (pathname === '/game/presenca/bilhete' && req.method === 'POST') {
+    const tem = await env.DB.prepare('SELECT 1 AS ok FROM characters WHERE discord_id = ?').bind(u.discord_id).first();
+    if (!tem) return erro(env, 409, 'Crie seu personagem primeiro.');
+    const exp = agora() + BILHETE_SEG;
+    return json(env, { bilhete: `${u.discord_id}.${exp}.${(await hmac(chaveBilhete(env), `ws.${u.discord_id}.${exp}`)).slice(0, 40)}` });
   }
 
   if (pathname === '/game/npc/interact' && req.method === 'POST') {
