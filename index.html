@@ -7,8 +7,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Prefeitura Z — Servidor de Project Zomboid">
 <meta property="og:description" content="A cidade caiu. Você ainda não. Entre no Discord, baixe o launcher e jogue a Season 2 em Knox County.">
-<meta property="og:image" content="https://prefeitura-z.github.io/img/knox-cinematic.jpg">
+<meta property="og:image" content="https://prefeitura-z.github.io/img/prefeitura-z-discord-v1.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1734">
+<meta property="og:image:height" content="907">
+<meta property="og:image:alt" content="Prefeitura Z. A cidade caiu. Você ainda não. Brasão da comunidade e cenário de Knox County.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://prefeitura-z.github.io/img/prefeitura-z-discord-v1.jpg">
+<meta name="twitter:image:alt" content="Prefeitura Z. A cidade caiu. Você ainda não.">
 <meta name="theme-color" content="#111411">
 <link rel="icon" href="img/brasao.png">
 <title>Prefeitura Z</title>
@@ -57,6 +63,19 @@
     </section>
   </div>
 
+  <section class="game-banner" id="jogo">
+    <div class="game-text">
+      <div class="section-top"><span class="eyebrow">03 / Jogue pelo navegador</span></div>
+      <h2>Depois da Queda.<br>O abrigo cabe no navegador.</h2>
+      <p>Crie seu sobrevivente, ande pelo abrigo da União da Margem e encontre quem estiver online por lá. É a mesma conta do site, sem instalar nada.</p>
+      <div class="game-actions">
+        <a class="button primary" href="jogo/" id="jogo-cta">Jogar agora</a>
+        <span class="status-badge on" id="jogo-online" hidden><i></i> <span></span></span>
+      </div>
+    </div>
+    <a class="game-shot" href="jogo/" tabindex="-1" aria-hidden="true"><img src="img/jogo-abrigo.jpg" alt="" loading="lazy" width="1280" height="720"></a>
+  </section>
+
   <section class="join-section" id="como-entrar">
     <div class="section-heading"><span class="eyebrow">Seu primeiro dia</span><h2>A cidade espera por você.</h2></div>
     <div class="steps">
@@ -79,6 +98,22 @@ document.getElementById('i-clima').innerHTML = icone('sun') + ' Clima em Knox';
 document.getElementById('i-mapa').innerHTML = icone('map');
 document.getElementById('i-fac').innerHTML = icone('users');
 document.getElementById('l-mapa').insertAdjacentHTML('beforeend', ' ' + icone('arrow'));
+
+// Chamada do jogo: quantos estão no abrigo e, pra quem já tem personagem, "continuar como".
+(async () => {
+  if (!Conta.ativo) return;
+  fetch(CONTA_API + '/game/publico').then(r => r.ok ? r.json() : null).then(d => {
+    if (!d || !(d.noAbrigo > 0)) return;
+    const el = document.getElementById('jogo-online');
+    el.querySelector('span').textContent = d.noAbrigo === 1 ? '1 sobrevivente no abrigo agora' : `${d.noAbrigo} sobreviventes no abrigo agora`;
+    el.hidden = false;
+  }).catch(() => {});
+  if (!Conta.token()) return;
+  try {
+    const j = await Conta.api('/game/me');
+    if (j.personagem) document.getElementById('jogo-cta').textContent = 'Continuar como ' + j.personagem.nome;
+  } catch {}
+})();
 
 (async () => {
   const d = await carregarDados();

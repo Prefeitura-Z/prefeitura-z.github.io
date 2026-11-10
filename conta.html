@@ -21,6 +21,9 @@
   <section>
     <div class="panel" id="c-topo"><p class="muted">Carregando…</p></div>
   </section>
+  <section id="s-jogo" hidden>
+    <div class="panel" id="c-jogo"></div>
+  </section>
   <section id="s-vinculo" hidden>
     <div class="panel" id="c-vinculo"></div>
   </section>
@@ -40,6 +43,8 @@
 <script src="site.js"></script>
 <script src="dados.js"></script>
 <script src="conta.js"></script>
+<script src="jogo/mundo.js"></script>
+<script src="jogo/arte.js"></script>
 <script>
 const ERROS = { cancelado: 'Login cancelado.', expirado: 'O login demorou demais. Tente de novo.', discord: 'O Discord não respondeu. Tente de novo.' };
 const ST = { pendente: 'Esperando entrega', entregue: 'Entregue', recusado: 'Recusado', expirado: 'Expirado' };
@@ -113,10 +118,49 @@ function desenharPedidos(eu) {
     : '<tr><td colspan="4" class="muted">Nenhum pedido ainda.</td></tr>';
 }
 
+// Depois da Queda: o personagem do jogo de navegador (mesma conta do Discord).
+const ORIGENS_JOGO = { brigadista: 'Brigadista', mecanico: 'Mecânico', batedor: 'Batedor', socorrista: 'Socorrista', trabalhador: 'Trabalhador' };
+const PAPEIS_JOGO = { proprietario: 'Proprietário', administrador: 'Administrador', moderador: 'Moderador', suporte: 'Suporte' };
+let animJogo = 0;
+async function desenharJogo() {
+  const s = document.getElementById('s-jogo'), c = document.getElementById('c-jogo');
+  let j;
+  try { j = await Conta.api('/game/me'); } catch { return; }
+  s.hidden = false;
+  cancelAnimationFrame(animJogo);
+  const p = j.personagem;
+  if (!p) {
+    c.innerHTML = `<div class="panel-top"><h2>Depois da Queda</h2><span class="eyebrow">Jogo de navegador</span></div>
+      <p>Você ainda não tem um sobrevivente no abrigo da União da Margem. Leva um minuto pra criar, e ele fica salvo nesta conta.</p>
+      <a class="button primary" href="jogo/">Criar meu sobrevivente</a>`;
+    return;
+  }
+  const f = p.flags || {}, obj = window.PZ && PZ.mundo ? PZ.mundo.OBJETIVOS.find(o => !o.feito(f)) : null;
+  const tag = PAPEIS_JOGO[j.papel] ? `<span class="jogo-tag">${PAPEIS_JOGO[j.papel]}</span>` : '';
+  c.innerHTML = `<div class="panel-top"><h2>Depois da Queda</h2><span class="eyebrow">Jogo de navegador</span></div>
+    <div class="jogo-ficha"><canvas id="jogo-boneco" width="48" height="80" aria-hidden="true"></canvas>
+      <div class="dados"><div class="nome">${esc(p.nome)}${tag}</div>
+        <span class="eyebrow">Nível ${Number(p.nivel) || 1} · ${esc(ORIGENS_JOGO[p.origem] || '')} · União da Margem</span>
+        ${obj ? `<p><b>${obj.futuro ? 'Em breve' : 'Próximo passo'}:</b> ${esc(obj.texto)}</p>` : ''}</div>
+      <a class="button primary" href="jogo/">Entrar no abrigo</a></div>`;
+  // o mesmo boneco do jogo, parado, de frente
+  try {
+    const cv = document.getElementById('jogo-boneco'), g = cv.getContext('2d'), quadros = PZ.arte.folha(p.aparencia).SE.parado;
+    const parado = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const passo = t => {
+      if (!cv.isConnected) return;
+      g.clearRect(0, 0, 48, 80); g.drawImage(quadros[parado ? 0 : Math.floor(t / 250) % quadros.length], 0, 0);
+      if (!parado) animJogo = requestAnimationFrame(passo);
+    };
+    passo(0);
+  } catch {}
+}
+
 function desenhar(eu) {
   const saldo = eu.login ? `<div class="saldo"><span class="eyebrow">Saldo no servidor</span><strong>${eu.saldo != null ? fmt(eu.saldo) + ' <small>PRZcoins</small>' : 'Aguardando o servidor'}</strong>${eu.saldoEm ? `<small>atualizado ${haQuanto(new Date(eu.saldoEm * 1000).toISOString())}</small>` : ''}</div>` : '';
   topo.innerHTML = `<div class="conta-topo"><div class="perfil">${eu.avatar ? `<img src="${esc(eu.avatar)}" alt="">` : ''}<div><span class="eyebrow">Logado com o Discord</span><div class="nome">${esc(eu.nome)}</div><button type="button" class="text-link" id="b-sair" style="background:none;border:0;padding:0;margin-top:4px">Sair</button></div></div>${saldo}</div>`;
   document.getElementById('b-sair').onclick = async () => { try { await Conta.api('/logout', { method: 'POST' }); } catch {} Conta.salvar(''); location.reload(); };
+  desenharJogo();
   desenharVinculo(eu);
   desenharPedidos(eu);
 }

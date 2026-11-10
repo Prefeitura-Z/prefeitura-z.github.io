@@ -10,6 +10,7 @@ const RAIO = 0.3;         // raio de colisão do personagem
 const ALCANCE = 2.3;      // distância pra conversar
 const TECLAS = { KeyW: [0, -1], ArrowUp: [0, -1], KeyS: [0, 1], ArrowDown: [0, 1], KeyA: [-1, 0], ArrowLeft: [-1, 0], KeyD: [1, 0], ArrowRight: [1, 0] };
 
+const ETIQUETA = { proprietario: 'Dono', administrador: 'Admin', moderador: 'Mod', suporte: 'Suporte' };
 function dirDe(vx, vy) {
   const sx = vx - vy, sy = vx + vy;
   if (Math.abs(sx) < 1e-6 && Math.abs(sy) < 1e-6) return null;
@@ -52,6 +53,7 @@ class Motor {
     this.zoom = innerWidth < 700 ? 1.5 : 2;
     this.marca = null;
     this.perto = null;
+    this.outros = new Map();   // outros jogadores online (preenchido pela presença); não bloqueiam nem dão recurso
 
     this.ligar();
     this.redimensionar();
@@ -221,6 +223,15 @@ class Motor {
       const v = Math.min(d, 1.3 * dt); mo.px += dx / d * v; mo.py += dy / d * v; mo.dir = dirDe(dx, dy) || mo.dir; mo.anda = true;
     }
 
+    // outros jogadores: a rede manda a posição 5x por segundo; aqui o boneco anda até ela
+    for (const o of this.outros.values()) {
+      const dx = o.tx - o.px, dy = o.ty - o.py, d = Math.hypot(dx, dy);
+      if (d > 5) { o.px = o.tx; o.py = o.ty; o.anda = false; o.dir = o.dirRede; }
+      else if (d > 0.03) { const v = Math.min(d, VEL * 1.25 * dt); o.px += dx / d * v; o.py += dy / d * v; o.dir = dirDe(dx, dy) || o.dir; o.anda = true; }
+      else { o.anda = false; o.dir = o.dirRede; }
+    }
+    this.op.posicao?.(p, performance.now());
+
     if (this.fogueira && !this.reduzir) {
       this.fumacaT = (this.fumacaT || 0) - dt;
       if (this.fumacaT <= 0) { this.fumacaT = 0.18; const c = A.iso(this.fogueira.x + 0.5, this.fogueira.y + 0.5); this.fumaca.push({ x: c.x + (Math.random() - 0.5) * 4, y: c.y - 30, t: 0, v: 14 + Math.random() * 8 }); }
@@ -268,6 +279,7 @@ class Motor {
     lista.push({ prof: p.x + p.y + 0.02, ator: 'jogador' });
     for (const n of this.npcs) lista.push({ prof: n.px + n.py, npc: n });
     for (const mo of this.moradores) lista.push({ prof: mo.px + mo.py, mor: mo });
+    for (const o of this.outros.values()) lista.push({ prof: o.px + o.py, mor: o });
     lista.sort((a, b) => a.prof - b.prof);
 
     const ps = A.iso(p.x, p.y), jb = { x0: ps.x - 11, x1: ps.x + 11, y0: ps.y - 56, y1: ps.y };
@@ -330,6 +342,16 @@ class Motor {
         g.fillStyle = 'rgba(20,22,20,.85)'; g.fillRect(Math.round(s.x - lw / 2), Math.round(s.y + 8), Math.round(lw), 18);
         g.fillStyle = '#f1eee5'; g.fillText(msg, s.x, s.y + 21);
       }
+    }
+    // nomes dos outros jogadores: mais discretos que os dos NPCs, com a etiqueta da equipe quando tiver
+    g.font = '500 11px Inter, system-ui, sans-serif';
+    for (const o of this.outros.values()) {
+      const s = this.paraTela(o.px, o.py, 62);
+      if (s.x < -60 || s.x > this.W + 60 || s.y < -20 || s.y > this.H + 80) continue;
+      const tag = ETIQUETA[o.papel], txt = tag ? `${o.nome} · ${tag}` : o.nome;
+      const larg = g.measureText(txt).width + 12;
+      g.fillStyle = 'rgba(20,22,20,.62)'; g.fillRect(Math.round(s.x - larg / 2), Math.round(s.y - 14), Math.round(larg), 17);
+      g.fillStyle = tag ? '#D4AC66' : '#d9e3d2'; g.fillText(txt, s.x, s.y - 2);
     }
     g.textAlign = 'left';
   }

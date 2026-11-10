@@ -71,12 +71,25 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .ficha, .objetivo, .hud-menu, .painel, .perto, .torrada, .demo-aviso { background: #1b1f1ce8; border: 1px solid var(--linha); border-radius: 8px; backdrop-filter: blur(4px); box-shadow: 0 6px 24px #0007; }
 .ficha { padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
 .ficha b { font-size: 16px; }
+.hud-site { pointer-events: auto; align-self: center; display: flex; margin-right: 2px; border-radius: 4px; }
+.hud-site img { display: block; width: 26px; height: 26px; object-fit: contain; }
+.hud-site:hover { filter: brightness(1.2); }
+.links-site { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 16px; font-size: 14px; }
+.links-site a { color: var(--luz); }
+.criar-form .voltar { margin-bottom: 14px; }
 .ficha span { color: var(--fraco); font-size: 13px; }
 .ficha .papel { color: var(--carvao); background: var(--luz); font: 600 11px var(--mono); padding: 1px 6px; border-radius: 4px; text-transform: uppercase; }
 .objetivo { padding: 8px 12px; display: grid; gap: 1px; font-size: 13px; }
 .objetivo:empty { display: none; }
 .objetivo b { font-size: 14px; }
 .objetivo span:last-child { color: var(--fraco); }
+.online { pointer-events: auto; justify-self: start; background: #1b1f1ce8; border: 1px solid var(--linha); border-radius: 999px; padding: 4px 12px 4px 10px; font: 500 12px var(--mono); color: var(--fraco); display: flex; align-items: center; gap: 7px; }
+.online::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--concreto); }
+.online[data-estado="online"] { color: #cfe3c4; }
+.online[data-estado="online"]::before { background: #8fc47a; }
+.online[data-estado="outraAba"] { color: var(--luz); cursor: pointer; border-color: #6b5a35; }
+.online[data-estado="outraAba"]::before { background: var(--luz); }
+.online:disabled { cursor: default; opacity: 1; }
 .hud-menu { position: absolute; top: 12px; right: 12px; display: flex; padding: 4px; gap: 2px; }
 .hud-menu button { border: 0; background: none; padding: 7px 10px; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 500; display: flex; gap: 6px; align-items: center; }
 .hud-menu button:hover { background: var(--carvao3); }

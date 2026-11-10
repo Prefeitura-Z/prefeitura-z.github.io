@@ -4,7 +4,8 @@
 //
 // Segredos (wrangler secret): DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, SITE_BRIDGE_SECRET, OWNER_DISCORD_ID (dono do jogo)
 
-import { rotasJogo } from './jogo.js';
+import { rotasJogo, entrarNaSala, abrigoPublico } from './jogo.js';
+export { SalaAbrigo } from './sala.js';
 
 const SESSAO_DIAS = 30;
 const CODIGO_MIN = 30;
@@ -213,6 +214,9 @@ export default {
       if (pathname === '/auth/callback' && req.method === 'GET') return await callback(req, env);
       if (pathname === '/bridge/sync' && req.method === 'POST') return await ponte(req, env);
       if (pathname === '/') return json(env, { ok: true, servico: 'Prefeitura Z' });
+      // WebSocket não manda Authorization: entra com um bilhete curto, pedido antes com a sessão
+      if (pathname === '/game/publico' && req.method === 'GET') return await abrigoPublico(env, cors(env));
+      if (pathname === '/game/presenca' && req.method === 'GET') return await entrarNaSala(req, env, hmac, igual);
 
       const u = await usuarioDaSessao(req, env);
       if (!u) return erro(env, 401, 'Entre com o Discord.');
@@ -220,7 +224,7 @@ export default {
       if (pathname === '/link/code' && req.method === 'POST') return await novoCodigo(env, u);
       if (pathname === '/orders' && req.method === 'POST') return await novoPedido(req, env, u);
       if (pathname === '/logout' && req.method === 'POST') return await logout(env, u);
-      if (pathname.startsWith('/game/')) return await rotasJogo(req, env, u, pathname, json, erro);
+      if (pathname.startsWith('/game/')) return await rotasJogo(req, env, u, pathname, json, erro, hmac);
       return erro(env, 404, 'Não encontrado.');
     } catch (e) {
       console.error(e);
