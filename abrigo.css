@@ -1,0 +1,107 @@
+/* Abrigo Z (idle) */
+.abrigo .page-intro{margin-bottom:26px}
+.rec-bar{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;margin-bottom:18px}
+.rec{padding:0 18px;border-left:1px solid var(--border);min-width:0}
+.rec:first-child{border-left:0;padding-left:0}
+.rec>span{display:flex;align-items:center;gap:7px;font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rec>span svg{width:14px;height:14px;color:var(--accent)}
+.rec strong{display:block;font-size:28px;font-weight:400;letter-spacing:-.02em;line-height:1.2;margin-top:8px;font-variant-numeric:tabular-nums}
+.rec small{font:500 11px var(--mono);color:var(--ok)}
+.rec small.neg{color:var(--bad)}
+.rec small:empty::before{content:"\00a0"}
+
+.horda-bar{display:flex;align-items:center;gap:14px 34px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--ok);padding:16px 22px;margin-bottom:24px}
+.horda-bar.perigo{border-left-color:var(--bad)}
+.horda-bar .h-ico svg{width:30px;height:30px;color:var(--muted)}
+.horda-bar.perigo .h-ico svg{color:var(--bad)}
+.horda-bar .eyebrow{display:flex;align-items:center;gap:6px}
+.horda-bar .eyebrow svg{width:12px;height:12px}
+.horda-bar strong{display:block;font:26px var(--display);letter-spacing:.02em;margin-top:2px;font-variant-numeric:tabular-nums}
+.horda-bar p{margin:0 0 0 auto;font-size:13px;color:var(--ok)}
+.horda-bar.perigo p{color:var(--bad);font-weight:600}
+.flash-bom{animation:flashBom .9s}
+.flash-ruim{animation:flashRuim .9s}
+@keyframes flashBom{from{background:#b5ca9233}}
+@keyframes flashRuim{from{background:#e0705a44}}
+
+.ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;align-items:start}
+.ab-col{min-width:0}
+.abrigo .panel button small{display:block;font-weight:400;font-size:11px;color:var(--muted);margin-top:2px}
+
+.vasculhar{width:100%;background:var(--accent);color:#1d2119;border:0;border-radius:2px;padding:16px;font-size:15px;font-weight:700;margin-bottom:16px;user-select:none;-webkit-tap-highlight-color:transparent}
+.vasculhar small{color:#3a3020!important}
+.vasculhar:hover{filter:brightness(1.08)}
+.vasculhar:active{transform:scale(.985)}
+
+.jobs{display:flex;flex-direction:column;margin-bottom:16px}
+.job{display:flex;align-items:center;gap:10px;padding:10px 2px;border-bottom:1px solid #262a23}
+.job>span{flex:1;min-width:0}
+.job b{font-weight:600;font-size:14px}
+.job small{display:block;color:var(--muted);font-size:12px}
+.job button{width:36px;height:36px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:18px;border-radius:2px;line-height:1}
+.job button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.job button:disabled{opacity:.35;cursor:default}
+.job output{width:32px;text-align:center;font:22px var(--display);font-variant-numeric:tabular-nums}
+.recrutar{width:100%;flex-direction:column;gap:0}
+
+.obras{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.obra{text-align:left;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:2px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.obra:hover:not(:disabled){border-color:var(--accent)}
+.obra:disabled{cursor:default}
+.obra:disabled .obra-t b{color:var(--muted)}
+.obra-t{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.obra-t b{font-size:14px;font-weight:600}
+.obra-t i{font:normal 500 10px var(--mono);color:var(--accent);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.obra .custo{font:500 11px var(--mono);color:var(--ok);margin-top:4px}
+.obra .custo .falta{color:var(--bad)}
+
+.exps{display:flex;flex-direction:column}
+.exp{display:flex;align-items:center;gap:14px;padding:12px 2px;border-bottom:1px solid #262a23}
+.exp>div{flex:1;min-width:0}
+.exp b{font-weight:600;font-size:14px}
+.exp small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.exp .button{padding:9px 14px;min-width:116px;font-variant-numeric:tabular-nums}
+.exp.travada{opacity:.5}
+.barra{display:block;height:3px;background:#262a23;margin-top:8px}
+.barra i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+
+.diario{list-style:none;margin:0;padding:0;font-size:13px;max-height:320px;overflow:auto}
+.diario li{padding:8px 2px;border-bottom:1px solid #262a23;color:var(--muted);line-height:1.5}
+.diario li.bom{color:var(--text)}
+.diario li.ruim{color:var(--bad)}
+.diario time{font:500 11px var(--mono);color:var(--muted);margin-right:6px}
+
+.wipe p{font-size:13px}
+.wipe .button{width:100%;margin-bottom:12px}
+.salvar summary{cursor:pointer;font-weight:600;color:var(--accent)}
+.salvar textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font:12px var(--mono);padding:10px;border-radius:2px;resize:vertical}
+.salvar-acoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.salvar-acoes .button{padding:10px 14px}
+.button.perigo{color:var(--bad);border-color:#6b3a30}
+.abrigo .aviso{margin-top:4px;text-align:center}
+
+.ausente{position:fixed;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.ausente-box{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent);padding:26px;max-width:420px;width:100%}
+.ausente-box h2{margin:8px 0 14px;font-size:24px}
+.ausente-box ul{margin:0 0 20px;padding-left:18px;color:var(--text)}
+.ausente-box li{margin:4px 0}
+.ausente-box .button{width:100%}
+
+@media(max-width:900px){
+  .ab-grid{grid-template-columns:1fr}
+  .rec-bar{grid-template-columns:repeat(3,1fr);gap:16px 0}
+  .rec:nth-child(4){border-left:0;padding-left:0}
+}
+@media(max-width:520px){
+  .rec-bar{grid-template-columns:1fr 1fr}
+  .rec{padding:0 12px}
+  .rec:nth-child(odd){border-left:0;padding-left:0}
+  .rec:nth-child(4){border-left:1px solid var(--border);padding-left:12px}
+  .rec strong{font-size:23px}
+  .obras{grid-template-columns:1fr}
+  .horda-bar{padding:14px 16px;gap:10px 22px}
+  .horda-bar p{margin:0;width:100%}
+  .exp .button{min-width:96px}
+}
+@media(prefers-reduced-motion:reduce){.flash-bom,.flash-ruim{animation:none}.barra i{transition:none}}
+.obra .custo .req{color:var(--muted)}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Abrigo Z: jogo idle da Prefeitura Z. Comande um abrigo em Knox County, mande expedições e segure as hordas.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Abrigo Z — o idle da Prefeitura Z">
+<meta property="og:description" content="Comande um abrigo em Knox County: sobreviventes trabalhando, expedições pela cidade e hordas batendo no muro.">
+<meta property="og:image" content="https://prefeitura-z.github.io/img/knox-cinematic.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#111411">
+<link rel="icon" href="img/brasao.png">
+<title>Abrigo Z — Prefeitura Z</title>
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="abrigo.css">
+</head>
+<body>
+<header id="topo" data-pagina="abrigo"></header>
+
+<main class="page-main abrigo">
+  <div class="page-intro">
+    <span class="eyebrow"><span class="line"></span>Prefeitura Z / Abrigo Z · <span id="temporada">Temporada 1</span></span>
+    <h1>O abrigo<br><em>não dorme.</em></h1>
+    <p>Bote o pessoal pra trabalhar, mande equipes pela cidade e segure as hordas. O abrigo continua produzindo com a aba fechada.</p>
+  </div>
+
+  <section class="rec-bar" id="recursos" aria-label="Recursos"></section>
+
+  <section class="horda-bar" id="horda" aria-live="polite"></section>
+
+  <div class="ab-grid">
+    <div class="ab-col">
+      <section class="panel">
+        <div class="panel-top"><h2>Turno</h2><span class="muted" id="livres"></span></div>
+        <button type="button" class="vasculhar" id="btn-vasculhar">Vasculhar os arredores <small>comida, madeira e às vezes sucata</small></button>
+        <div class="jobs" id="jobs"></div>
+        <button type="button" class="button secondary recrutar" id="btn-recrutar"></button>
+      </section>
+
+      <section class="panel">
+        <div class="panel-top"><h2>Expedições</h2><span class="muted">Quem sai não trabalha até voltar</span></div>
+        <div class="exps" id="exps"></div>
+      </section>
+    </div>
+
+    <div class="ab-col">
+      <section class="panel">
+        <div class="panel-top"><h2>Construções</h2><span class="muted">Custo sobe a cada nível</span></div>
+        <div class="obras" id="obras"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-top"><h2>Diário do abrigo</h2></div>
+        <ul class="diario" id="diario"></ul>
+      </section>
+
+      <section class="panel wipe" id="wipe"></section>
+
+      <details class="panel salvar">
+        <summary>Salvar e carregar</summary>
+        <p class="muted">O progresso fica salvo só neste navegador. Copie o código pra levar pra outro PC ou guardar um backup.</p>
+        <textarea id="save-txt" rows="3" spellcheck="false" aria-label="Código do save"></textarea>
+        <div class="salvar-acoes">
+          <button type="button" class="button secondary" id="btn-exportar">Gerar código</button>
+          <button type="button" class="button secondary" id="btn-importar">Carregar código</button>
+          <button type="button" class="button secondary perigo" id="btn-zerar">Apagar tudo</button>
+        </div>
+        <p class="muted" id="save-msg" aria-live="polite"></p>
+      </details>
+    </div>
+  </div>
+
+  <p class="muted aviso">Jogo de navegador da comunidade, separado do servidor: nada daqui vale item, vantagem ou PRZcoin no Project Zomboid.</p>
+</main>
+
+<div class="ausente" id="ausente" hidden>
+  <div class="ausente-box" role="dialog" aria-modal="true" aria-labelledby="ausente-t">
+    <span class="eyebrow">Enquanto você estava fora</span>
+    <h2 id="ausente-t"></h2>
+    <ul id="ausente-lista"></ul>
+    <button type="button" class="button primary" id="btn-ausente">Voltar pro abrigo</button>
+  </div>
+</div>
+
+<footer id="rodape"></footer>
+
+<script src="site.js"></script>
+<script src="dados.js"></script>
+<script src="conta.js"></script>
+<script src="abrigo.js"></script>
+</body>
+</html>

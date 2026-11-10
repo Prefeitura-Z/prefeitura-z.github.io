@@ -1,6 +1,7 @@
 # Prefeitura Z — site do servidor
 
 - `index.html`, `site.css`, `site.js`: página inicial (Discord, como entrar pelo launcher, mapa, facções). O link do Discord fica em `site.js` (`SITE.discord`).
+- `abrigo.html`, `abrigo.js`, `abrigo.css`: Abrigo Z, jogo idle que roda só no navegador (save no localStorage, chave `przAbrigo.v1`). Separado do servidor: não dá item, vantagem nem PRZcoin. Os números do balanceamento ficam no topo do `abrigo.js`.
 - `mapa/`: mapa interativo de Knox County. `mapa/#X,Y` abre o mapa já centralizado na coordenada.
 
 Site estático (sem build). Para publicar no GitHub Pages:
