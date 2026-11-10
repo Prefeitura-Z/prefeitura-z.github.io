@@ -42,7 +42,40 @@
 <script>
 document.getElementById('i-aviso').outerHTML = icone('check');
 const TIPOS = { ITEM: 'Item', VEHICLE: 'Veículo', ANIMAL: 'Animal' };
-let L = null, aba = null, EU = null;
+let L = null, aba = null, EU = null, MAN = { itens: {}, veiculos: {} }, ICONES_ITEM = new Set();
+
+// Imagens extraídas dos mods (img/loja/manifesto.json): ícones de item, fotos de carro e conteúdo das lootbox.
+function imagem(it) {
+  if (it.tipo === 'VEHICLE') {
+    const nome = String(it.alvo || '').replace(/^Base\./, '');
+    const f = MAN.veiculos[nome] || MAN.veiculos[nome.toLowerCase()];
+    return f ? `<div class="pimg carro"><img src="img/loja/${esc(f)}" alt="" loading="lazy"></div>` : '';
+  }
+  const m = MAN.itens[it.alvo] || {};
+  const ic = (it.icone && ICONES_ITEM.has(String(it.icone).toLowerCase()) && String(it.icone).toLowerCase()) || m.icone;
+  return ic ? `<div class="pimg"><img class="pix" src="img/loja/itens/${esc(ic)}.png" alt="" loading="lazy"></div>` : '';
+}
+
+const fmt1 = n => Number(n).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+function detalhes(it) {
+  const d = { ...((MAN.itens[it.alvo] || {}).detalhes || {}), ...(it.detalhes || {}) }, linhas = [];
+  if (d.danoMax != null) linhas.push(['Dano', d.danoMin != null && d.danoMin !== d.danoMax ? `${fmt1(d.danoMin)}–${fmt1(d.danoMax)}` : fmt1(d.danoMax)]);
+  if (d.durabilidade != null) linhas.push(['Durabilidade', fmt1(d.durabilidade)]);
+  if (d.alcance != null) linhas.push(['Alcance', fmt1(d.alcance)]);
+  if (d.velocidade != null) linhas.push(['Velocidade', fmt1(d.velocidade)]);
+  if (d.critico != null) linhas.push(['Crítico', fmt1(d.critico) + '%']);
+  if (d.velocidadeMax != null) linhas.push(['Vel. máx.', fmt1(d.velocidadeMax) + ' km/h']);
+  if (d.lugares != null) linhas.push(['Lugares', fmt1(d.lugares)]);
+  if (d.massa != null) linhas.push(['Peso', fmt1(d.massa) + ' kg']);
+  else if (d.peso != null && it.tipo === 'ITEM') linhas.push(['Peso', fmt1(d.peso)]);
+  let html = linhas.length ? `<dl class="stats">${linhas.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : '';
+  const lb = (it.conteudo || []).slice().sort((a, b) => (b.chance || 0) - (a.chance || 0));
+  if (lb.length) {
+    const s = it.sorteios || {}, n = s.max > 1 ? (s.min === s.max ? `${s.max} itens` : `${s.min} a ${s.max} itens`) : '1 item';
+    html += `<details class="conteudo"><summary>O que pode vir · ${lb.length} possíveis</summary><p class="muted">Cada caixa sorteia ${n}.</p><ul>${lb.map(x => `<li><span>${esc(x.nome)}</span><small>${fmt1(x.chance)}%</small></li>`).join('')}</ul></details>`;
+  }
+  return html;
+}
 
 function faltam(iso) {
   const s = Math.max(0, Math.floor((new Date(iso).getTime() - Date.now()) / 1000));
@@ -65,7 +98,9 @@ function desenhar() {
     return `<div class="product${esg ? ' esgotado' : ''}">
       ${it.promo ? '<span class="tag">Promoção</span>' : ''}
       <span class="tipo">${TIPOS[it.tipo] || esc(it.tipo)}${it.qtd > 1 ? ` · ${it.qtd} un.` : ''}</span>
+      ${imagem(it)}
       <h3>${esc(it.nome || it.alvo)}</h3>
+      ${detalhes(it)}
       ${it.estoque != null ? `<span class="info">${esg ? 'Esgotado' : `Restam ${it.estoque}`}</span>` : ''}
       <span class="preco">${it.precoOriginal && it.promo ? `<s>${fmt(it.precoOriginal)}</s>` : ''}${fmt(it.preco)} <small>${esc(moeda)}</small></span>
       ${Conta.ativo && it.id && !esg ? `<button type="button" class="comprar" data-id="${esc(it.id)}">Comprar</button>` : ''}
@@ -112,7 +147,8 @@ document.getElementById('vitrine').addEventListener('click', async e => {
 setInterval(() => document.querySelectorAll('[data-ate]').forEach(e => e.textContent = faltam(e.dataset.ate)), 1000);
 
 (async () => {
-  const d = await carregarDados();
+  const [d, man] = await Promise.all([carregarDados(), fetch('img/loja/manifesto.json').then(r => r.ok ? r.json() : null).catch(() => null)]);
+  if (man) { MAN = { itens: {}, veiculos: {}, ...man }; Object.values(MAN.itens).forEach(x => x.icone && ICONES_ITEM.add(x.icone)); }
   L = d && d.loja;
   const v = document.getElementById('vitrine');
   if (!L || !L.abas || !L.abas.length) { v.innerHTML = '<p class="muted">A vitrine aparece aqui assim que o servidor enviar os dados.</p>'; return; }
