@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Abrigo Z: jogo idle da Prefeitura Z. Comande um abrigo em Knox County, mande expedições e segure as hordas.">
+<meta name="description" content="Abrigo Z: jogo idle da Prefeitura Z. Escolha uma área de Knox County, deixe seu sobrevivente limpando os zumbis e derrube os chefes.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Abrigo Z — o idle da Prefeitura Z">
-<meta property="og:description" content="Comande um abrigo em Knox County: sobreviventes trabalhando, expedições pela cidade e hordas batendo no muro.">
+<meta property="og:description" content="Seu sobrevivente limpa Knox County sozinho: zumbis, loot, chefes e uma equipe que cresce com você.">
 <meta property="og:image" content="https://prefeitura-z.github.io/img/knox-cinematic.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#111411">
@@ -21,37 +21,52 @@
 <main class="page-main abrigo">
   <div class="page-intro">
     <span class="eyebrow"><span class="line"></span>Prefeitura Z / Abrigo Z · <span id="temporada">Temporada 1</span></span>
-    <h1>O abrigo<br><em>não dorme.</em></h1>
-    <p>Bote o pessoal pra trabalhar, mande equipes pela cidade e segure as hordas. O abrigo continua produzindo com a aba fechada.</p>
+    <h1>Knox não<br><em>se limpa sozinha.</em></h1>
+    <p>Escolha uma área e deixe seu sobrevivente trabalhando. Ele continua batendo em zumbi com a aba fechada.</p>
   </div>
 
   <section class="rec-bar" id="recursos" aria-label="Recursos"></section>
 
-  <section class="horda-bar" id="horda" aria-live="polite"></section>
+  <section class="arena" aria-label="Arena">
+    <div class="arena-topo">
+      <div><span class="eyebrow" id="zona-num"></span><h2 id="zona-nome"></h2></div>
+      <div class="arena-prog">
+        <span class="eyebrow" id="prog-txt"></span>
+        <span class="barra"><i id="prog-barra"></i></span>
+      </div>
+      <button type="button" class="button primary" id="btn-chefe"></button>
+    </div>
+    <div class="palco">
+      <canvas id="cena" width="800" height="360" aria-label="Seu sobrevivente lutando contra zumbis. Clique para bater."></canvas>
+    </div>
+    <div class="arena-pe">
+      <span id="dps"></span>
+      <span class="muted">Clique no zumbi pra bater mais forte</span>
+    </div>
+  </section>
 
   <div class="ab-grid">
     <div class="ab-col">
       <section class="panel">
-        <div class="panel-top"><h2>Turno</h2><span class="muted" id="livres"></span></div>
-        <button type="button" class="vasculhar" id="btn-vasculhar">Vasculhar os arredores <small>comida, madeira e às vezes sucata</small></button>
-        <div class="jobs" id="jobs"></div>
-        <button type="button" class="button secondary recrutar" id="btn-recrutar"></button>
+        <div class="panel-top"><h2>Áreas de Knox</h2><span class="muted">Derrube o chefe pra liberar a próxima</span></div>
+        <div class="zonas" id="zonas"></div>
       </section>
 
       <section class="panel">
-        <div class="panel-top"><h2>Expedições</h2><span class="muted">Quem sai não trabalha até voltar</span></div>
-        <div class="exps" id="exps"></div>
+        <div class="panel-top"><h2>Equipe</h2><span class="muted" id="vagas"></span></div>
+        <p class="muted equipe-txt">Cada sobrevivente da equipe bate junto com você, sozinho.</p>
+        <button type="button" class="button secondary recrutar" id="btn-recrutar"></button>
       </section>
     </div>
 
     <div class="ab-col">
       <section class="panel">
-        <div class="panel-top"><h2>Construções</h2><span class="muted">Custo sobe a cada nível</span></div>
+        <div class="panel-top"><h2>Melhorias</h2><span class="muted">Custo sobe a cada nível</span></div>
         <div class="obras" id="obras"></div>
       </section>
 
       <section class="panel">
-        <div class="panel-top"><h2>Diário do abrigo</h2></div>
+        <div class="panel-top"><h2>Diário</h2></div>
         <ul class="diario" id="diario"></ul>
       </section>
 
@@ -79,7 +94,7 @@
     <span class="eyebrow">Enquanto você estava fora</span>
     <h2 id="ausente-t"></h2>
     <ul id="ausente-lista"></ul>
-    <button type="button" class="button primary" id="btn-ausente">Voltar pro abrigo</button>
+    <button type="button" class="button primary" id="btn-ausente">Voltar pra rua</button>
   </div>
 </div>
 
