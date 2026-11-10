@@ -31,9 +31,15 @@ def walk(p, depth, filtro=None, maxn=400):
     rec(p, 0)
     for f, sz in out[:maxn]: print(f"  {f}  {sz}")
 
+extra = [x for x in (os.environ.get("LISTAR") or "").split(";") if x.strip()]
+if extra:
+    for e in extra:
+        caminho, _, prof = e.partition("@")
+        print(f"\n### {caminho}")
+        walk(caminho.strip(), int(prof or 2), None, 600)
+    sys.exit(0)
 ls("/")
 ls("/media")
-ls("/media/texturepacks")
 ws = "/steamapps/workshop/content/108600"
 mods = ls(ws, 400)
 alvo = [x.strip().lower() for x in (os.environ.get("BUSCA") or "przweapons,xslootbox,ki5,91ford,89dodge,85chevy,88chevy,70barracuda,90ford,90pierce").split(",")]
