@@ -1,0 +1,1556 @@
+module Base
+{
+model PRZArmoryBalrog11MechanicsBody
+    {
+        mesh = PRZArmory/Balrog11MechanicsBody,
+        texture = PRZArmory/Balrog11,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.002559434 0.447467142 0.063487115,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.02135 0.12426 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_Balrog11P1_01 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_02 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_03 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_04 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_05 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_06 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_07 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_08 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_09 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_10 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_11 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_12 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_13 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_14 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_15 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P1_16 { mesh = PRZArmory/Balrog11MechanicsPart005, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_01 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_02 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_03 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_04 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_05 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_06 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_07 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_08 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_09 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_10 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_11 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_12 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_13 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_14 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_15 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog11P2_16 { mesh = PRZArmory/Balrog11MechanicsPart007, texture = PRZArmory/Balrog11, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryBalrog7MechanicsBody
+    {
+        mesh = PRZArmory/Balrog7MechanicsBody,
+        texture = PRZArmory/Balrog7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000000000 0.492071623 0.048069056,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.081916 0.123254 0.000000,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryBalrog7MechanicsBodyNoMag
+    {
+        mesh = PRZArmory/Balrog7MechanicsBodyNoMag,
+        texture = PRZArmory/Balrog7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000000000 0.492071623 0.048069056,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.081916 0.123254 0.000000,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_Balrog7P1_01 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_02 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_03 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_04 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_05 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_06 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_07 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_08 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_09 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_10 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_11 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_12 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_13 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_14 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_15 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P1_16 { mesh = PRZArmory/Balrog7MechanicsPart018, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart018 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_01 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_02 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_03 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_04 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_05 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_06 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_07 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_08 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_09 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_10 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_11 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_12 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_13 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_14 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_15 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_Balrog7P2_16 { mesh = PRZArmory/Balrog7MechanicsPart019, texture = PRZArmory/Balrog7, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart019 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMG3GoldMechanicsBody
+    {
+        mesh = PRZArmory/MG3GoldMechanicsBody,
+        texture = PRZArmory/MG3Gold,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.000000020 0.603488923 0.017197141,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.120819 0.199553 0.000000,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMG3GoldMechanicsBodyNoMag
+    {
+        mesh = PRZArmory/MG3GoldMechanicsBodyNoMag,
+        texture = PRZArmory/MG3Gold,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.000000020 0.603488923 0.017197141,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.120819 0.199553 0.000000,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_MG3GoldP1_01 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_02 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_03 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_04 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_05 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_06 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_07 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_08 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_09 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_10 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_11 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_12 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_13 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_14 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_15 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG3GoldP1_16 { mesh = PRZArmory/MG3GoldMechanicsPart050, texture = PRZArmory/MG3Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart050 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmorySVDEXMechanicsBody
+    {
+        mesh = PRZArmory/SVDEXMechanicsBody,
+        texture = PRZArmory/SVDEX,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000999397 0.554602425 0.024032286,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.031662 0.178958 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmorySVDEXMechanicsBodyNoMag
+    {
+        mesh = PRZArmory/SVDEXMechanicsBodyNoMag,
+        texture = PRZArmory/SVDEX,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000999397 0.554602425 0.024032286,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.031662 0.178958 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_SVDEXP1_01 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_02 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_03 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_04 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_05 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_06 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_07 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_08 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_09 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_10 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_11 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_12 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_13 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_14 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_15 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP1_16 { mesh = PRZArmory/SVDEXMechanicsPart005, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart005 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_01 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_02 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_03 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_04 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_05 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_06 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_07 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_08 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_09 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_10 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_11 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_12 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_13 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_14 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_15 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_SVDEXP2_16 { mesh = PRZArmory/SVDEXMechanicsPart009, texture = PRZArmory/SVDEX, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+model PRZArmoryDualInfinityMechanicsBody
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryDualInfinityMechanicsBodyNoMag
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_DualInfinityP1_01 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_02 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_03 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_04 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_05 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_06 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_07 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_08 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_09 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_10 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_11 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_12 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_13 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_14 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_15 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP1_16 { mesh = PRZArmory/DualInfinityMechanicsPart004, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_01 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_02 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_03 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_04 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_05 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_06 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_07 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_08 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_09 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_10 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_11 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_12 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_13 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_14 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_15 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityP2_16 { mesh = PRZArmory/DualInfinityMechanicsPart006, texture = PRZArmory/DualInfinity, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryDualInfinityLeftMechanicsBody
+    {
+        mesh = PRZArmory/DualInfinityLeftMechanicsBody,
+        texture = PRZArmory/DualInfinityLeft,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000421759 0.232224327 0.054249948,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015450 0.108901 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    
+        attachment PRZWeapons_LeftHand
+        {
+            offset = 0.036038746 -0.021845516 0.003747514,
+            rotate = 96.475658425 2.976804773 -91.057502694,
+        }
+}
+
+model PRZArmoryDualInfinityLeftMechanicsBodyNoMag
+    {
+        mesh = PRZArmory/DualInfinityLeftMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinityLeft,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000421759 0.232224327 0.054249948,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015450 0.108901 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    
+        attachment PRZWeapons_LeftHand
+        {
+            offset = 0.036038746 -0.021845516 0.003747514,
+            rotate = 96.475658425 2.976804773 -91.057502694,
+        }
+}
+
+model PRZArmoryMech_DualInfinityLeftP1_01 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_02 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_03 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_04 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_05 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_06 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_07 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_08 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_09 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_10 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_11 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_12 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_13 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_14 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_15 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP1_16 { mesh = PRZArmory/DualInfinityLeftMechanicsPart013, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart013 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_01 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_02 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_03 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_04 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_05 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_06 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_07 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_08 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_09 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_10 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_11 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_12 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_13 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_14 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_15 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_DualInfinityLeftP2_16 { mesh = PRZArmory/DualInfinityLeftMechanicsPart015, texture = PRZArmory/DualInfinityLeft, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart015 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+model PRZArmoryAS50GoldMechanicsBody
+    {
+        mesh = PRZArmory/AS50GoldMechanicsBody,
+        texture = PRZArmory/AS50Gold,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.000206060 0.618071840 0.017329692, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.02157163 0.20919037 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryAS50GoldMechanicsBodyNoMag
+    {
+        mesh = PRZArmory/AS50GoldMechanicsBodyNoMag,
+        texture = PRZArmory/AS50Gold,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.000206060 0.618071840 0.017329692, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.02157163 0.20919037 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_AS50GoldP1_01 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_02 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_03 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_04 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_05 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_06 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_07 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_08 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_09 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_10 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_11 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_12 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_13 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_14 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_15 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_AS50GoldP1_16 { mesh = PRZArmory/AS50GoldMechanicsPart006, texture = PRZArmory/AS50Gold, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMG36XmasMechanicsBody
+    {
+        mesh = PRZArmory/MG36XmasMechanicsBody,
+        texture = PRZArmory/MG36Xmas,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.005066034 0.422006799 -0.015498992, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.08493724 0.13031612 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMG36XmasMechanicsBodyNoMag
+    {
+        mesh = PRZArmory/MG36XmasMechanicsBodyNoMag,
+        texture = PRZArmory/MG36Xmas,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.005066034 0.422006799 -0.015498992, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.08493724 0.13031612 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_MG36XmasP1_01 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_02 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_03 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_04 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_05 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_06 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_07 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_08 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_09 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_10 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_11 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_12 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_13 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_14 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_15 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP1_16 { mesh = PRZArmory/MG36XmasMechanicsPart004, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_01 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_02 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_03 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_04 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_05 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_06 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_07 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_08 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_09 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_10 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_11 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_12 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_13 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_14 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_15 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP2_16 { mesh = PRZArmory/MG36XmasMechanicsPart006, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_01 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_02 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_03 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_04 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_05 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_06 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_07 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_08 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_09 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_10 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_11 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_12 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_13 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_14 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_15 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_MG36XmasP3_16 { mesh = PRZArmory/MG36XmasMechanicsPart007, texture = PRZArmory/MG36Xmas, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryGatlingMechanicsBody
+    {
+        mesh = PRZArmory/GatlingMechanicsBody,
+        texture = PRZArmory/Gatling,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.035036170 0.509114899 -0.009077320, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.08431882 0.19555300 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryGatlingMechanicsBodyNoMag
+    {
+        mesh = PRZArmory/GatlingMechanicsBodyNoMag,
+        texture = PRZArmory/Gatling,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.035036170 0.509114899 -0.009077320, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.08431882 0.19555300 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_GatlingP1_01 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_02 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_03 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_04 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_05 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_06 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_07 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_08 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_09 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_10 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_11 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_12 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_13 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_14 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_15 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP1_16 { mesh = PRZArmory/GatlingMechanicsPart004, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_01 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_02 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_03 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_04 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_05 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_06 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_07 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_08 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_09 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_10 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_11 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_12 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_13 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_14 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_15 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP2_16 { mesh = PRZArmory/GatlingMechanicsPart006, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_01 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_02 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_03 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_04 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_05 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_06 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_07 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_08 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_09 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_10 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_11 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_12 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_13 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_14 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_15 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP3_16 { mesh = PRZArmory/GatlingMechanicsPart007, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart007 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_01 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_02 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_03 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_04 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_05 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_06 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_07 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_08 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_09 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_10 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_11 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_12 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_13 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_14 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_15 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_GatlingP4_16 { mesh = PRZArmory/GatlingMechanicsPart009, texture = PRZArmory/Gatling, static = true, scale = 1.0, attachment PRZArmoryMechanicsPart009 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+model PRZArmoryHolyFlameMechanicsBody
+    {
+        mesh = PRZArmory/HolyFlameMechanicsBody,
+        texture = PRZArmory/HolyFlame,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.019717301 0.441747520 0.026166056,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.02015 0.12999 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    
+        attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+model PRZArmoryMech_HolyFlameP1_01 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_02 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_03 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_04 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_05 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_06 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_07 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_08 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_09 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_10 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_11 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_12 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_13 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_14 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_15 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP1_16 { mesh = PRZArmory/HolyFlameMechanicsLever, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsLever { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_01 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_02 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_03 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_04 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_05 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_06 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_07 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_08 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_09 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_10 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_11 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_12 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_13 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_14 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_15 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+
+model PRZArmoryMech_HolyFlameP2_16 { mesh = PRZArmory/HolyFlameMechanicsTrigger, texture = PRZArmory/HolyFlame, static = true, scale = 1.0, attachment PRZArmoryMechanicsTrigger { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, } }
+}

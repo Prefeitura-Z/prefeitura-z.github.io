@@ -1,0 +1,21 @@
+module PRZWeapons
+{
+	item DarkRepulsorSheath
+	{
+		DisplayName = Dark Repulsor Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= DarkRepulsorSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = DarkRepulsorSheath,
+                                BodyLocation            = przweapons:PRZMeleeDarkRepulsorSheath,
+                                AttachmentsProvided = PRZMeleeDarkRepulsorSheath,
+                                WorldStaticModel        = Base.PRZM_DarkRepulsorSheathGround,
+		Tooltip = Tooltip_DarkRepulsorSheath,
+	}
+
+
+
+	
+
+}

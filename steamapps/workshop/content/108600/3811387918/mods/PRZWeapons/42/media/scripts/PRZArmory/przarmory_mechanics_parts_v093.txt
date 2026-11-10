@@ -1,0 +1,934 @@
+module PRZWeapons
+{
+item OmegaDualInfinityMechanicalHandVisual {
+        Hidden = true, DisplayCategory = Hidden, ItemType = base:weapon, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, ConditionMax = 10, StaticModel = Base.PRZArmoryDualInfinityLeft, WeaponSprite = Base.PRZArmoryDualInfinityLeft, WorldStaticModel = Base.PRZArmoryDualInfinityLeft,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_01 Base.PRZArmoryMech_DualInfinityLeftP1_01 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_02 Base.PRZArmoryMech_DualInfinityLeftP1_02 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_03 Base.PRZArmoryMech_DualInfinityLeftP1_03 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_04 Base.PRZArmoryMech_DualInfinityLeftP1_04 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_05 Base.PRZArmoryMech_DualInfinityLeftP1_05 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_06 Base.PRZArmoryMech_DualInfinityLeftP1_06 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_07 Base.PRZArmoryMech_DualInfinityLeftP1_07 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_08 Base.PRZArmoryMech_DualInfinityLeftP1_08 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_09 Base.PRZArmoryMech_DualInfinityLeftP1_09 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_10 Base.PRZArmoryMech_DualInfinityLeftP1_10 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_11 Base.PRZArmoryMech_DualInfinityLeftP1_11 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_12 Base.PRZArmoryMech_DualInfinityLeftP1_12 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_13 Base.PRZArmoryMech_DualInfinityLeftP1_13 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_14 Base.PRZArmoryMech_DualInfinityLeftP1_14 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_15 Base.PRZArmoryMech_DualInfinityLeftP1_15 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP1_16 Base.PRZArmoryMech_DualInfinityLeftP1_16 PRZArmoryMechanicsPart013 PRZArmoryMechanicsPart013,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_01 Base.PRZArmoryMech_DualInfinityLeftP2_01 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_02 Base.PRZArmoryMech_DualInfinityLeftP2_02 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_03 Base.PRZArmoryMech_DualInfinityLeftP2_03 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_04 Base.PRZArmoryMech_DualInfinityLeftP2_04 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_05 Base.PRZArmoryMech_DualInfinityLeftP2_05 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_06 Base.PRZArmoryMech_DualInfinityLeftP2_06 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_07 Base.PRZArmoryMech_DualInfinityLeftP2_07 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_08 Base.PRZArmoryMech_DualInfinityLeftP2_08 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_09 Base.PRZArmoryMech_DualInfinityLeftP2_09 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_10 Base.PRZArmoryMech_DualInfinityLeftP2_10 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_11 Base.PRZArmoryMech_DualInfinityLeftP2_11 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_12 Base.PRZArmoryMech_DualInfinityLeftP2_12 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_13 Base.PRZArmoryMech_DualInfinityLeftP2_13 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_14 Base.PRZArmoryMech_DualInfinityLeftP2_14 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_15 Base.PRZArmoryMech_DualInfinityLeftP2_15 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+ModelWeaponPart = PRZWeapons.OmegaMech_DualInfinityLeftP2_16 Base.PRZArmoryMech_DualInfinityLeftP2_16 PRZArmoryMechanicsPart015 PRZArmoryMechanicsPart015,
+}
+item OmegaMech_Balrog11P1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P1, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog11P2_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog11P2, MountOn = PRZWeapons.OmegaBalrog11, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P1, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_Balrog7P2_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_Balrog7P2, MountOn = PRZWeapons.OmegaBalrog7, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG3GoldP1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG3GoldP1, MountOn = PRZWeapons.OmegaMG3Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP1, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_SVDEXP2_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_SVDEXP2, MountOn = PRZWeapons.OmegaSVDEX, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+item OmegaMech_DualInfinityP1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP1, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityP2_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityP2, MountOn = PRZWeapons.OmegaDualInfinity, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP1, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_DualInfinityLeftP2_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_DualInfinityLeftP2, MountOn = PRZWeapons.OmegaDualInfinityMechanicalHandVisual, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+item OmegaMech_AS50GoldP1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_AS50GoldP1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_AS50GoldP1, MountOn = PRZWeapons.OmegaAS50Gold, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP1, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP2_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP2, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_MG36XmasP3_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_MG36XmasP3, MountOn = PRZWeapons.OmegaMG36Xmas, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP1, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP2_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP2, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP3_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP3, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_GatlingP4_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_GatlingP4, MountOn = PRZWeapons.OmegaGatling, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+item OmegaMech_HolyFlameP1_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP1_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP1, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_01 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_02 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_03 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_04 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_05 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_06 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_07 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_08 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_09 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_10 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_11 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_12 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_13 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_14 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_15 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+item OmegaMech_HolyFlameP2_16 {
+        Hidden = true, DisplayCategory = WeaponPart, ItemType = base:weaponpart, Hidden = true, Icon = PRZArmory_DualInfinity, Weight = 0.0, WeightModifier = 0.0, PartType = PRZArmory_Mech_HolyFlameP2, MountOn = PRZWeapons.OmegaHolyFlame, CanAttach = PRZArmoryMechanicsLocked, CanDetach = PRZArmoryMechanicsLocked, }
+}

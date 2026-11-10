@@ -1,0 +1,9 @@
+name='89 Dodge Caravan - Rust edition
+id=89dodgeCaravanRusty
+require=\damnlib,\89dodgeCaravan
+description=Alternative textures for an abandoned, rotten variant of Dodge Caravan, a minivan from 1989
+poster=preview.png
+icon=icon.png
+author=KI5,REDVAIS
+category=vehicle
+versionMin=42.0.0

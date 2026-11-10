@@ -1,0 +1,27 @@
+VERSION = 1,
+
+option XsLootBoxes.DoubleBoxChance
+{
+    type = integer,
+    default = 5,
+    min = 0,
+    max = 100,
+    page = XsLootBoxes_General,
+    translation = Sandbox_XsLootBoxes_DoubleBoxChance,
+}
+option XsLootBoxes.TripleBoxChance
+{
+    type = integer,
+    default = 1,
+    min = 0,
+    max = 100,
+    page = XsLootBoxes_General,
+    translation = Sandbox_XsLootBoxes_TripleBoxChance,
+}
+option XsLootBoxes.GrantGunAmmo
+{
+    type = boolean,
+    default = true,
+    page = XsLootBoxes_General,
+    translation = Sandbox_XsLootBoxes_GrantGunAmmo,
+}

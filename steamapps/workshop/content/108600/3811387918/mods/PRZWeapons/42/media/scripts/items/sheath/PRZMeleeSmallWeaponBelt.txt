@@ -1,0 +1,19 @@
+module PRZWeapons
+{
+	item PRZSmallWeaponBelt
+	{
+		DisplayName = PRZMeleeSmallWeaponBelt,
+		DisplayCategory= Accessory,
+                                ClothingItem= PRZMeleeSmallWeaponBelt,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = PRZMeleeSmallWeaponBelt,
+                                BodyLocation            = przweapons:PRZMeleeSmallWeaponBeltL,
+                                AttachmentsProvided = PRZMeleeSmallWeaponBeltL;PRZMeleeSmallWeaponBeltR,
+                                WorldStaticModel        = Belt_Ground,
+		Tooltip = Tooltip_PRZMeleeSmallWeaponBelt,
+	}
+
+    
+	
+ }

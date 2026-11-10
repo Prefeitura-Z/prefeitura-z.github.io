@@ -1,0 +1,10 @@
+name='90 Pierce Arrow Pumper - Rust edition
+id=90pierceArrowRusty
+require=\damnlib,\90pierceArrow
+poster=preview.png
+icon=icon.png
+description=Alternative textures for an abandoned, rotten variant of pierce Arrow pumper from 1990
+poster=preview.png
+author=KI5,REDVAIS
+category=vehicle
+versionMin=42.13.0

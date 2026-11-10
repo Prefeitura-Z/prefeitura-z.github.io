@@ -1,0 +1,38 @@
+module Base
+{
+    model PRZArmoryBalrog7Magazine
+    {
+        mesh = PRZArmory/Balrog7Magazine,
+        texture = PRZArmory/Balrog7Magazine,
+        static = true,
+        scale = 1.0,
+        attachment world
+        {
+            offset = 0.0429382 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+
+    model PRZArmoryMG3GoldMagazine
+    {
+        mesh = PRZArmory/MG3GoldMagazine,
+        texture = PRZArmory/MG3GoldMagazine,
+        static = true,
+        scale = 1.0,
+        attachment world
+        {
+            offset = 0.0443562 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+}

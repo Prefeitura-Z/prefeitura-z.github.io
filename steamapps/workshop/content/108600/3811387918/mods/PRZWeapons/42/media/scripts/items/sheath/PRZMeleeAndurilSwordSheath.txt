@@ -1,0 +1,20 @@
+module PRZWeapons
+{
+	item AndurilSwordSheath
+	{
+		DisplayName = Anduril Sword Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= AndurilSwordSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = AndurilSwordSheath,
+                                BodyLocation            = przweapons:PRZMeleeAndurilSwordSheath,
+                                AttachmentsProvided = PRZMeleeAndurilSwordSheath,
+                                WorldStaticModel        = Base.PRZM_AndurilSwordSheathGround,
+		Tooltip = Tooltip_AndurilSwordSheath,
+	}
+
+
+
+	
+}

@@ -1,0 +1,413 @@
+module Base
+{
+model PRZM_AngryThunderLance
+{mesh= weapons/spear/AngryThunderLance,
+texture = weapons/AngryThunderLance,
+}
+model PRZM_DivinepunishmentKnife
+{mesh= DivinepunishmentKnife,
+texture = weapons/DivinepunishmentKnife,
+}
+model PRZM_HonglingAxe
+{mesh= weapons/axe/HonglingAxe,
+texture = weapons/HonglingAxe,
+}
+model PRZM_LauraIceAxe
+{mesh= weapons/axe/LauraIceAxe,
+texture = weapons/LauraIceAxe,
+}
+model PRZM_MirageHalberd
+{mesh= weapons/spear/MirageHalberd,
+texture = weapons/MirageHalberd,
+}
+model PRZM_NebulaButterflyKnife
+{mesh= weapons/knife/NebulaButterflyKnife,
+texture = weapons/NebulaButterflyKnife,
+}
+model PRZM_RainbowWave
+{mesh= weapons/spear/RainbowWave,
+texture = weapons/RainbowWave,
+}
+model PRZM_StabbingEmbersLance
+{mesh= weapons/spear/StabbingEmbersLance,
+texture = weapons/StabbingEmbersLance,
+}
+model PRZM_HandandahalfSwordClassic
+{mesh= weapons/machete/HandandahalfSwordClassic,
+texture = weapons/HandandahalfSwordClassic,
+}
+model PRZM_NGW_DarkRepulsor_GlowBlueGreen
+    {
+        mesh = weapons/sword/DarkRepulsor,
+        texture = weapons/DarkRepulsor,
+        shader = PRZMeleeSelfLuminousGeneri_GlowBlueGreen,
+    }
+model PRZM_NGW_BlueRoseSword_GlowBlueWhite
+    {
+        mesh = weapons/sword/BlueRoseSword,
+        texture = weapons/BlueRoseSword,
+        shader = PRZMeleeSelfLuminousGeneri_GlowBlueWhite,
+    }
+model PRZM_NGW_Excalibur_GlowExcalibur
+    {
+        mesh = weapons/sword/Excalibur,
+        texture = weapons/Excalibur,
+        shader = PRZMeleeSelfLuminousUnique_GlowExcalibur,
+    }
+model PRZM_NGW_PRZCaliburn_GlowPRZCaliburn
+    {
+        mesh = weapons/sword/PRZMeleeCaliburn,
+        texture = weapons/PRZMeleeCaliburn,
+        shader = PRZMeleeSelfLuminousUnique_GlowPRZMeleeCaliburn,
+    }
+model PRZM_NGW_AndurilSword_GlowWhiteOrange
+    {
+        mesh = weapons/sword/AndurilSword,
+        texture = weapons/AndurilSword,
+        shader = PRZMeleeSelfLuminousGeneri_GlowWhiteOrange,
+    }
+model PRZM_NGW_PoeticMelody_GlowPoeticMelody
+    {
+        mesh = weapons/sword/PoeticMelody,
+        texture = weapons/PoeticMelody,
+        shader = PRZMeleeSelfLuminousUnique_GlowPoeticMelody,
+    }
+model PRZM_NGW_Izanami_GlowRainbow
+    {
+        mesh = weapons/sword/Izanami,
+        texture = weapons/Izanami,
+        shader = PRZMeleeSelfLuminousGeneri_GlowRainbow,
+    }
+model PRZM_NGW_NightSkySword_GlowNightSkySword
+    {
+        mesh = weapons/sword/NightSkySword,
+        texture = weapons/NightSkySword,
+        shader = PRZMeleeSelfLuminousUnique_GlowNightSkySword,
+    }
+model PRZM_NGW_JudgmentScythe_GlowJudgmentScythe
+    {
+        mesh = weapons/scythe/JudgmentScythe,
+        texture = weapons/JudgmentScythe,
+        shader = PRZMeleeSelfLuminousUnique_GlowJudgmentScythe,
+    }
+model PRZM_NGW_JeannedArcSword_GlowJeannedArcSword
+    {
+        mesh = weapons/sword/JeannedArcSword,
+        texture = weapons/JeannedArcSword,
+        shader = PRZMeleeSelfLuminousUnique_GlowJeannedArcSword,
+    }
+model PRZM_NGW_ErrataKatana_GlowErrataKatana
+    {
+        mesh = weapons/sword/ErrataKatana,
+        texture = weapons/ErrataKatana,
+        shader = PRZMeleeSelfLuminousUnique_GlowErrataKatana,
+    }
+model PRZM_NGW_TianLaiJiBan_GlowTianLaiJiBan
+    {
+        mesh = weapons/sword/TianLaiJiBan,
+        texture = weapons/TianLaiJiBan,
+        shader = PRZMeleeSelfLuminousUnique_GlowTianLaiJiBan,
+    }
+model PRZM_NGW_RanLing_GlowRanLing
+    {
+        mesh = weapons/sword/RanLing,
+        texture = weapons/RanLing,
+        shader = PRZMeleeSelfLuminousUnique_GlowRanLing,
+    }
+model PRZM_NGW_ChanShiZhe_GlowChanShiZhe
+    {
+        mesh = weapons/sword/ChanShiZhe,
+        texture = weapons/ChanShiZhe,
+        shader = PRZMeleeSelfLuminousUnique_GlowChanShiZhe,
+    }
+model PRZM_NGW_OrpheusCradle_GlowOrpheusCradle
+    {
+        mesh = weapons/sword/OrpheusCradle,
+        texture = weapons/OrpheusCradle,
+        shader = PRZMeleeSelfLuminousUnique_GlowOrpheusCradle,
+    }
+model PRZM_NGW_StarryThunder_GlowStarryThunder
+    {
+        mesh = weapons/sword/StarryThunder,
+        texture = weapons/StarryThunder,
+        shader = PRZMeleeSelfLuminousUnique_GlowStarryThunder,
+    }
+model PRZM_NGW_SurfingTunes_GlowSurfingTunes
+    {
+        mesh = weapons/sword/SurfingTunes,
+        texture = weapons/SurfingTunes,
+        shader = PRZMeleeSelfLuminousUnique_GlowSurfingTunes,
+    }
+model PRZM_NGW_ForestShamanPrayer_GlowBlueBlack
+    {
+        mesh = weapons/scythe/ForestShamanPrayer,
+        texture = weapons/ForestShamanPrayer,
+        shader = PRZMeleeSelfLuminousGeneri_GlowBlueBlack,
+    }
+model PRZM_NGW_HymnofWindandFlower_GlowHymnofWindandFlower
+    {
+        mesh = weapons/sword/HymnofWindandFlower,
+        texture = weapons/HymnofWindandFlower,
+        shader = PRZMeleeSelfLuminousUnique_GlowHymnofWindandFlower,
+    }
+model PRZM_NGW_DivinepunishmentKnife_GlowDivinepunishmentKnife
+    {
+        mesh = DivinepunishmentKnife,
+        texture = weapons/DivinepunishmentKnife,
+        shader = PRZMeleeSelfLuminousUnique_GlowDivinepunishmentKnife,
+    }
+model PRZM_NGW_Rwbyliandao_GlowMagma
+    {
+        mesh = weapons/scythe/Rwbyliandao,
+        texture = weapons/Rwbyliandao,
+        shader = PRZMeleeSelfLuminousGeneri_GlowMagma,
+    }
+model PRZM_NGW_Taidao_GlowTaidao
+    {
+        mesh = weapons/sword/Taidao,
+        texture = weapons/Taidao,
+        shader = PRZMeleeSelfLuminousUnique_GlowTaidao,
+    }
+model PRZM_NGW_NocturnalEdge_GlowNocturnalEdge
+    {
+        mesh = weapons/sword/NocturnalEdge,
+        texture = weapons/NocturnalEdge,
+        shader = PRZMeleeSelfLuminousUnique_GlowNocturnalEdge,
+    }
+model PRZM_NGW_GlintofClouds_GlowGlintofClouds
+    {
+        mesh = weapons/sword/GlintofClouds,
+        texture = weapons/GlintofClouds,
+        shader = PRZMeleeSelfLuminousUnique_GlowGlintofClouds,
+    }
+model PRZM_PRZWeaponUniversalRepairBox
+    {
+        mesh = WorldItems/PRZMeleeUniversalRepairBox,
+        texture = WorldItems/PRZMeleeUniversalRepairBox,
+    }
+model PRZM_LumberingAxeold
+{mesh= weapons/axe/LumberingAxeold,
+texture = weapons/LumberingAxeold,
+}
+model PRZM_TacticalHatchetX
+{mesh= weapons/axe/TacticalHatchetX,
+texture = weapons/TacticalHatchetX,
+}
+model PRZM_XunXueHandAxe
+{mesh= weapons/axe/XunXueHandAxe,
+texture = weapons/XunXueHandAxe,
+}
+model PRZM_ClaymoreSword
+{mesh= weapons/giantsword/ClaymoreSword,
+texture = weapons/ClaymoreSword,
+}
+model PRZM_HexagramGiantSwordHammer
+{mesh= HexagramGiantSwordHammer,
+texture = weapons/HexagramGiantSwordHammer,
+}
+model PRZM_IridescentGalaxy
+{mesh= weapons/giantsword/IridescentGalaxy,
+texture = weapons/IridescentGalaxy,
+}
+model PRZM_CuteRabbitKnife
+{mesh= weapons/knife/CuteRabbitKnife,
+texture = weapons/CuteRabbitKnife,
+}
+model PRZM_RanLingKnife
+{mesh= weapons/knife/RanLingKnife,
+texture = weapons/RanLing,
+}
+model PRZM_BlueSteelMachete
+{mesh= weapons/machete/BlueSteelMachete,
+texture = weapons/BlueSteelMachete,
+}
+model PRZM_NightFalcon
+{mesh= weapons/machete/NightFalcon,
+texture = weapons/NightFalcon,
+}
+model PRZM_ForestShamanPrayer
+{mesh= weapons/scythe/ForestShamanPrayer,
+texture = weapons/ForestShamanPrayer,
+}
+model PRZM_JudgmentScythe
+{mesh= weapons/scythe/JudgmentScythe,
+texture = weapons/JudgmentScythe,
+}
+model PRZM_Rwbyliandao
+{mesh= weapons/scythe/Rwbyliandao,
+texture = weapons/Rwbyliandao,
+}
+model PRZM_DarkRepulsorSheathGround
+	{
+		mesh = WorldItems/DarkRepulsorSheathGround,
+        texture = Clothes/Equipment/DarkRepulsorSheath,
+
+	}
+model PRZM_ElucidatorSheathGround
+	{
+		mesh = WorldItems/ElucidatorSheathGround,
+        texture = Clothes/Equipment/ElucidatorSheath,
+	}
+model PRZM_StarThunderSheathGround
+	{
+		mesh = WorldItems/StarThunderSheathGround,
+        texture = Clothes/Equipment/StarThunderSheath,
+	}
+model PRZM_BlueRoseSwordSheathGround
+	{
+		mesh = WorldItems/BlueRoseSwordSheathGround,
+        texture = Clothes/Equipment/BlueRoseSwordSheath,
+	}
+model PRZM_NightSkySwordSheathGround
+	{
+		mesh = WorldItems/NightSkySwordSheathGround,
+        texture = Clothes/Equipment/NightSkySwordSheath,
+	}
+model PRZM_AndurilSwordSheathGround
+	{
+		mesh = WorldItems/AndurilSwordSheathGround,
+        texture = Clothes/Equipment/AndurilSwordSheath,
+	}
+model PRZM_JeannedArcSwordSheathGround
+	{
+		mesh = WorldItems/JeannedArcSwordSheathGround,
+        texture = Clothes/Equipment/JeannedArcSwordSheath,
+	}
+model PRZM_ExcaliburSheathGround
+	{
+		mesh = WorldItems/ExcaliburSheathGround,
+        texture = Clothes/Equipment/ExcaliburSheath,
+	}
+model PRZM_CaliburnSheathGround
+	{
+		mesh = WorldItems/CaliburnSheathGround,
+        texture = Clothes/Equipment/CaliburnSheath,
+	}
+model PRZM_RanLingSheathGround
+	{
+		mesh = WorldItems/RanLingSheathGround,
+        texture = Clothes/Equipment/RanLingSheath,
+	}
+model PRZM_NocturnalEdgeSheathGround
+	{
+		mesh = WorldItems/NocturnalEdgeSheathGround,
+        texture = Clothes/Equipment/NocturnalEdgeSheath,
+	}
+model PRZM_GlintofCloudsSheathGround
+	{
+		mesh = WorldItems/GlintofCloudsSheathGround,
+        texture = Clothes/Equipment/GlintofCloudsSheath,
+	}
+model PRZM_SpaaerShovelShovel
+{mesh= weapons/shovel/SpaaerShovelShovel,
+texture = weapons/SpaaerShovelShovel,
+}
+model PRZM_CardCaptorSakuraCrowbar
+{mesh= CardCaptorSakuraCrowbar,
+texture = weapons/CardCaptorSakuraCrowbar,
+}
+model PRZM_CarrotNightSticks
+{mesh= CarrotNightSticks,
+texture = weapons/CarrotNightSticks,
+}
+model PRZM_PurplestarBaseballBat
+{mesh= weapons/stick/PurplestarBaseballBat,
+texture = weapons/PurplestarBaseballBat,
+}
+model PRZM_AndurilSword
+{mesh= weapons/sword/AndurilSword,
+texture = weapons/AndurilSword,
+}
+model PRZM_Bahamut
+{mesh= weapons/sword/Bahamut,
+texture = weapons/Bahamut,
+}
+model PRZM_BlueRoseSword
+{mesh= weapons/sword/BlueRoseSword,
+texture = weapons/BlueRoseSword,
+}
+model PRZM_ChanShiZhe
+{mesh= weapons/sword/ChanShiZhe,
+texture = weapons/ChanShiZhe,
+}
+model PRZM_DarkRepulsor
+{mesh= weapons/sword/DarkRepulsor,
+texture = weapons/DarkRepulsor,
+}
+model PRZM_ErrataKatana
+{mesh= weapons/sword/ErrataKatana,
+texture = weapons/ErrataKatana,
+}
+model PRZM_Excalibur
+{mesh=weapons/sword/Excalibur,
+texture = weapons/Excalibur,
+}
+model PRZM_FeiyuzhuohuaMachete
+{mesh= FeiyuzhuohuaMachete,
+texture = weapons/FeiyuzhuohuaMachete,
+}
+model PRZM_FuxiaoYanlingMachete
+{mesh= FuxiaoYanlingMachete,
+texture = weapons/FuxiaoYanlingMachete,
+}
+model PRZM_GlintofClouds
+{mesh= weapons/sword/GlintofClouds,
+texture = weapons/GlintofClouds,
+}
+model PRZM_HymnofWindandFlower
+{mesh= weapons/sword/HymnofWindandFlower,
+texture = weapons/HymnofWindandFlower,
+}
+model PRZM_Izanami
+{mesh= weapons/sword/Izanami,
+texture = weapons/Izanami,
+}
+model PRZM_JeannedArcSword
+{mesh= weapons/sword/JeannedArcSword,
+texture = weapons/JeannedArcSword,
+}
+model PRZM_NightSkySword
+{mesh= weapons/sword/NightSkySword,
+texture = weapons/NightSkySword,
+}
+model PRZM_NocturnalEdge
+{mesh= weapons/sword/NocturnalEdge,
+texture = weapons/NocturnalEdge,
+}
+model PRZM_OrpheusCradle
+{mesh= weapons/sword/OrpheusCradle,
+texture = weapons/OrpheusCradle,
+}
+model PRZM_PoeticMelody
+{mesh= weapons/sword/PoeticMelody,
+texture = weapons/PoeticMelody,
+}
+model PRZM_RanLing
+{mesh= weapons/sword/RanLing,
+texture = weapons/RanLing,
+}
+model PRZM_StarryThunder
+{mesh= weapons/sword/StarryThunder,
+texture = weapons/StarryThunder,
+}
+model PRZM_SurfingTunes
+{mesh=  weapons/sword/SurfingTunes,
+texture = weapons/SurfingTunes,
+}
+model PRZM_Taidao
+{mesh= weapons/sword/Taidao,
+texture = weapons/Taidao,
+}
+model PRZM_TianLaiJiBan
+{mesh= weapons/sword/TianLaiJiBan,
+texture = weapons/TianLaiJiBan,
+}
+model PRZM_VillageSword
+{mesh= weapons/sword/VillageSword,
+texture = weapons/VillageSword,
+}
+model PRZM_PRZCaliburn
+{mesh= weapons/sword/PRZMeleeCaliburn,
+texture = weapons/PRZMeleeCaliburn,
+}
+}

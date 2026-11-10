@@ -1,0 +1,20 @@
+module PRZWeapons
+{
+	item PRZBigWeaponHipBelt
+	{
+		DisplayCategory= Accessory,
+                                ClothingItem= PRZMeleeBigWeaponHipBelt,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = PRZMeleeBigWeaponHipBelt,
+                                BodyLocation            = przweapons:PRZMeleeBigWeaponHipBelt,
+                                AttachmentsProvided = PRZMeleeBigWeaponHipBelt,
+                                WorldStaticModel        = Belt_Ground,
+		Tooltip = Tooltip_PRZMeleeBigWeaponHipBelt,
+	}
+
+
+
+	
+
+}

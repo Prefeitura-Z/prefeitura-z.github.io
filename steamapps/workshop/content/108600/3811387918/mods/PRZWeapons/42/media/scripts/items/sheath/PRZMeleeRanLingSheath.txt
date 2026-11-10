@@ -1,0 +1,19 @@
+module PRZWeapons
+{
+	item RanLingSheath
+	{
+		DisplayName = RanLing Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= RanLingSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = RanLingSheath,
+                                BodyLocation            = przweapons:PRZMeleeRanLingSheath,
+                                AttachmentsProvided = PRZMeleeRanLingSheath,
+                                WorldStaticModel        = Base.PRZM_RanLingSheathGround,
+	}
+
+
+
+	
+}

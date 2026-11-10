@@ -1,0 +1,6 @@
+name=Loot Boxes
+id=XsLootBoxes
+description=Sistema de caixas de loot configuravel pelo servidor, com tabelas ponderadas, abertura segura e painel administrativo.
+poster=poster.png
+modversion=2
+versionMin=42.20

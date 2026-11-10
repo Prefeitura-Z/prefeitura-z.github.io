@@ -1,0 +1,139 @@
+module PRZWeapons
+{
+    item LigaOmega
+    {
+        DisplayName = Stabilized Omega alloy,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_LigaOmega,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item CircuitoOmega
+    {
+        DisplayName = Omega control circuit,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_CircuitoOmega,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item BobinaOmega
+    {
+        DisplayName = Omega induction coil,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_BobinaOmega,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item CatalisadorOmega
+    {
+        DisplayName = Omega crystalline catalyst,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_CatalisadorOmega,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item CondutorOmega
+    {
+        DisplayName = Omega energy conductor,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_CondutorOmega,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item EmpunhaduraOmega
+    {
+        DisplayName = Omega reinforced grip,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_EmpunhaduraOmega,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item SeloOmega
+    {
+        DisplayName = Omega containment seal,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_SeloOmega,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item NucleoTyrfingRubra
+    {
+        DisplayName = Core — TyrfingRubra,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_NucleoTyrfingRubra,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item NucleoPunhalCastigoDivino
+    {
+        DisplayName = Core — PunhalDraconico,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_NucleoPunhalCastigoDivino,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item NucleoPunhalDraconico
+    {
+        DisplayName = Core — PunhalDraconico,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_NucleoPunhalDraconico,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item NucleoTacoSupremoZ
+    {
+        DisplayName = Core — TacoSupremoZ,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_NucleoTacoSupremoZ,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item NucleoMarteloDoTrovao
+    {
+        DisplayName = Core — MarteloDoTrovao,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_NucleoMarteloDoTrovao,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item NucleoMachadoLeviata
+    {
+
+        DisplayName = Núcleo — SKULL-9 Ômega,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_NucleoMachadoLeviata,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item NucleoTridentePoseidon
+    {
+        DisplayName = Core — LonginusEscarlate,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_NucleoTridentePoseidon,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+    item NucleoLonginusEscarlate
+    {
+        DisplayName = Core — LonginusEscarlate,
+        DisplayCategory = PRZOmegaParts,
+        ItemType = base:normal,
+        Icon = PRZ_NucleoLonginusEscarlate,
+        Weight = 0.15,
+        Tooltip = Tooltip_PRZ_OmegaPart,
+    }
+}

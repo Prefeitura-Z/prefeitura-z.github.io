@@ -1,0 +1,21 @@
+module PRZWeapons
+{
+	item BlueRoseSwordSheath
+	{
+		DisplayName = Blue Rose Sword Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= BlueRoseSwordSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = BlueRoseSwordSheath,
+                                BodyLocation            = przweapons:PRZMeleeBlueRoseSwordSheath,
+                                AttachmentsProvided = PRZMeleeBlueRoseSwordSheath,
+                                WorldStaticModel        = Base.PRZM_BlueRoseSwordSheathGround,
+		Tooltip = Tooltip_BlueRoseSwordSheath,
+	}
+
+
+
+	
+
+}

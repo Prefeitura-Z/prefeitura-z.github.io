@@ -1,0 +1,20 @@
+module PRZWeapons
+{
+	item CaliburnSheath
+	{
+		DisplayName = Caliburn Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= CaliburnSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = CaliburnSheath,
+                                BodyLocation            = przweapons:PRZMeleeCaliburnSheath,
+                                AttachmentsProvided = PRZMeleeCaliburnSheath,
+                                WorldStaticModel        = Base.PRZM_CaliburnSheathGround,
+		Tooltip = Tooltip_CaliburnSheath,
+	}
+
+
+
+	
+}

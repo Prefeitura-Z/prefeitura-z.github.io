@@ -1,0 +1,228 @@
+module Base
+{
+    fixing Fix VillageSword
+    {
+        Require = PRZWeapons.VillageSword,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix HonglingAxe
+    {
+        Require = PRZWeapons.HonglingAxe,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix FeiyuzhuohuaMachete
+    {
+        Require = PRZWeapons.FeiyuzhuohuaMachete,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix OrpheusCradle
+    {
+        Require = PRZWeapons.OrpheusCradle,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix Bahamut
+    {
+        Require = PRZWeapons.Bahamut,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix ChanShiZhe
+    {
+        Require = PRZWeapons.ChanShiZhe,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix NightFalcon
+    {
+        Require = PRZWeapons.NightFalcon,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix PurplestarBaseballBat
+    {
+        Require = PRZWeapons.PurplestarBaseballBat,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix Rwbyliandao
+    {
+        Require = PRZWeapons.Rwbyliandao,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix Taidao
+    {
+        Require = PRZWeapons.Taidao,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix PoeticMelody
+    {
+        Require = PRZWeapons.PoeticMelody,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix Izanami
+    {
+        Require = PRZWeapons.Izanami,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix Excalibur
+    {
+        Require = PRZWeapons.Excalibur,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix StarryThunder
+    {
+        Require = PRZWeapons.StarryThunder,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix RainbowWave
+    {
+        Require = PRZWeapons.RainbowWave,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix DarkRepulsor
+    {
+        Require = PRZWeapons.DarkRepulsor,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix BlueRoseSword
+    {
+        Require = PRZWeapons.BlueRoseSword,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix RanLing
+    {
+        Require = PRZWeapons.RanLing,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix FuxiaoYanlingMachete
+    {
+        Require = PRZWeapons.FuxiaoYanlingMachete,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix HexagramGiantSwordHammer
+    {
+        Require = PRZWeapons.HexagramGiantSwordHammer,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix CarrotNightSticks
+    {
+        Require = PRZWeapons.CarrotNightSticks,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix TianLaiJiBan
+    {
+        Require = PRZWeapons.TianLaiJiBan,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix ClaymoreSword
+    {
+        Require = PRZWeapons.ClaymoreSword,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix NightSkySword
+    {
+        Require = PRZWeapons.NightSkySword,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix BlueSteelMachete
+    {
+        Require = PRZWeapons.BlueSteelMachete,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix AndurilSword
+    {
+        Require = PRZWeapons.AndurilSword,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix CardCaptorSakuraCrowbar
+    {
+        Require = PRZWeapons.CardCaptorSakuraCrowbar,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix JeannedArcSword
+    {
+        Require = PRZWeapons.JeannedArcSword,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix SpaaerShovelShovel
+    {
+        Require = PRZWeapons.SpaaerShovelShovel,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix AngryThunderLance
+    {
+        Require = PRZWeapons.AngryThunderLance,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix StabbingEmbersLance
+    {
+        Require = PRZWeapons.StabbingEmbersLance,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix HymnofWindandFlower
+    {
+        Require = PRZWeapons.HymnofWindandFlower,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix LauraIceAxe
+    {
+        Require = PRZWeapons.LauraIceAxe,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix HandandahalfSwordClassic
+    {
+        Require = PRZWeapons.HandandahalfSwordClassic,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix LumberingAxeold
+    {
+        Require = PRZWeapons.LumberingAxeold,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix MirageHalberd
+    {
+        Require = PRZWeapons.MirageHalberd,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix JudgmentScythe
+    {
+        Require = PRZWeapons.JudgmentScythe,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix ForestShamanPrayer
+    {
+        Require = PRZWeapons.ForestShamanPrayer,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix ErrataKatana
+    {
+        Require = PRZWeapons.ErrataKatana,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix TacticalHatchetX
+    {
+        Require = PRZWeapons.TacticalHatchetX,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix SurfingTunes
+    {
+        Require = PRZWeapons.SurfingTunes,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix PRZMeleeCaliburn
+    {
+        Require = PRZWeapons.PRZCaliburn,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix IridescentGalaxy
+    {
+        Require = PRZWeapons.IridescentGalaxy,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix NocturnalEdge
+    {
+        Require = PRZWeapons.NocturnalEdge,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+    fixing Fix GlintofClouds
+    {
+        Require = PRZWeapons.GlintofClouds,
+        Fixer = PRZWeapons.PrefeituraZUniversalRepairBox,
+    }
+}

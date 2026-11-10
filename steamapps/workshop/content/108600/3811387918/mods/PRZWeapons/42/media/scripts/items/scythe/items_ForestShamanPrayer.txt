@@ -1,0 +1,54 @@
+module PRZWeapons
+{
+
+item ForestShamanPrayer
+	{
+
+		DisplayName =Forest Shaman's Prayer,
+		DisplayCategory = Weapon,
+		ItemType = base:weapon,
+		Weight = 1,
+		Icon = ForestShamanPrayer,
+		AttachmentType = Sword,
+		BaseSpeed = 1.5,
+		BreakSound = KatanaBreak,
+		Categories = base:longblade,
+		ConditionLowerChanceOneIn = 35,
+		ConditionMax = 35,
+		CritDmgMultiplier = 6,
+		CriticalChance = 35,
+		DamageCategory = Slash,
+		DamageMakeHole = true,
+		DoorDamage = 20,
+		DoorHitSound = KatanaHit,
+		DropSound = KatanaDrop,
+		HitAngleMod = -30,
+		HitFloorSound = KatanaHit,
+		HitSound = KatanaHit,
+		ImpactSound = KatanaHit,
+		KnockBackOnNoDeath = true,
+		KnockdownMod = 0,
+		MaxDamage = 12,
+		MaxHitCount = 3,
+		MaxRange = 2,
+		MinAngle = 0.8,
+		MinDamage = 10,
+		MinRange = 0.7,
+		MinimumSwingTime = 2,
+		PushBackMod = 0.5,
+		RunAnim = Run_Weapon2,
+		SubCategory = Swinging,
+		SwingAmountBeforeImpact = 0.02,
+		SwingAnim = Bat,
+		SwingSound = KatanaSwing,
+		SwingTime = 2,
+		Tags = base:ignorezombiedensity;base:hasmetal;base:fullblade,
+		TreeDamage = 10,
+		TwoHandWeapon = true,
+		WeaponLength = 0.4,
+		WeaponSprite = Base.PRZM_ForestShamanPrayer,
+OnBreak = OnBreak.LongStick,
+		
+	}
+
+}

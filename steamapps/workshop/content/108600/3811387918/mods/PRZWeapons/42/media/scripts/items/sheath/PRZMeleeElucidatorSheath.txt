@@ -1,0 +1,22 @@
+module PRZWeapons
+{
+	item ElucidatorSheath
+	{
+		DisplayName = Elucidator Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= ElucidatorSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = ElucidatorSheath,
+                                BodyLocation            = przweapons:PRZMeleeElucidatorSheath,
+                                AttachmentsProvided = PRZMeleeElucidatorSheath,
+                                WorldStaticModel        = Base.PRZM_ElucidatorSheathGround,
+		Tooltip = Tooltip_ElucidatorSheath,
+	}
+
+
+
+	
+
+
+}

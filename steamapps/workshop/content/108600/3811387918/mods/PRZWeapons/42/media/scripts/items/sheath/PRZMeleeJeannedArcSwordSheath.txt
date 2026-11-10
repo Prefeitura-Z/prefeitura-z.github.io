@@ -1,0 +1,20 @@
+module PRZWeapons
+{
+	item JeannedArcSwordSheath
+	{
+		DisplayName = Jeanned Arc Sword Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= JeannedArcSwordSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = JeannedArcSwordSheath,
+                                BodyLocation            = przweapons:PRZMeleeJeannedArcSwordSheath,
+                                AttachmentsProvided = PRZMeleeJeannedArcSwordSheath,
+                                WorldStaticModel        = Base.PRZM_JeannedArcSwordSheathGround,
+		Tooltip = Tooltip_JeannedArcSwordSheath,
+	}
+
+
+
+	
+}

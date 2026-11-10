@@ -1,0 +1,200 @@
+module Base
+{
+    sound PRZArmory_Balrog7Shoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Balrog7Shoot.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 220,
+        }
+    }
+
+    sound PRZArmory_Balrog7Explosion
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Balrog7Explosion.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 180,
+        }
+    }
+
+    sound PRZArmory_Balrog7Draw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Balrog7Draw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Balrog7ClipIn
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Balrog7ClipIn.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Balrog7ClipIn2
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Balrog7ClipIn2.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Balrog7ClipOut
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Balrog7ClipOut.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Balrog7ClipOut2
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Balrog7ClipOut2.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    sound PRZArmory_MG3GoldShoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG3GoldShoot.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 220,
+        }
+    }
+
+    sound PRZArmory_MG3GoldDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG3GoldDraw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_MG3GoldClipIn
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG3GoldClipIn.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_MG3GoldClipOut
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG3GoldClipOut.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_MG3GoldRack
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG3GoldRack.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_HolyWaterDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/HolyWaterDraw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_HolyWaterThrow
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/HolyWaterThrow.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+}

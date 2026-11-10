@@ -1,0 +1,582 @@
+module Base
+{
+    model PRZOmegaDualFlashR01
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR02
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR03
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR04
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR05
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR06
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR07
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR08
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR09
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR10
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR11
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR12
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR13
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR14
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR15
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashR16
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashR { offset = 0.0 999.0 0.0, rotate = -90.000000000 0.000000000 180.000000000, }
+    }
+    model PRZOmegaDualFlashL01
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL02
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL03
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL04
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL05
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL06
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL07
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL08
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL09
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL10
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL11
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL12
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL13
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL14
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL15
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+    model PRZOmegaDualFlashL16
+    {
+        mesh = weapons/firearm/fx/muzzle_flash_handgun,
+        texture = weapons/firearm/fx/muzzle_flash_01,
+        static = true,
+        scale = 1.0,
+        cullFace = None,
+        attachment PRZWeapons_DualFlashL { offset = 0.0 999.0 0.0, rotate = -103.091986981 86.841096366 -70.459832855, }
+    }
+}
+module PRZWeapons
+{
+    item OmegaDualFlashR01
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR01,
+    }
+    item OmegaDualFlashR02
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR02,
+    }
+    item OmegaDualFlashR03
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR03,
+    }
+    item OmegaDualFlashR04
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR04,
+    }
+    item OmegaDualFlashR05
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR05,
+    }
+    item OmegaDualFlashR06
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR06,
+    }
+    item OmegaDualFlashR07
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR07,
+    }
+    item OmegaDualFlashR08
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR08,
+    }
+    item OmegaDualFlashR09
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR09,
+    }
+    item OmegaDualFlashR10
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR10,
+    }
+    item OmegaDualFlashR11
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR11,
+    }
+    item OmegaDualFlashR12
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR12,
+    }
+    item OmegaDualFlashR13
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR13,
+    }
+    item OmegaDualFlashR14
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR14,
+    }
+    item OmegaDualFlashR15
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR15,
+    }
+    item OmegaDualFlashR16
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashR16,
+    }
+    item OmegaDualFlashL01
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL01,
+    }
+    item OmegaDualFlashL02
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL02,
+    }
+    item OmegaDualFlashL03
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL03,
+    }
+    item OmegaDualFlashL04
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL04,
+    }
+    item OmegaDualFlashL05
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL05,
+    }
+    item OmegaDualFlashL06
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL06,
+    }
+    item OmegaDualFlashL07
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL07,
+    }
+    item OmegaDualFlashL08
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL08,
+    }
+    item OmegaDualFlashL09
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL09,
+    }
+    item OmegaDualFlashL10
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL10,
+    }
+    item OmegaDualFlashL11
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL11,
+    }
+    item OmegaDualFlashL12
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL12,
+    }
+    item OmegaDualFlashL13
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL13,
+    }
+    item OmegaDualFlashL14
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL14,
+    }
+    item OmegaDualFlashL15
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL15,
+    }
+    item OmegaDualFlashL16
+    {
+        DisplayName = Omega muzzle visual,
+        ItemType = base:normal,
+        Hidden = true,
+        Weight = 0.0,
+        Icon = LightBulb,
+        StaticModel = PRZOmegaDualFlashL16,
+    }
+}

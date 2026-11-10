@@ -1,0 +1,52 @@
+module XsLootBoxes
+{
+    model XsLootBox_White_Ground
+    {
+        mesh = WorldItems/LootBox,
+        texture = WorldItems/LootBox_White,
+        scale = 0.008,
+        static = true,
+    }
+    model XsLootBox_Green_Ground
+    {
+        mesh = WorldItems/LootBox,
+        texture = WorldItems/LootBox_Green,
+        scale = 0.008,
+        static = true,
+    }
+    model XsLootBox_Blue_Ground
+    {
+        mesh = WorldItems/LootBox,
+        texture = WorldItems/LootBox_Blue,
+        scale = 0.008,
+        static = true,
+    }
+    model XsLootBox_Purple_Ground
+    {
+        mesh = WorldItems/LootBox,
+        texture = WorldItems/LootBox_Purple,
+        scale = 0.008,
+        static = true,
+    }
+    model XsLootBox_Orange_Ground
+    {
+        mesh = WorldItems/LootBox,
+        texture = WorldItems/LootBox_Orange,
+        scale = 0.008,
+        static = true,
+    }
+    model XsLootBox_Red_Ground
+    {
+        mesh = WorldItems/LootBox,
+        texture = WorldItems/LootBox_Red,
+        scale = 0.008,
+        static = true,
+    }
+    model XsLootBox_Cyan_Ground
+    {
+        mesh = WorldItems/LootBox,
+        texture = WorldItems/LootBox_Cyan,
+        scale = 0.008,
+        static = true,
+    }
+}

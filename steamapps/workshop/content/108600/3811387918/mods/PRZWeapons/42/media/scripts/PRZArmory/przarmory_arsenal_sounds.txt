@@ -1,0 +1,151 @@
+module Base
+{
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    sound PRZArmory_DualInfinityShoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/DualInfinityShoot.wav, volume = 0.8, distanceMin = 1, distanceMax = 100, }
+    }
+
+    sound PRZArmory_DualInfinityDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/DualInfinityDraw.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+
+    sound PRZArmory_DualInfinityClipIn
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/DualInfinityClipIn.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+
+    sound PRZArmory_DualInfinityClipOut
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/DualInfinityClipOut.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+
+    sound PRZArmory_SVDEXShoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/SVDEXShoot.wav, volume = 0.8, distanceMin = 1, distanceMax = 100, }
+    }
+
+    sound PRZArmory_SVDEXDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/SVDEXDraw.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+
+    sound PRZArmory_SVDEXClipIn
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/SVDEXClipIn.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+
+    sound PRZArmory_SVDEXClipOut
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/SVDEXClipOut.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+
+    
+
+    
+
+    
+
+    
+
+    sound PRZArmory_StormHammerSwing
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/StormHammerSwing.wav, volume = 0.8, distanceMin = 1, distanceMax = 100, }
+    }
+
+    sound PRZArmory_StormHammerDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/StormHammerDraw.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+
+    sound PRZArmory_StormHammerHit
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/StormHammerHit.wav, volume = 0.8, distanceMin = 1, distanceMax = 100, }
+    }
+
+    sound PRZArmory_StormHammerWall
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/StormHammerWall.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+
+    sound PRZArmory_SVDEXLaunch
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/SVDEXLaunch.wav, volume = 0.8, distanceMin = 1, distanceMax = 100, }
+    }
+
+    sound PRZArmory_SVDEXExplosion
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/SVDEXExplosion.wav, volume = 0.8, distanceMin = 1, distanceMax = 160, }
+    }
+
+    sound PRZArmory_SVDEXGrenadeLoad
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/SVDEXGrenadeLoad.wav, volume = 0.8, distanceMin = 1, distanceMax = 18, }
+    }
+    sound PRZArmory_StormHammerHeavySwing
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/StormHammerHeavySwing.wav, volume = 0.9, distanceMin = 1, distanceMax = 100, }
+    }
+
+    sound PRZArmory_StormHammerHeavyHit
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/StormHammerHeavyHit.wav, volume = 0.9, distanceMin = 1, distanceMax = 100, }
+    }
+
+    sound PRZArmory_StormHammerHeavyWall
+    {
+        category = Item,
+        maxInstancesPerEmitter = 3,
+        clip { file = media/sound/PRZArmory/StormHammerHeavyWall.wav, volume = 0.9, distanceMin = 1, distanceMax = 100, }
+    }
+}

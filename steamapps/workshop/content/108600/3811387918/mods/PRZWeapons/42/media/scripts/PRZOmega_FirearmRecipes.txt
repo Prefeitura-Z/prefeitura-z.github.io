@@ -1,0 +1,647 @@
+module PRZWeapons
+{
+    craftRecipe PRZOmega_AbrirCaixa_50
+    {
+        timedAction = OpenAmmoBox,
+        time = 15,
+        NeedToBeLearn = false,
+        Tags = InHandCraft;CanBeDoneFromFloor;CanBeDoneInDark,
+        category = Packing,
+        recipeGroup = OpenBox,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.OmegaBullets50Box] flags[Prop2;AllowFavorite;InheritFavorite],
+        }
+        outputs { item 20 PRZWeapons.OmegaBullets50, }
+    }
+    craftRecipe PRZOmega_AbrirCaixa_SVDGrenade
+    {
+        timedAction = OpenAmmoBox,
+        time = 15,
+        NeedToBeLearn = false,
+        Tags = InHandCraft;CanBeDoneFromFloor;CanBeDoneInDark,
+        category = Packing,
+        recipeGroup = OpenBox,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.OmegaSupplySVDGrenadeBox] flags[Prop2;AllowFavorite;InheritFavorite],
+        }
+        outputs { item 2 PRZWeapons.OmegaSVDGrenade, }
+    }
+    craftRecipe PRZOmega_Municao_9mm
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:3;Maintenance:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 4 [Base.ScrapMetal],
+            item 3 [Base.GunPowder],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 50 PRZWeapons.OmegaBullets9mm, }
+    }
+    craftRecipe PRZOmega_AbrirCaixa_9mm
+    {
+        timedAction = OpenAmmoBox,
+        time = 15,
+        NeedToBeLearn = false,
+        Tags = InHandCraft;CanBeDoneFromFloor;CanBeDoneInDark,
+        category = Packing,
+        recipeGroup = OpenBox,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.OmegaSupply9mmBox] flags[Prop2;AllowFavorite;InheritFavorite],
+        }
+        outputs { item 50 PRZWeapons.OmegaBullets9mm, }
+    }
+    craftRecipe PRZOmega_Municao_556
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:3;Maintenance:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 6 [Base.ScrapMetal],
+            item 4 [Base.GunPowder],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 40 PRZWeapons.OmegaBullets556, }
+    }
+    craftRecipe PRZOmega_AbrirCaixa_556
+    {
+        timedAction = OpenAmmoBox,
+        time = 15,
+        NeedToBeLearn = false,
+        Tags = InHandCraft;CanBeDoneFromFloor;CanBeDoneInDark,
+        category = Packing,
+        recipeGroup = OpenBox,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.OmegaSupply556Box] flags[Prop2;AllowFavorite;InheritFavorite],
+        }
+        outputs { item 60 PRZWeapons.OmegaBullets556, }
+    }
+    craftRecipe PRZOmega_Municao_308
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:3;Maintenance:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 6 [Base.ScrapMetal],
+            item 4 [Base.GunPowder],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 40 PRZWeapons.OmegaBullets308, }
+    }
+    craftRecipe PRZOmega_AbrirCaixa_308
+    {
+        timedAction = OpenAmmoBox,
+        time = 15,
+        NeedToBeLearn = false,
+        Tags = InHandCraft;CanBeDoneFromFloor;CanBeDoneInDark,
+        category = Packing,
+        recipeGroup = OpenBox,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.OmegaSupply308Box] flags[Prop2;AllowFavorite;InheritFavorite],
+        }
+        outputs { item 60 PRZWeapons.OmegaBullets308, }
+    }
+    craftRecipe PRZOmega_Municao_Shells
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:3;Maintenance:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 4 [Base.ScrapMetal],
+            item 3 [Base.GunPowder],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 24 PRZWeapons.OmegaShotgunShells, }
+    }
+    craftRecipe PRZOmega_AbrirCaixa_Shells
+    {
+        timedAction = OpenShellsBox,
+        time = 15,
+        NeedToBeLearn = false,
+        Tags = InHandCraft;CanBeDoneFromFloor;CanBeDoneInDark,
+        category = Packing,
+        recipeGroup = OpenBox,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.OmegaSupplyShellsBox] flags[Prop2;AllowFavorite;InheritFavorite],
+        }
+        outputs { item 24 PRZWeapons.OmegaShotgunShells, }
+    }
+    craftRecipe PRZOmega_Fabricar_DualInfinity
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaDualInfinity, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaDualInfinityMagazine
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaDualInfinityMagazine, }
+    }
+    craftRecipe PRZOmega_Fabricar_SVDEX
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaSVDEX, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaSVDEXMagazine
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaSVDEXMagazine, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaSVDGrenade
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CatalisadorOmega],
+            item 1 [PRZWeapons.CondutorOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 2 PRZWeapons.OmegaSVDGrenade, }
+    }
+    craftRecipe PRZOmega_Fabricar_AS50Gold
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaAS50Gold, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaAS50GoldMagazine
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaAS50GoldMagazine, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaBullets50
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CatalisadorOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 40 PRZWeapons.OmegaBullets50, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaBullets50Box
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 20 [PRZWeapons.OmegaBullets50],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaBullets50Box, }
+    }
+    craftRecipe PRZOmega_Fabricar_MG36Xmas
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaMG36Xmas, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaMG36XmasMagazine
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaMG36XmasMagazine, }
+    }
+    craftRecipe PRZOmega_Fabricar_Gatling
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaGatling, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaGatlingMagazine
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaGatlingMagazine, }
+    }
+    craftRecipe PRZOmega_Fabricar_Janus7
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaJanus7, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaJanus7Magazine
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaJanus7Magazine, }
+    }
+    craftRecipe PRZOmega_Fabricar_Balrog7
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaBalrog7, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaBalrog7Magazine
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaBalrog7Magazine, }
+    }
+    craftRecipe PRZOmega_Fabricar_MG3Gold
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaMG3Gold, }
+    }
+    craftRecipe PRZOmega_Suprimento_OmegaMG3GoldMagazine
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaSupplies,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:4;Maintenance:4;Electricity:3,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaMG3GoldMagazine, }
+    }
+    craftRecipe PRZOmega_Fabricar_Balrog11
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaBalrog11, }
+    }
+    craftRecipe PRZOmega_Fabricar_HolyFlame
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = PRZOmegaArsenal,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Mechanics:7;Maintenance:7;Electricity:5,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 2 [PRZWeapons.LigaOmega],
+            item 2 [PRZWeapons.CircuitoOmega],
+            item 2 [PRZWeapons.BobinaOmega],
+            item 2 [PRZWeapons.CatalisadorOmega],
+            item 2 [PRZWeapons.CondutorOmega],
+            item 2 [PRZWeapons.EmpunhaduraOmega],
+            item 2 [PRZWeapons.SeloOmega],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.OmegaHolyFlame, }
+    }
+}

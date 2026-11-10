@@ -1,0 +1,9 @@
+name=Prefeitura Z Weapons
+id=PRZWeapons
+modversion=3.2.0
+poster=poster.png
+description=Season 2 / Operacao Omega: 21 armas de fogo com dossies individuais, campanha Bashar de cinco etapas e arsenal melee Prefeitura Z. Integracoes externas requerem os patches separados.
+
+versionMin=42.21
+
+loadModAfter=\PrefeituraBasharEvents,\PrefeituraZones,\PrefeituraContratos,\PrefeituraZComputer

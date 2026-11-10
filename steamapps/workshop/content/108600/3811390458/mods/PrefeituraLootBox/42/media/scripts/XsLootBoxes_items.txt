@@ -1,0 +1,66 @@
+module XsLootBoxes
+{
+    item LootBox_White
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        DisplayName = Lootbox Comum,
+        Icon = LootBox_White,
+        Weight = 0.5,
+        WorldStaticModel = XsLootBox_White_Ground,
+    }
+    item LootBox_Green
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        DisplayName = Lootbox Incomum,
+        Icon = LootBox_Green,
+        Weight = 0.5,
+        WorldStaticModel = XsLootBox_Green_Ground,
+    }
+    item LootBox_Blue
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        DisplayName = Lootbox Rara,
+        Icon = LootBox_Blue,
+        Weight = 0.5,
+        WorldStaticModel = XsLootBox_Blue_Ground,
+    }
+    item LootBox_Purple
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        DisplayName = Lootbox Épica,
+        Icon = LootBox_Purple,
+        Weight = 0.5,
+        WorldStaticModel = XsLootBox_Purple_Ground,
+    }
+    item LootBox_Orange
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        DisplayName = Lootbox Prestígio,
+        Icon = LootBox_Orange,
+        Weight = 0.5,
+        WorldStaticModel = XsLootBox_Orange_Ground,
+    }
+    item LootBox_Red
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        DisplayName = Lootbox Mítica,
+        Icon = LootBox_Red,
+        Weight = 0.5,
+        WorldStaticModel = XsLootBox_Red_Ground,
+    }
+    item LootBox_Cyan
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        DisplayName = Lootbox Limitada,
+        Icon = LootBox_Cyan,
+        Weight = 0.5,
+        WorldStaticModel = XsLootBox_Cyan_Ground,
+    }
+}

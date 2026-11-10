@@ -1,0 +1,91 @@
+module Base
+{
+    model PRZArmoryBalrog7
+    {
+        mesh = PRZArmory/Balrog7,
+        texture = PRZArmory/Balrog7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000000000 0.492071623 0.048069056,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.081916 0.123254 0.000000,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+
+    model PRZArmoryHolyWaterGrenade
+    {
+        mesh = PRZArmory/HolyWaterGrenade,
+        texture = PRZArmory/HolyWaterGrenade,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.059643 -0.045263,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.062645 0.000000 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+
+    
+
+    model PRZArmoryMG3Gold
+    {
+        mesh = PRZArmory/MG3Gold,
+        texture = PRZArmory/MG3Gold,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.000000020 0.603488923 0.017197141,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.120819 0.199553 0.000000,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+}

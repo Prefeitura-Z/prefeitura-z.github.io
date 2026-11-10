@@ -1,0 +1,19 @@
+module PRZWeapons
+{
+	item GlintofCloudsSheath
+	{
+		DisplayName = GlintofClouds Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= GlintofCloudsSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = GlintofCloudsSheath,
+                                BodyLocation            = przweapons:PRZMeleeGlintofCloudsSheath,
+                                AttachmentsProvided = PRZMeleeGlintofCloudsSheath,
+                                WorldStaticModel        = Base.PRZM_GlintofCloudsSheathGround,
+	}
+
+
+
+	
+}

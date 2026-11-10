@@ -1,0 +1,2 @@
+/* PRZWeapons 2.6.1: receitas movidas para media/scripts/PRZOmega_Weapons.txt.
+   Arquivo vazio de migracao para substituir as receitas antigas ao atualizar. */

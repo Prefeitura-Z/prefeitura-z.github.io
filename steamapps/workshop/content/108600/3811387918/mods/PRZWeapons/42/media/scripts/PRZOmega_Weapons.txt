@@ -1,0 +1,159 @@
+module PRZWeapons
+{
+    craftRecipe PRZOmega_TyrfingRubra
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = ArmasPrefeitura,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Blacksmith:9;Maintenance:8;MetalWelding:7,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [PRZWeapons.BobinaOmega],
+            item 1 [PRZWeapons.CatalisadorOmega],
+            item 1 [PRZWeapons.CondutorOmega],
+            item 1 [PRZWeapons.EmpunhaduraOmega],
+            item 1 [PRZWeapons.SeloOmega],
+            item 1 [PRZWeapons.NucleoTyrfingRubra],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.TyrfingRubra, }
+    }
+    craftRecipe PRZOmega_PunhalCastigoDivino
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = ArmasPrefeitura,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Blacksmith:8;Maintenance:9;Electricity:7,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [PRZWeapons.BobinaOmega],
+            item 1 [PRZWeapons.CatalisadorOmega],
+            item 1 [PRZWeapons.CondutorOmega],
+            item 1 [PRZWeapons.EmpunhaduraOmega],
+            item 1 [PRZWeapons.SeloOmega],
+            item 1 [PRZWeapons.NucleoPunhalCastigoDivino;PRZWeapons.NucleoPunhalDraconico],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.PunhalCastigoDivino, }
+    }
+    craftRecipe PRZOmega_TacoSupremoZ
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = ArmasPrefeitura,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Blacksmith:8;Maintenance:8;Woodwork:9,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [PRZWeapons.BobinaOmega],
+            item 1 [PRZWeapons.CatalisadorOmega],
+            item 1 [PRZWeapons.CondutorOmega],
+            item 1 [PRZWeapons.EmpunhaduraOmega],
+            item 1 [PRZWeapons.SeloOmega],
+            item 1 [PRZWeapons.NucleoTacoSupremoZ],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.TacoSupremoZ, }
+    }
+    craftRecipe PRZOmega_MarteloDoTrovao
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = ArmasPrefeitura,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Blacksmith:8;Maintenance:8;Electricity:9,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [PRZWeapons.BobinaOmega],
+            item 1 [PRZWeapons.CatalisadorOmega],
+            item 1 [PRZWeapons.CondutorOmega],
+            item 1 [PRZWeapons.EmpunhaduraOmega],
+            item 1 [PRZWeapons.SeloOmega],
+            item 1 [PRZWeapons.NucleoMarteloDoTrovao],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.MarteloDoTrovao, }
+    }
+    craftRecipe PRZOmega_MachadoLeviata
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = ArmasPrefeitura,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Blacksmith:9;Maintenance:8;MetalWelding:8,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [PRZWeapons.BobinaOmega],
+            item 1 [PRZWeapons.CatalisadorOmega],
+            item 1 [PRZWeapons.CondutorOmega],
+            item 1 [PRZWeapons.EmpunhaduraOmega],
+            item 1 [PRZWeapons.SeloOmega],
+            item 1 [PRZWeapons.NucleoMachadoLeviata],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.MachadoLeviata, }
+    }
+    craftRecipe PRZOmega_TridentePoseidon
+    {
+        timedAction = Making,
+        time = 180,
+        NeedToBeLearn = true,
+        Tags = InHandCraft;CanBeDoneFromFloor,
+        category = ArmasPrefeitura,
+        OnAddToMenu = PRZOmegaRecipeVisible,
+        SkillRequired = Blacksmith:9;Maintenance:8;Woodwork:8,
+        AllowBatchCraft = false,
+        inputs
+        {
+            item 1 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [PRZWeapons.BobinaOmega],
+            item 1 [PRZWeapons.CatalisadorOmega],
+            item 1 [PRZWeapons.CondutorOmega],
+            item 1 [PRZWeapons.EmpunhaduraOmega],
+            item 1 [PRZWeapons.SeloOmega],
+            item 1 [PRZWeapons.NucleoTridentePoseidon;PRZWeapons.NucleoLonginusEscarlate],
+            item 1 [Base.Screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.BallPeenHammer] mode:keep flags[MayDegradeLight],
+
+        }
+        outputs { item 1 PRZWeapons.TridentePoseidon, }
+    }
+}

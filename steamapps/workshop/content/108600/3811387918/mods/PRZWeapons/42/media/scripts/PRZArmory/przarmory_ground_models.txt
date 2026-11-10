@@ -1,0 +1,17 @@
+module Base
+{
+    model PRZArmoryBalrog7Ground
+    {
+        mesh = PRZArmory/Balrog7,
+        texture = PRZArmory/Balrog7Ground,
+        static = true,
+        scale = 1.0,
+        attachment world
+        {
+            offset = 0.081916 0.123254 0.000000,
+            rotate = 0.0 0.0 90.0,
+        }
+    }
+
+    
+}

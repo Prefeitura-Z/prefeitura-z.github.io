@@ -1,0 +1,58 @@
+module PRZWeapons
+{
+    item OmegaSupplySVDGrenadeBox
+    {
+        DisplayName = Caixa Omega - granadas SVDEX,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 1.3,
+        Icon = PRZ_OmegaCrateSVDGrenade,
+        StaticModel = RifleAmmoBox,
+        WorldStaticModel = RifleAmmoBox,
+        DoubleClickRecipe = PRZWeapons.PRZOmega_AbrirCaixa_SVDGrenade,
+    }
+    item OmegaSupply9mmBox
+    {
+        DisplayName = Caixa Omega - 9 mm,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 1.1,
+        Icon = PRZ_OmegaCrate9mm,
+        StaticModel = RifleAmmoBox,
+        WorldStaticModel = RifleAmmoBox,
+        DoubleClickRecipe = PRZWeapons.PRZOmega_AbrirCaixa_9mm,
+    }
+    item OmegaSupply556Box
+    {
+        DisplayName = Caixa Omega - 5.56,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 2.2,
+        Icon = PRZ_OmegaCrate556,
+        StaticModel = RifleAmmoBox,
+        WorldStaticModel = RifleAmmoBox,
+        DoubleClickRecipe = PRZWeapons.PRZOmega_AbrirCaixa_556,
+    }
+    item OmegaSupply308Box
+    {
+        DisplayName = Caixa Omega - .308,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 2.5,
+        Icon = PRZ_OmegaCrate308,
+        StaticModel = RifleAmmoBox,
+        WorldStaticModel = RifleAmmoBox,
+        DoubleClickRecipe = PRZWeapons.PRZOmega_AbrirCaixa_308,
+    }
+    item OmegaSupplyShellsBox
+    {
+        DisplayName = Caixa Omega - cartuchos de escopeta,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 1.6,
+        Icon = PRZ_OmegaCrateShells,
+        StaticModel = RifleAmmoBox,
+        WorldStaticModel = RifleAmmoBox,
+        DoubleClickRecipe = PRZWeapons.PRZOmega_AbrirCaixa_Shells,
+    }
+}

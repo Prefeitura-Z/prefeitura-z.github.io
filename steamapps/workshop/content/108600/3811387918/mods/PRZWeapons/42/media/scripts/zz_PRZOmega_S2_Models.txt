@@ -1,0 +1,57 @@
+module Base
+{
+model PRZOmegaS2_Glow_TyrfingRubra
+{
+    shader = PRZMeleeSelfLuminousGeneri_GlowBlueBlack,mesh= weapons/sword/NocturnalEdge,
+texture = weapons/NocturnalEdge,
+}
+model PRZOmegaS2_Glow_PunhalCastigoDivino
+{
+    shader = PRZMeleeSelfLuminousGeneri_GlowBlueWhite,mesh= DivinepunishmentKnife,
+texture = weapons/DivinepunishmentKnife,
+}
+model PRZOmegaS2_Glow_TacoSupremoZ
+{
+    shader = PRZMeleeSelfLuminousGeneri_GlowRainbow,mesh= weapons/giantsword/IridescentGalaxy,
+texture = weapons/IridescentGalaxy,
+}
+model PRZOmegaS2_Glow_MarteloDoTrovao
+    {
+    shader = PRZMeleeSelfLuminousGeneri_GlowBlueWhite,
+        mesh = weapons/1handed/PRZ_Mjolnir,
+        texture = weapons/1handed/PRZ_Mjolnir,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+    }
+model PRZOmegaS2_Glow_MachadoLeviata
+    {
+        shader = PRZMeleeSelfLuminousGeneri_GlowMagma,
+        mesh = PRZArmory/TyphoonAxe,
+        texture = PRZArmory/TyphoonAxe,
+        static = true,
+        scale = 1.0,
+        attachment world
+        {
+            offset = 0.00000 0.30436 -0.01056,
+            rotate = 0.0 21.0 0.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 86.0322 0.0,
+        }
+    }
+model PRZOmegaS2_Glow_TridentePoseidon
+{
+    shader = PRZMeleeSelfLuminousGeneri_GlowBlueWhite,mesh= weapons/spear/AngryThunderLance,
+texture = weapons/AngryThunderLance,
+}
+}

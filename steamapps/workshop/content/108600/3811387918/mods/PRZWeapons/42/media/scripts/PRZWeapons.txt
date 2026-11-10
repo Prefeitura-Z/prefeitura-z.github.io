@@ -1,0 +1,2449 @@
+module PRZWeapons
+{
+
+  item PunhalDraconico
+ {
+  DisplayName = Punhal Dracônico,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_PunhalDraconico,
+  WeaponSprite = Base.PRZ_DragonDagger,
+  WeaponSpritesByIndex = Base.PRZ_DragonDagger,
+  AttachmentType = Knife,
+  Categories = base:smallblade,
+  Tags = base:cutplant;base:sharpknife;base:butcheranimal;base:killanimal;base:hasmetal,
+  ImpactSound = HuntingKnifeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  IsAimedHandWeapon = true,
+  CloseKillMove = Jaw_Stab,
+  AimingMod = 0.8,
+  WeaponLength = 0.25,
+  MinAngle = 0.65,
+  SubCategory = Stab,
+  TwoHandWeapon = false,
+  Weight = 0.8,
+  ConditionMax = 60,
+  ConditionLowerChanceOneIn = 72,
+  MinDamage = 5.52,
+  MaxDamage = 6.72,
+  MaxRange = 1.02,
+  MinRange = 0.61,
+  CriticalChance = 52,
+  CritDmgMultiplier = 5.2,
+  MaxHitCount = 1,
+  BaseSpeed = 1.90,
+  SwingTime = 1.89,
+  MinimumSwingTime = 1.58,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Stab,
+  HitSound = HuntingKnifeHit,
+  HitFloorSound = HuntingKnifeHit,
+  DoorHitSound = HuntingKnifeHit,
+  SwingSound = HuntingKnifeSwing,
+  BreakSound = HuntingKnifeBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+  item DirkDoAbismo
+ {
+  DisplayName = Dirk do Abismo,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_DirkDoAbismo,
+  WeaponSprite = Base.PRZ_ObsidianDirk,
+  WeaponSpritesByIndex = Base.PRZ_ObsidianDirk,
+  AttachmentType = Knife,
+  Categories = base:smallblade,
+  Tags = base:cutplant;base:sharpknife;base:butcheranimal;base:killanimal;base:hasmetal,
+  ImpactSound = HuntingKnifeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  IsAimedHandWeapon = true,
+  CloseKillMove = Jaw_Stab,
+  AimingMod = 0.8,
+  WeaponLength = 0.25,
+  MinAngle = 0.65,
+  SubCategory = Stab,
+  TwoHandWeapon = false,
+  Weight = 0.8,
+  ConditionMax = 60,
+  ConditionLowerChanceOneIn = 72,
+  MinDamage = 5.52,
+  MaxDamage = 6.72,
+  MaxRange = 1.02,
+  MinRange = 0.61,
+  CriticalChance = 52,
+  CritDmgMultiplier = 5.2,
+  MaxHitCount = 1,
+  BaseSpeed = 1.90,
+  SwingTime = 1.89,
+  MinimumSwingTime = 1.58,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Stab,
+  HitSound = HuntingKnifeHit,
+  HitFloorSound = HuntingKnifeHit,
+  DoorHitSound = HuntingKnifeHit,
+  SwingSound = HuntingKnifeSwing,
+  BreakSound = HuntingKnifeBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+  item GarraDoCorvo
+ {
+  DisplayName = Garra do Corvo,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_GarraDoCorvo,
+  WeaponSprite = Base.PRZ_BlackTalon,
+  WeaponSpritesByIndex = Base.PRZ_BlackTalon,
+  AttachmentType = Knife,
+  Categories = base:smallblade,
+  Tags = base:cutplant;base:sharpknife;base:butcheranimal;base:killanimal;base:hasmetal,
+  ImpactSound = HuntingKnifeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  IsAimedHandWeapon = true,
+  CloseKillMove = Jaw_Stab,
+  AimingMod = 0.8,
+  WeaponLength = 0.25,
+  MinAngle = 0.65,
+  SubCategory = Stab,
+  TwoHandWeapon = false,
+  Weight = 0.8,
+  ConditionMax = 64,
+  ConditionLowerChanceOneIn = 76,
+  MinDamage = 5.58,
+  MaxDamage = 6.84,
+  MaxRange = 1.02,
+  MinRange = 0.61,
+  CriticalChance = 54,
+  CritDmgMultiplier = 5.4,
+  MaxHitCount = 1,
+  BaseSpeed = 1.90,
+  SwingTime = 1.88,
+  MinimumSwingTime = 1.57,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Stab,
+  HitSound = HuntingKnifeHit,
+  HitFloorSound = HuntingKnifeHit,
+  DoorHitSound = HuntingKnifeHit,
+  SwingSound = HuntingKnifeSwing,
+  BreakSound = HuntingKnifeBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item PunhoDoTita
+ {
+  DisplayName = Punho do Titã,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_PunhoDoTita,
+  WeaponSprite = Base.PRZ_TitanFist,
+  WeaponSpritesByIndex = Base.PRZ_TitanFist,
+  AttachmentType = Nightstick,
+  Categories = base:smallblunt,
+  Tags = base:repairwithglue;base:repairwithtape;base:hasmetal,
+  ImpactSound = HammerHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.40,
+  MinAngle = 0.65,
+  SubCategory = Swinging,
+  TwoHandWeapon = false,
+  Weight = 1.5,
+  ConditionMax = 46,
+  ConditionLowerChanceOneIn = 50,
+  MinDamage = 5.22,
+  MaxDamage = 6.3,
+  MaxRange = 1.12,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 1,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.7,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = HammerHit,
+  HitFloorSound = HammerHit,
+  DoorHitSound = HammerHit,
+  SwingSound = HammerSwing,
+  BreakSound = HammerBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item MarteloDoTrovao
+ {
+        WorldStaticModel = Base.PRZ_Mjolnir,
+
+        EnduranceMod = 0.48,
+
+        DisplayName = Martelo do Trovão Ômega,
+
+        DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_MarteloDoTrovao,
+
+        WeaponSprite = Base.PRZ_Mjolnir,
+
+  AttachmentType = Nightstick,
+
+        Categories = base:smallblunt,
+  Tags = base:repairwithglue;base:repairwithtape;base:hasmetal,
+  ImpactSound = HammerHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.40,
+  MinAngle = 0.65,
+  SubCategory = Swinging,
+  TwoHandWeapon = false,
+  Weight = 1.5,
+
+        ConditionMax = 94,
+
+        ConditionLowerChanceOneIn = 126,
+
+        MinDamage = 8.5,
+
+        MaxDamage = 10.8,
+  MaxRange = 1.18,
+  MinRange = 0.61,
+
+        CriticalChance = 55.0,
+
+        CritDmgMultiplier = 6,
+  MaxHitCount = 2,
+
+        BaseSpeed = 2.16,
+  SwingTime = 2,
+  MinimumSwingTime = 1.7,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = HammerHit,
+  HitFloorSound = HammerHit,
+  DoorHitSound = HammerHit,
+  SwingSound = HammerSwing,
+  BreakSound = HammerBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+
+        KnockdownMod = 8,
+
+        PushBackMod = 0.7,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+
+        Tooltip = Tooltip_PRZ_Endgame_MarteloDoTrovao,
+}
+
+ item CajadoDoLacre
+ {
+  DisplayName = Cajado do Lacre,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_CajadoDoLacre,
+  WeaponSprite = Base.PRZ_SealingStaff2,
+  WeaponSpritesByIndex = Base.PRZ_SealingStaff2,
+  AttachmentType = Shovel,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape,
+  HitAngleMod = -30.0,
+  ImpactSound = BaseballBatHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.50,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3,
+  ConditionMax = 50,
+  ConditionLowerChanceOneIn = 54,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.58,
+  MinRange = 0.61,
+  CriticalChance = 30,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = BaseballBatHit,
+  HitFloorSound = BaseballBatHit,
+  DoorHitSound = BaseballBatHit,
+  SwingSound = BaseballBatSwing,
+  BreakSound = BaseballBatBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item MachadinhaOnirica
+ {
+  DisplayName = Machadinha Onírica,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_MachadinhaOnirica,
+  WeaponSprite = Base.PRZ_DreamAxe,
+  WeaponSpritesByIndex = Base.PRZ_DreamAxe,
+  AttachmentType = Nightstick,
+  Categories = base:axe,
+  Tags = base:choptree;base:cutplant;base:hasmetal,
+  ImpactSound = HandAxeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.35,
+  MinAngle = 0.72,
+  SubCategory = Swinging,
+  TwoHandWeapon = false,
+  Weight = 1.5,
+  ConditionMax = 42,
+  ConditionLowerChanceOneIn = 44,
+  MinDamage = 5.4,
+  MaxDamage = 7.2,
+  MaxRange = 1.24,
+  MinRange = 0.61,
+  CriticalChance = 32,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 2,
+  BaseSpeed = 2,
+  SwingTime = 1.9,
+  MinimumSwingTime = 1.6,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = HandAxeHit,
+  HitFloorSound = HandAxeHit,
+  DoorHitSound = HandAxeHit,
+  SwingSound = HandAxeSwing,
+  BreakSound = HandAxeBreak,
+  DoorDamage = 18,
+  TreeDamage = 18,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item MachadoDoJarl
+ {
+  DisplayName = Machado do Jarl,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_MachadoDoJarl,
+  WeaponSprite = Base.PRZ_JarlsAxe,
+  WeaponSpritesByIndex = Base.PRZ_JarlsAxe,
+  AttachmentType = Nightstick,
+  Categories = base:axe,
+  Tags = base:choptree;base:cutplant;base:hasmetal,
+  ImpactSound = HandAxeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.35,
+  MinAngle = 0.72,
+  SubCategory = Swinging,
+  TwoHandWeapon = false,
+  Weight = 1.5,
+  ConditionMax = 44,
+  ConditionLowerChanceOneIn = 46,
+  MinDamage = 5.4,
+  MaxDamage = 7.2,
+  MaxRange = 1.25,
+  MinRange = 0.61,
+  CriticalChance = 32,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 2,
+  BaseSpeed = 2,
+  SwingTime = 1.9,
+  MinimumSwingTime = 1.6,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = HandAxeHit,
+  HitFloorSound = HandAxeHit,
+  DoorHitSound = HandAxeHit,
+  SwingSound = HandAxeSwing,
+  BreakSound = HandAxeBreak,
+  DoorDamage = 18,
+  TreeDamage = 18,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item MachadoCeleste
+ {
+  DisplayName = Machado Celeste,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_MachadoCeleste,
+  WeaponSprite = Base.PRZ_WarAxeSkyward,
+  WeaponSpritesByIndex = Base.PRZ_WarAxeSkyward,
+  AttachmentType = BigBladeOnBack,
+  Categories = base:axe,
+  Tags = base:choptree;base:cutplant;base:hasmetal,
+  ImpactSound = AxeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.38,
+  MinAngle = 0.72,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3.4,
+  ConditionMax = 52,
+  ConditionLowerChanceOneIn = 54,
+  MinDamage = 6.6,
+  MaxDamage = 9,
+  MaxRange = 1.48,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 5.5,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.8,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = AxeHit,
+  HitFloorSound = AxeHit,
+  DoorHitSound = AxeHit,
+  SwingSound = AxeSwing,
+  BreakSound = AxeBreak,
+  DoorDamage = 18,
+  TreeDamage = 18,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item MachadoApostata
+ {
+  DisplayName = Machado Apóstata,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_MachadoApostata,
+  WeaponSprite = Base.PRZ_ApostateAxe,
+  WeaponSpritesByIndex = Base.PRZ_ApostateAxe,
+  AttachmentType = BigBladeOnBack,
+  Categories = base:axe,
+  Tags = base:choptree;base:cutplant;base:hasmetal,
+  ImpactSound = AxeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.38,
+  MinAngle = 0.72,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3.4,
+  ConditionMax = 54,
+  ConditionLowerChanceOneIn = 56,
+  MinDamage = 6.6,
+  MaxDamage = 9,
+  MaxRange = 1.5,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 5.5,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.8,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = AxeHit,
+  HitFloorSound = AxeHit,
+  DoorHitSound = AxeHit,
+  SwingSound = AxeSwing,
+  BreakSound = AxeBreak,
+  DoorDamage = 18,
+  TreeDamage = 18,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item JuizoDaFloresta
+ {
+  DisplayName = Juízo da Floresta,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_JuizoDaFloresta,
+  WeaponSprite = Base.PRZ_TreeHugger,
+  WeaponSpritesByIndex = Base.PRZ_TreeHugger,
+  AttachmentType = BigBladeOnBack,
+  Categories = base:axe,
+  Tags = base:choptree;base:cutplant;base:hasmetal,
+  ImpactSound = AxeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.38,
+  MinAngle = 0.72,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3.4,
+  ConditionMax = 53,
+  ConditionLowerChanceOneIn = 55,
+  MinDamage = 6.6,
+  MaxDamage = 9,
+  MaxRange = 1.5,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 5.5,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.8,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = AxeHit,
+  HitFloorSound = AxeHit,
+  DoorHitSound = AxeHit,
+  SwingSound = AxeSwing,
+  BreakSound = AxeBreak,
+  DoorDamage = 18,
+  TreeDamage = 18,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item BaixoDoCarrasco
+ {
+  DisplayName = Baixo do Carrasco,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_BaixoDoCarrasco,
+  WeaponSprite = Base.PRZ_bassax,
+  WeaponSpritesByIndex = Base.PRZ_bassax,
+  AttachmentType = BigBladeOnBack,
+  Categories = base:axe,
+  Tags = base:choptree;base:cutplant;base:hasmetal,
+  ImpactSound = AxeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.38,
+  MinAngle = 0.72,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3.4,
+  ConditionMax = 55,
+  ConditionLowerChanceOneIn = 58,
+  MinDamage = 6.6,
+  MaxDamage = 9,
+  MaxRange = 1.52,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 5.5,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.8,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = AxeHit,
+  HitFloorSound = AxeHit,
+  DoorHitSound = AxeHit,
+  SwingSound = AxeSwing,
+  BreakSound = AxeBreak,
+  DoorDamage = 18,
+  TreeDamage = 18,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item AlabardaDoGeneral
+ {
+  DisplayName = Alabarda do General,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_AlabardaDoGeneral,
+  WeaponSprite = Base.PRZ_GuanyuGlaive,
+  WeaponSpritesByIndex = Base.PRZ_GuanyuGlaive,
+  AttachmentType = Shovel,
+  Categories = base:spear,
+  Tags = base:fishingspear;base:hasmetal,
+  SoundMap = SpearStab FireHardenedCraftedSpearStab,
+  ImpactSound = FireHardenedCraftedSpearHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.65,
+  MinAngle = 0.80,
+  SubCategory = Spear,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 50,
+  ConditionLowerChanceOneIn = 52,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.95,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 7,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.7,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Spear,
+  HitSound = FireHardenedCraftedSpearHit,
+  HitFloorSound = FireHardenedCraftedSpearHit,
+  DoorHitSound = FireHardenedCraftedSpearHit,
+  SwingSound = FireHardenedCraftedSpearSwing,
+  BreakSound = FireHardenedCraftedSpearBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item LonginusEscarlate
+ {
+  DisplayName = Longinus Escarlate,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_LonginusEscarlate,
+  WeaponSprite = Base.PRZ_LanceofLonginus,
+  WeaponSpritesByIndex = Base.PRZ_LanceofLonginus,
+  AttachmentType = Shovel,
+  Categories = base:spear,
+  Tags = base:fishingspear;base:hasmetal,
+  SoundMap = SpearStab FireHardenedCraftedSpearStab,
+  ImpactSound = FireHardenedCraftedSpearHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.65,
+  MinAngle = 0.80,
+  SubCategory = Spear,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 52,
+  ConditionLowerChanceOneIn = 55,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 2,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 7,
+  MaxHitCount = 2,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.7,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Spear,
+  HitSound = FireHardenedCraftedSpearHit,
+  HitFloorSound = FireHardenedCraftedSpearHit,
+  DoorHitSound = FireHardenedCraftedSpearHit,
+  SwingSound = FireHardenedCraftedSpearSwing,
+  BreakSound = FireHardenedCraftedSpearBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item CruzDosCaidos
+ {
+  DisplayName = Cruz dos Caídos,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_CruzDosCaidos,
+  WeaponSprite = Base.PRZ_FallenCross,
+  WeaponSpritesByIndex = Base.PRZ_FallenCross,
+  AttachmentType = Shovel,
+  Categories = base:spear,
+  Tags = base:fishingspear;base:hasmetal,
+  SoundMap = SpearStab FireHardenedCraftedSpearStab,
+  ImpactSound = FireHardenedCraftedSpearHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.65,
+  MinAngle = 0.80,
+  SubCategory = Spear,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 50,
+  ConditionLowerChanceOneIn = 53,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.92,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 7,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.7,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Spear,
+  HitSound = FireHardenedCraftedSpearHit,
+  HitFloorSound = FireHardenedCraftedSpearHit,
+  DoorHitSound = FireHardenedCraftedSpearHit,
+  SwingSound = FireHardenedCraftedSpearSwing,
+  BreakSound = FireHardenedCraftedSpearBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item GlaiveDaMare
+ {
+  DisplayName = Glaive da Maré,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_GlaiveDaMare,
+  WeaponSprite = Base.PRZ_MizutsuneGlaive,
+  WeaponSpritesByIndex = Base.PRZ_MizutsuneGlaive,
+  AttachmentType = Shovel,
+  Categories = base:spear,
+  Tags = base:fishingspear;base:hasmetal,
+  SoundMap = SpearStab FireHardenedCraftedSpearStab,
+  ImpactSound = FireHardenedCraftedSpearHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.65,
+  MinAngle = 0.80,
+  SubCategory = Spear,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 51,
+  ConditionLowerChanceOneIn = 54,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.9,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 7,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.7,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Spear,
+  HitSound = FireHardenedCraftedSpearHit,
+  HitFloorSound = FireHardenedCraftedSpearHit,
+  DoorHitSound = FireHardenedCraftedSpearHit,
+  SwingSound = FireHardenedCraftedSpearSwing,
+  BreakSound = FireHardenedCraftedSpearBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item GungnirDourada
+ {
+  DisplayName = Gungnir Dourada,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_GungnirDourada,
+  WeaponSprite = Base.PRZ_Gungnir,
+  WeaponSpritesByIndex = Base.PRZ_Gungnir,
+  AttachmentType = Shovel,
+  Categories = base:spear,
+  Tags = base:fishingspear;base:hasmetal,
+  SoundMap = SpearStab FireHardenedCraftedSpearStab,
+  ImpactSound = FireHardenedCraftedSpearHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.65,
+  MinAngle = 0.80,
+  SubCategory = Spear,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 56,
+  ConditionLowerChanceOneIn = 60,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 2.05,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 7.5,
+  MaxHitCount = 2,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.7,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Spear,
+  HitSound = FireHardenedCraftedSpearHit,
+  HitFloorSound = FireHardenedCraftedSpearHit,
+  DoorHitSound = FireHardenedCraftedSpearHit,
+  SwingSound = FireHardenedCraftedSpearSwing,
+  BreakSound = FireHardenedCraftedSpearBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item MataDragoes
+ {
+  DisplayName = Mata-Dragões,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_MataDragoes,
+  WeaponSprite = Base.PRZ_DragonSlayer,
+  WeaponSpritesByIndex = Base.PRZ_DragonSlayer,
+  AttachmentType = BigBladeOnBack,
+  Categories = base:longblade,
+  Tags = base:ignorezombiedensity;base:hasmetal;base:fullblade,
+  HitAngleMod = -30.0,
+  ImpactSound = KatanaHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.40,
+  MinAngle = 0.80,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3.1,
+  ConditionMax = 62,
+  ConditionLowerChanceOneIn = 65,
+  MinDamage = 7.2,
+  MaxDamage = 9,
+  MaxRange = 1.78,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 6,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 2,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = KatanaHit,
+  HitFloorSound = KatanaHit,
+  DoorHitSound = KatanaHit,
+  SwingSound = KatanaSwing,
+  BreakSound = KatanaBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item SolidaoEterna
+ {
+  DisplayName = Solidão Eterna,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_SolidaoEterna,
+  WeaponSprite = Base.PRZ_SwordofSolitude,
+  WeaponSpritesByIndex = Base.PRZ_SwordofSolitude,
+  AttachmentType = BigBladeOnBack,
+  Categories = base:longblade,
+  Tags = base:ignorezombiedensity;base:hasmetal;base:fullblade,
+  HitAngleMod = -30.0,
+  ImpactSound = KatanaHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.40,
+  MinAngle = 0.80,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3.1,
+  ConditionMax = 54,
+  ConditionLowerChanceOneIn = 58,
+  MinDamage = 7.2,
+  MaxDamage = 9,
+  MaxRange = 1.68,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 6,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 2,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = KatanaHit,
+  HitFloorSound = KatanaHit,
+  DoorHitSound = KatanaHit,
+  SwingSound = KatanaSwing,
+  BreakSound = KatanaBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item ZangetsuSombria
+ {
+  DisplayName = Zangetsu Sombria,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_ZangetsuSombria,
+  WeaponSprite = Base.PRZ_Zangetsu1,
+  WeaponSpritesByIndex = Base.PRZ_Zangetsu1,
+  AttachmentType = BigBladeOnBack,
+  Categories = base:longblade,
+  Tags = base:ignorezombiedensity;base:hasmetal;base:fullblade,
+  HitAngleMod = -30.0,
+  ImpactSound = KatanaHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.40,
+  MinAngle = 0.80,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3.1,
+  ConditionMax = 58,
+  ConditionLowerChanceOneIn = 61,
+  MinDamage = 7.2,
+  MaxDamage = 9,
+  MaxRange = 1.72,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 6,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 2,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = KatanaHit,
+  HitFloorSound = KatanaHit,
+  DoorHitSound = KatanaHit,
+  SwingSound = KatanaSwing,
+  BreakSound = KatanaBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item GramDoPrestigio
+ {
+  DisplayName = Gram do Prestígio,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_GramDoPrestigio,
+  WeaponSprite = Base.PRZ_Gram,
+  WeaponSpritesByIndex = Base.PRZ_Gram,
+  AttachmentType = BigBladeOnBack,
+  Categories = base:longblade,
+  Tags = base:ignorezombiedensity;base:hasmetal;base:fullblade,
+  HitAngleMod = -30.0,
+  ImpactSound = KatanaHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.40,
+  MinAngle = 0.80,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 3.1,
+  ConditionMax = 60,
+  ConditionLowerChanceOneIn = 63,
+  MinDamage = 7.2,
+  MaxDamage = 9,
+  MaxRange = 1.74,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 6,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 2,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = KatanaHit,
+  HitFloorSound = KatanaHit,
+  DoorHitSound = KatanaHit,
+  SwingSound = KatanaSwing,
+  BreakSound = KatanaBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 2,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+ item TyrfingRubra
+	{
+        Tooltip = Tooltip_PRZ_Endgame_TyrfingRubra,
+
+        EnduranceMod = 0.44,
+
+        DisplayName = Katana Eclipse Ômega,
+
+        DisplayCategory = PRZWeapons,
+		ItemType = base:weapon,
+		Weight = 1,
+		Icon = NocturnalEdge,
+		AttachmentType = PRZMeleeNocturnalEdge,
+
+        BaseSpeed = 2.16,
+		BreakSound = KatanaBreak,
+
+        Categories = base:longblade,
+
+        ConditionLowerChanceOneIn = 240,
+
+        ConditionMax = 126,
+
+        CritDmgMultiplier = 7.0,
+
+        CriticalChance = 59.0,
+		DamageCategory = Slash,
+		DamageMakeHole = true,
+		DoorDamage = 20,
+		DoorHitSound = KatanaHit,
+		DropSound = KatanaDrop,
+		HitAngleMod = -30,
+		HitFloorSound = KatanaHit,
+		HitSound = KatanaHit,
+		ImpactSound = KatanaHit,
+		KnockBackOnNoDeath = true,
+		KnockdownMod = 0,
+
+        MaxDamage = 21.75,
+		MaxHitCount = 3,
+		MaxRange = 1.7,
+		MinAngle = 0.8,
+
+        MinDamage = 17.25,
+		MinRange = 0.61,
+		MinimumSwingTime = 2,
+		PushBackMod = 0.5,
+		RunAnim = Run_Weapon2,
+		SubCategory = Swinging,
+		SwingAmountBeforeImpact = 0.02,
+		SwingAnim = Bat,
+		SwingSound = KatanaSwing,
+		SwingTime = 2,
+		Tags = base:ignorezombiedensity;base:hasmetal;base:fullblade,
+		TreeDamage = 20,
+		TwoHandWeapon = true,
+		WeaponLength = 0.4,
+		WeaponSprite = Base.PRZM_NocturnalEdge,
+
+	}
+
+ item PresaDeJormungandr
+ {
+  DisplayName = Presa de Jörmungandr,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_PresaDeJormungandr,
+  WeaponSprite = Base.PRZ_JormungandrsFang,
+  WeaponSpritesByIndex = Base.PRZ_JormungandrsFang,
+  AttachmentType = Sword,
+  Categories = base:longblade,
+  Tags = base:ignorezombiedensity;base:hasmetal;base:fullblade,
+  HitAngleMod = -30.0,
+  ImpactSound = MacheteHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  DamageMakeHole = true,
+  DamageCategory = Slash,
+  WeaponLength = 0.40,
+  MinAngle = 0.80,
+  SubCategory = Swinging,
+  TwoHandWeapon = false,
+  Weight = 1.7,
+  ConditionMax = 52,
+  ConditionLowerChanceOneIn = 55,
+  MinDamage = 7.2,
+  MaxDamage = 9,
+  MaxRange = 1.54,
+  MinRange = 0.61,
+  CriticalChance = 36,
+  CritDmgMultiplier = 6,
+  MaxHitCount = 3,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 2,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = MacheteHit,
+  HitFloorSound = MacheteHit,
+  DoorHitSound = MacheteHit,
+  SwingSound = MacheteSwing,
+  BreakSound = MacheteBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1,
+  PushBackMod = 0.3,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item TacoEstelarVioleta
+ {
+  DisplayName = Taco Estelar Violeta,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_TacoEstelarVioleta,
+  WeaponSprite = Base.PRZ_TacoEstelarVioleta,
+  WeaponSpritesByIndex = Base.PRZ_TacoEstelarVioleta,
+  WorldStaticModel = Base.PRZ_TacoEstelarVioleta,
+  AttachmentType = Shovel,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape,
+  HitAngleMod = -30.0,
+  ImpactSound = BaseballBatHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.520,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 52,
+  ConditionLowerChanceOneIn = 55,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.58,
+  MinRange = 0.61,
+  CriticalChance = 30,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = BaseballBatHit,
+  HitFloorSound = BaseballBatHit,
+  DoorHitSound = BaseballBatHit,
+  SwingSound = BaseballBatSwing,
+  BreakSound = BaseballBatBreak,
+  DoorDamage = 9,
+  TreeDamage = 2,
+  KnockdownMod = 2.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item TacoCerimonialAureum
+ {
+  DisplayName = Taco Cerimonial Aureum,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_TacoCerimonialAureum,
+  WeaponSprite = Base.PRZ_TacoCerimonialAureum,
+  WeaponSpritesByIndex = Base.PRZ_TacoCerimonialAureum,
+  WorldStaticModel = Base.PRZ_TacoCerimonialAureum,
+  AttachmentType = Shovel,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape;base:hasmetal,
+  HitAngleMod = -30.0,
+  ImpactSound = BaseballBatHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.524,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 54,
+  ConditionLowerChanceOneIn = 57,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.6,
+  MinRange = 0.61,
+  CriticalChance = 32,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = BaseballBatHit,
+  HitFloorSound = BaseballBatHit,
+  DoorHitSound = BaseballBatHit,
+  SwingSound = BaseballBatSwing,
+  BreakSound = BaseballBatBreak,
+  DoorDamage = 9,
+  TreeDamage = 2,
+  KnockdownMod = 2.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item TacoTitanioDinamico
+ {
+  DisplayName = Taco de Titânio Dínamo,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_TacoTitanioDinamico,
+  WeaponSprite = Base.PRZ_TacoTitanioDinamico,
+  WeaponSpritesByIndex = Base.PRZ_TacoTitanioDinamico,
+  WorldStaticModel = Base.PRZ_TacoTitanioDinamico,
+  AttachmentType = Shovel,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape;base:hasmetal,
+  HitAngleMod = -30.0,
+  ImpactSound = MetalPipeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.672,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 58,
+  ConditionLowerChanceOneIn = 60,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.6,
+  MinRange = 0.61,
+  CriticalChance = 31,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = MetalPipeHit,
+  HitFloorSound = MetalPipeHit,
+  DoorHitSound = MetalPipeHit,
+  SwingSound = MetalPipeSwing,
+  BreakSound = MetalPipeBreak,
+  DoorDamage = 9,
+  TreeDamage = 2,
+  KnockdownMod = 2.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item TacoCarbonoVertice
+ {
+  DisplayName = Taco de Carbono Vértice,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_TacoCarbonoVertice,
+  WeaponSprite = Base.PRZ_TacoCarbonoVertice,
+  WeaponSpritesByIndex = Base.PRZ_TacoCarbonoVertice,
+  WorldStaticModel = Base.PRZ_TacoCarbonoVertice,
+  AttachmentType = Shovel,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape,
+  HitAngleMod = -30.0,
+  ImpactSound = BaseballBatHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.567,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 50,
+  ConditionLowerChanceOneIn = 54,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.62,
+  MinRange = 0.61,
+  CriticalChance = 34,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = BaseballBatHit,
+  HitFloorSound = BaseballBatHit,
+  DoorHitSound = BaseballBatHit,
+  SwingSound = BaseballBatSwing,
+  BreakSound = BaseballBatBreak,
+  DoorDamage = 9,
+  TreeDamage = 2,
+  KnockdownMod = 2.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item TacoDoMotim
+ {
+  DisplayName = Taco do Motim,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_TacoDoMotim,
+  WeaponSprite = Base.PRZ_TacoDoMotim,
+  WeaponSpritesByIndex = Base.PRZ_TacoDoMotim,
+  WorldStaticModel = Base.PRZ_TacoDoMotim,
+  AttachmentType = Shovel,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape;base:hasmetal,
+  HitAngleMod = -30.0,
+  ImpactSound = MetalPipeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.554,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 56,
+  ConditionLowerChanceOneIn = 58,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.62,
+  MinRange = 0.61,
+  CriticalChance = 30,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = MetalPipeHit,
+  HitFloorSound = MetalPipeHit,
+  DoorHitSound = MetalPipeHit,
+  SwingSound = MetalPipeSwing,
+  BreakSound = MetalPipeBreak,
+  DoorDamage = 9,
+  TreeDamage = 2,
+  KnockdownMod = 2.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item TacoDoCerco
+ {
+  DisplayName = Taco do Cerco,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_TacoDoCerco,
+  WeaponSprite = Base.PRZ_TacoDoCerco,
+  WeaponSpritesByIndex = Base.PRZ_TacoDoCerco,
+  WorldStaticModel = Base.PRZ_TacoDoCerco,
+  AttachmentType = Shovel,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape;base:hasmetal,
+  HitAngleMod = -30.0,
+  ImpactSound = MetalPipeHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.553,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 2.4,
+  ConditionMax = 60,
+  ConditionLowerChanceOneIn = 62,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.64,
+  MinRange = 0.61,
+  CriticalChance = 30,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = MetalPipeHit,
+  HitFloorSound = MetalPipeHit,
+  DoorHitSound = MetalPipeHit,
+  SwingSound = MetalPipeSwing,
+  BreakSound = MetalPipeBreak,
+  DoorDamage = 9,
+  TreeDamage = 2,
+  KnockdownMod = 2.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item TacoBambuKitsune
+ {
+  DisplayName = Taco de Bambu Kitsune,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_TacoBambuKitsune,
+  WeaponSprite = Base.PRZ_TacoBambuKitsune,
+  WeaponSpritesByIndex = Base.PRZ_TacoBambuKitsune,
+  WorldStaticModel = Base.PRZ_TacoBambuKitsune,
+  AttachmentType = Shovel,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape,
+  HitAngleMod = -30.0,
+  ImpactSound = BaseballBatHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.611,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 1.4,
+  ConditionMax = 48,
+  ConditionLowerChanceOneIn = 52,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.6,
+  MinRange = 0.61,
+  CriticalChance = 36,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = BaseballBatHit,
+  HitFloorSound = BaseballBatHit,
+  DoorHitSound = BaseballBatHit,
+  SwingSound = BaseballBatSwing,
+  BreakSound = BaseballBatBreak,
+  DoorDamage = 9,
+  TreeDamage = 2,
+  KnockdownMod = 2.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item TacoSupremoZ
+	{
+        Tooltip = Tooltip_PRZ_Endgame_TacoSupremoZ,
+
+        CriticalChance = 85.0,
+
+        DisplayName = Montante Galáxia Ômega,
+
+        DisplayCategory = PRZWeapons,
+		ItemType = base:weapon,
+		Weight = 2,
+		Icon = IridescentGalaxy,
+		AlwaysKnockdown = true,
+		AttachmentType = BigBlade,
+
+        BaseSpeed = 1.94,
+		BreakSound = SledgehammerBreak,
+		CantAttackWithLowestEndurance = true,
+
+        Categories = base:blunt,
+
+        ConditionLowerChanceOneIn = 160,
+
+        ConditionMax = 108,
+
+        CritDmgMultiplier = 6.2,
+		DoorDamage = 50,
+		DoorHitSound = SledgehammerHit,
+		DropSound = SledgehammerDrop,
+
+        EnduranceMod = 0.55,
+		HitFloorSound = SledgehammerHit,
+		HitSound = SledgehammerHit,
+		IdleAnim = Idle_Weapon2,
+		KnockBackOnNoDeath = true,
+
+        KnockdownMod = 6,
+
+        MaxDamage = 14.5,
+		MaxHitCount = 3,
+		MaxRange = 1.5,
+		MetalValue = 120,
+		MinAngle = 0.8,
+
+        MinDamage = 11.5,
+		MinRange = 0.7,
+		MinimumSwingTime = 1,
+
+        PushBackMod = 0.65,
+		RequiresEquippedBothHands = true,
+		RunAnim = Run_Weapon2,
+		SplatBloodOnNoDeath = false,
+		SplatNumber = 3,
+		SubCategory = Swinging,
+		SwingAmountBeforeImpact = 0.02,
+		SwingAnim = Heavy,
+		SwingSound = SledgehammerSwing,
+		SwingTime = 1,
+		TreeDamage = 20,
+		TwoHandWeapon = true,
+		WeaponLength = 0.65,
+		WeaponSprite = Base.PRZM_IridescentGalaxy,
+		Tags = base:sledgehammer;base:hastoolhead;base:repairwithglue;base:repairwithtape,
+
+	}
+
+
+ item CetroRubroArcano
+ {
+  DisplayName = Cetro Rubro Arcano,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_CetroRubroArcano,
+  WeaponSprite = Base.PRZ_CetroRubroArcano,
+  WeaponSpritesByIndex = Base.PRZ_CetroRubroArcano,
+  AttachmentType = BigBlade,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape;base:hasmetal,
+  HitAngleMod = -30.0,
+  ImpactSound = CrowbarHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.40,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  Weight = 2.0,
+  ConditionMax = 54,
+  ConditionLowerChanceOneIn = 58,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.54,
+  MinRange = 0.61,
+  CriticalChance = 34,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = CrowbarHit,
+  HitFloorSound = CrowbarHit,
+  DoorHitSound = CrowbarHit,
+  SwingSound = CrowbarSwing,
+  BreakSound = CrowbarBreak,
+  DoorDamage = 9,
+  TreeDamage = 2,
+  KnockdownMod = 2.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item MarteloHexagrama
+ {
+        Hidden = true,
+  DisplayName = Martelo Hexagrama,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_MarteloHexagrama,
+  WeaponSprite = Base.PRZ_MarteloHexagrama,
+  WeaponSpritesByIndex = Base.PRZ_MarteloHexagrama,
+  AttachmentType = BigBlade,
+  Categories = base:blunt,
+  Tags = base:repairwithglue;base:repairwithtape;base:hasmetal,
+  HitAngleMod = -30.0,
+  ImpactSound = SledgehammerHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.65,
+  MinAngle = 0.75,
+  SubCategory = Swinging,
+  TwoHandWeapon = true,
+  RequiresEquippedBothHands = true,
+  Weight = 4.8,
+  ConditionMax = 65,
+  ConditionLowerChanceOneIn = 68,
+  MinDamage = 6,
+  MaxDamage = 8.4,
+  MaxRange = 1.6,
+  MinRange = 0.61,
+  CriticalChance = 30,
+  CritDmgMultiplier = 5.2,
+  MaxHitCount = 3,
+  BaseSpeed = 1.8,
+  SwingTime = 2.1,
+  MinimumSwingTime = 1.9,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = SledgehammerHit,
+  HitFloorSound = SledgehammerHit,
+  DoorHitSound = SledgehammerHit,
+  SwingSound = SledgehammerSwing,
+  BreakSound = SledgehammerBreak,
+  DoorDamage = 18,
+  TreeDamage = 8,
+  KnockdownMod = 3.2,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+
+ item CetroHarmonico
+ {
+  DisplayName = Cetro Harmônico,
+  DisplayCategory = PRZWeapons,
+  ItemType = base:weapon,
+  Icon = PRZ_CetroHarmonico,
+  WeaponSprite = Base.PRZ_CetroHarmonico,
+  WeaponSpritesByIndex = Base.PRZ_CetroHarmonico,
+  AttachmentType = Hammer,
+  Categories = base:smallblunt,
+  Tags = base:repairwithglue;base:repairwithtape,
+  HitAngleMod = -30.0,
+  ImpactSound = MaceHit,
+  RunAnim = Run_Weapon2,
+  IdleAnim = Idle_Weapon2,
+  WeaponLength = 0.40,
+  MinAngle = 0.65,
+  SubCategory = Swinging,
+  TwoHandWeapon = false,
+  Weight = 1.0,
+  ConditionMax = 50,
+  ConditionLowerChanceOneIn = 53,
+  MinDamage = 5.22,
+  MaxDamage = 6.3,
+  MaxRange = 1.18,
+  MinRange = 0.61,
+  CriticalChance = 35,
+  CritDmgMultiplier = 5,
+  MaxHitCount = 2,
+  BaseSpeed = 2,
+  SwingTime = 2,
+  MinimumSwingTime = 1.7,
+  SwingAmountBeforeImpact = 0.02,
+  SwingAnim = Bat,
+  HitSound = MaceHit,
+  HitFloorSound = MaceHit,
+  DoorHitSound = MaceHit,
+  SwingSound = MaceSwing,
+  BreakSound = MaceBreak,
+  DoorDamage = 6,
+  TreeDamage = 1,
+  KnockdownMod = 1.4,
+  PushBackMod = 0.35,
+  SplatNumber = 2,
+  KnockBackOnNoDeath = true,
+  SplatBloodOnNoDeath = true,
+ }
+
+}
+
+module Base
+{
+
+model PRZ_DragonDagger
+    {
+        mesh = weapons/1handed/PRZ_DragonDagger,
+		texture = weapons/1handed/PRZ_DragonDagger,
+        attachment world
+        {
+            offset = 0.0022 0.115 -0.0089,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0166 -0.0017 0.0064,
+            rotate = 0.0 -82.5857 2.9014,
+        }
+    }
+
+model PRZ_ObsidianDirk
+    {
+        mesh = weapons/1handed/PRZ_ObsidianDirk,
+	texture = weapons/1handed/PRZ_ObsidianDirk,
+        attachment world
+        {
+            offset = 0.0022 0.115 -0.0089,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0166 -0.0017 0.0064,
+            rotate = 0.0 -82.5857 2.9014,
+        }
+    }
+
+model PRZ_BlackTalon
+    {
+        mesh = weapons/1handed/PRZ_BlackTalon,
+	texture = weapons/1handed/PRZ_BlackTalon,
+        attachment world
+        {
+            offset = 0.0022 0.115 -0.0089,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0166 -0.0017 0.0064,
+            rotate = 0.0 -82.5857 2.9014,
+        }
+    }
+
+model PRZ_PigSticker
+    {
+        mesh = weapons/1handed/PRZ_PigSticker,
+	texture = weapons/1handed/PRZ_PigSticker,
+        attachment world
+        {
+            offset = 0.0022 0.115 -0.0089,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0166 -0.0017 0.0064,
+            rotate = 0.0 -82.5857 2.9014,
+        }
+    }
+
+model PRZ_Ahu_Bone_Chopping_Knife
+	{
+		mesh = weapons/1handed/PRZ_Ahu_Bone_Chopping_Knife,
+		texture = weapons/1handed/PRZ_Ahu_Bone_Chopping_Knife,
+		attachment world
+		{
+			offset = 0.0150 0.0000 0.0000,
+			rotate = 0.0000 0.0000 180.0000,
+		}
+	}
+
+model PRZ_kisara1mace
+    {
+        mesh = weapons/2handed/PRZ_kisara1mace,
+        texture = weapons/2handed/PRZ_kisara1mace,
+        attachment world
+        {
+            offset = -0.0489 0.2427 0.0226,
+            rotate = 0.0001 54.3661 3.3346,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0067 -0.0091 -0.0022,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_FoldingChair1
+    {
+        mesh = weapons/2handed/PRZ_FoldingChair1,
+        texture = weapons/2handed/PRZ_FoldingChair1,
+        attachment world
+        {
+            offset = -0.0489 0.2427 0.0226,
+            rotate = 0.0001 54.3661 3.3346,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0067 -0.0091 -0.0022,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_TitanFist
+    {
+        mesh = weapons/1handed/PRZ_TitanFist,
+        texture = weapons/1handed/PRZ_TitanFist,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+    }
+
+model PRZ_Mjolnir
+    {
+        mesh = weapons/1handed/PRZ_Mjolnir,
+        texture = weapons/1handed/PRZ_Mjolnir,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+    }
+
+model PRZ_SealingStaff2
+    {
+        mesh = weapons/2handed/PRZ_SealingStaff2,
+        texture = weapons/2handed/PRZ_SealingStaff2,
+        attachment world
+        {
+            offset = -0.0489 0.2427 0.0226,
+            rotate = 0.0001 54.3661 3.3346,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0067 -0.0091 -0.0022,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_Ahu_IronNeck
+	{
+		mesh = weapons/1handed/PRZ_Ahu_IronNeck,
+		texture = weapons/1handed/PRZ_Ahu_IronNeck,
+		attachment world
+		{
+			offset = 0.0150 0.0000 0.0000,
+			rotate = 0.0000 0.0000 180.0000,
+		}
+	}
+
+model PRZ_DreamAxe
+    {
+        mesh = weapons/1handed/PRZ_DreamAxe,
+	texture = weapons/1handed/PRZ_DreamAxe,
+        attachment world
+        {
+            offset = 0.012 0.125 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0106 -0.0321 -0.0001,
+            rotate = 180.0 -89.459 180.0,
+        }
+    }
+
+model PRZ_JarlsAxe
+    {
+        mesh = weapons/1handed/PRZ_JarlsAxe,
+	texture = weapons/1handed/PRZ_JarlsAxe,
+        attachment world
+        {
+            offset = 0.012 0.125 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0106 -0.0321 -0.0001,
+            rotate = 180.0 -89.459 180.0,
+        }
+    }
+
+model PRZ_Ahu_HammerAxe
+	{
+		mesh = weapons/1handed/PRZ_Ahu_HammerAxe,
+		texture = weapons/1handed/PRZ_Ahu_HammerAxe,
+		attachment world
+		{
+			offset = 0.0150 0.0000 0.0000,
+			rotate = 0.0000 0.0000 180.0000,
+		}
+	}
+
+model PRZ_WarAxeSkyward
+    {
+        mesh = weapons/2handed/PRZ_WarAxeSkyward,
+		texture = weapons/2handed/PRZ_WarAxeSkyward
+        attachment world
+        {
+            offset = 0.3 0.173 -0.007,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+    }
+
+model PRZ_ApostateAxe
+    {
+        mesh = weapons/2handed/PRZ_ApostateAxe,
+		texture = weapons/2handed/PRZ_ApostateAxe
+        attachment world
+        {
+            offset = 0.3 0.173 -0.007,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+    }
+
+model PRZ_TreeHugger
+    {
+        mesh = weapons/2handed/PRZ_TreeHugger,
+		texture = weapons/2handed/PRZ_TreeHugger
+        attachment world
+        {
+            offset = 0.3 0.173 -0.007,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+    }
+
+model PRZ_bassax
+    {
+        mesh = weapons/2handed/PRZ_bassax,
+		texture = weapons/2handed/PRZ_bassax,
+        attachment world
+        {
+            offset = 0.3 0.173 -0.007,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+		
+    }
+
+model PRZ_GuanyuGlaive
+    {
+        mesh = weapons/2handed/PRZ_GuanyuGlaive,
+        texture = weapons/2handed/PRZ_GuanyuGlaive,
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -88.7733 -178.5756,
+        }
+        attachment world
+        {
+            offset = -0.0117 0.2412 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_LanceofLonginus
+    {
+        mesh = weapons/2handed/PRZ_LanceofLonginus,
+        texture = weapons/2handed/PRZ_LanceofLonginus,
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -88.7733 -178.5756,
+        }
+        attachment world
+        {
+            offset = -0.0117 0.2412 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_FallenCross
+    {
+        mesh = weapons/2handed/PRZ_FallenCross,
+        texture = weapons/2handed/PRZ_FallenCross,
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -88.7733 -178.5756,
+        }
+        attachment world
+        {
+            offset = -0.0117 0.2412 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_MizutsuneGlaive
+    {
+        mesh = weapons/2handed/PRZ_MizutsuneGlaive,
+        texture = weapons/2handed/PRZ_MizutsuneGlaive,
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -88.7733 -178.5756,
+        }
+        attachment world
+        {
+            offset = -0.0117 0.2412 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_GiantSyrette
+    {
+        mesh = weapons/2handed/PRZ_GiantSyrette,
+        texture = weapons/2handed/PRZ_GiantSyrette,
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -88.7733 -178.5756,
+        }
+        attachment world
+        {
+            offset = -0.0117 0.2412 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_Gungnir
+    {
+        mesh = weapons/2handed/PRZ_Gungnir,
+        texture = weapons/2handed/PRZ_Gungnir,
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -88.7733 -178.5756,
+        }
+        attachment world
+        {
+            offset = -0.0117 0.2412 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_DragonSlayer
+    {
+        mesh = weapons/2handed/PRZ_DragonSlayer,
+	texture = weapons/2handed/PRZ_DragonSlayer,
+        attachment world
+        {
+            offset = 0.0155 0.2859 0.015,
+            rotate = -180.0 0.0 177.566,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+    }
+
+model PRZ_SwordofSolitude
+    {
+        mesh = weapons/2handed/PRZ_SwordofSolitude,
+	texture = weapons/2handed/PRZ_SwordofSolitude,
+        attachment world
+        {
+            offset = 0.0155 0.2859 0.015,
+            rotate = -180.0 0.0 177.566,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+    }
+
+model PRZ_Zangetsu1
+    {
+        mesh = weapons/2handed/PRZ_Zangetsu1,
+	texture = weapons/2handed/PRZ_Zangetsu1,
+        attachment world
+        {
+            offset = 0.0155 0.2859 0.015,
+            rotate = -180.0 0.0 177.566,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+    }
+
+model PRZ_Gram
+    {
+        mesh = weapons/2handed/PRZ_Gram,
+		texture = weapons/2handed/PRZ_Gram,
+        attachment world
+        {
+            offset = 0.0155 0.2859 0.015,
+            rotate = -180.0 0.0 177.566,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+    }
+
+model PRZ_Tyrfing
+    {
+        mesh = weapons/1handed/PRZ_Tyrfing,
+		texture = weapons/1handed/PRZ_Tyrfing,
+        attachment world
+        {
+            offset = 0.0061 0.1401 0.0,
+            rotate = -180.0 0.0 179.1843,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0228 -0.0018 0.0048,
+            rotate = -36.0446 -81.1798 -34.2812,
+        }
+    }
+
+model PRZ_JormungandrsFang
+    {
+        mesh = weapons/1handed/PRZ_JormungandrsFang,
+		texture = weapons/1handed/PRZ_JormungandrsFang,
+        attachment world
+        {
+            offset = 0.012 0.125 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0106 -0.0321 -0.0001,
+            rotate = 180.0 -89.459 180.0,
+        }
+    }
+
+
+model PRZ_TacoEstelarVioleta
+    {
+mesh = weapons/stick/PurplestarBaseballBat,
+texture = weapons/2handed/PRZ_TacoEstelarVioleta,
+    }
+
+
+model PRZ_TacoCerimonialAureum
+    {
+        mesh = weapons/2handed/PRZ_TacoCerimonialAureum,
+        texture = weapons/2handed/PRZ_TacoCerimonialAureum,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_TacoTitanioDinamico
+    {
+        mesh = weapons/2handed/PRZ_TacoTitanioDinamico,
+        texture = weapons/2handed/PRZ_TacoTitanioDinamico,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_TacoCarbonoVertice
+    {
+        mesh = weapons/2handed/PRZ_TacoCarbonoVertice,
+        texture = weapons/2handed/PRZ_TacoCarbonoVertice,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_TacoDoMotim
+    {
+        mesh = weapons/2handed/PRZ_TacoDoMotim,
+        texture = weapons/2handed/PRZ_TacoDoMotim,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_TacoDoCerco
+    {
+        mesh = weapons/2handed/PRZ_TacoDoCerco,
+        texture = weapons/2handed/PRZ_TacoDoCerco,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_TacoBambuKitsune
+    {
+        mesh = weapons/2handed/PRZ_TacoBambuKitsune,
+        texture = weapons/2handed/PRZ_TacoBambuKitsune,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_TacoSupremoZ
+    {
+        mesh = Weapons/2Handed/Gjallarhorn,
+        texture = Weapons/2Handed/Gjallarhorn,
+        attachment world
+        {
+            offset = -0.0489 0.2427 0.0226,
+            rotate = 0.0001 54.3661 3.3346,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0067 -0.0091 -0.0022,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model PRZ_MarretaVulcanica
+    {
+        mesh = weapons/2handed/Ahu_FireSledgehammerForged,
+        texture = WorldItems/Ahu_FireSledgehammerHead,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_CajadoQimeiGuardiao
+    {
+        mesh = weapons/2handed/Ahu_QiMei_Staff,
+        texture = weapons/2handed/Ahu_QiMei_Staff,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_MacaDoCerco
+    {
+        mesh = weapons/2handed/Ahu_Mace,
+        texture = weapons/2handed/Ahu_Mace,
+        attachment world
+        {
+            offset = 0.0150 0.0000 0.0000,
+            rotate = 0.0000 0.0000 180.0000,
+        }
+    }
+
+
+model PRZ_CetroRubroArcano
+    {
+        mesh = CardCaptorSakuraCrowbar,
+        texture = weapons/CardCaptorSakuraCrowbar,
+    }
+
+
+model PRZ_MarteloHexagrama
+    {
+        mesh = HexagramGiantSwordHammer,
+        texture = weapons/HexagramGiantSwordHammer,
+    }
+
+
+model PRZ_BonkDourado
+    {
+        mesh = weapons/1handed/Bonker,
+        texture = weapons/1handed/Bonker,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+    }
+
+
+model PRZ_EsmagadorFelino
+    {
+        mesh = weapons/1handed/CatnipCrusher,
+        texture = weapons/1handed/CatnipCrusher,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+    }
+
+
+model PRZ_WokInfernal
+    {
+        mesh = weapons/1handed/DevilWok,
+        texture = weapons/1handed/DevilWok,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+    }
+
+
+model PRZ_CetroHarmonico
+    {
+        mesh = weapons/1handed/RuanMei,
+        texture = weapons/1handed/RuanMei,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+    }
+
+
+model PRZ_VarinhaAstral
+    {
+        mesh = weapons/1handed/StarWand,
+        texture = weapons/1handed/StarWand,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+    }
+
+
+model PRZ_CenouraDaDiscordia
+    {
+        mesh = CarrotNightSticks,
+        texture = weapons/CarrotNightSticks,
+    }
+
+}

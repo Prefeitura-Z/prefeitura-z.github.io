@@ -1,0 +1,22 @@
+module PRZWeapons
+{
+	item NightSkySwordSheath
+	{
+		DisplayName = Night Sky Sword Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= NightSkySwordSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = NightSkySwordSheath,
+                                BodyLocation            = przweapons:PRZMeleeNightSkySwordSheath,
+                                AttachmentsProvided = PRZMeleeNightSkySwordSheath,
+                                WorldStaticModel        = Base.PRZM_NightSkySwordSheathGround,
+		Tooltip = Tooltip_NightSkySwordSheath,
+	}
+
+
+
+	
+
+
+}

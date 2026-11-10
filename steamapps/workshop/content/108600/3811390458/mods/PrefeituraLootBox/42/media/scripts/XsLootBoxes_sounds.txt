@@ -1,0 +1,27 @@
+module XsLootBoxes
+{
+    sound XsLootBox_OpenShake
+    {
+        category = Object,
+        master = Ambient,
+        loop = false,
+        is3D = true,
+        clip { file = media/sounds/BoxOpening.ogg, distanceMin = 1, distanceMax = 12, volume = 0.85, }
+    }
+    sound XsLootBox_OpenWhoosh
+    {
+        category = UI,
+        master = Ambient,
+        loop = false,
+        is3D = false,
+        clip { file = media/sounds/BoxOpened2.ogg, volume = 0.9, }
+    }
+    sound XsLootBox_OpenReveal
+    {
+        category = UI,
+        master = Ambient,
+        loop = false,
+        is3D = false,
+        clip { file = media/sounds/BoxOpened.ogg, volume = 1.0, }
+    }
+}

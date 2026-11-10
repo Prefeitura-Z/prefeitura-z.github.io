@@ -1,0 +1,68 @@
+module Base
+{
+    
+
+    model PRZArmoryBalrog11
+    {
+        mesh = PRZArmory/Balrog11,
+        texture = PRZArmory/Balrog11,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.002559434 0.447467142 0.063487115,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.02135 0.12426 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+
+    model PRZArmoryHolyFlame
+    {
+        mesh = PRZArmory/HolyFlame,
+        texture = PRZArmory/HolyFlame,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.019717301 0.441747520 0.026166056,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.02015 0.12999 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+
+    model PRZArmoryTyphoonAxe
+    {
+        mesh = PRZArmory/TyphoonAxe,
+        texture = PRZArmory/TyphoonAxe,
+        static = true,
+        scale = 1.0,
+        attachment world
+        {
+            offset = 0.00000 0.30436 -0.01056,
+            rotate = 0.0 21.0 0.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 86.0322 0.0,
+        }
+    }
+}

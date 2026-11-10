@@ -1,0 +1,47 @@
+module Base
+{
+    sound PRZArmory_AxeSpecialCast
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        is3D = false,
+        clip
+        {
+            file = media/sound/PRZArmory/AxeSpecialCast.ogg,
+            volume = 0.8,
+        }
+    }
+    sound PRZArmory_AxeRageReady1
+    {
+        category = UI,
+        maxInstancesPerEmitter = 1,
+        is3D = false,
+        clip
+        {
+            file = media/sound/PRZArmory/AxeRageReady1.ogg,
+            volume = 0.59,
+        }
+    }
+    sound PRZArmory_AxeRageReady2
+    {
+        category = UI,
+        maxInstancesPerEmitter = 1,
+        is3D = false,
+        clip
+        {
+            file = media/sound/PRZArmory/AxeRageReady2.ogg,
+            volume = 0.59,
+        }
+    }
+    sound PRZArmory_AxeSpecialHit
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        is3D = false,
+        clip
+        {
+            file = media/sound/PRZArmory/AxeSpecialHit.ogg,
+            volume = 0.8,
+        }
+    }
+}

@@ -1,0 +1,356 @@
+module Base
+{
+    model PRZArmoryStormHammer
+    {
+        mesh = PRZArmory/StormHammer,
+        texture = PRZArmory/StormHammer,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.580000 -0.000847,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.110652 0.240000 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmoryStormHammerGround
+    {
+        mesh = PRZArmory/StormHammer,
+        texture = PRZArmory/StormHammerGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.580000 -0.000847,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.110652 0.240000 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmoryDualInfinity
+    {
+        mesh = PRZArmory/DualInfinity,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmoryDualInfinityGround
+    {
+        mesh = PRZArmory/DualInfinity,
+        texture = PRZArmory/DualInfinityGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.234671 0.004497,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmoryDualInfinityMagazine
+    {
+        mesh = PRZArmory/DualInfinityMagazine,
+        texture = PRZArmory/DualInfinityMagazine,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.029337 0.000000,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.008929 -0.000000 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmoryDualInfinityMagazineGround
+    {
+        mesh = PRZArmory/DualInfinityMagazine,
+        texture = PRZArmory/DualInfinityMagazineGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.029337 0.000000,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.008929 -0.000000 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmoryDualInfinityLeft
+    {
+        mesh = PRZArmory/DualInfinityLeft,
+        texture = PRZArmory/DualInfinityLeft,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000421759 0.232224327 0.054249948,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015450 0.108901 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZWeapons_LeftHand
+        {
+            offset = 0.036038746 -0.021845516 0.003747514,
+            rotate = 96.475658425 2.976804773 -91.057502694,
+        }
+}
+
+    model PRZArmoryDualInfinityLeftGround
+    {
+        mesh = PRZArmory/DualInfinityLeft,
+        texture = PRZArmory/DualInfinityLeftGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.233901 0.013540,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015450 0.108901 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZWeapons_LeftHand
+        {
+            offset = 0.036038746 -0.021845516 0.003747514,
+            rotate = 96.475658425 2.976804773 -91.057502694,
+        }
+}
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    model PRZArmorySVDEX
+    {
+        mesh = PRZArmory/SVDEX,
+        texture = PRZArmory/SVDEX,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000999397 0.554602425 0.024032286,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.031662 0.178958 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmorySVDEXGround
+    {
+        mesh = PRZArmory/SVDEX,
+        texture = PRZArmory/SVDEXGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.548958 0.011572,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.031662 0.178958 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmorySVDEXMagazine
+    {
+        mesh = PRZArmory/SVDEXMagazine,
+        texture = PRZArmory/SVDEXMagazine,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.023239 0.000000,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.009026 0.000000 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmorySVDEXMagazineGround
+    {
+        mesh = PRZArmory/SVDEXMagazine,
+        texture = PRZArmory/SVDEXGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.023239 0.000000,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.009026 0.000000 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    
+
+    
+
+    model PRZArmorySVDGrenade
+    {
+        mesh = PRZArmory/SVDGrenade,
+        texture = PRZArmory/SVDGrenade,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.025000 0.000000,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.025000 0.000000 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmorySVDGrenadeGround
+    {
+        mesh = PRZArmory/SVDGrenade,
+        texture = PRZArmory/SVDGrenadeGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.025000 0.000000,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.025000 0.000000 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+}

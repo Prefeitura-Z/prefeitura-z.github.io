@@ -1,0 +1,803 @@
+module Base
+{
+model PRZArmoryDualInfinityMechanicsBody_Muzzle01
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle02
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle03
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle04
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle05
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle06
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle07
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle08
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle09
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle10
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle11
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle12
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle13
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle14
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle15
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBody_Muzzle16
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBody,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle01
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle02
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle03
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle04
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle05
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle06
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle07
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle08
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle09
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle10
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle11
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle12
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle13
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle14
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle15
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+model PRZArmoryDualInfinityMechanicsBodyNoMag_Muzzle16
+    {
+        mesh = PRZArmory/DualInfinityMechanicsBodyNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZArmoryMechanicsPart004 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+        attachment PRZArmoryMechanicsPart006 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+}

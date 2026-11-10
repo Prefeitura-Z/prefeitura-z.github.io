@@ -1,0 +1,10 @@
+name='70 Plymouth Barracuda - Rust edition
+id=70barracudaRusty
+require=\damnlib,\70barracuda
+poster=preview.png
+icon=icon.png
+description=Alternative textures for an abandoned, rotten variant of Plymouth Barracuda from 1970
+poster=preview.png
+author=KI5,yO
+category=vehicle
+versionMin=42.13.0

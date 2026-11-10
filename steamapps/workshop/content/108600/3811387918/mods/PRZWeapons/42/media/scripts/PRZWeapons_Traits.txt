@@ -1,0 +1,74 @@
+module PRZWeapons
+{
+    character_trait_definition przweapons:muralhachoque
+    {
+        IsProfessionTrait = false,
+        DisabledInMultiplayer = false,
+        CharacterTrait = przweapons:muralhachoque,
+        Cost = 6,
+        UIName = UI_trait_prz_muralhachoque,
+        UIDescription = UI_trait_prz_muralhachoquedesc,
+        XPBoosts = Blunt=1,
+        MutuallyExclusiveTraits = przweapons:punhodeferro;przweapons:carrasco;przweapons:lanceiro;przweapons:cirurgiaocaos;przweapons:espadachimapocalipse,
+    }
+
+    character_trait_definition przweapons:punhodeferro
+    {
+        IsProfessionTrait = false,
+        DisabledInMultiplayer = false,
+        CharacterTrait = przweapons:punhodeferro,
+        Cost = 6,
+        UIName = UI_trait_prz_punhodeferro,
+        UIDescription = UI_trait_prz_punhodeferrodesc,
+        XPBoosts = SmallBlunt=1,
+        MutuallyExclusiveTraits = przweapons:muralhachoque;przweapons:carrasco;przweapons:lanceiro;przweapons:cirurgiaocaos;przweapons:espadachimapocalipse,
+    }
+
+    character_trait_definition przweapons:carrasco
+    {
+        IsProfessionTrait = false,
+        DisabledInMultiplayer = false,
+        CharacterTrait = przweapons:carrasco,
+        Cost = 7,
+        UIName = UI_trait_prz_carrasco,
+        UIDescription = UI_trait_prz_carrascodesc,
+        XPBoosts = Axe=1,
+        MutuallyExclusiveTraits = przweapons:muralhachoque;przweapons:punhodeferro;przweapons:lanceiro;przweapons:cirurgiaocaos;przweapons:espadachimapocalipse,
+    }
+
+    character_trait_definition przweapons:lanceiro
+    {
+        IsProfessionTrait = false,
+        DisabledInMultiplayer = false,
+        CharacterTrait = przweapons:lanceiro,
+        Cost = 7,
+        UIName = UI_trait_prz_lanceiro,
+        UIDescription = UI_trait_prz_lanceirodesc,
+        XPBoosts = Spear=1,
+        MutuallyExclusiveTraits = przweapons:muralhachoque;przweapons:punhodeferro;przweapons:carrasco;przweapons:cirurgiaocaos;przweapons:espadachimapocalipse,
+    }
+
+    character_trait_definition przweapons:cirurgiaocaos
+    {
+        IsProfessionTrait = false,
+        DisabledInMultiplayer = false,
+        CharacterTrait = przweapons:cirurgiaocaos,
+        Cost = 6,
+        UIName = UI_trait_prz_cirurgiaocaos,
+        UIDescription = UI_trait_prz_cirurgiaocaosdesc,
+        XPBoosts = SmallBlade=1,
+        MutuallyExclusiveTraits = przweapons:muralhachoque;przweapons:punhodeferro;przweapons:carrasco;przweapons:lanceiro;przweapons:espadachimapocalipse,
+    }
+
+    character_trait_definition przweapons:espadachimapocalipse
+    {
+        IsProfessionTrait = false,
+        DisabledInMultiplayer = false,
+        CharacterTrait = przweapons:espadachimapocalipse,
+        Cost = 7,
+        UIName = UI_trait_prz_espadachimapocalipse,
+        UIDescription = UI_trait_prz_espadachimapocalipsedesc,
+        XPBoosts = LongBlade=1,
+        MutuallyExclusiveTraits = przweapons:muralhachoque;przweapons:punhodeferro;przweapons:carrasco;przweapons:lanceiro;przweapons:cirurgiaocaos,
+    }
+}

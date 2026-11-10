@@ -1,0 +1,7 @@
+module PRZWeapons
+{
+    /* Internal zero-stat rotor; never granted to inventory or manually removed. */
+    
+
+    
+}

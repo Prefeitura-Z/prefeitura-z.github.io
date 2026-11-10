@@ -1,0 +1,47 @@
+module PRZWeapons
+{
+    item OmegaBullets9mm
+    {
+        DisplayName = Omega - 9 mm,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 0.02,
+        Icon = PRZ_OmegaAmmo9mm,
+        Count = 1,
+        WorldStaticModel = 9mmRounds,
+        Tags = base:ammo,
+    }
+item OmegaBullets556
+    {
+        DisplayName = Omega - 5.56,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 0.035,
+        Icon = PRZ_OmegaAmmo556,
+        Count = 1,
+        WorldStaticModel = RifleAmmo,
+        Tags = base:ammo,
+    }
+    item OmegaBullets308
+    {
+        DisplayName = Omega - .308,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 0.04,
+        Icon = PRZ_OmegaAmmo308,
+        Count = 1,
+        WorldStaticModel = RifleAmmo,
+        Tags = base:ammo,
+    }
+    item OmegaShotgunShells
+    {
+        DisplayName = Omega - cartuchos de escopeta,
+        DisplayCategory = Ammo,
+        ItemType = base:normal,
+        Weight = 0.06,
+        Icon = PRZ_OmegaAmmoShells,
+        Count = 1,
+        WorldStaticModel = ShotGunShells,
+        Tags = base:ammo,
+    }
+}

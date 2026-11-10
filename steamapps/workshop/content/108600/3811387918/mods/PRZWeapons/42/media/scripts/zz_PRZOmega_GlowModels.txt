@@ -1,0 +1,104 @@
+module Base
+{
+    model PRZ_OMEGA_Glow_TyrfingRubra
+    {
+        mesh = weapons/1handed/PRZ_Tyrfing,
+		texture = weapons/1handed/PRZ_Tyrfing,
+        attachment world
+        {
+            offset = 0.0061 0.1401 0.0,
+            rotate = -180.0 0.0 179.1843,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0228 -0.0018 0.0048,
+            rotate = -36.0446 -81.1798 -34.2812,
+        }
+            shader = PRZMeleeSelfLuminousGeneri_GlowMagma,
+    }
+    model PRZ_OMEGA_Glow_PunhalCastigoDivino
+    {mesh= DivinepunishmentKnife,
+texture = weapons/DivinepunishmentKnife,
+        shader = PRZMeleeSelfLuminousGeneri_GlowBlueWhite,
+    }
+    model PRZ_OMEGA_Glow_TacoSupremoZ
+    {
+        mesh = weapons/2handed/Gjallarhorn,
+        texture = weapons/2handed/Gjallarhorn,
+        attachment world
+        {
+            offset = -0.0489 0.2427 0.0226,
+            rotate = 0.0001 54.3661 3.3346,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0067 -0.0091 -0.0022,
+            rotate = 0.0 0.0 0.0,
+        }
+            shader = PRZMeleeSelfLuminousGeneri_GlowMagma,
+    }
+    model PRZ_OMEGA_Glow_MarteloDoTrovao
+    {
+        mesh = weapons/1handed/PRZ_Mjolnir,
+        texture = weapons/1handed/PRZ_Mjolnir,
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0221 0.0007,
+            rotate = 0.0 -86.9102 0.0,
+        }
+        attachment world
+        {
+            offset = -0.018 0.1389 0.0,
+            rotate = 0.0 0.0 3.1888,
+        }
+            shader = PRZMeleeSelfLuminousGeneri_GlowBlueWhite,
+    }
+    model PRZ_OMEGA_Glow_MachadoLeviata
+    {
+        mesh = weapons/2handed/LeviathanAxe,
+		texture = weapons/2handed/LeviathanAxe,
+        attachment world
+        {
+            offset = 0.3 0.173 -0.007,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+            shader = PRZMeleeSelfLuminousGeneri_GlowBlueWhite,
+    }
+    model PRZ_OMEGA_Glow_TridentePoseidon
+    {
+        mesh = PoseidonTrident,
+        texture = poseidon_weapon,
+        attachment world
+        {
+            offset = 0.0 0.26 -0.013,
+            rotate = 0.0 -90.0 0.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 -81.7231 0.0,
+        }
+            shader = PRZMeleeSelfLuminousGeneri_GlowBlueWhite,
+    }
+    model PRZ_OMEGA_Glow_LaminaDoJulgamento
+    {
+        mesh = JudgementBlade,
+        texture = uriel_weapon,
+        attachment world
+        {
+            offset = 0.0155 0.2859 0.015,
+            rotate = -180.0 0.0 177.566,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+            shader = PRZMeleeSelfLuminousGeneri_GlowMagma,
+    }
+}

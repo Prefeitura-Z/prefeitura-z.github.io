@@ -1,0 +1,22 @@
+module PRZWeapons
+{
+	item PRZBigWeaponBelt
+	{
+		DisplayName = PRZMelee Big Weapon Belt,
+		DisplayCategory= Accessory,
+                                ClothingItem= PRZMeleeBigWeaponBelt,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = PRZMeleeBigWeaponBelt,
+                                BodyLocation            = przweapons:PRZMeleeBigWeaponBelt,
+                                AttachmentsProvided = PRZMeleeBigWeaponBelt,
+                                WorldStaticModel        = Belt_Ground,
+		Tooltip = Tooltip_PRZMeleeBigWeaponBelt,
+	}
+
+
+
+	
+
+
+}

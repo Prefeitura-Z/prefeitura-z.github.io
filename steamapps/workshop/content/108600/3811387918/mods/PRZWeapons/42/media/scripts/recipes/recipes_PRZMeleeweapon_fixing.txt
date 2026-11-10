@@ -1,0 +1,42 @@
+module PRZWeapons
+{
+    item PrefeituraZUniversalRepairBox
+    {
+        DisplayCategory = Tool,
+        ItemType = base:drainable,
+        Weight = 0.5,
+        Icon = PRZMeleeUniversalRepairBox,
+        SurvivalGear = true,
+        Tooltip = Tooltip_PRZMeleeUniversalRepairBox,
+        UseDelta = 0.04,
+        UseWhileEquipped = false,
+        WorldStaticModel = Base.PRZM_PRZWeaponUniversalRepairBox,
+        Tags = base:epoxy;base:whetstone;base:showcondition,
+    }
+    
+craftRecipe PRZMeleeUniversalRepairBox
+    {
+        timedAction = Welding,
+        Time = 1800,
+        Tags = InHandCraft;Welding,
+        category = Repair,
+        SkillRequired = Maintenance:8;Blacksmith:7;MetalWelding:7;Electricity:5,
+        xpAward = Maintenance:30;MetalWelding:50,
+        inputs
+        {
+            item 1 tags[base:metalworkingpunch;base:drillmetal] mode:keep flags[MayDegradeLight],
+            item 1 tags[base:hammer;base:clubhammer] mode:keep flags[Prop1;MayDegradeLight],
+            item 1 tags[base:wrench] mode:keep flags[MayDegradeLight],
+            item 8 [Base.SmallSheetMetal],
+            item 4 [Base.SteelBar],
+            item 8 [Base.Wire],
+            item 8 [Base.LeatherStrips],
+            item 20 [Base.ScrapMetal],
+            item 12 [Base.ElectronicsScrap],
+            item 2 [PRZWeapons.LigaOmega],
+            item 1 [PRZWeapons.CircuitoOmega],
+            item 1 [PRZWeapons.SeloOmega],
+        }
+        outputs { item 1 PRZWeapons.PrefeituraZUniversalRepairBox, }
+    }
+}

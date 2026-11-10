@@ -1,0 +1,63 @@
+module PRZWeapons
+{
+    fixing PRZOmega_Reparar_OmegaDualInfinity
+    {
+        Require = PRZWeapons.OmegaDualInfinity,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaDualInfinity; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaSVDEX
+    {
+        Require = PRZWeapons.OmegaSVDEX,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaSVDEX; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaAS50Gold
+    {
+        Require = PRZWeapons.OmegaAS50Gold,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaAS50Gold; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaMG36Xmas
+    {
+        Require = PRZWeapons.OmegaMG36Xmas,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaMG36Xmas; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaGatling
+    {
+        Require = PRZWeapons.OmegaGatling,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaGatling; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaJanus7
+    {
+        Require = PRZWeapons.OmegaJanus7,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaJanus7; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaBalrog7
+    {
+        Require = PRZWeapons.OmegaBalrog7,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaBalrog7; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaMG3Gold
+    {
+        Require = PRZWeapons.OmegaMG3Gold,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaMG3Gold; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaBalrog11
+    {
+        Require = PRZWeapons.OmegaBalrog11,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaBalrog11; Aiming=3,
+    }
+    fixing PRZOmega_Reparar_OmegaHolyFlame
+    {
+        Require = PRZWeapons.OmegaHolyFlame,
+        Fixer = PRZWeapons.LigaOmega; Maintenance=5,
+        Fixer = PRZWeapons.OmegaHolyFlame; Aiming=3,
+    }
+}

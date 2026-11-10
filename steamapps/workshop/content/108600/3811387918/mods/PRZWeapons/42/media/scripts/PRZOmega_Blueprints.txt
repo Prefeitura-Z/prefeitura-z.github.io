@@ -1,0 +1,76 @@
+module PRZWeapons
+{
+    item ProjetoOmegaTyrfingRubra
+    {
+        DisplayName = Projeto Omega - TyrfingRubra,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.2,
+        Icon = Magazine_Armory2,
+        LearnedRecipes = PRZOmega_TyrfingRubra,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ProjetoOmegaPunhalCastigoDivino
+    {
+        DisplayName = Projeto Omega - PunhalCastigoDivino,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.2,
+        Icon = Magazine_Armory2,
+        LearnedRecipes = PRZOmega_PunhalCastigoDivino,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ProjetoOmegaTacoSupremoZ
+    {
+        DisplayName = Projeto Omega - TacoSupremoZ,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.2,
+        Icon = Magazine_Armory2,
+        LearnedRecipes = PRZOmega_TacoSupremoZ,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ProjetoOmegaMarteloDoTrovao
+    {
+        DisplayName = Projeto Omega - MarteloDoTrovao,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.2,
+        Icon = Magazine_Armory2,
+        LearnedRecipes = PRZOmega_MarteloDoTrovao,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ProjetoOmegaMachadoLeviata
+    {
+
+        DisplayName = Projeto — SKULL-9 Ômega,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.2,
+        Icon = Magazine_Armory2,
+        LearnedRecipes = PRZOmega_MachadoLeviata,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ProjetoOmegaTridentePoseidon
+    {
+        DisplayName = Projeto Omega - TridentePoseidon,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.2,
+        Icon = Magazine_Armory2,
+        LearnedRecipes = PRZOmega_TridentePoseidon,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+}

@@ -1,0 +1,123 @@
+module Base
+{
+    
+
+    
+
+    sound PRZArmory_BalrogShoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/BalrogShoot.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 220,
+        }
+    }
+
+    sound PRZArmory_BalrogBurst
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/BalrogBurst.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 220,
+        }
+    }
+
+    sound PRZArmory_BalrogDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/BalrogDraw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_BalrogInsert
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/BalrogInsert.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_HolyShoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/HolyShoot.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 220,
+        }
+    }
+
+    sound PRZArmory_HolyDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/HolyDraw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_HolyInsert
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/HolyInsert.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_HolyReloadStart
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/HolyReloadStart.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_HolyReloadEnd
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/HolyReloadEnd.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+}

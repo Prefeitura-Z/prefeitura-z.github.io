@@ -1,0 +1,19 @@
+module PRZWeapons
+{
+	item NocturnalEdgeSheath
+	{
+		DisplayName = NocturnalEdge Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= NocturnalEdgeSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = NocturnalEdgeSheath,
+                                BodyLocation            = przweapons:PRZMeleeNocturnalEdgeSheath,
+                                AttachmentsProvided = PRZMeleeNocturnalEdgeSheath,
+                                WorldStaticModel        = Base.PRZM_NocturnalEdgeSheathGround,
+	}
+
+
+
+	
+}

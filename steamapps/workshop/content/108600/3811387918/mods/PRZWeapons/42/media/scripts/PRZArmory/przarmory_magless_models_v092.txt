@@ -1,0 +1,1316 @@
+module Base
+{
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    model PRZArmoryAS50GoldNoMag
+    {
+        mesh = PRZArmory/AS50GoldNoMag,
+        texture = PRZArmory/AS50Gold,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.000206060 0.618071840 0.017329692, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.02157163 0.20919037 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryAS50GoldNoMagGround
+    {
+        mesh = PRZArmory/AS50GoldNoMag,
+        texture = PRZArmory/AS50GoldGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.60919037 0.00830586, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.02157163 0.20919037 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryMG36XmasNoMag
+    {
+        mesh = PRZArmory/MG36XmasNoMag,
+        texture = PRZArmory/MG36Xmas,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.005066034 0.422006799 -0.015498992, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.08493724 0.13031612 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryMG36XmasNoMagGround
+    {
+        mesh = PRZArmory/MG36XmasNoMag,
+        texture = PRZArmory/MG36XmasGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.44031612 -0.00401310, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.08493724 0.13031612 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryGatlingNoMag
+    {
+        mesh = PRZArmory/GatlingNoMag,
+        texture = PRZArmory/Gatling,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.035036170 0.509114899 -0.009077320, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.08431882 0.19555300 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryGatlingNoMagGround
+    {
+        mesh = PRZArmory/GatlingNoMag,
+        texture = PRZArmory/GatlingGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.50555300 -0.01246644, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.08431882 0.19555300 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    
+
+    
+
+    model PRZArmoryJanus7NoMag
+    {
+        mesh = PRZArmory/Janus7NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7NoMagGround
+    {
+        mesh = PRZArmory/Janus7NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03881045, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryDualInfinityNoMag
+    {
+        mesh = PRZArmory/DualInfinityNoMag,
+        texture = PRZArmory/DualInfinity,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.004967875 0.231796969 0.044419697,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmoryDualInfinityNoMagGround
+    {
+        mesh = PRZArmory/DualInfinityNoMag,
+        texture = PRZArmory/DualInfinityGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.234671 0.004497,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015691 0.109671 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmoryDualInfinityLeftNoMag
+    {
+        mesh = PRZArmory/DualInfinityLeftNoMag,
+        texture = PRZArmory/DualInfinityLeft,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000421759 0.232224327 0.054249948,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015450 0.108901 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZWeapons_LeftHand
+        {
+            offset = 0.036038746 -0.021845516 0.003747514,
+            rotate = 96.475658425 2.976804773 -91.057502694,
+        }
+}
+
+    model PRZArmoryDualInfinityLeftNoMagGround
+    {
+        mesh = PRZArmory/DualInfinityLeftNoMag,
+        texture = PRZArmory/DualInfinityLeftGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.233901 0.013540,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.015450 0.108901 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    
+        attachment PRZWeapons_LeftHand
+        {
+            offset = 0.036038746 -0.021845516 0.003747514,
+            rotate = 96.475658425 2.976804773 -91.057502694,
+        }
+}
+
+    model PRZArmorySVDEXNoMag
+    {
+        mesh = PRZArmory/SVDEXNoMag,
+        texture = PRZArmory/SVDEX,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000999397 0.554602425 0.024032286,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.031662 0.178958 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    model PRZArmorySVDEXNoMagGround
+    {
+        mesh = PRZArmory/SVDEXNoMag,
+        texture = PRZArmory/SVDEXGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.0 0.548958 0.011572,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.031662 0.178958 0.0,
+            rotate = 0.0 0.0 90.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+    
+
+    
+
+    model PRZArmoryBalrog7NoMag
+    {
+        mesh = PRZArmory/Balrog7NoMag,
+        texture = PRZArmory/Balrog7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = -0.000000000 0.492071623 0.048069056,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.081916 0.123254 0.000000,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+
+    model PRZArmoryBalrog7NoMagGround
+    {
+        mesh = PRZArmory/Balrog7NoMag,
+        texture = PRZArmory/Balrog7Ground,
+        static = true,
+        scale = 1.0,
+        attachment world
+        {
+            offset = 0.081916 0.123254 0.000000,
+            rotate = 0.0 0.0 90.0,
+        }
+    }
+
+    model PRZArmoryMG3GoldNoMag
+    {
+        mesh = PRZArmory/MG3GoldNoMag,
+        texture = PRZArmory/MG3Gold,
+        static = true,
+        scale = 1.0,
+        attachment muzzle
+        {
+            offset = 0.000000020 0.603488923 0.017197141,
+            rotate = -90.0 0.0 180.0,
+        }
+        attachment world
+        {
+            offset = 0.120819 0.199553 0.000000,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 0.0 180.0,
+        }
+    }
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    model PRZArmoryJanus7Change01NoMag
+    {
+        mesh = PRZArmory/Janus7Change01NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change02NoMag
+    {
+        mesh = PRZArmory/Janus7Change02NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change03NoMag
+    {
+        mesh = PRZArmory/Janus7Change03NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change04NoMag
+    {
+        mesh = PRZArmory/Janus7Change04NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change05NoMag
+    {
+        mesh = PRZArmory/Janus7Change05NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change06NoMag
+    {
+        mesh = PRZArmory/Janus7Change06NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change07NoMag
+    {
+        mesh = PRZArmory/Janus7Change07NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change08NoMag
+    {
+        mesh = PRZArmory/Janus7Change08NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change09NoMag
+    {
+        mesh = PRZArmory/Janus7Change09NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change10NoMag
+    {
+        mesh = PRZArmory/Janus7Change10NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change11NoMag
+    {
+        mesh = PRZArmory/Janus7Change11NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change12NoMag
+    {
+        mesh = PRZArmory/Janus7Change12NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change13NoMag
+    {
+        mesh = PRZArmory/Janus7Change13NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change14NoMag
+    {
+        mesh = PRZArmory/Janus7Change14NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change15NoMag
+    {
+        mesh = PRZArmory/Janus7Change15NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change16NoMag
+    {
+        mesh = PRZArmory/Janus7Change16NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change17NoMag
+    {
+        mesh = PRZArmory/Janus7Change17NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change18NoMag
+    {
+        mesh = PRZArmory/Janus7Change18NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change19NoMag
+    {
+        mesh = PRZArmory/Janus7Change19NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change20NoMag
+    {
+        mesh = PRZArmory/Janus7Change20NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change21NoMag
+    {
+        mesh = PRZArmory/Janus7Change21NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change22NoMag
+    {
+        mesh = PRZArmory/Janus7Change22NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change23NoMag
+    {
+        mesh = PRZArmory/Janus7Change23NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change24NoMag
+    {
+        mesh = PRZArmory/Janus7Change24NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change25NoMag
+    {
+        mesh = PRZArmory/Janus7Change25NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change26NoMag
+    {
+        mesh = PRZArmory/Janus7Change26NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change27NoMag
+    {
+        mesh = PRZArmory/Janus7Change27NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change28NoMag
+    {
+        mesh = PRZArmory/Janus7Change28NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change29NoMag
+    {
+        mesh = PRZArmory/Janus7Change29NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change30NoMag
+    {
+        mesh = PRZArmory/Janus7Change30NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Change31NoMag
+    {
+        mesh = PRZArmory/Janus7Change31NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7ElectricNoMag
+    {
+        mesh = PRZArmory/Janus7ElectricNoMag,
+        texture = PRZArmory/Janus7Electric,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.11684944 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7ElectricNoMagGround
+    {
+        mesh = PRZArmory/Janus7ElectricNoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.02394432, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.11684944 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7ReadyNoMag
+    {
+        mesh = PRZArmory/Janus7ReadyNoMag,
+        texture = PRZArmory/Janus7Ready,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06942415 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7ReadyNoMagGround
+    {
+        mesh = PRZArmory/Janus7ReadyNoMag,
+        texture = PRZArmory/Janus7ReadyGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03881639, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06942415 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return01NoMag
+    {
+        mesh = PRZArmory/Janus7Return01NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return02NoMag
+    {
+        mesh = PRZArmory/Janus7Return02NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return03NoMag
+    {
+        mesh = PRZArmory/Janus7Return03NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return04NoMag
+    {
+        mesh = PRZArmory/Janus7Return04NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return05NoMag
+    {
+        mesh = PRZArmory/Janus7Return05NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return06NoMag
+    {
+        mesh = PRZArmory/Janus7Return06NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return07NoMag
+    {
+        mesh = PRZArmory/Janus7Return07NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return08NoMag
+    {
+        mesh = PRZArmory/Janus7Return08NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return09NoMag
+    {
+        mesh = PRZArmory/Janus7Return09NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return10NoMag
+    {
+        mesh = PRZArmory/Janus7Return10NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return11NoMag
+    {
+        mesh = PRZArmory/Janus7Return11NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return12NoMag
+    {
+        mesh = PRZArmory/Janus7Return12NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return13NoMag
+    {
+        mesh = PRZArmory/Janus7Return13NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return14NoMag
+    {
+        mesh = PRZArmory/Janus7Return14NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return15NoMag
+    {
+        mesh = PRZArmory/Janus7Return15NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return16NoMag
+    {
+        mesh = PRZArmory/Janus7Return16NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return17NoMag
+    {
+        mesh = PRZArmory/Janus7Return17NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return18NoMag
+    {
+        mesh = PRZArmory/Janus7Return18NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return19NoMag
+    {
+        mesh = PRZArmory/Janus7Return19NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return20NoMag
+    {
+        mesh = PRZArmory/Janus7Return20NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return21NoMag
+    {
+        mesh = PRZArmory/Janus7Return21NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return22NoMag
+    {
+        mesh = PRZArmory/Janus7Return22NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return23NoMag
+    {
+        mesh = PRZArmory/Janus7Return23NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return24NoMag
+    {
+        mesh = PRZArmory/Janus7Return24NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return25NoMag
+    {
+        mesh = PRZArmory/Janus7Return25NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Return26NoMag
+    {
+        mesh = PRZArmory/Janus7Return26NoMag,
+        texture = PRZArmory/Janus7TransformAnimation,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert01NoMag
+    {
+        mesh = PRZArmory/Janus7Revert01NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.11684944 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert01NoMagGround
+    {
+        mesh = PRZArmory/Janus7Revert01NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.02394432, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.11684944 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert02NoMag
+    {
+        mesh = PRZArmory/Janus7Revert02NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert02NoMagGround
+    {
+        mesh = PRZArmory/Janus7Revert02NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03935895, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert03NoMag
+    {
+        mesh = PRZArmory/Janus7Revert03NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert03NoMagGround
+    {
+        mesh = PRZArmory/Janus7Revert03NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03467940, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert04NoMag
+    {
+        mesh = PRZArmory/Janus7Revert04NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert04NoMagGround
+    {
+        mesh = PRZArmory/Janus7Revert04NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03880933, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert05NoMag
+    {
+        mesh = PRZArmory/Janus7Revert05NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert05NoMagGround
+    {
+        mesh = PRZArmory/Janus7Revert05NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03880933, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert06NoMag
+    {
+        mesh = PRZArmory/Janus7Revert06NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert06NoMagGround
+    {
+        mesh = PRZArmory/Janus7Revert06NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03880933, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert07NoMag
+    {
+        mesh = PRZArmory/Janus7Revert07NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Revert07NoMagGround
+    {
+        mesh = PRZArmory/Janus7Revert07NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03880933, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform01NoMag
+    {
+        mesh = PRZArmory/Janus7Transform01NoMag,
+        texture = PRZArmory/Janus7Ready,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06942415 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform01NoMagGround
+    {
+        mesh = PRZArmory/Janus7Transform01NoMag,
+        texture = PRZArmory/Janus7ReadyGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03881639, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06942415 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform02NoMag
+    {
+        mesh = PRZArmory/Janus7Transform02NoMag,
+        texture = PRZArmory/Janus7Ready,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06942415 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform02NoMagGround
+    {
+        mesh = PRZArmory/Janus7Transform02NoMag,
+        texture = PRZArmory/Janus7ReadyGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03881639, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06942415 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform03NoMag
+    {
+        mesh = PRZArmory/Janus7Transform03NoMag,
+        texture = PRZArmory/Janus7Ready,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06942415 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform03NoMagGround
+    {
+        mesh = PRZArmory/Janus7Transform03NoMag,
+        texture = PRZArmory/Janus7ReadyGround,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03881639, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06942415 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform04NoMag
+    {
+        mesh = PRZArmory/Janus7Transform04NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform04NoMagGround
+    {
+        mesh = PRZArmory/Janus7Transform04NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.03986252, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.06694921 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform05NoMag
+    {
+        mesh = PRZArmory/Janus7Transform05NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.12316802 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform05NoMagGround
+    {
+        mesh = PRZArmory/Janus7Transform05NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.01818667, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.12316802 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform06NoMag
+    {
+        mesh = PRZArmory/Janus7Transform06NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.11684944 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform06NoMagGround
+    {
+        mesh = PRZArmory/Janus7Transform06NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.02429871, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.11684944 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform07NoMag
+    {
+        mesh = PRZArmory/Janus7Transform07NoMag,
+        texture = PRZArmory/Janus7,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.001412809 0.534870006 0.003631335, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.11684944 0.16368469 0.0, rotate = 180.0 0.0 180.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+
+    model PRZArmoryJanus7Transform07NoMagGround
+    {
+        mesh = PRZArmory/Janus7Transform07NoMag,
+        texture = PRZArmory/Janus7Ground,
+        static = true,
+        scale = 1.0,
+        attachment muzzle { offset = 0.0 0.53368469 -0.02394432, rotate = -90.0 0.0 180.0, }
+        attachment world { offset = 0.11684944 0.16368469 0.0, rotate = 0.0 0.0 90.0, }
+        attachment Bip01_Prop2 { offset = 0.0 0.0 0.0, rotate = 0.0 0.0 0.0, }
+    }
+}

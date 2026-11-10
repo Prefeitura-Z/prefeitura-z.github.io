@@ -1,0 +1,67 @@
+module Base
+{
+    sound PRZArmory_TyphoonSwing
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/TyphoonSwing.wav,
+            volume = 0.75,
+            distanceMin = 1,
+            distanceMax = 30,
+        }
+    }
+
+    sound PRZArmory_TyphoonHit
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/TyphoonHit.wav,
+            volume = 0.75,
+            distanceMin = 1,
+            distanceMax = 30,
+        }
+    }
+
+    sound PRZArmory_TyphoonWall
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/TyphoonWall.wav,
+            volume = 0.75,
+            distanceMin = 1,
+            distanceMax = 30,
+        }
+    }
+
+    sound PRZArmory_TyphoonDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/TyphoonDraw.wav,
+            volume = 0.75,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_TyphoonSpin
+    {
+        category = Item,
+        maxInstancesPerEmitter = 2,
+        clip
+        {
+            file = media/sound/PRZArmory/TyphoonSpin.wav,
+            volume = 0.75,
+            distanceMin = 1,
+            distanceMax = 50,
+        }
+    }
+}

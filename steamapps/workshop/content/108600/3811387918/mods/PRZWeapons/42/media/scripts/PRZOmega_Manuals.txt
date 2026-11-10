@@ -1,0 +1,143 @@
+module PRZWeapons
+{
+    item ManualOmegaDualInfinity
+    {
+        DisplayName = Dossie Omega - DualInfinity,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_DualInfinity;PRZOmega_Suprimento_OmegaDualInfinityMagazine;PRZOmega_Municao_9mm;PRZOmega_AbrirCaixa_9mm,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaSVDEX
+    {
+        DisplayName = Dossie Omega - SVDEX,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_SVDEX;PRZOmega_Suprimento_OmegaSVDEXMagazine;PRZOmega_Suprimento_OmegaSVDGrenade;PRZOmega_Municao_308;PRZOmega_AbrirCaixa_308;PRZOmega_AbrirCaixa_SVDGrenade,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaAS50Gold
+    {
+        DisplayName = Dossie Omega - AS50Gold,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_AS50Gold;PRZOmega_Suprimento_OmegaAS50GoldMagazine;PRZOmega_Suprimento_OmegaBullets50;PRZOmega_Suprimento_OmegaBullets50Box;PRZOmega_AbrirCaixa_50,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaMG36Xmas
+    {
+        DisplayName = Dossie Omega - MG36Xmas,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_MG36Xmas;PRZOmega_Suprimento_OmegaMG36XmasMagazine;PRZOmega_Municao_556;PRZOmega_AbrirCaixa_556,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaGatling
+    {
+        DisplayName = Dossie Omega - Gatling,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_Gatling;PRZOmega_Suprimento_OmegaGatlingMagazine;PRZOmega_Municao_Shells;PRZOmega_AbrirCaixa_Shells,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaJanus7
+    {
+        DisplayName = Dossie Omega - Janus7,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_Janus7;PRZOmega_Suprimento_OmegaJanus7Magazine;PRZOmega_Municao_308;PRZOmega_AbrirCaixa_308,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaBalrog7
+    {
+        DisplayName = Dossie Omega - Balrog7,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_Balrog7;PRZOmega_Suprimento_OmegaBalrog7Magazine;PRZOmega_Municao_556;PRZOmega_AbrirCaixa_556,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaMG3Gold
+    {
+        DisplayName = Dossie Omega - MG3Gold,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_MG3Gold;PRZOmega_Suprimento_OmegaMG3GoldMagazine;PRZOmega_Municao_308;PRZOmega_AbrirCaixa_308,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaBalrog11
+    {
+        DisplayName = Dossie Omega - Balrog11,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_Balrog11;PRZOmega_Municao_Shells;PRZOmega_AbrirCaixa_Shells,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+    item ManualOmegaHolyFlame
+    {
+        DisplayName = Dossie Omega - HolyFlame,
+        DisplayCategory = RecipeResource,
+        ItemType = base:literature,
+        Weight = 0.5,
+        Icon = Magazine_Armory2,
+        BoredomChange = -20,
+        StressChange = -15,
+        LearnedRecipes = PRZOmega_Fabricar_HolyFlame;PRZOmega_Municao_Shells;PRZOmega_AbrirCaixa_Shells,
+        StaticModel = Magazine,
+        WorldStaticModel = MagazineGround,
+        Tags = base:magazine,
+    }
+}

@@ -1,0 +1,22 @@
+module PRZWeapons
+{
+	item StarThunderSheath
+	{
+		DisplayName = Star Thunder Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= StarThunderSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = StarThunderSheath,
+                                BodyLocation            = przweapons:PRZMeleeStarThunderSheath,
+                                AttachmentsProvided = PRZMeleeStarThunderSheath,
+                                WorldStaticModel        = Base.PRZM_StarThunderSheathGround,
+		Tooltip = Tooltip_StarThunderSheath,
+	}
+
+
+
+	
+
+
+}

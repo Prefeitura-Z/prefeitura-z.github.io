@@ -1,0 +1,455 @@
+module Base
+{
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    sound PRZArmory_GatlingShoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/GatlingShoot.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 230,
+        }
+    }
+
+    sound PRZArmory_GatlingDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/GatlingDraw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_GatlingRack
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/GatlingRack.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_GatlingClipIn
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/GatlingClipIn.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_GatlingClipIn2
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/GatlingClipIn2.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_GatlingClipOut
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/GatlingClipOut.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_GatlingClipOut2
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/GatlingClipOut2.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_MG36XmasShoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG36XmasShoot.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 230,
+        }
+    }
+
+    sound PRZArmory_MG36XmasDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG36XmasDraw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_MG36XmasRack
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG36XmasRack.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_MG36XmasClipIn
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG36XmasClipIn.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_MG36XmasClipOut
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/MG36XmasClipOut.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Janus7Shoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7Shoot.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 230,
+        }
+    }
+
+    sound PRZArmory_Janus7Electric
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7Electric.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 110,
+        }
+    }
+
+    sound PRZArmory_Janus7Transform
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7Transform.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 35,
+        }
+    }
+
+    sound PRZArmory_Janus7Revert
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7Revert.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 35,
+        }
+    }
+
+    sound PRZArmory_Janus7Draw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7Draw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Janus7Open
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7Open.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Janus7Rack
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7Rack.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Janus7Close
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7Close.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Janus7ClipIn
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7ClipIn.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_Janus7ClipOut
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/Janus7ClipOut.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    sound PRZArmory_AS50GoldShoot
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/AS50GoldShoot.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 230,
+        }
+    }
+
+    sound PRZArmory_AS50GoldDraw
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/AS50GoldDraw.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_AS50GoldRack
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/AS50GoldRack.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_AS50GoldClipIn
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/AS50GoldClipIn.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_AS50GoldClipIn2
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/AS50GoldClipIn2.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_AS50GoldClipOut
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/AS50GoldClipOut.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    sound PRZArmory_AS50GoldClipOut2
+    {
+        category = Item,
+        maxInstancesPerEmitter = 4,
+        clip
+        {
+            file = media/sound/PRZArmory/AS50GoldClipOut2.wav,
+            volume = 0.8,
+            distanceMin = 1,
+            distanceMax = 15,
+        }
+    }
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+}

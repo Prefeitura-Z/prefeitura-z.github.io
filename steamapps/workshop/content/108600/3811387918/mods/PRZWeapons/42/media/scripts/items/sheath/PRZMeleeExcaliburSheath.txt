@@ -1,0 +1,20 @@
+module PRZWeapons
+{
+	item ExcaliburSheath
+	{
+		DisplayName = Excalibur Sheath,
+		DisplayCategory= Accessory,
+                                ClothingItem= ExcaliburSheath,
+                                Weight                  = 0.1,
+                                ItemType = base:clothing,
+                                Icon                    = ExcaliburSheath,
+                                BodyLocation            = przweapons:PRZMeleeExcaliburSheath,
+                                AttachmentsProvided = PRZMeleeExcaliburSheath,
+                                WorldStaticModel        = Base.PRZM_ExcaliburSheathGround,
+		Tooltip = Tooltip_ExcaliburSheath,
+	}
+
+
+
+	
+}

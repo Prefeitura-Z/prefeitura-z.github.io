@@ -1,0 +1,384 @@
+module Base
+{
+
+
+
+model AnubisStaff
+    {
+        mesh = AnubisStaff,
+        texture = anubis_weapon,
+        attachment world
+        {
+            offset = 0.0 0.26 -0.013,
+            rotate = 0.0 -90.0 0.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 -81.7231 0.0,
+        }
+    }
+
+model AzazelSpear
+    {
+        mesh = AzazelSpear,
+        texture = azazel_weapon,
+        attachment world
+        {
+            offset = 0.0 0.26 -0.013,
+            rotate = 0.0 -90.0 0.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 -81.7231 0.0,
+        }
+    }
+
+model DemonLordAxe
+    {
+        mesh = DemonLordAxe,
+        texture = demonlord_weapon,
+        attachment world
+        {
+            offset = 0.0179 0.173 -0.007,
+            rotate = 180.0 -21.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+    }
+
+model DevilSpear
+    {
+        mesh = DevilSpear,
+        texture = devil_weapon,
+        attachment world
+        {
+            offset = 0.0 0.26 -0.013,
+            rotate = 0.0 -90.0 0.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 -81.7231 0.0,
+        }
+    }
+
+
+
+model ExcavationDrill
+    {
+        mesh = ExcavationDrill,
+        texture = drill_weapon,
+        attachment world
+        {
+            offset = 0.0022 0.115 -0.0089,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0166 -0.0017 0.0064,
+            rotate = 0.0 -82.5857 2.9014,
+        }
+    }
+
+model Gjallarhorn
+    {
+        mesh = weapons/2handed/Gjallarhorn,
+        texture = weapons/2handed/Gjallarhorn,
+        attachment world
+        {
+            offset = -0.0489 0.2427 0.0226,
+            rotate = 0.0001 54.3661 3.3346,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0067 -0.0091 -0.0022,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model HammerOfJustice
+    {
+        mesh = HammerOfJustice,
+        texture = nephilim_weapon,
+        attachment world
+        {
+            offset = -0.0285 0.1126 -0.0,
+            rotate = 0.0 -0.0 6.1318,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0131 -0.0111 0.0007,
+            rotate = -53.6763 -84.7932 -53.5631,
+        }
+    }
+
+
+
+model Housekeeper                       /* 家政员 */
+	{
+		mesh                      = Weapons/Housekeeper,
+		texture                   = Weapons/Housekeeper,
+	}
+
+model IceJadeTeapot                 /* 玉壶青冰 */
+	{
+		mesh                      = Weapons/IceJadeTeapot,
+		texture                   = Weapons/IceJadeTeapot,
+	}
+
+model IntotheUnreachableVeil            /* 向着不可追问处 */
+	{
+		mesh                      = Weapons/IntotheUnreachableVeil,
+		texture                   = Weapons/IntotheUnreachableVeil,
+	}
+
+
+
+model LeviathanAxe
+    {
+        mesh = weapons/2handed/LeviathanAxe,
+		texture = weapons/2handed/LeviathanAxe,
+        attachment world
+        {
+            offset = 0.3 0.173 -0.007,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+    }
+
+model LuxuriousSeaLord                       /* 衔珠海皇 */
+	{
+		mesh                      = Weapons/LuxuriousSeaLord,
+		texture                   = Weapons/LuxuriousSeaLord,
+	}
+
+model MadamScythe
+    {
+        mesh = Weapons/2Handed/MadamScythe,
+		texture = weapons/2handed/MadamScythe
+        attachment world
+        {
+            offset = 0.3 0.173 -0.007,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+    }
+
+model MaysAnchor
+    {
+        mesh = MaysAnchor,
+        texture = may_weapon,
+        attachment world
+        {
+            offset = 0.0179 0.173 -0.007,
+            rotate = 180.0 -21.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 180.0 -86.0322 180.0,
+        }
+    }
+
+
+
+model MythrilRod
+    {
+        mesh = weapons/2handed/MythrilRod,
+        texture = weapons/2handed/MythrilRod,
+
+
+        attachment world
+        {
+            offset = 0.0000 -0.1660 0.0070,
+            rotate = -180.0000 0.0000 0.0000,
+        }
+    }
+
+
+
+model NightOfFright       /* 惊魂夜 */
+	{
+		mesh                      = Weapons/NightOfFright,
+		texture                   = Weapons/NightOfFright,
+	}
+
+model PanguAxe
+	{
+		mesh = PanguAxe,
+	    texture = PanguAxe,
+	}
+
+model PoseidonTrident
+    {
+        mesh = PoseidonTrident,
+        texture = poseidon_weapon,
+        attachment world
+        {
+            offset = 0.0 0.26 -0.013,
+            rotate = 0.0 -90.0 0.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 -81.7231 0.0,
+        }
+    }
+
+
+
+model RefudDagger
+    {
+        mesh = RefudDagger,
+        texture = refud_weapon,
+        attachment world
+        {
+            offset = 0.0022 0.115 -0.0089,
+            rotate = 180.0 0.0 180.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0166 -0.0017 0.0064,
+            rotate = 0.0 -82.5857 2.9014,
+        }
+    }
+
+
+
+
+
+model T30Megabat
+    {
+        mesh = T30Megabat,
+        texture = megabat_cloak,
+        attachment world
+        {
+            offset = -0.0285 0.2419 -0.0,
+            rotate = -0.0 0.0 0.1866,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0067 -0.0091 -0.0022,
+            rotate = 0.0 0.0 0.0,
+        }
+    }
+
+model UnholyCross
+    {
+        mesh = UnholyCross,
+        texture = lucifer_weapon,
+        attachment world
+        {
+            offset = 0.0 0.26 -0.013,
+            rotate = 0.0 -90.0 0.0,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = 0.0 0.0 0.0,
+            rotate = 0.0 -81.7231 0.0,
+        }
+    }
+
+model TimegateSword
+    {
+        mesh = TimegateSword,
+        texture = tgate_weapon,
+        attachment world
+        {
+            offset = 0.0155 0.2859 0.015,
+            rotate = -180.0 0.0 177.566,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+    }
+
+model KnightSword
+    {
+        mesh = KnightSword,
+        texture = knight_power_weapon,
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+        attachment world
+        {
+            offset = -0.0105 0.0002 0.0,
+            rotate = 0.0 0.0 -1.0335,
+        }
+    }
+
+model MagicSword
+    {
+        mesh = MagicSword,
+        texture = magicsword_weapon,
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+        attachment world
+        {
+            offset = -0.0105 0.0002 0.0,
+            rotate = 0.0 0.0 -1.0335,
+        }
+    }
+
+model JudgementBlade
+    {
+        mesh = JudgementBlade,
+        texture = uriel_weapon,
+        attachment world
+        {
+            offset = 0.0155 0.2859 0.015,
+            rotate = -180.0 0.0 177.566,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.013 0.0001 0.0025,
+            rotate = -23.8537 -86.6222 -22.0887,
+        }
+    }
+
+model FantasyKnightSword
+    {
+        mesh = FantasyKnightSword,
+        texture = FantasyKnightSword,
+    }
+
+
+
+
+model RockstarGuitar
+    {
+        mesh = Weapons/2Handed/RockstarGuitar,
+        texture = Weapons/2Handed/RockstarGuitar,
+        attachment world
+        {
+            offset = -0.0489 0.2427 0.0226,
+            rotate = 0.0001 54.3661 3.3346,
+        }
+        attachment Bip01_Prop2
+        {
+            offset = -0.0067 -0.0091 -0.0022,
+            rotate = 0.0 0.0 0.0,
+        }
+
+    }
+}
