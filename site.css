@@ -237,3 +237,7 @@ ol.passos b{color:var(--text)}
   table.rank td.n{width:38px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}a,button{transition:none}.button.primary:hover{transform:none}}
+.ganhar{display:flex;align-items:center;gap:14px 34px;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;margin:0 0 30px}
+.ganhar>div{display:flex;align-items:baseline;gap:10px}
+.ganhar strong{font:34px var(--display);color:var(--accent);line-height:1}
+.ganhar span:not(.eyebrow){color:var(--muted);font-size:14px}
