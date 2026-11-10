@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Prefeitura Z: Depois da Queda. RPG de sobrevivência no navegador, com o abrigo da União da Margem. Entre com a conta do site.">
+<meta property="og:title" content="Prefeitura Z: Depois da Queda">
+<meta property="og:description" content="Entre no abrigo da União da Margem, fale com o Prefeito, o Wolf e o Bashar e prepare sua primeira saída.">
+<meta property="og:image" content="https://prefeitura-z.github.io/img/knox-cinematic.jpg">
+<meta name="theme-color" content="#1b1f1c">
+<link rel="icon" href="../img/brasao.png">
+<title>Depois da Queda — Prefeitura Z</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="jogo.css">
+</head>
+<body data-tela="tela-carregando">
+
+<!-- entrada: só joga quem está logado no site -->
+<section id="tela-entrar" class="tela capa" hidden>
+  <div class="capa-conteudo">
+    <a class="voltar" href="../">← Prefeitura Z</a>
+    <span class="rotulo">Prova visual · União da Margem</span>
+    <h1>Depois<br><em>da Queda</em></h1>
+    <p>Chegue ao abrigo da União da Margem, ande pelo pátio e fale com quem mantém o lugar de pé: o Prefeito no registro, o Wolf na oficina e o Bashar no rádio.</p>
+    <button type="button" class="botao primario" id="btn-entrar">Entrar com Discord para jogar</button>
+    <p class="nota">O jogo usa a mesma conta do site. Seu personagem fica salvo no servidor e abre em qualquer computador.</p>
+    <p class="erro" id="entrar-erro" role="alert"></p>
+  </div>
+</section>
+
+<section id="tela-carregando" class="tela centro" aria-live="polite">
+  <p id="carregando-msg">Carregando…</p>
+  <div id="carregando-erro" hidden><button type="button" class="botao" id="btn-tentar">Tentar de novo</button></div>
+</section>
+
+<!-- criação do personagem -->
+<section id="tela-criar" class="tela criar" hidden>
+  <form id="form-criar" novalidate>
+    <div class="criar-previa">
+      <span class="rotulo">Seu sobrevivente</span>
+      <canvas id="previa" aria-label="Prévia do personagem andando"></canvas>
+      <div class="criar-acoes">
+        <button type="button" class="botao" id="btn-girar">Girar</button>
+        <button type="button" class="botao" id="btn-sortear">Sortear visual</button>
+      </div>
+    </div>
+    <div class="criar-form">
+      <h1>Quem chegou ao portão?</h1>
+      <label class="campo" for="nome"><span>Nome</span>
+        <input id="nome" name="nome" maxlength="20" autocomplete="off" spellcheck="false" placeholder="Como vão te chamar no abrigo" required>
+      </label>
+      <div id="opcoes-aparencia"></div>
+      <fieldset class="grupo"><legend>Origem</legend>
+        <div class="origens" id="opcoes-origem"></div>
+        <p class="nota">Nesta prova visual a origem é só história. Os bônus pequenos chegam com o combate.</p>
+      </fieldset>
+      <p class="erro" id="criar-erro" role="alert"></p>
+      <button type="submit" class="botao primario" id="btn-criar">Entrar no abrigo</button>
+    </div>
+  </form>
+</section>
+
+<!-- abrigo -->
+<section id="tela-jogo" class="tela jogo" hidden>
+  <canvas id="cena" tabindex="0" aria-label="Abrigo da União da Margem. Use WASD ou as setas pra andar, clique no chão pra ir até lá e E pra conversar."></canvas>
+
+  <div class="hud-topo">
+    <div class="ficha">
+      <b id="hud-nome"></b><span id="hud-sub"></span><span class="papel" id="hud-papel" hidden></span>
+    </div>
+    <div class="objetivo" id="objetivo" aria-live="polite"></div>
+  </div>
+  <nav class="hud-menu" aria-label="Menu do jogo">
+    <button type="button" id="btn-bipe" title="Bipe (B)">Bipe <kbd>B</kbd></button>
+    <button type="button" id="btn-gestao" title="Gestão (G)" hidden>Gestão <kbd>G</kbd></button>
+    <button type="button" id="btn-ajuda" title="Controles">Controles</button>
+    <button type="button" id="btn-ajustes" title="Ajustes">Ajustes</button>
+  </nav>
+  <p class="demo-aviso" id="demo-aviso" hidden>Prévia visual: sem login e sem salvar no servidor</p>
+  <button type="button" class="perto" id="btn-perto" hidden></button>
+  <p class="torrada" id="torrada" role="status" hidden></p>
+
+  <div class="painel conversa" id="conversa" role="dialog" aria-labelledby="conversa-nome" hidden>
+    <canvas id="conversa-retrato" width="96" height="90" aria-hidden="true"></canvas>
+    <div class="conversa-texto">
+      <h2><span id="conversa-nome"></span> <small id="conversa-papel"></small></h2>
+      <p id="conversa-fala" aria-live="polite"></p>
+      <span class="tag" id="conversa-tag" hidden></span>
+      <div class="opcoes" id="conversa-opcoes"></div>
+    </div>
+  </div>
+
+  <div class="painel lateral" id="bipe" role="dialog" aria-labelledby="bipe-t" hidden>
+    <div class="painel-topo"><h2 id="bipe-t">Bipe</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <ol class="bipe-lista" id="bipe-lista"></ol>
+  </div>
+
+  <div class="painel centro-painel" id="ajuda" role="dialog" aria-labelledby="ajuda-t" hidden>
+    <h2 id="ajuda-t">Como andar pelo abrigo</h2>
+    <dl class="controles">
+      <div><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> ou setas</dt><dd>Andar</dd></div>
+      <div><dt>Clique ou toque no chão</dt><dd>Ir até lá</dd></div>
+      <div><dt><kbd>E</kbd> ou clique na pessoa</dt><dd>Conversar</dd></div>
+      <div><dt><kbd>B</kbd></dt><dd>Bipe, com seus objetivos</dd></div>
+      <div><dt><kbd>Esc</kbd></dt><dd>Fechar a janela aberta</dd></div>
+      <div><dt>Roda do mouse, <kbd>+</kbd> <kbd>−</kbd></dt><dd>Zoom</dd></div>
+    </dl>
+    <p class="nota">Comece pelo Prefeito, na administração do lado de cima do pátio.</p>
+    <button type="button" class="botao primario" id="btn-ajuda-ok">Entendi</button>
+  </div>
+
+  <div class="painel centro-painel" id="ajustes" role="dialog" aria-labelledby="ajustes-t" hidden>
+    <div class="painel-topo"><h2 id="ajustes-t">Ajustes</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <label class="check" for="aj-reduzir"><input type="checkbox" id="aj-reduzir"> Reduzir efeitos (fumaça, balanço das árvores, câmera e ciclo de luz)</label>
+    <div class="linha"><span>Zoom</span><button type="button" class="botao" id="aj-zoom-menos">−</button><button type="button" class="botao" id="aj-zoom-mais">+</button></div>
+    <button type="button" class="botao perigo" id="btn-sair">Sair da conta</button>
+  </div>
+
+  <div class="painel centro-painel largo" id="gestao" role="dialog" aria-labelledby="gestao-t" hidden>
+    <div class="painel-topo"><h2 id="gestao-t">Gestão · Equipe</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <div class="gestao-grade">
+      <section id="gestao-busca">
+        <h3>Dar ou tirar acesso</h3>
+        <label class="campo" for="gestao-q"><span>Procurar conta por nome, personagem ou ID do Discord</span><input id="gestao-q" autocomplete="off" spellcheck="false"></label>
+        <label class="campo" for="gestao-motivo"><span>Motivo (fica registrado na auditoria)</span><input id="gestao-motivo" maxlength="200" autocomplete="off"></label>
+        <ul class="lista" id="gestao-resultados"></ul>
+        <p class="nota" id="gestao-msg" aria-live="polite"></p>
+      </section>
+      <section>
+        <h3>Equipe atual</h3>
+        <ul class="lista" id="gestao-equipe"></ul>
+        <h3>Auditoria</h3>
+        <ul class="lista" id="gestao-auditoria"></ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<script src="mundo.js"></script>
+<script src="arte.js"></script>
+<script src="motor.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
