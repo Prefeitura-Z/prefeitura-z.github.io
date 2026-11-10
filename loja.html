@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Vitrine da loja da Prefeitura Z: itens em rotação, preços em PRZcoins e quando a vitrine muda.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prefeitura Z — Loja">
+<meta property="og:description" content="Veja o que está à venda agora na loja da Prefeitura Z e quando a rotação muda.">
+<meta property="og:image" content="https://prefeitura-z.github.io/img/preview-mapa.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#80201a">
+<title>Loja — Prefeitura Z</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="top wrap">
+  <div class="bar card">
+    <a class="logo" href="./">Prefeitura <span>Z</span></a>
+    <nav>
+      <a href="./">Início</a>
+      <a href="mapa/">Mapa</a>
+      <a href="loja.html" aria-current="page">Loja</a>
+      <a href="ranking.html">Ranking</a>
+      <a href="./#faccoes">Facções</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <div class="card">
+      <div class="h2row"><h2>Loja</h2><span class="muted" id="l-atual"></span></div>
+      <p class="aviso">A vitrine é a mesma do computador do jogo. Por enquanto, a compra é feita lá dentro, no app da loja. Em breve dá pra comprar por aqui.</p>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div class="vitrine" id="vitrine"><p class="muted">Carregando…</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>Prefeitura Z · comunidade de Project Zomboid. Não é afiliado à The Indie Stone.</footer>
+
+<script src="dados.js"></script>
+<script>
+const TIPOS = { ITEM: 'Item', VEHICLE: 'Veículo', ANIMAL: 'Animal' };
+let L = null, aba = null, timers = [];
+
+function faltam(iso) {
+  const s = Math.max(0, Math.floor((new Date(iso).getTime() - Date.now()) / 1000));
+  if (s <= 0) return 'trocando agora';
+  const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+  return d ? `${d}d ${h}h ${m}min` : h ? `${h}h ${m}min` : `${m}min ${s % 60}s`;
+}
+
+function desenhar() {
+  document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.aba === aba));
+  const v = document.getElementById('vitrine');
+  const tab = L.abas.find(t => t.aba === aba);
+  const moeda = L.moeda || 'PRZcoins';
+  const fmt = n => Number(n).toLocaleString('pt-BR');
+  v.innerHTML = (tab ? tab.itens : []).map(it => {
+    if ('div' in it) {
+      return `<div class="vdiv"><b>${esc(it.div)}</b>${it.rotacaoAte ? `<span class="t">Troca em <strong data-ate="${esc(it.rotacaoAte)}">${faltam(it.rotacaoAte)}</strong></span>` : ''}</div>`;
+    }
+    const esg = it.estoque === 0;
+    return `<div class="item${esg ? ' esgotado' : ''}">
+      ${it.promo ? '<span class="tag">Promoção</span>' : ''}
+      <span class="tipo">${TIPOS[it.tipo] || esc(it.tipo)}${it.qtd > 1 ? ` · ${it.qtd} un.` : ''}</span>
+      <h3>${esc(it.nome || it.alvo)}</h3>
+      ${it.estoque != null ? `<span class="info">${esg ? 'Esgotado' : `Restam ${it.estoque}`}</span>` : ''}
+      <span class="preco">${it.precoOriginal && it.promo ? `<s>${fmt(it.precoOriginal)}</s>` : ''}${fmt(it.preco)} <small>${esc(moeda)}</small></span>
+    </div>`;
+  }).join('') || '<p class="muted">Nada nesta aba agora.</p>';
+}
+
+setInterval(() => document.querySelectorAll('[data-ate]').forEach(e => e.textContent = faltam(e.dataset.ate)), 1000);
+
+(async () => {
+  const d = await carregarDados();
+  L = d && d.loja;
+  const v = document.getElementById('vitrine');
+  if (!L || !L.abas || !L.abas.length) { v.innerHTML = '<p class="muted">A vitrine aparece aqui assim que o servidor enviar os dados.</p>'; return; }
+  document.getElementById('l-atual').textContent = 'Atualizado ' + haQuanto(L.em || d.atualizadoEm);
+  L.abas.sort((a, b) => a.aba.localeCompare(b.aba, 'pt-BR'));
+  const tabs = document.getElementById('tabs');
+  for (const t of L.abas) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.role = 'tab'; b.dataset.aba = t.aba; b.textContent = t.aba;
+    b.onclick = () => { aba = t.aba; desenhar(); };
+    tabs.appendChild(b);
+  }
+  aba = L.abas[0].aba; desenhar();
+})();
+</script>
+</body>
+</html>

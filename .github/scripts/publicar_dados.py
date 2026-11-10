@@ -4,7 +4,8 @@ Prefeitura Z - publica os dados do servidor no site.
 Lê, pelo painel Pterodactyl (Lura Hosting), os arquivos que o servidor grava em Zomboid/Lua:
   PrefeituraZDiscordStatus.json   (online, data, hora, clima)  - mod PrefeituraGerenciamento
   PrefeituraZPlayerDeaths.log     (1 linha por morte)          - mod PrefeituraGerenciamento
-  PrefeituraZSiteRankings.json    (ranking)                    - mod PrefeituraZSite
+  PrefeituraZSiteRankings.json    (ranking)                    - mod PrefeituraGerenciamento
+  PrefeituraZShopListings.json    (vitrine da loja)            - mod PrefeituraZComputer
 e grava dados.json (resumo público) na pasta indicada.
 
 NÃO vão para o site: login dos jogadores, nível de acesso, coordenadas e nome de quem matou.
@@ -56,7 +57,7 @@ def causa_simples(c):
     return "Desconhecida"
 
 
-def montar(status_txt, status_em, rank_txt, rank_em, mortes_txt):
+def montar(status_txt, status_em, rank_txt, rank_em, mortes_txt, loja_txt=None, loja_em=None):
     status = None
     if status_txt:
         try: status = json.loads(status_txt)
@@ -82,7 +83,19 @@ def montar(status_txt, status_em, rank_txt, rank_em, mortes_txt):
             mortes.append({"quando": quando, "nome": nomes.get(c[1].lower(), "Sobrevivente"),
                            "causa": causa_simples(c[3] if len(c) >= 4 else ""), "horas": horas})
 
-    return {"versao": 1, "atualizadoEm": datetime.now(timezone.utc).isoformat(),
+    loja = None
+    if loja_txt:
+        try:
+            l = json.loads(loja_txt)
+            # Converte horários unix (segundos) em ISO para o site.
+            iso = lambda t: datetime.fromtimestamp(t, timezone.utc).isoformat() if t else None
+            for aba in l.get("abas", []):
+                for it in aba.get("itens", []):
+                    if "rotacaoAte" in it: it["rotacaoAte"] = iso(it["rotacaoAte"])
+            loja = {"moeda": l.get("moeda") or "PRZcoins", "abas": l.get("abas", []), "em": loja_em}
+        except ValueError as e: print("loja inválida:", e)
+
+    return {"versao": 1, "loja": loja, "atualizadoEm": datetime.now(timezone.utc).isoformat(),
             "statusEm": status_em, "rankingEm": rank_em,
             "status": status, "ranking": ranking, "mortes": mortes}
 
@@ -97,12 +110,13 @@ def main(saida):
     st, st_em = ler_arquivo(lua + "/PrefeituraZDiscordStatus.json")
     rk, rk_em = ler_arquivo(lua + "/PrefeituraZSiteRankings.json")
     mo, _ = ler_arquivo(lua + "/PrefeituraZPlayerDeaths.log")
-    if st is None and rk is None and mo is None:
+    lj, lj_em = ler_arquivo(lua + "/PrefeituraZShopListings.json")
+    if st is None and rk is None and mo is None and lj is None:
         sys.exit(f"Nenhum arquivo encontrado em {lua}. Confira PTERO_LUA_DIR.")
-    d = montar(st, st_em, rk, rk_em, mo)
+    d = montar(st, st_em, rk, rk_em, mo, lj, lj_em)
     with open(saida, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"ok: status={'sim' if d['status'] else 'não'} ranking={len(d['ranking'])} mortes={len(d['mortes'])}")
+    print(f"ok: status={'sim' if d['status'] else 'não'} ranking={len(d['ranking'])} mortes={len(d['mortes'])} loja={'sim' if d['loja'] else 'não'}")
 
 
 if __name__ == "__main__":
