@@ -19,6 +19,12 @@ Variáveis de ambiente (segredos do GitHub). Duas formas de acesso:
   ou API do painel:
     PTERO_URL, PTERO_SERVER, PTERO_KEY
   PTERO_LUA_DIR  pasta Lua dentro do servidor (padrão: /.cache/Lua)
+
+Ponte de compras do site (opcional, só por SFTP e com permissão de escrita):
+  SITE_API            ex.: https://prz-site.SEU-SUBDOMINIO.workers.dev
+  SITE_BRIDGE_SECRET  senha compartilhada com a API do site
+  Lê PrefeituraZSiteOutbox.txt (vínculos, saldos, entregas), envia para a API e
+  grava a resposta em PrefeituraZSiteInbox.txt (pedidos pendentes) - mod PrefeituraZComputer.
 """
 import json, os, sys, urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timezone
@@ -142,6 +148,32 @@ def _abrir(req, timeout):
         sys.exit(f"Painel respondeu HTTP {e.code} em {req.full_url.split('?')[0]} (server={srv}): {corpo}")
 
 
+def ponte_site(lua):
+    api = (os.environ.get("SITE_API") or "").strip().rstrip("/")
+    seg = os.environ.get("SITE_BRIDGE_SECRET") or ""
+    if not (api and seg and os.environ.get("PTERO_SFTP_HOST")):
+        return
+    try:
+        saida, _ = ler_arquivo_sftp(lua + "/PrefeituraZSiteOutbox.txt")
+        req = urllib.request.Request(api + "/bridge/sync", data=(saida or "").encode("utf-8"), method="POST",
+                                     headers={"Authorization": "Bearer " + seg, "Content-Type": "text/plain",
+                                              "User-Agent": "PrefeituraZ-Ponte"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            entrada = r.read()
+        try:
+            with _sftp.open(lua + "/PrefeituraZSiteInbox.txt", "wb") as f:
+                f.write(entrada)
+        except (PermissionError, IOError) as e:
+            print("ponte: sem permissão para gravar no servidor (subusuário precisa de 'Criar' e 'Editar' arquivos):", e)
+            return
+        pedidos = sum(1 for l in entrada.decode("utf-8", "replace").splitlines() if l.startswith("O|"))
+        print(f"ponte: ok, {pedidos} pedido(s) pendente(s) enviados ao jogo")
+    except urllib.error.HTTPError as e:
+        print(f"ponte: API do site respondeu HTTP {e.code}: {e.read()[:300].decode('utf-8', 'replace')}")
+    except Exception as e:
+        print("ponte: falhou:", repr(e))
+
+
 def main(saida):
     tem_sftp = os.environ.get("PTERO_SFTP_HOST") and os.environ.get("PTERO_SFTP_USER") and os.environ.get("PTERO_SFTP_PASS")
     tem_api = os.environ.get("PTERO_URL") and os.environ.get("PTERO_SERVER") and os.environ.get("PTERO_KEY")
@@ -162,6 +194,7 @@ def main(saida):
     d = montar(st, st_em, rk, rk_em, mo, lj, lj_em)
     with open(saida, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, separators=(",", ":"))
+    ponte_site(lua)
     print(f"ok: status={'sim' if d['status'] else 'não'} ranking={len(d['ranking'])} mortes={len(d['mortes'])} loja={'sim' if d['loja'] else 'não'}")
 
 

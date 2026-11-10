@@ -1,0 +1,12 @@
+name = "prz-site"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[vars]
+SITE = "https://prefeitura-z.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "prz-site"
+database_id = "COLOCADO_PELO_DEPLOY"

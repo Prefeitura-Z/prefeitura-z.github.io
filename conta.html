@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sua conta na Prefeitura Z: saldo de PRZcoins, vínculo com o personagem e pedidos da loja.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#80201a">
+<title>Minha conta — Prefeitura Z</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="top wrap">
+  <div class="bar card">
+    <a class="logo" href="./">Prefeitura <span>Z</span></a>
+    <nav>
+      <a href="./">Início</a>
+      <a href="mapa/">Mapa</a>
+      <a href="loja.html">Loja</a>
+      <a href="ranking.html">Ranking</a>
+      <a href="./#faccoes">Facções</a>
+      <a href="conta.html" data-conta aria-current="page">Minha conta</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <div class="card" id="c-topo"><p class="muted">Carregando…</p></div>
+  </section>
+  <section id="s-vinculo" hidden>
+    <div class="card" id="c-vinculo"></div>
+  </section>
+  <section id="s-pedidos" hidden>
+    <div class="card">
+      <div class="h2row"><h2>Meus pedidos</h2><a href="loja.html">Ir pra loja →</a></div>
+      <table class="rank">
+        <thead><tr><th>Item</th><th>Quando</th><th style="text-align:right">Preço</th><th style="text-align:right">Situação</th></tr></thead>
+        <tbody id="p-body"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>Prefeitura Z · comunidade de Project Zomboid. Não é afiliado à The Indie Stone.</footer>
+
+<script src="dados.js"></script>
+<script src="conta.js"></script>
+<script>
+const ERROS = { cancelado: 'Login cancelado.', expirado: 'O login demorou demais. Tente de novo.', discord: 'O Discord não respondeu. Tente de novo.' };
+const ST = { pendente: 'Esperando entrega', entregue: 'Entregue', recusado: 'Recusado', expirado: 'Expirado' };
+const topo = document.getElementById('c-topo');
+const fmt = n => Number(n).toLocaleString('pt-BR');
+const quando = t => new Date(t * 1000).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+
+// Volta do Discord: conta.html#token=... ou #erro=...
+const h = new URLSearchParams(location.hash.slice(1));
+if (h.get('token')) Conta.salvar(h.get('token'));
+const erroLogin = ERROS[h.get('erro')];
+if (location.hash) history.replaceState(null, '', location.pathname);
+
+function telaEntrar(msg) {
+  topo.innerHTML = `<h2>Minha conta</h2>
+    ${msg ? `<p class="aviso">${esc(msg)}</p>` : ''}
+    <p>Entre com o Discord pra ver seu saldo de PRZcoins e comprar na loja pelo site. A gente só recebe seu nome e foto do Discord.</p>
+    <button type="button" class="btn primary" id="b-entrar">Entrar com o Discord</button>`;
+  document.getElementById('b-entrar').onclick = () => Conta.entrar();
+}
+
+function desenharVinculo(eu) {
+  const s = document.getElementById('s-vinculo'), c = document.getElementById('c-vinculo');
+  s.hidden = false;
+  if (eu.login) {
+    c.innerHTML = `<h2>Personagem vinculado</h2>
+      <p>Sua conta está ligada ao login <b>${esc(eu.login)}</b> do servidor. As compras do site chegam nesse personagem.</p>
+      <p class="muted">Trocou de conta no jogo? Gere um novo código e digite no jogo com o novo login.</p>
+      <button type="button" class="btn ghost" id="b-codigo">Gerar novo código</button><div id="cod"></div>`;
+  } else {
+    c.innerHTML = `<h2>Vincular seu personagem</h2>
+      <p>Pra comprar pelo site, ligue esta conta ao seu login do servidor:</p>
+      <ol class="passos">
+        <li>Clique em <b>Gerar código</b> aqui embaixo.</li>
+        <li>No jogo, clique com o botão direito no chão e escolha <b>Vincular conta do site Prefeitura Z</b>.</li>
+        <li>Digite o código. Em até 3 minutos esta página mostra seu personagem.</li>
+      </ol>
+      <p style="margin-top:14px"><button type="button" class="btn ghost" id="b-codigo">Gerar código</button></p><div id="cod"></div>`;
+  }
+  document.getElementById('b-codigo').onclick = async e => {
+    e.target.disabled = true;
+    try {
+      const r = await Conta.api('/link/code', { method: 'POST' });
+      document.getElementById('cod').innerHTML = `<div class="codigo">${esc(r.codigo)}</div><p class="muted">Vale por ${r.validoMin} minutos. Não passe esse código pra ninguém.</p>`;
+      esperarVinculo(eu.login);
+    } catch (err) { document.getElementById('cod').innerHTML = `<p class="info erro">${esc(err.message)}</p>`; }
+    e.target.disabled = false;
+  };
+}
+
+let espera = null;
+function esperarVinculo(loginAntes) {
+  clearInterval(espera);
+  let n = 0;
+  espera = setInterval(async () => {
+    if (++n > 60) return clearInterval(espera);
+    const eu = await Conta.eu();
+    if (eu && eu.login && eu.login !== loginAntes) { clearInterval(espera); desenhar(eu); }
+  }, 20000);
+}
+
+function desenharPedidos(eu) {
+  const s = document.getElementById('s-pedidos');
+  if (!eu.login && !eu.pedidos.length) { s.hidden = true; return; }
+  s.hidden = false;
+  document.getElementById('p-body').innerHTML = eu.pedidos.length ? eu.pedidos.map(p => `<tr>
+      <td>${esc(p.item || 'Item')}${p.motivo ? `<br><small class="muted">${esc(p.motivo)}</small>` : ''}</td>
+      <td><small>${quando(p.criado)}</small></td>
+      <td class="v">${fmt(p.preco)}</td>
+      <td style="text-align:right"><span class="pedido-st ${esc(p.status)}">${ST[p.status] || esc(p.status)}</span></td></tr>`).join('')
+    : '<tr><td colspan="4" class="muted">Nenhum pedido ainda.</td></tr>';
+}
+
+function desenhar(eu) {
+  const saldo = eu.login ? `<div class="stat" style="min-width:200px"><small>Saldo no servidor</small><b>${eu.saldo != null ? fmt(eu.saldo) + ' PRZcoins' : 'Aguardando o servidor'}</b>${eu.saldoEm ? `<span>atualizado ${haQuanto(new Date(eu.saldoEm * 1000).toISOString())}</span>` : ''}</div>` : '';
+  topo.innerHTML = `<div class="h2row"><div class="perfil">${eu.avatar ? `<img src="${esc(eu.avatar)}" alt="">` : ''}<div><small class="muted">Logado com o Discord</small><div class="nome">${esc(eu.nome)}</div></div></div>${saldo}</div>
+    <button type="button" class="btn ghost" id="b-sair" style="font-size:14px;padding:7px 14px">Sair</button>`;
+  document.getElementById('b-sair').onclick = async () => { try { await Conta.api('/logout', { method: 'POST' }); } catch {} Conta.salvar(''); location.reload(); };
+  desenharVinculo(eu);
+  desenharPedidos(eu);
+}
+
+(async () => {
+  if (!Conta.ativo) { topo.innerHTML = '<h2>Minha conta</h2><p>O login pelo site ainda está sendo ligado. Volte em breve!</p>'; return; }
+  if (!Conta.token()) return telaEntrar(erroLogin);
+  const eu = await Conta.eu();
+  if (!eu) return telaEntrar('Sua sessão expirou. Entre de novo.');
+  desenhar(eu);
+  setInterval(async () => { const e = await Conta.eu(); if (e) { desenharPedidos(e); } }, 60000);
+})();
+</script>
+</body>
+</html>

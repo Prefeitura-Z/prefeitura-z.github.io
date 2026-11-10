@@ -121,3 +121,20 @@ ul.obitos li small{color:var(--ink2);font-style:italic}
 .item .tag{position:absolute;top:10px;right:10px;font-size:11px;background:var(--red);color:#fff;border-radius:99px;padding:1px 8px}
 .item.esgotado{opacity:.55}
 .aviso{background:#fbf5e4;border:1px dashed var(--line);border-radius:8px;padding:12px 14px;font-size:14px;margin:0 0 16px}
+button.comprar{font:inherit;font-size:14px;font-weight:700;padding:7px 12px;border-radius:6px;border:1.5px solid var(--ink);background:var(--red);color:#fff;cursor:pointer;box-shadow:0 2px 0 var(--ink)}
+button.comprar:hover{background:#6a1a15}
+button.comprar[data-passo="ok"]{background:#2f6a35}
+button.comprar:disabled{opacity:.7;cursor:default}
+.info.erro{color:var(--red);font-weight:700}
+
+/* conta */
+.perfil{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.perfil img{width:56px;height:56px;border-radius:50%;border:2px solid var(--ink)}
+.perfil .nome{font-family:'IM Fell English SC',serif;font-size:26px;line-height:1.1}
+.codigo{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:34px;letter-spacing:.25em;background:#fbf5e4;border:2px dashed var(--ink);border-radius:8px;padding:8px 18px;display:inline-block;margin:6px 0}
+ol.passos{margin:8px 0 0;padding-left:20px}
+ol.passos li{margin:4px 0}
+.pedido-st{font-size:12px;border-radius:99px;padding:1px 9px;border:1px solid var(--line);white-space:nowrap}
+.pedido-st.entregue{background:#2f6a35;color:#fff;border-color:#2f6a35}
+.pedido-st.recusado,.pedido-st.expirado{background:#a33;color:#fff;border-color:#a33}
+.pedido-st.pendente{background:#fbf5e4}

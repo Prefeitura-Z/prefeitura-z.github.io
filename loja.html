@@ -23,6 +23,7 @@
       <a href="loja.html" aria-current="page">Loja</a>
       <a href="ranking.html">Ranking</a>
       <a href="./#faccoes">Facções</a>
+      <a href="conta.html" data-conta>Minha conta</a>
     </nav>
   </div>
 </header>
@@ -31,7 +32,7 @@
   <section>
     <div class="card">
       <div class="h2row"><h2>Loja</h2><span class="muted" id="l-atual"></span></div>
-      <p class="aviso">A vitrine é a mesma do computador do jogo. Por enquanto, a compra é feita lá dentro, no app da loja. Em breve dá pra comprar por aqui.</p>
+      <p class="aviso" id="aviso">A vitrine é a mesma do computador do jogo. Por enquanto, a compra é feita lá dentro, no app da loja. Em breve dá pra comprar por aqui.</p>
       <div class="tabs" role="tablist" id="tabs"></div>
       <div class="vitrine" id="vitrine"><p class="muted">Carregando…</p></div>
     </div>
@@ -41,9 +42,10 @@
 <footer>Prefeitura Z · comunidade de Project Zomboid. Não é afiliado à The Indie Stone.</footer>
 
 <script src="dados.js"></script>
+<script src="conta.js"></script>
 <script>
 const TIPOS = { ITEM: 'Item', VEHICLE: 'Veículo', ANIMAL: 'Animal' };
-let L = null, aba = null, timers = [];
+let L = null, aba = null, EU = null;
 
 function faltam(iso) {
   const s = Math.max(0, Math.floor((new Date(iso).getTime() - Date.now()) / 1000));
@@ -69,9 +71,46 @@ function desenhar() {
       <h3>${esc(it.nome || it.alvo)}</h3>
       ${it.estoque != null ? `<span class="info">${esg ? 'Esgotado' : `Restam ${it.estoque}`}</span>` : ''}
       <span class="preco">${it.precoOriginal && it.promo ? `<s>${fmt(it.precoOriginal)}</s>` : ''}${fmt(it.preco)} <small>${esc(moeda)}</small></span>
+      ${Conta.ativo && it.id && !esg ? `<button type="button" class="comprar" data-id="${esc(it.id)}">Comprar</button>` : ''}
     </div>`;
   }).join('') || '<p class="muted">Nada nesta aba agora.</p>';
 }
+
+function itemPorId(id) {
+  for (const t of L.abas) for (const it of t.itens) if (it.id === id) return it;
+  return null;
+}
+
+function desenharAviso() {
+  if (!Conta.ativo) return;
+  const a = document.getElementById('aviso');
+  const moeda = esc(L && L.moeda || 'PRZcoins');
+  if (!EU) a.innerHTML = 'A vitrine é a mesma do computador do jogo. Pra comprar por aqui, <a href="conta.html">entre com o Discord</a> e vincule seu personagem.';
+  else if (!EU.login) a.innerHTML = `Olá, <b>${esc(EU.nome)}</b>! Falta só <a href="conta.html">vincular seu personagem</a> pra comprar por aqui.`;
+  else a.innerHTML = `Saldo de <b>${esc(EU.nome)}</b>: <b>${EU.saldo != null ? Number(EU.saldo).toLocaleString('pt-BR') : '…'} ${moeda}</b>. A compra chega no jogo em até 3 minutos, com você online. <a href="conta.html">Meus pedidos</a>`;
+}
+
+document.getElementById('vitrine').addEventListener('click', async e => {
+  const b = e.target.closest('button.comprar');
+  if (!b) return;
+  if (!EU) return Conta.entrar();
+  if (!EU.login) { location.href = 'conta.html'; return; }
+  const it = itemPorId(b.dataset.id);
+  if (!it) return;
+  if (b.dataset.passo !== 'ok') {
+    document.querySelectorAll('button.comprar[data-passo="ok"]').forEach(x => { x.dataset.passo = ''; x.textContent = 'Comprar'; });
+    b.dataset.passo = 'ok'; b.textContent = `Confirmar ${Number(it.preco).toLocaleString('pt-BR')}?`; return;
+  }
+  b.disabled = true; b.textContent = 'Enviando…';
+  try {
+    await Conta.api('/orders', { method: 'POST', body: JSON.stringify({ listingId: it.id, item: it.nome || it.alvo, preco: it.preco }) });
+    b.textContent = 'Pedido feito ✓';
+    b.insertAdjacentHTML('afterend', '<span class="info">Entra no jogo e espera até 3 min. <a href="conta.html">Acompanhar</a></span>');
+  } catch (err) {
+    b.disabled = false; b.dataset.passo = ''; b.textContent = 'Comprar';
+    b.insertAdjacentHTML('afterend', `<span class="info erro">${esc(err.message)}</span>`);
+  }
+});
 
 setInterval(() => document.querySelectorAll('[data-ate]').forEach(e => e.textContent = faltam(e.dataset.ate)), 1000);
 
@@ -90,6 +129,7 @@ setInterval(() => document.querySelectorAll('[data-ate]').forEach(e => e.textCon
     tabs.appendChild(b);
   }
   aba = L.abas[0].aba; desenhar();
+  EU = await Conta.eu(); desenharAviso();
 })();
 </script>
 </body>
