@@ -107,6 +107,8 @@ def main(saida):
         return
     lua = os.environ.get("PTERO_LUA_DIR") or "/.cache/Lua"
     lua = "/" + lua.strip("/")
+    # No painel a pasta aparece como /home/container/...; na API ela é relativa a /home/container.
+    if lua.startswith("/home/container"): lua = lua[len("/home/container"):] or "/"
     st, st_em = ler_arquivo(lua + "/PrefeituraZDiscordStatus.json")
     rk, rk_em = ler_arquivo(lua + "/PrefeituraZSiteRankings.json")
     mo, _ = ler_arquivo(lua + "/PrefeituraZPlayerDeaths.log")
