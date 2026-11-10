@@ -55,9 +55,14 @@ jobs:
           npx wrangler d1 execute prz-site --remote --file schema.sql -y
       - name: Publicar
         if: steps.seg.outputs.pular != '1'
+        # Segredos passados por variável de ambiente: assim caracteres como $ " ` não são alterados pelo shell.
+        env:
+          S_DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+          S_DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
+          S_SITE_BRIDGE_SECRET: ${{ secrets.SITE_BRIDGE_SECRET }}
         run: |
           set -e
           npx wrangler deploy
-          printf '%s' "${{ secrets.DISCORD_CLIENT_ID }}" | npx wrangler secret put DISCORD_CLIENT_ID
-          printf '%s' "${{ secrets.DISCORD_CLIENT_SECRET }}" | npx wrangler secret put DISCORD_CLIENT_SECRET
-          printf '%s' "${{ secrets.SITE_BRIDGE_SECRET }}" | npx wrangler secret put SITE_BRIDGE_SECRET
+          printf '%s' "$S_DISCORD_CLIENT_ID" | npx wrangler secret put DISCORD_CLIENT_ID
+          printf '%s' "$S_DISCORD_CLIENT_SECRET" | npx wrangler secret put DISCORD_CLIENT_SECRET
+          printf '%s' "$S_SITE_BRIDGE_SECRET" | npx wrangler secret put SITE_BRIDGE_SECRET
