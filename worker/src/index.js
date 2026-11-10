@@ -2,7 +2,9 @@
 // Login com Discord, vínculo com o personagem e pedidos de compra com PRZcoins.
 // O saldo e a entrega são decididos pelo servidor do jogo; aqui só ficam os pedidos.
 //
-// Segredos (wrangler secret): DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, SITE_BRIDGE_SECRET
+// Segredos (wrangler secret): DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, SITE_BRIDGE_SECRET, OWNER_DISCORD_ID (dono do jogo)
+
+import { rotasJogo } from './jogo.js';
 
 const SESSAO_DIAS = 30;
 const CODIGO_MIN = 30;
@@ -64,9 +66,13 @@ function redirectUri(req) {
   return new URL('/auth/callback', req.url).toString();
 }
 
+// páginas pra onde o login pode voltar (nada de URL livre)
+const VOLTAS = { conta: '/conta.html', jogo: '/jogo/' };
+
 async function login(req, env) {
   const t = agora();
-  const nonce = rand(12);
+  const v = new URL(req.url).searchParams.get('volta');
+  const nonce = rand(12) + (Object.hasOwn(VOLTAS, v) && v !== 'conta' ? '-' + v : '');
   const state = `${t}.${nonce}.${(await hmac(env.DISCORD_CLIENT_SECRET, `${t}.${nonce}`)).slice(0, 32)}`;
   const u = new URL('https://discord.com/oauth2/authorize');
   u.searchParams.set('client_id', env.DISCORD_CLIENT_ID);
@@ -79,9 +85,10 @@ async function login(req, env) {
 
 async function callback(req, env) {
   const url = new URL(req.url);
-  const voltar = (frag) => Response.redirect(`${env.SITE}/conta.html#${frag}`, 302);
-  const code = url.searchParams.get('code');
   const [t, nonce, sig] = (url.searchParams.get('state') || '').split('.');
+  const destino = VOLTAS[String(nonce || '').split('-')[1]] || VOLTAS.conta;
+  const voltar = (frag) => Response.redirect(`${env.SITE}${destino}#${frag}`, 302);
+  const code = url.searchParams.get('code');
   if (!code || !t || !nonce || !sig) return voltar('erro=cancelado');
   const esperado = (await hmac(env.DISCORD_CLIENT_SECRET, `${t}.${nonce}`)).slice(0, 32);
   if (!igual(sig, esperado) || agora() - Number(t) > 600) return voltar('erro=expirado');
@@ -213,6 +220,7 @@ export default {
       if (pathname === '/link/code' && req.method === 'POST') return await novoCodigo(env, u);
       if (pathname === '/orders' && req.method === 'POST') return await novoPedido(req, env, u);
       if (pathname === '/logout' && req.method === 'POST') return await logout(env, u);
+      if (pathname.startsWith('/game/')) return await rotasJogo(req, env, u, pathname, json, erro);
       return erro(env, 404, 'Não encontrado.');
     } catch (e) {
       console.error(e);

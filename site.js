@@ -31,7 +31,7 @@ const icone = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" s
     const link = (k, href, txt) => `<a href="${href}"${pg === k ? ' aria-current="page"' : ''}>${txt}</a>`;
     topo.className = 'site-header';
     topo.innerHTML = `<a class="brand" href="./" aria-label="Prefeitura Z, início"><img src="img/brasao.png" alt=""><span>PREFEITURA <b>Z</b><small>SERVIDOR DE PROJECT ZOMBOID</small></span></a>
-      <nav aria-label="Navegação principal">${link('inicio', './', 'Início')}${link('mapa', 'mapa/', 'Mapa ' + icone('map'))}${link('loja', 'loja.html', 'Loja')}${link('ranking', 'ranking.html', 'Ranking')}${link('faccoes', './#faccoes', 'Facções')}</nav>
+      <nav aria-label="Navegação principal">${link('inicio', './', 'Início')}${link('mapa', 'mapa/', 'Mapa ' + icone('map'))}${link('loja', 'loja.html', 'Loja')}${link('jogo', 'jogo/', 'Jogo')}${link('ranking', 'ranking.html', 'Ranking')}${link('faccoes', './#faccoes', 'Facções')}</nav>
       <a class="account" id="topo-conta" href="conta.html" data-conta${pg === 'conta' ? ' aria-current="page"' : ''}>${icone('users')} <span>Minha conta</span> ${icone('chevron')}</a>`;
   }
   const rod = document.getElementById('rodape');

@@ -60,9 +60,12 @@ jobs:
           S_DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
           S_DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
           S_SITE_BRIDGE_SECRET: ${{ secrets.SITE_BRIDGE_SECRET }}
+          S_OWNER_DISCORD_ID: ${{ secrets.OWNER_DISCORD_ID }}
         run: |
           set -e
           npx wrangler deploy
           printf '%s' "$S_DISCORD_CLIENT_ID" | npx wrangler secret put DISCORD_CLIENT_ID
           printf '%s' "$S_DISCORD_CLIENT_SECRET" | npx wrangler secret put DISCORD_CLIENT_SECRET
           printf '%s' "$S_SITE_BRIDGE_SECRET" | npx wrangler secret put SITE_BRIDGE_SECRET
+          # dono do jogo (ID do Discord). Sem esse segredo ninguém tem papel de proprietário.
+          if [ -n "$S_OWNER_DISCORD_ID" ]; then printf '%s' "$S_OWNER_DISCORD_ID" | npx wrangler secret put OWNER_DISCORD_ID; fi
