@@ -20,4 +20,4 @@ No [Discord Developer Portal](https://discord.com/developers/applications):
 2. Activities → URL Mappings → Root Mapping: prefixo `/`, alvo `prefeitura-z.github.io/mapa`.
 3. Activities → Settings → ligar "Enable Activities".
 4. Installation → marcar "Guild Install" → copiar o Install Link e adicionar ao servidor.
-5. No Discord: canal de voz → ícone de foguete (Activities) → "Mapa Prefeitura Z".
+5. No Discord: canal de voz → ícone de foguete (Activities) → "Mapa Prefeitura Z"..
