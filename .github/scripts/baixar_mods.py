@@ -20,6 +20,10 @@ for raiz in [x.strip() for x in os.environ["PASTAS"].split(";") if x.strip()]:
             elif full.lower().endswith(EXT) and a.st_size <= MAX:
                 dst = os.path.join(saida, full.lstrip("/"))
                 os.makedirs(os.path.dirname(dst), exist_ok=True)
-                s.get(full, dst); total += a.st_size
+                try:
+                    with s.open(full, "rb") as f, open(dst, "wb") as o: o.write(f.read())
+                    total += a.st_size
+                except Exception as e:
+                    print("falhou", full, e)
     rec(raiz)
 print("copiado", total, "bytes")
