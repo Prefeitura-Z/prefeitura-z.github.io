@@ -1,7 +1,7 @@
 // Prefeitura Z: Depois da Queda — regras do jogo (itens, rotas, inimigos, combate).
 // Tudo aqui é função pura, sem banco e sem relógio: o servidor sorteia uma semente, simula a expedição
 // inteira de uma vez e guarda o resultado. O navegador só assiste. Mudou número aqui? Suba VERSAO.
-export const VERSAO = 2;
+export const VERSAO = 3;
 
 // ---------- itens ----------
 // tipo: material | consumivel | missao | arma | protecao | mochila | ferramenta
@@ -32,6 +32,14 @@ export const RECEITAS = {
   suprimento: { nome: 'Kit de campo', gasta: { sucata: 3, tecido: 1 }, faz: { suprimento: 1 } },
 };
 export const CUSTO_REPARO_POR_PONTO = 0.25;   // créditos por ponto de condição, arredondado pra cima
+// O Wolf recompra equipamento por uma fração do preço da loja, menos ainda se estiver gasto.
+// Sem preço de loja (o que só sai de chefe) ele não compra. Consertar pra revender nunca compensa.
+export const REVENDA = 0.3;
+export function valorRevenda(item, condicao) {
+  const d = ITENS[item];
+  if (!d || !d.compra || !EQUIPAVEIS.includes(d.tipo)) return 0;
+  return Math.max(1, Math.floor(d.compra * REVENDA * (0.5 + 0.5 * Math.max(0, Math.min(100, condicao)) / 100)));
+}
 export const FERIMENTO_SEG = 600;             // quem cai volta ferido por 10 min (ou até usar curativo)
 
 // ---------- inimigos ----------
@@ -157,7 +165,7 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
   const rota = ROTAS[rotaId];
   const rnd = sorteador(semente), forca = rota.forca || 1;
   const log = [], salvos = [];
-  let t = 0, pos = SAIDA, vida = Math.max(1, Math.min(attrs.vidaMax, ctx.vidaInicial || attrs.vidaMax)), carga = 0, xp = 0, paradas = 0;
+  let t = 0, pos = ctx.origem || SAIDA, vida = Math.max(1, Math.min(attrs.vidaMax, ctx.vidaInicial || attrs.vidaMax)), carga = 0, xp = 0, paradas = 0;
   const itens = {}, perdidos = {}, marcas = [];
   let equipGanho = null, motivo = 'concluida', ficouParaTras = false;
   const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
@@ -217,10 +225,14 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
     }
   }
   if (motivo === 'concluida' && rota.marca) marcas.push(rota.marca);
-  // volta pro portão (derrotado volta carregado, mais devagar)
-  const dv = r1(dist(pos, SAIDA) / (motivo === 'derrota' ? VEL_ANDAR * 0.7 : VEL_ANDAR * 1.25));
-  log.push({ t: r1(t), e: 'volta', de: pos, para: SAIDA, d: dv, motivo });
-  t += dv;
+  // volta pro portão (derrotado volta carregado, mais devagar). No farm (ctx.semVolta) ele fica na área:
+  // a volta acaba na última revista e a próxima começa dali mesmo. Só quem cai é carregado de volta.
+  const ficou = pos;
+  if (!ctx.semVolta || motivo === 'derrota') {
+    const dv = r1(dist(pos, SAIDA) / (motivo === 'derrota' ? VEL_ANDAR * 0.7 : VEL_ANDAR * 1.25));
+    log.push({ t: r1(t), e: 'volta', de: pos, para: SAIDA, d: dv, motivo });
+    t += dv;
+  }
   const duracao = Math.ceil(t);
   log.push({ t: duracao, e: 'fim', motivo });
   const ult = salvos[salvos.length - 1];
@@ -230,7 +242,7 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
     xp: motivo === 'derrota' ? (ult ? ult.xp : 0) : xp,
     itens: motivo === 'derrota' ? (ult ? ult.itens : {}) : itens,
     equip: equipGanho, marcas, perdidos, ficouParaTras,
-    vidaFinal: vida, vidaMax: attrs.vidaMax,
+    vidaFinal: vida, vidaMax: attrs.vidaMax, pos: ficou,
   };
   return { duracao, log, salvos, final };
 }
@@ -253,38 +265,48 @@ export function resultadoAte(sim, t) {
 // Tudo é decidido na saída: quantas voltas cabem, onde para e por quê. Depois é só o relógio do servidor.
 export const RONDA = {
   limiteSeg: 8 * 3600,     // no máximo 8 horas por saída, igual pra todo mundo
-  descansoSeg: 240,        // pausa no portão entre uma volta e outra (guarda o saque e respira)
+  descansoSeg: 30,         // fôlego entre uma volta e outra, lá na área mesmo, enquanto os infectados voltam a aparecer
+  voltasPorKit: 10,        // um kit de campo segura esse tanto de voltas
   descansoCura: 0.4,       // fração da vida máxima recuperada em cada pausa
   condicaoMin: 20,         // arma ou proteção abaixo disso: volta pra casa
   vidaMin: [0.3, 0.5, 0.7],
-  ciclosMax: 100,
-  desgaste: 0.3,           // farmando com calma o equipamento gasta bem menos que numa investida
+  ciclosMax: 300,
+  desgaste: 0.1,           // farmando com calma o equipamento gasta bem menos que numa investida
 };
 // base: { xp, origem, equipados: { tipo: { id, item, condicao } }, flags, suprimentos }
-// op: { ciclos, vidaMin }.  Devolve { ciclos: [...], duracao, parada }
+// op: { ciclos, vidaMin }.  Devolve { ciclos: [...], duracao, parada, retorno, kits }
+// O personagem não volta pro portão entre as voltas: cada volta começa onde a anterior acabou e os infectados
+// renascem nas paradas. Só no fim (ou se cair) ele faz o caminho de volta, que entra em "retorno".
+export const kitsDaRonda = (voltas, porKit = RONDA.voltasPorKit) => Math.ceil(voltas / porKit);
+export function retornoDe(pos) { return pos ? r1(Math.hypot(pos[0] - SAIDA[0], pos[1] - SAIDA[1]) / (VEL_ANDAR * 1.25)) : 0; }
 export function simularRonda(rotaId, base, semente, op) {
   const rnd = sorteador(semente ^ 0x9e3779b9);
   const equipados = Object.fromEntries(Object.entries(base.equipados || {}).map(([k, e]) => [k, { ...e }]));
   const pedidos = Math.max(1, Math.min(RONDA.ciclosMax, op.ciclos || RONDA.ciclosMax));
-  let t = 0, xp = base.xp, sup = base.suprimentos, vida = null, parada = 'ciclos';
+  let t = 0, xp = base.xp, sup = base.suprimentos, vida = null, parada = 'ciclos', pos = null;
   const ciclos = [];
   while (ciclos.length < pedidos) {
-    if (sup < 1) { parada = 'suprimentos'; break; }
+    const pedeKit = ciclos.length % RONDA.voltasPorKit === 0;
+    if (pedeKit && sup < 1) { parada = 'suprimentos'; break; }
     if (['arma', 'protecao'].some(k => equipados[k] && equipados[k].condicao < RONDA.condicaoMin)) { parada = 'equipamento'; break; }
     const attrs = atributos({ xp, origem: base.origem, equipados, ferido: false });
     const vidaInicial = vida == null ? attrs.vidaMax : Math.min(attrs.vidaMax, Math.round(vida + attrs.vidaMax * RONDA.descansoCura));
     if (ciclos.length && vidaInicial / attrs.vidaMax < op.vidaMin) { parada = 'vida'; break; }
     const t0 = ciclos.length ? t + RONDA.descansoSeg : 0;
     const sementeCiclo = Math.floor(rnd() * 4294967296) >>> 0;
-    const sim = simular(rotaId, attrs, sementeCiclo, { flags: base.flags, temRegistro: true, vidaInicial });
-    if (t0 + sim.duracao > RONDA.limiteSeg) { parada = 'tempo'; break; }
+    const sim = simular(rotaId, attrs, sementeCiclo, { flags: base.flags, temRegistro: true, vidaInicial, origem: pos, semVolta: true });
+    if (t0 + sim.duracao + retornoDe(sim.final.pos) > RONDA.limiteSeg) { parada = 'tempo'; break; }
     const gasto = desgaste(sim.final, { desgaste: attrs.desgaste * RONDA.desgaste });
     for (const k of Object.keys(equipados)) equipados[k].condicao = Math.max(0, equipados[k].condicao - (gasto[k] || 0));
-    sup--; xp += sim.final.xp; vida = sim.final.vidaFinal; t = t0 + sim.duracao;
-    ciclos.push({ t0, dur: sim.duracao, semente: sementeCiclo, attrs, vidaInicial, motivo: sim.final.motivo, xp: sim.final.xp, itens: sim.final.itens, paradas: sim.final.paradas, gasto });
-    if (sim.final.motivo === 'derrota') { parada = 'derrota'; break; }
+    if (pedeKit) sup--;
+    xp += sim.final.xp; vida = sim.final.vidaFinal; t = t0 + sim.duracao;
+    ciclos.push({ de: pos, t0, dur: sim.duracao, semente: sementeCiclo, attrs, vidaInicial, motivo: sim.final.motivo, xp: sim.final.xp, itens: sim.final.itens, paradas: sim.final.paradas, gasto });
+    if (sim.final.motivo === 'derrota') { parada = 'derrota'; pos = null; break; }
+    pos = sim.final.pos;
   }
-  return { ciclos, duracao: t, parada };
+  // quem não caiu ainda anda da última parada até o portão
+  const retorno = Math.ceil(retornoDe(pos));
+  return { ciclos, duracao: t + retorno, parada, retorno, de: pos, kits: kitsDaRonda(ciclos.length) };
 }
 // o que já está valendo no instante t: só voltas inteiras contam
 export function rondaAte(ronda, t) {
@@ -316,13 +338,13 @@ export function desgaste(final, attrs) {
 // o que o navegador precisa pra desenhar e explicar (sem nada secreto)
 export function catalogo() {
   return {
-    versao: VERSAO, itens: ITENS, loja: LOJA, receitas: RECEITAS, inimigos: INIMIGOS,
+    versao: VERSAO, itens: ITENS, loja: LOJA, revenda: REVENDA, receitas: RECEITAS, inimigos: INIMIGOS,
     rotas: Object.fromEntries(Object.entries(ROTAS).map(([id, r]) => [id, {
       nome: r.nome, resumo: r.resumo, custo: r.custo, requer: r.requer, repete: r.repete || null, perigo: r.perigo, chefe: r.chefe || null,
       pontos: r.pontos.map(p => ({ p: p.p, enc: p.enc })), saque: Object.keys(r.saque),
     }])),
     saida: SAIDA, origens: Object.fromEntries(Object.entries(ORIGEM_BONUS).map(([k, v]) => [k, v.txt])),
     reparoPorPonto: CUSTO_REPARO_POR_PONTO, ferimentoSeg: FERIMENTO_SEG,
-    ronda: { limiteSeg: RONDA.limiteSeg, descansoSeg: RONDA.descansoSeg, vidaMin: RONDA.vidaMin, ciclosMax: RONDA.ciclosMax, condicaoMin: RONDA.condicaoMin },
+    ronda: { limiteSeg: RONDA.limiteSeg, descansoSeg: RONDA.descansoSeg, vidaMin: RONDA.vidaMin, ciclosMax: RONDA.ciclosMax, condicaoMin: RONDA.condicaoMin, voltasPorKit: RONDA.voltasPorKit },
   };
 }

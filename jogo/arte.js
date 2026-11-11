@@ -310,6 +310,18 @@ const INIMIGO_AP = {
   porteiro: [{ corpo: 'b', pele: 'z1', cabelo: 'raspado', corCabelo: 'c5', roupa: 'porteiro', zumbi: true, bone: true, machado: true, escala: 1.4 }],
 };
 
+// o que cada equipamento muda no desenho do boneco (ap.eq = { arma, protecao, mochila, ferramenta })
+const EQUIP_VIS = {
+  barra_portao: { haste: '#8f979c' },
+  cano_rebite: { haste: '#7d858a', cabeca: '#4f5559' },
+  machadinha: { haste: '#5a4a38', lamina: '#b9c0c4' },
+  jaqueta_ronda: { reforco: '#5a3a26' },
+  colete_lona: { colete: '#b7a67a' },
+  mochila_lona: { bolsa: '#6b7350', alca: '#4c5238' },
+  mochila_reforcada: { bolsa: '#4a5560', alca: '#333b44', armacao: '#aab1b5', grande: true },
+  ferramenta_recuperacao: { cinto: '#a8443a' },
+};
+
 const QW = 48, QH = 80, PX = 24, PY = 74;
 const DIRS = ['SE', 'SW', 'NE', 'NW'];
 
@@ -325,6 +337,7 @@ function quadroPessoa(ap, dir, estado, f) {
   const px = (x, y, w, h, cor) => { g.fillStyle = cor; g.fillRect(Math.round(x), Math.round(y), w, h); };
   const zumbi = !!ap.zumbi, atq = estado === 'ataca' ? f : -1, golpe = atq >= 2 && atq <= 3;
   const cx = PX + (golpe ? lado * 2 : 0), topo = 22 + bob + (zumbi ? 1 : 0);
+  const eq = ap.eq || {}, vArma = EQUIP_VIS[eq.arma], vProt = EQUIP_VIS[eq.protecao], vMoch = EQUIP_VIS[eq.mochila], vFerr = EQUIP_VIS[eq.ferramenta];
 
   // pernas
   const pernaY = 56 + bob, pernaH = PY - pernaY;
@@ -341,6 +354,9 @@ function quadroPessoa(ap, dir, estado, f) {
   if (zumbi) { px(lado > 0 ? tx + tw - 3 : tx - 7, ty + 2 + (f % 2), 10, 4, tom(R.manga, 0.75)); px(lado > 0 ? tx + tw + 7 : tx - 10, ty + 2 + (f % 2), 3, 4, tom(pele, 0.8)); }
   else { px(ladoFundo, ty + 2 - bracoBalanço, 4, 13, tom(R.manga, 0.75)); px(ladoFundo, ty + 15 - bracoBalanço, 4, 3, tom(pele, 0.8)); }
 
+  // mochila: de frente ela aparece só pelas beiradas, atrás do tronco
+  if (vMoch && frente) { const mg = vMoch.grande ? 3 : 2; px(tx - mg, ty + 2, tw + mg * 2, vMoch.grande ? 17 : 14, tom(vMoch.bolsa, 0.85)); }
+
   // tronco
   px(tx, ty, tw, 21, R.torso);
   px(tx + tw - 4, ty, 4, 21, tom(R.torso, 0.8));             // lado na sombra (luz da esquerda)
@@ -351,11 +367,33 @@ function quadroPessoa(ap, dir, estado, f) {
   if (ap.roupa === 'jaqueta' && frente) { px(cx - 1 + lado, ty + 1, 1, 19, R.detalhe); px(tx + 2, ty, 4, 3, tom(R.torso, 1.12)); }
   if (R.capuz && frente) { px(tx + 3, ty + 12, tw - 6, 5, R.detalhe); }
   if (ap.roupa === 'prefeito' && frente) { px(cx - 1, ty, 2, 9, '#6a3a2a'); }
+  // proteção por cima da roupa
+  if (vProt && vProt.colete) {
+    px(tx, ty, tw, 17, vProt.colete); px(tx + tw - 4, ty, 4, 17, tom(vProt.colete, 0.8));
+    px(tx, ty + 8, tw, 1, tom(vProt.colete, 0.7));
+    if (frente) { px(cx - 1, ty, 2, 17, tom(vProt.colete, 0.65)); px(tx + 2, ty + 11, 4, 4, tom(vProt.colete, 0.75)); }
+  }
+  if (vProt && vProt.reforco) { px(tx, ty, 4, 3, vProt.reforco); px(tx + tw - 4, ty, 4, 3, tom(vProt.reforco, 0.8)); if (!frente) px(tx + 3, ty + 4, tw - 6, 2, vProt.reforco); }
+  if (vMoch && frente) { px(tx + 2, ty, 2, 13, vMoch.alca); px(tx + tw - 4, ty, 2, 13, vMoch.alca); }
   px(tx, ty + 19, tw, 2, tom(R.calca, 0.7)); // cinto
+  if (vFerr && frente) { px(cx - lado * 6, ty + 17, 2, 8, vFerr.cinto); px(cx - lado * 6 - (lado > 0 ? 1 : -1), ty + 17, 2, 2, vFerr.cinto); }
+  // de costas a mochila cobre as costas
+  if (vMoch && !frente) {
+    const mw = vMoch.grande ? tw - 2 : tw - 4, mh = vMoch.grande ? 18 : 14, mx = cx - mw / 2;
+    px(mx, ty + 1, mw, mh, vMoch.bolsa); px(mx + mw - 3, ty + 1, 3, mh, tom(vMoch.bolsa, 0.8));
+    px(mx + 2, ty + mh - 5, mw - 4, 1, tom(vMoch.bolsa, 0.65)); px(mx + 1, ty + 1, mw - 2, 2, tom(vMoch.bolsa, 1.15));
+    if (vMoch.armacao) { px(mx, ty + 1, 1, mh, vMoch.armacao); px(mx + mw - 1, ty + 1, 1, mh, vMoch.armacao); }
+  }
 
   // braço da frente
   const ladoFrente = lado > 0 ? tx + tw - 1 : tx - 3;
-  const metal = '#aab1b5';
+  const metal = vArma ? vArma.haste : '#aab1b5';
+  // ponta da arma: cabeça de rebite ou lâmina. (x, y) é a ponta da haste; sx diz pra que lado a lâmina abre
+  const ponta = (x, y, sx) => {
+    if (!vArma) return;
+    if (vArma.cabeca) px(x - 1, y - 1, 4, 5, vArma.cabeca);
+    if (vArma.lamina) { px(sx > 0 ? x + 1 : x - 4, y, 5, 5, vArma.lamina); px(sx > 0 ? x + 5 : x - 5, y + 1, 1, 3, tom(vArma.lamina, 1.15)); }
+  };
   if (zumbi) {
     const sobe = golpe ? -3 : 0, bx = lado > 0 ? tx + tw - 2 : tx - 10;
     if (R.colete && frente) px(tx + 4, ty + 7, tw - 8, 6, '#6a1f1a');
@@ -364,12 +402,15 @@ function quadroPessoa(ap, dir, estado, f) {
     if (ap.machado) { const mx = lado > 0 ? bx + 13 : bx - 3; px(mx, ty - 9 + sobe, 2, 18, '#5a4a38'); px(lado > 0 ? mx + 1 : mx - 5, ty - 9 + sobe, 6, 6, metal); }
   } else if (atq >= 0) {
     // golpe em três tempos: arma no alto, desce pra frente, recolhe
-    if (atq < 2) { px(ladoFrente, ty - 7, 4, 12, R.manga); px(ladoFrente, ty - 10, 4, 3, pele); px(ladoFrente + 1, ty - 24, 2, 15, metal); }
-    else if (atq < 4) { const bx = lado > 0 ? ladoFrente + 1 : ladoFrente - 8; px(bx, ty + 3, 11, 4, R.manga); px(lado > 0 ? bx + 11 : bx - 3, ty + 3, 3, 4, pele); px(lado > 0 ? bx + 13 : bx - 15, ty + 5, 13, 2, metal); px(lado > 0 ? bx + 22 : bx - 15, ty + 3, 4, 5, '#ffffff'); }
-    else { px(ladoFrente, ty + 2, 4, 13, R.manga); px(ladoFrente, ty + 15, 4, 3, pele); px(ladoFrente + lado * 3, ty + 12, 2, 12, metal); }
+    if (atq < 2) { px(ladoFrente, ty - 7, 4, 12, R.manga); px(ladoFrente, ty - 10, 4, 3, pele); px(ladoFrente + 1, ty - 24, 2, 15, metal); ponta(ladoFrente + 1, ty - 24, lado); }
+    else if (atq < 4) { const bx = lado > 0 ? ladoFrente + 1 : ladoFrente - 8; px(bx, ty + 3, 11, 4, R.manga); px(lado > 0 ? bx + 11 : bx - 3, ty + 3, 3, 4, pele); px(lado > 0 ? bx + 13 : bx - 15, ty + 5, 13, 2, metal); px(lado > 0 ? bx + 22 : bx - 15, ty + 3, 4, 5, '#ffffff'); ponta(lado > 0 ? bx + 24 : bx - 15, ty + 4, lado); }
+    else { px(ladoFrente, ty + 2, 4, 13, R.manga); px(ladoFrente, ty + 15, 4, 3, pele); px(ladoFrente + lado * 3, ty + 12, 2, 12, metal); ponta(ladoFrente + lado * 3, ty + 20, lado); }
   } else {
   px(ladoFrente, ty + 2 + bracoBalanço - trab, 4, 13, R.manga);
   px(ladoFrente, ty + 15 + bracoBalanço - trab, 4, 3, pele);
+  if (vProt && vProt.reforco) px(ladoFrente, ty + 9 + bracoBalanço - trab, 4, 5, vProt.reforco);
+  // arma na mão, apoiada no ombro
+  if (vArma && estado !== 'trabalha') { const ax = ladoFrente + 1 + lado, ay = ty - 6 + bracoBalanço; px(ax, ay, 2, 22, metal); ponta(ax, ay, lado); }
   }
   if (estado === 'trabalha') px(ladoFrente + lado * 2, ty + 14 + bracoBalanço - trab, 2, 6, '#8f979c');
 
@@ -427,5 +468,5 @@ function folha(ap) {
   return s;
 }
 
-PZ.arte = { COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, QW, QH, PX, PY, DIRS };
+PZ.arte = { COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, EQUIP_VIS, QW, QH, PX, PY, DIRS };
 })();

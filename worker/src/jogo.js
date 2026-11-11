@@ -2,7 +2,7 @@
 // A conta do jogo é a mesma do site (Discord); nada aqui confia em id enviado pelo navegador.
 // O proprietário vem do segredo OWNER_DISCORD_ID; os outros papéis ficam em role_assignments com auditoria.
 
-import { nivelDe } from './regras.js';
+import { nivelDe, ITENS } from './regras.js';
 import { rotasExpedicao, estadoDoJogador, estadoPublico, darKit, entregarRegistro } from './expedicao.js';
 
 const agora = () => Math.floor(Date.now() / 1000);
@@ -116,8 +116,12 @@ export async function entrarNaSala(req, env, hmac, igual) {
   ).bind(did).first();
   if (!c) return new Response('Sem personagem.', { status: 403 });
   const papel = await papelDe(env, did);
+  // o que está equipado aparece no boneco pros outros; sai do banco, nunca do navegador
+  const eqs = await env.DB.prepare('SELECT item FROM game_equipment WHERE discord_id = ? AND equipado = 1').bind(did).all();
+  const eq = {};
+  for (const r of eqs.results) if (ITENS[r.item]) eq[ITENS[r.item].tipo] = r.item;
   const h = new Headers(req.headers);
-  h.set('X-PZ-Jogador', encodeURIComponent(JSON.stringify({ did, n: c.nome, ap: JSON.parse(c.aparencia), pp: papel === 'jogador' ? undefined : papel })));
+  h.set('X-PZ-Jogador', encodeURIComponent(JSON.stringify({ did, n: c.nome, ap: { ...JSON.parse(c.aparencia), eq }, pp: papel === 'jogador' ? undefined : papel })));
   return env.ABRIGO.get(env.ABRIGO.idFromName('uniao-da-margem')).fetch(new Request('https://sala/entrar', { headers: h }));
 }
 

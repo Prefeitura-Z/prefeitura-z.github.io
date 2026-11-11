@@ -78,7 +78,7 @@ class Expedicao {
     let perna = null;
     for (const l of this.pernas) { if (l.t <= t) perna = l; else break; }
     p.estado = null; p.quadro = null; p.caido = false; p.anda = false;
-    if (!perna) { p.x = this.cat.saida[0]; p.y = this.cat.saida[1]; }
+    if (!perna) { const ini = this.pernas[0] ? this.pernas[0].pts[0] : this.cat.saida; p.x = ini[0]; p.y = ini[1]; }
     else {
       const f = perna.d > 0 ? Math.min(1, (t - perna.t) / perna.d) : 1;
       const pos = this.noCaminho(perna.pts, f);
@@ -157,14 +157,15 @@ class Expedicao {
     feed.sort((a, b) => a.t - b.t);
     const espera = Math.max(0, Math.ceil((this.ex.inicio - this.op.agora()) / 1000));
     let fase;
-    if (espera > 0) fase = 'Descansando no portão';
-    else if (t >= this.duracao) fase = 'De volta ao portão';
+    const farm = this.ex.tipo === 'ronda', segue = farm && !(this.ex.ronda && this.ex.ronda.ultima);
+    if (espera > 0) fase = 'Recuperando o fôlego';
+    else if (t >= this.duracao) fase = segue ? 'Área limpa. Os infectados já voltam' : 'De volta ao portão';
     else if (perna && perna.volta) fase = this.motivo === 'derrota' ? 'Carregado de volta pro abrigo' : this.motivo === 'mochila' ? 'Mochila cheia: voltando' : 'Voltando pro abrigo';
     else if (par && t >= par.t0 && t < par.fim) fase = t >= par.limpo && !this.vivos.length ? 'Revistando' : (par.ini.some(n => n.chefe) ? 'Enfrentando ' + par.ini.find(n => n.chefe).nome : 'Em combate');
     else fase = `A caminho da parada ${Math.min(feitas + 1, this.totalParadas)}`;
     const h = {
       rota: this.rota.nome, fase, vida, vidaMax: this.ex.vidaMax, carga, capacidade: this.ex.capacidade, xp,
-      feitas, total: this.totalParadas, restante: Math.max(0, Math.ceil(this.duracao - t)), voltando: !!(perna && perna.volta) || t >= this.duracao,
+      feitas, total: this.totalParadas, restante: Math.max(0, Math.ceil(this.duracao - t)), voltando: !!(perna && perna.volta) || (t >= this.duracao && !segue),
       feed: feed.slice(-4), espera,
     };
     const k = JSON.stringify(h);

@@ -167,6 +167,12 @@ function atualizarFicha() {
   $('hud-sub').textContent = `Nível ${p.nivel} · ${ORIGENS.find(o => o[0] === p.origem)?.[1] || ''}${e ? ` · ${e.creditos} créditos` : ''}${e?.ferido ? ' · ferido' : ''}`;
 }
 // tudo que o servidor devolve passa por aqui: a tela nunca soma recurso por conta própria
+// a aparência do boneco com o que está equipado por cima
+function aparenciaAtual() {
+  const eq = {};
+  for (const q of estado?.estado?.equipamento || []) if (q.equipado && item(q.item)) eq[item(q.item).tipo] = q.item;
+  return { ...estado.personagem.aparencia, eq };
+}
 function absorver(r) {
   if (!r || !estado) return;
   if (r.personagem) estado.personagem = r.personagem;
@@ -189,7 +195,7 @@ function entrarNoAbrigo(novo) {
   $('demo-aviso').hidden = !window.PZ_DEMO;
   if (motor) motor.parar();
   motor = new PZ.Motor($('cena'), M, {
-    aparencia: p.aparencia, reduzir: !!ajustes.reduzir,
+    aparencia: aparenciaAtual(), reduzir: !!ajustes.reduzir,
     interagir: abrirConversa, perto: mostrarPerto, aviso: torrada,
     posicao: (pos, agora) => presenca?.posicao(pos, agora),
   });
@@ -372,8 +378,8 @@ function abrirRonda(id) {
   const r = catalogo.rotas[id], kits = estado.estado.itens.suprimento || 0, R = catalogo.ronda;
   rotaRonda = id;
   $('ronda-titulo').textContent = 'Farmar em ' + r.nome;
-  $('ronda-nota').textContent = `O personagem fica dando voltas nessa rota por até ${R.limiteSeg / 3600} horas, mesmo com o jogo fechado. Cada volta gasta 1 kit de campo (você tem ${kits}). Ele volta sozinho se acabar o kit, se a vida baixar, se o equipamento ficar no limite ou se cair. Você pode chamar de volta quando quiser.`;
-  $('ronda-voltas').innerHTML = `<option value="${R.ciclosMax}">Até acabar os kits (${kits})</option>` + [3, 5, 10, 20].filter(n => n < kits).map(n => `<option value="${n}">${n} voltas</option>`).join('');
+  $('ronda-nota').textContent = `O personagem fica dando voltas nessa rota por até ${R.limiteSeg / 3600} horas, mesmo com o jogo fechado. Ele não volta pro portão entre as voltas: os infectados reaparecem e ele segue lá. Cada kit de campo segura ${R.voltasPorKit} voltas (você tem ${kits}). Ele volta sozinho se acabar o kit, se a vida baixar, se o equipamento ficar no limite ou se cair. Você pode chamar de volta quando quiser.`;
+  $('ronda-voltas').innerHTML = `<option value="${R.ciclosMax}">Até acabar os kits (${kits})</option>` + [1, 2, 3, 5, 10].filter(n => n < kits).map(n => `<option value="${n * R.voltasPorKit}">${n * R.voltasPorKit} voltas (${n} ${n === 1 ? 'kit' : 'kits'})</option>`).join('');
   $('ronda-config').hidden = false;
   $('btn-ronda').focus();
 }
@@ -412,7 +418,7 @@ function entrarNaExpedicao() {
   }
   atualizarFicha();
   cena = new PZ.Expedicao($('cena'), {
-    expedicao: ex, catalogo, aparencia: estado.personagem.aparencia, reduzir: !!ajustes.reduzir,
+    expedicao: ex, catalogo, aparencia: aparenciaAtual(), reduzir: !!ajustes.reduzir,
     agora: agoraServidor, mudou: mostrarExpedicao, fim: () => farm ? proximaVolta(ex) : fecharExpedicao(ex.id, false),
   });
   motor = cena.motor; PZ.motorAtual = motor; PZ.cenaAtual = cena;
@@ -462,7 +468,7 @@ const TITULO_FIM = {
 };
 const FIM_FARM = {
   ciclos: ['Farm concluído', 'Ele deu todas as voltas combinadas e voltou pro abrigo.'],
-  suprimentos: ['Acabaram os kits de campo', 'Sem kit não tem próxima volta, então ele voltou pro abrigo.'],
+  suprimentos: ['Acabaram os kits de campo', 'Sem kit ele não segue na rua, então voltou pro abrigo.'],
   vida: ['Voltou pra não cair', 'A vida ficou abaixo do limite que você escolheu.'],
   equipamento: ['Equipamento no limite', 'A arma ou a proteção gastou demais pra continuar. O Wolf conserta.'],
   tempo: ['Limite de 8 horas', 'Ele ficou na rua o máximo permitido por saída.'],
@@ -482,7 +488,7 @@ function mostrarRelatorio(rel) {
   li.push(`<li><span><b>+${rel.xp} XP</b>${rel.bonus ? '<small>Inclui o bônus da primeira vez nesta rota</small>' : ''}</span></li>`);
   if (rel.nivelDepois > rel.nivelAntes) li.push(`<li class="destaque"><span><b>Nível ${rel.nivelDepois}</b><small>Mais vida e mais ataque</small></span></li>`);
   for (const [k, q] of Object.entries(rel.itens || {})) li.push(`<li><span><b>${q} × ${esc(item(k).nome)}</b><small>${esc(TIPO[item(k).tipo] || '')}</small></span></li>`);
-  if (farm) li.push(`<li><span><b>${rel.kits} ${rel.kits === 1 ? 'kit de campo gasto' : 'kits de campo gastos'}</b>${rel.kitsDevolvidos ? `<small>${rel.kitsDevolvidos} voltaram pro armazém porque as voltas nem começaram</small>` : ''}</span></li>`);
+  if (farm) li.push(`<li><span><b>${rel.kits} ${rel.kits === 1 ? 'kit de campo gasto' : 'kits de campo gastos'}</b>${rel.kitsDevolvidos ? `<small>${rel.kitsDevolvidos} voltaram pro armazém porque nem foram abertos</small>` : ''}</span></li>`);
   if (rel.creditos) li.push(`<li><span><b>+${rel.creditos} créditos</b></span></li>`);
   if (rel.equip) li.push(`<li class="destaque"><span><b>${esc(item(rel.equip).nome)}</b><small>${esc(efeito(item(rel.equip)))} · está no seu armazém, equipe na Mochila</small></span></li>`);
   const perd = Object.entries(rel.perdidos || {}).map(([k, q]) => `${q} ${item(k).nome}`);
@@ -519,11 +525,14 @@ $('mochila').onclick = async ev => {
   const b = ev.target.closest('[data-equip], [data-usar]'); if (!b) return;
   $('mochila-msg').textContent = '';
   if (b.dataset.usar) { const r = await pedir(b, $('mochila-msg'), ch => api.usar('curativo', ch)); if (r && !r.erro) $('mochila-msg').textContent = 'Curativo feito. Você está inteiro de novo.'; }
-  else await pedir(b, $('mochila-msg'), () => api.equipar(b.dataset.equip, b.dataset.tirar === '1'));
+  else { await pedir(b, $('mochila-msg'), () => api.equipar(b.dataset.equip, b.dataset.tirar === '1')); if (motor && motor.definirAparencia && !estado.expedicao) motor.definirAparencia(aparenciaAtual()); }
   desenharMochila();
 };
 
 // ---------- oficina do Wolf ----------
+// o mesmo cálculo do servidor, só pra mostrar o preço; quem decide o valor é ele
+const valorRevenda = q => Math.max(1, Math.floor(item(q.item).compra * catalogo.revenda * (0.5 + 0.5 * q.condicao / 100)));
+let vendaArmada = null;
 let abaLoja = 'comprar';
 function desenharLoja() {
   const e = estado.estado, cr = e.creditos;
@@ -537,7 +546,10 @@ function desenharLoja() {
     h = v.length ? v.map(([k, q]) => { const d = item(k); return `<li><span><b>${q} × ${esc(d.nome)}</b><small>${d.venda} créditos cada</small></span><span class="acoes">
       <button type="button" class="botao" data-loja="vender" data-item="${esc(k)}" data-qtd="1">Vender 1</button>
       ${q > 1 ? `<button type="button" class="botao" data-loja="vender" data-item="${esc(k)}" data-qtd="${q}">Vender tudo (+${q * d.venda})</button>` : ''}</span></li>`; }).join('')
-      : '<li class="vazio">Nada pra vender. Sucata, tecido e peças vêm da rua.</li>';
+      : '<li class="vazio">Nada de material pra vender. Sucata, tecido e peças vêm da rua.</li>';
+    h += e.equipamento.filter(q => item(q.item).compra).map(q => { const d = item(q.item), val = valorRevenda(q);
+      return `<li><span><b>${esc(d.nome)}</b><small>${esc(TIPO[d.tipo] || '')} · condição ${q.condicao}%${q.equipado ? ' · equipado: tire na Mochila pra vender' : ''}</small></span>
+      <button type="button" class="botao" data-loja="venderEquip" data-id="${esc(q.id)}" data-valor="${val}" data-nome="${esc(d.nome)}" ${q.equipado ? 'disabled' : ''}>Vender por ${val}</button></li>`; }).join('');
   } else if (abaLoja === 'reparar') {
     const g = e.equipamento.filter(q => q.condicao < 100);
     h = g.length ? g.map(q => { const custo = Math.ceil((100 - q.condicao) * catalogo.reparoPorPonto); return `<li><span><b>${esc(item(q.item).nome)}</b><small>Condição ${q.condicao}%${q.equipado ? ' · equipado' : ''}</small></span>
@@ -555,10 +567,13 @@ $('loja-lista').onclick = async ev => {
   const b = ev.target.closest('[data-loja]'); if (!b) return;
   const d = b.dataset;
   $('loja-msg').textContent = '';
+  // vender equipamento não tem volta: pede um segundo clique
+  if (d.loja === 'venderEquip' && vendaArmada !== d.id) { vendaArmada = d.id; b.textContent = 'Confirmar venda'; setTimeout(() => { if (vendaArmada === d.id) { vendaArmada = null; desenharLoja(); } }, 4000); return; }
+  vendaArmada = null;
   const r = await pedir(b, $('loja-msg'), chave => api.loja({ acao: d.loja, chave, item: d.item, qtd: d.qtd ? +d.qtd : 1, id: d.id, receita: d.receita }));
   if (r && !r.erro) {
     $('loja-msg').textContent = d.loja === 'comprar' ? `${item(d.item).nome}: comprado.${['arma', 'protecao', 'mochila', 'ferramenta'].includes(item(d.item).tipo) ? ' Equipe na Mochila (I).' : ''}`
-      : d.loja === 'vender' ? `Vendido por ${(+d.qtd) * item(d.item).venda} créditos.` : d.loja === 'reparar' ? 'Consertado.' : 'Feito na bancada.';
+      : d.loja === 'venderEquip' ? `${d.nome}: vendido por ${r.total ?? d.valor} créditos.` : d.loja === 'vender' ? `Vendido por ${(+d.qtd) * item(d.item).venda} créditos.` : d.loja === 'reparar' ? 'Consertado.' : 'Feito na bancada.';
   }
   desenharLoja();
 };
