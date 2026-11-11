@@ -2,7 +2,7 @@
 // Regra geral: o navegador pede, o servidor decide. Toda mudança de recurso sai num lote (transação) do D1
 // que só vale se a condição ainda for verdadeira dentro do próprio lote, e um clique repetido não conta duas vezes.
 import { ITENS, EQUIPAVEIS, KIT_INICIAL, KIT_SUPRIMENTOS, LOJA, RECEITAS, ROTAS, VERSAO, CUSTO_REPARO_POR_PONTO, FERIMENTO_SEG,
-  atributos, nivelDe, simular, resultadoAte, desgaste, catalogo } from './regras.js';
+  RONDA, atributos, nivelDe, simular, simularRonda, rondaAte, resultadoAte, desgaste, catalogo } from './regras.js';
 
 const seg = () => Math.floor(Date.now() / 1000);
 const novoId = () => [...crypto.getRandomValues(new Uint8Array(10))].map(x => x.toString(16).padStart(2, '0')).join('');
@@ -28,13 +28,26 @@ export async function estadoDoJogador(env, did, c) {
   const e = ex.results[0];
   return {
     creditos, itens, equipamento, equipados, flags, ferido, feridoAte: ferido ? flags.ferido_ate : 0, attrs,
-    expedicao: e ? expedicaoPublica(e, attrs) : null,
+    expedicao: e ? expedicaoPublica(e, attrs, flags) : null,
   };
 }
 
 // O navegador recebe o roteiro pra desenhar a expedição. Ele não decide nada: o prêmio sai do que ficou guardado aqui.
-function expedicaoPublica(e, attrs) {
+function expedicaoPublica(e, attrs, flags) {
   const sim = JSON.parse(e.sim);
+  if (sim.tipo === 'ronda') {
+    // Ronda longa: o navegador recebe só a volta da vez (refeita da semente guardada) e o que já está valendo.
+    const t = (Date.now() - e.inicio) / 1000, cs = sim.ciclos;
+    let i = cs.findIndex(c => t < c.t0 + c.dur);
+    if (i < 0) i = cs.length - 1;
+    const c = cs[i], ate = rondaAte(sim, t);
+    const volta = simular(e.rota, c.attrs, c.semente, { flags, temRegistro: true, vidaInicial: c.vidaInicial });
+    return {
+      id: e.id, rota: e.rota, tipo: 'ronda', inicio: e.inicio + c.t0 * 1000, fim: e.inicio + (c.t0 + c.dur) * 1000,
+      log: volta.log, vidaMax: c.attrs.vidaMax, vidaInicial: c.vidaInicial, capacidade: c.attrs.capacidade,
+      ronda: { volta: i + 1, voltas: cs.length, inicio: e.inicio, fim: e.fim, feitas: ate.feitos, xp: ate.xp, itens: ate.itens, parada: sim.parada, vidaMin: sim.vidaMin },
+    };
+  }
   return { id: e.id, rota: e.rota, inicio: e.inicio, fim: e.fim, log: sim.log, vidaMax: sim.final.vidaMax, capacidade: attrs.capacidade };
 }
 
@@ -75,6 +88,47 @@ const semExpedicao = did => ({ sql: `NOT EXISTS (SELECT 1 FROM game_expeditions 
 const todas = (...cs) => ({ sql: cs.map(c => `(${c.sql})`).join(' AND '), binds: cs.flatMap(c => c.binds) });
 const chaveValida = k => typeof k === 'string' && /^[A-Za-z0-9_-]{8,40}$/.test(k);
 const inteiro = (v, min, max) => { const n = Number(v); return Number.isInteger(n) && n >= min && n <= max ? n : null; };
+
+// Fecha a ronda longa. Só voltas inteiras contam; a volta pela metade não rende, e as que nem começaram devolvem o kit.
+// O mesmo intervalo nunca é pago duas vezes: tudo depende de a expedição passar de 'andamento' pra 'premiando' neste lote.
+async function fecharRonda(env, did, c, e, sim, recuo, agoraMs, responder) {
+  const acabou = agoraMs >= e.fim;
+  if (!acabou && !recuo) return responder({ erro: 'Você ainda não voltou.' }, 409);
+  const t = seg(), ate = rondaAte(sim, (agoraMs - e.inicio) / 1000), rota = ROTAS[e.rota];
+  const devolver = sim.ciclos.length - ate.iniciados;
+  const relatorio = {
+    id: e.id, rota: e.rota, nomeRota: rota ? rota.nome : e.rota, tipo: 'ronda', motivo: acabou ? sim.parada : 'chamado',
+    fora: Math.round((agoraMs - e.inicio) / 1000), voltas: ate.feitos, voltasPrevistas: sim.ciclos.length, kits: ate.iniciados, kitsDevolvidos: devolver,
+    paradas: ate.paradas, xp: ate.xp, itens: ate.itens, creditos: 0, equip: null, perdidos: {}, desgaste: ate.gasto,
+    ferido: ate.derrota, bonus: false, nivelAntes: nivelDe(c.xp).nivel, nivelDepois: nivelDe(c.xp + ate.xp).nivel,
+  };
+  const g = { sql: "EXISTS (SELECT 1 FROM game_expeditions WHERE id = ? AND status = 'premiando')", bind: e.id };
+  let flagsSql = ate.feitos ? "json_set(flags, '$.ronda_feita', COALESCE(json_extract(flags, '$.ronda_feita'), ?))" : 'flags';
+  const flagsBinds = ate.feitos ? [t] : [];
+  if (ate.derrota) { flagsSql = `json_set(${flagsSql}, '$.ferido_ate', ?)`; flagsBinds.push(t + FERIMENTO_SEG); }
+  const lote = [
+    env.DB.prepare(acabou
+      ? "UPDATE game_expeditions SET status = 'premiando' WHERE id = ? AND discord_id = ? AND status = 'andamento' AND fim <= ?"
+      : "UPDATE game_expeditions SET status = 'premiando' WHERE id = ? AND discord_id = ? AND status = 'andamento'"
+    ).bind(...(acabou ? [e.id, did, agoraMs] : [e.id, did])),
+    ...Object.entries(ate.itens).filter(([k, q]) => ITENS[k] && q > 0).map(([k, q]) => mais(env, did, k, q, g)),
+    ...(devolver > 0 ? [mais(env, did, 'suprimento', devolver, g)] : []),
+    ...Object.entries(sim.equip || {}).filter(([k]) => ate.gasto[k] > 0).map(([k, idEq]) => env.DB.prepare(
+      `UPDATE game_equipment SET condicao = MAX(0, condicao - ?) WHERE id = ? AND discord_id = ? AND ${g.sql}`
+    ).bind(ate.gasto[k], idEq, did, g.bind)),
+    env.DB.prepare(`UPDATE characters SET xp = xp + ?, flags = ${flagsSql}, versao = versao + 1, atualizado = ? WHERE discord_id = ? AND ${g.sql}`)
+      .bind(ate.xp, ...flagsBinds, t, did, g.bind),
+    env.DB.prepare("UPDATE game_expeditions SET status = 'encerrada', resultado = ?, encerrada_em = ? WHERE id = ? AND status = 'premiando'")
+      .bind(JSON.stringify(relatorio), agoraMs, e.id),
+  ];
+  const r = await env.DB.batch(lote);
+  if (r[r.length - 1].meta.changes !== 1) {
+    const e2 = await env.DB.prepare('SELECT status, resultado FROM game_expeditions WHERE id = ?').bind(e.id).first();
+    if (e2 && e2.status === 'encerrada') return responder({ ok: true, repetido: true, relatorio: JSON.parse(e2.resultado) });
+    return responder({ erro: 'Não deu pra fechar a ronda agora. Tente de novo.' }, 409);
+  }
+  return responder({ ok: true, relatorio });
+}
 
 // Kit do Wolf: equipamento com id fixo (não duplica) e os kits de campo com recibo.
 export async function darKit(env, did) {
@@ -145,6 +199,41 @@ export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, per
     return responder({ ok: true });
   }
 
+  // ----- ronda longa: deixa o personagem farmando uma rota já conhecida, com o jogo aberto ou fechado -----
+  if (pathname === '/game/expedicao/ronda' && req.method === 'POST') {
+    const b = await ler(req);
+    const rota = Object.hasOwn(ROTAS, b?.rota) ? ROTAS[b.rota] : null;
+    if (!rota) return erro(env, 400, 'Essa rota não existe.');
+    const vidaMin = RONDA.vidaMin.includes(b?.vidaMin) ? b.vidaMin : 0.5;
+    const pedidos = inteiro(b?.ciclos ?? RONDA.ciclosMax, 1, RONDA.ciclosMax);
+    if (!pedidos) return erro(env, 400, 'Quantidade de voltas inválida.');
+    const s = await estadoDoJogador(env, did, c);
+    if (s.expedicao) return responder({ erro: 'Você já está na rua.' }, 409);
+    if (!rota.repete || !s.flags[rota.repete]) return erro(env, 400, 'Faça essa rota uma vez acompanhando antes de deixar o personagem farmando nela.');
+    if (s.ferido) return erro(env, 400, 'Ferido não sai pra ronda longa. Use um curativo ou espere passar.');
+    if ((s.itens.suprimento || 0) < 1) return erro(env, 400, 'Falta kit de campo. Cada volta gasta um.');
+    const semente = crypto.getRandomValues(new Uint32Array(1))[0];
+    const ronda = simularRonda(b.rota, { xp: c.xp, origem: c.origem, equipados: s.equipados, flags: s.flags, suprimentos: s.itens.suprimento || 0 }, semente, { ciclos: pedidos, vidaMin });
+    if (!ronda.ciclos.length) return erro(env, 400, 'Seu equipamento está gasto demais pra sair. Passe no Wolf.');
+    const n = ronda.ciclos.length, id = novoId(), inicio = Date.now(), fim = inicio + ronda.duracao * 1000;
+    const guardado = { tipo: 'ronda', ciclos: ronda.ciclos, parada: ronda.parada, vidaMin, pedidos,
+      equip: Object.fromEntries(Object.entries(s.equipados).map(([k, e]) => [k, e.id])) };
+    // os kits de todas as voltas previstas saem agora; chamar de volta antes devolve os das voltas que nem começaram
+    const lote = [
+      env.DB.prepare(`INSERT INTO game_expeditions (id, discord_id, rota, semente, regras, inicio, fim, status, sim) SELECT ?, ?, ?, ?, ?, ?, ?, 'andamento', ? WHERE ${tem(did, 'suprimento', n).sql}`)
+        .bind(id, did, b.rota, semente, VERSAO, inicio, fim, JSON.stringify(guardado), did, 'suprimento', n),
+      env.DB.prepare('UPDATE game_inventory SET qtd = qtd - ? WHERE discord_id = ? AND item = ? AND EXISTS (SELECT 1 FROM game_expeditions WHERE id = ?)').bind(n, did, 'suprimento', id),
+    ];
+    let r;
+    try { r = await env.DB.batch(lote); }
+    catch (e) {
+      if (/UNIQUE|constraint/i.test(String(e && e.message))) return responder({ erro: 'Você já está na rua.' }, 409);
+      throw e;
+    }
+    if (!r[0].meta.changes) return erro(env, 400, 'Falta kit de campo.');
+    return responder({ ok: true });
+  }
+
   // ----- voltar: no fim do tempo (concluir) ou antes (recuar) -----
   if ((pathname === '/game/expedicao/concluir' || pathname === '/game/expedicao/recuar') && req.method === 'POST') {
     const b = await ler(req);
@@ -154,6 +243,7 @@ export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, per
     if (e.status === 'encerrada') return responder({ ok: true, repetido: true, relatorio: JSON.parse(e.resultado) });
     const agoraMs = Date.now();
     const sim = JSON.parse(e.sim);
+    if (sim.tipo === 'ronda') return fecharRonda(env, did, c, e, sim, recuo, agoraMs, responder);
     let final;
     if (agoraMs >= e.fim) final = sim.final;
     else if (recuo) final = resultadoAte(sim, (agoraMs - e.inicio) / 1000);

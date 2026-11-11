@@ -51,6 +51,7 @@ Quem decide tudo é o servidor (`worker/src/regras.js` tem as regras puras; `wor
 - `POST /game/expedicao/concluir` (depois do fim) ou `/recuar` (antes) entrega o prêmio uma vez só: a expedição passa de `andamento` pra `premiando` e pra `encerrada` dentro do mesmo lote, e um índice único deixa só uma expedição ativa por personagem.
 - Loja, bancada, reparo e curativo (`POST /game/loja`, `/game/usar`) usam recibo em `game_ledger`: cada clique manda uma `chave`, e o mesmo pedido repetido não cobra nem paga duas vezes.
 - Créditos são moeda só do jogo, ganhos jogando. Não tem compra com dinheiro de verdade, troca entre jogadores nem PRZ Coins.
+- **Farm** (`POST /game/expedicao/ronda`): numa rota já feita, o personagem fica dando voltas por até 8 h, com o jogo aberto ou fechado. O servidor decide na saída quantas voltas cabem e onde para (kit de campo, vida, equipamento, queda ou tempo). Só voltas inteiras rendem, os kits das voltas que não começaram voltam, e o fechamento paga uma vez só.
 - Mudou algum número em `regras.js`? Suba `VERSAO`. Expedições em andamento terminam com o resultado que já estava guardado.
 
 As áreas de fora do abrigo não têm presença: cada jogador sai sozinho.
