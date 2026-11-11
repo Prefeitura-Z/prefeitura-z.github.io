@@ -161,7 +161,8 @@ const OBJETIVOS = [
   { id: 'T05', titulo: 'O posto respondeu', texto: 'Entregue o registro de rota ao Bashar.', feito: f => !!f.registro_entregue },
   { id: 'T06', titulo: 'Nada se perde', texto: 'Venda alguma coisa da rua pro Wolf.', feito: f => !!f.vendeu },
   { id: 'T07', titulo: 'O dono do entreposto', texto: 'Vença o Porteiro na rota do Entreposto. Vá bem equipado.', feito: f => !!f.porteiro_vencido },
-  { id: 'T08', titulo: 'Mais longe', texto: 'As próximas áreas chegam nas próximas etapas.', feito: () => false, futuro: true },
+  { id: 'T08', titulo: 'Enquanto você estiver fora', texto: 'No portão, escolha uma rota que você já fez e deixe o personagem farmando nela.', feito: f => !!f.ronda_feita },
+  { id: 'T09', titulo: 'Mais longe', texto: 'As próximas áreas chegam nas próximas etapas.', feito: () => false, futuro: true },
 ];
 
 PZ.mundo = { T, LARG, ALT, chao, OBJ, NPCS, MORADORES, SPAWN, DIALOGOS, OBJETIVOS };

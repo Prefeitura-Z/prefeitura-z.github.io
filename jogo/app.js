@@ -42,6 +42,7 @@ const api = window.PZ_DEMO ? PZ.demoApi() : {
   papel(b) { return this.chamar('/game/admin/papel', { method: 'POST', body: b }); },
   catalogo() { return this.chamar('/game/catalogo'); },
   iniciar(rota) { return this.chamar('/game/expedicao/iniciar', { method: 'POST', body: { rota } }); },
+  ronda(b) { return this.chamar('/game/expedicao/ronda', { method: 'POST', body: b }); },
   concluir(id) { return this.chamar('/game/expedicao/concluir', { method: 'POST', body: { id } }); },
   recuar(id) { return this.chamar('/game/expedicao/recuar', { method: 'POST', body: { id } }); },
   equipar(id, tirar) { return this.chamar('/game/equipar', { method: 'POST', body: { id, tirar } }); },
@@ -359,11 +360,31 @@ function abrirRotas() {
       <small>${esc(r.resumo)}</small>
       <small>${r.pontos.filter(p => p.enc.length).length} paradas · ${esc(inimigos)} · traz ${esc(r.saque.map(k => item(k).nome.toLowerCase()).join(', '))}</small>
       <small>${r.custo ? `Gasta ${r.custo} kit de campo` : 'Não gasta kit de campo'}${falta ? ' · ' + esc(falta) : semKit ? ' · Falta kit de campo: o Wolf vende e a bancada dele faz.' : ''}</small></span>
-      <button type="button" class="botao ${falta || semKit ? '' : 'primario'}" data-rota="${esc(id)}" ${falta || semKit ? 'disabled' : ''}>${falta ? 'Trancada' : 'Sair pelo portão'}</button></li>`;
+      <span class="acoes"><button type="button" class="botao ${falta || semKit ? '' : 'primario'}" data-rota="${esc(id)}" ${falta || semKit ? 'disabled' : ''}>${falta ? 'Trancada' : 'Sair pelo portão'}</button>
+      ${r.repete && f[r.repete] ? `<button type="button" class="botao" data-ronda="${esc(id)}" ${e.ferido || !(e.itens.suprimento > 0) ? 'disabled title="Precisa de kit de campo e de estar sem ferimento"' : ''}>Deixar farmando</button>` : ''}</span></li>`;
   }).join('');
+  $('ronda-config').hidden = true;
   abrirPainel('rotas', $('rotas-lista').querySelector('button:not(:disabled)') || undefined);
 }
+// farm: escolhe uma rota já feita e deixa o personagem lá. O servidor decide na hora quantas voltas cabem e onde para.
+let rotaRonda = null;
+function abrirRonda(id) {
+  const r = catalogo.rotas[id], kits = estado.estado.itens.suprimento || 0, R = catalogo.ronda;
+  rotaRonda = id;
+  $('ronda-titulo').textContent = 'Farmar em ' + r.nome;
+  $('ronda-nota').textContent = `O personagem fica dando voltas nessa rota por até ${R.limiteSeg / 3600} horas, mesmo com o jogo fechado. Cada volta gasta 1 kit de campo (você tem ${kits}). Ele volta sozinho se acabar o kit, se a vida baixar, se o equipamento ficar no limite ou se cair. Você pode chamar de volta quando quiser.`;
+  $('ronda-voltas').innerHTML = `<option value="${R.ciclosMax}">Até acabar os kits (${kits})</option>` + [3, 5, 10, 20].filter(n => n < kits).map(n => `<option value="${n}">${n} voltas</option>`).join('');
+  $('ronda-config').hidden = false;
+  $('btn-ronda').focus();
+}
+$('ronda-config').onsubmit = async ev => {
+  ev.preventDefault();
+  if (!rotaRonda) return;
+  await pedir($('btn-ronda'), $('rotas-msg'), () => api.ronda({ rota: rotaRonda, ciclos: +$('ronda-voltas').value, vidaMin: +$('ronda-vida').value }));
+  if (estado.expedicao) { fecharPainel(true); entrarNaExpedicao(); }
+};
 $('rotas-lista').onclick = async ev => {
+  const br = ev.target.closest('[data-ronda]'); if (br) return abrirRonda(br.dataset.ronda);
   const b = ev.target.closest('[data-rota]'); if (!b) return;
   const r = await pedir(b, $('rotas-msg'), () => api.iniciar(b.dataset.rota));
   if (estado.expedicao) { fecharPainel(true); entrarNaExpedicao(); }
@@ -379,12 +400,19 @@ function entrarNaExpedicao() {
   $('tela-jogo').dataset.modo = 'expedicao';
   $('btn-perto').hidden = true; $('demo-aviso').hidden = true;
   $('exp-hud').hidden = false; $('exp-feed').innerHTML = '';
-  recuoArmado = false; $('btn-recuar').textContent = 'Recuar pro abrigo'; $('btn-recuar').disabled = false;
+  const ex = estado.expedicao, farm = ex.tipo === 'ronda';
+  textoRecuar = farm ? 'Chamar de volta pro abrigo' : 'Recuar pro abrigo';
+  recuoArmado = false; $('btn-recuar').textContent = textoRecuar; $('btn-recuar').disabled = false; $('btn-recuar').hidden = false;
+  $('exp-area').textContent = farm ? `Farm · volta ${ex.ronda.volta} de ${ex.ronda.voltas}` : 'Quarteirão da Entrada';
+  $('exp-ronda').hidden = !farm;
+  if (farm) {
+    const g = Object.entries(ex.ronda.itens).map(([k, q]) => `${q} ${item(k).nome.toLowerCase()}`).join(', ');
+    $('exp-ronda').textContent = `Já guardado: ${ex.ronda.feitas} ${ex.ronda.feitas === 1 ? 'volta' : 'voltas'}, ${ex.ronda.xp} XP${g ? ', ' + g : ''}. Fim previsto às ${new Date(ex.ronda.fim - desvio).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}. Pode fechar o jogo.`;
+  }
   atualizarFicha();
-  const ex = estado.expedicao;
   cena = new PZ.Expedicao($('cena'), {
     expedicao: ex, catalogo, aparencia: estado.personagem.aparencia, reduzir: !!ajustes.reduzir,
-    agora: agoraServidor, mudou: mostrarExpedicao, fim: () => fecharExpedicao(ex.id, false),
+    agora: agoraServidor, mudou: mostrarExpedicao, fim: () => farm ? proximaVolta(ex) : fecharExpedicao(ex.id, false),
   });
   motor = cena.motor; PZ.motorAtual = motor; PZ.cenaAtual = cena;
   $('cena').focus();
@@ -395,14 +423,22 @@ function mostrarExpedicao(h) {
   $('exp-vida').parentElement.classList.toggle('baixa', h.vida / h.vidaMax < 0.35);
   $('exp-carga-n').textContent = `${h.carga}/${h.capacidade}`; $('exp-carga').style.width = `${Math.min(100, 100 * h.carga / h.capacidade)}%`;
   $('exp-parada-n').textContent = `${h.feitas}/${h.total}`; $('exp-parada').style.width = `${100 * h.feitas / Math.max(1, h.total)}%`;
-  $('exp-tempo').textContent = h.restante ? `Volta em ${relogio(h.restante)} · ${h.xp} XP até aqui` : 'Chegando ao portão…';
+  $('exp-tempo').textContent = h.espera ? `Próxima volta em ${relogio(h.espera)}` : h.restante ? `Volta em ${relogio(h.restante)} · ${h.xp} XP até aqui` : 'Chegando ao portão…';
   $('exp-feed').innerHTML = h.feed.map(l => `<li class="${l.cls}">${esc(l.txt)}</li>`).join('');
-  if (h.voltando && !recuoArmado) $('btn-recuar').hidden = true; else $('btn-recuar').hidden = false;
+  $('btn-recuar').hidden = h.voltando && !recuoArmado && estado.expedicao?.tipo !== 'ronda';
 }
-let recuoArmado = false, fechando = false;
+let recuoArmado = false, fechando = false, textoRecuar = 'Recuar pro abrigo';
+// farm: acabou uma volta. Se a ronda inteira terminou, fecha; senão busca a próxima volta no servidor.
+async function proximaVolta(ex) {
+  if (agoraServidor() >= ex.ronda.fim) return fecharExpedicao(ex.id, false);
+  await new Promise(r => setTimeout(r, 900));
+  if (estado?.expedicao?.id !== ex.id || fechando || cena?.ex !== ex) return;
+  try { absorver(await api.eu()); } catch (e) { if (e.status === 401) return sessaoAcabou(); return setTimeout(() => proximaVolta(ex), 5000); }
+  if (estado.expedicao) entrarNaExpedicao(); else entrarNoAbrigo();
+}
 $('btn-recuar').onclick = () => {
   if (!estado.expedicao) return;
-  if (!recuoArmado) { recuoArmado = true; $('btn-recuar').textContent = 'Confirmar: voltar com o que já revistei'; setTimeout(() => { recuoArmado = false; $('btn-recuar').textContent = 'Recuar pro abrigo'; }, 4000); return; }
+  if (!recuoArmado) { recuoArmado = true; $('btn-recuar').textContent = estado.expedicao.tipo === 'ronda' ? 'Confirmar: a volta pela metade não rende' : 'Confirmar: voltar com o que já revistei'; setTimeout(() => { recuoArmado = false; $('btn-recuar').textContent = textoRecuar; }, 4000); return; }
   fecharExpedicao(estado.expedicao.id, true);
 };
 // Pede o fechamento ao servidor. Ele confere a hora dele; se ainda não deu, a gente espera e pergunta de novo.
@@ -423,16 +459,29 @@ const TITULO_FIM = {
   recuo: ['Você recuou', 'Voltou antes do fim e ficou com o que já tinha revistado.'],
   derrota: ['Você caiu', 'Te carregaram de volta. O que estava revistado antes da queda veio junto.'],
 };
+const FIM_FARM = {
+  ciclos: ['Farm concluído', 'Ele deu todas as voltas combinadas e voltou pro abrigo.'],
+  suprimentos: ['Acabaram os kits de campo', 'Sem kit não tem próxima volta, então ele voltou pro abrigo.'],
+  vida: ['Voltou pra não cair', 'A vida ficou abaixo do limite que você escolheu.'],
+  equipamento: ['Equipamento no limite', 'A arma ou a proteção gastou demais pra continuar. O Wolf conserta.'],
+  tempo: ['Limite de 8 horas', 'Ele ficou na rua o máximo permitido por saída.'],
+  derrota: ['Você caiu', 'Te carregaram de volta. O que estava guardado das voltas anteriores está no armazém.'],
+  chamado: ['Você chamou de volta', 'As voltas inteiras contaram. A que estava pela metade não rendeu.'],
+};
+const tempoLongo = s => s < 3600 ? `${Math.max(1, Math.round(s / 60))} min` : `${Math.floor(s / 3600)} h ${Math.round(s % 3600 / 60)} min`;
 function mostrarRelatorio(rel) {
   cena?.parar();
   $('exp-hud').hidden = true;
-  const [titulo, texto] = TITULO_FIM[rel.motivo] || TITULO_FIM.concluida;
-  $('relatorio-rota').textContent = `${rel.nomeRota} · ${relogio(rel.fora)} fora · ${rel.paradas}/${rel.totalParadas} paradas`;
+  const farm = rel.tipo === 'ronda';
+  const [titulo, texto] = (farm ? FIM_FARM[rel.motivo] : TITULO_FIM[rel.motivo]) || TITULO_FIM.concluida;
+  $('relatorio-rota').textContent = farm ? `Farm em ${rel.nomeRota} · ${tempoLongo(rel.fora)} fora · ${rel.voltas} ${rel.voltas === 1 ? 'volta' : 'voltas'}`
+    : `${rel.nomeRota} · ${relogio(rel.fora)} fora · ${rel.paradas}/${rel.totalParadas} paradas`;
   $('relatorio-t').textContent = titulo; $('relatorio-texto').textContent = texto;
   const li = [];
   li.push(`<li><span><b>+${rel.xp} XP</b>${rel.bonus ? '<small>Inclui o bônus da primeira vez nesta rota</small>' : ''}</span></li>`);
   if (rel.nivelDepois > rel.nivelAntes) li.push(`<li class="destaque"><span><b>Nível ${rel.nivelDepois}</b><small>Mais vida e mais ataque</small></span></li>`);
   for (const [k, q] of Object.entries(rel.itens || {})) li.push(`<li><span><b>${q} × ${esc(item(k).nome)}</b><small>${esc(TIPO[item(k).tipo] || '')}</small></span></li>`);
+  if (farm) li.push(`<li><span><b>${rel.kits} ${rel.kits === 1 ? 'kit de campo gasto' : 'kits de campo gastos'}</b>${rel.kitsDevolvidos ? `<small>${rel.kitsDevolvidos} voltaram pro armazém porque as voltas nem começaram</small>` : ''}</span></li>`);
   if (rel.creditos) li.push(`<li><span><b>+${rel.creditos} créditos</b></span></li>`);
   if (rel.equip) li.push(`<li class="destaque"><span><b>${esc(item(rel.equip).nome)}</b><small>${esc(efeito(item(rel.equip)))} · está no seu armazém, equipe na Mochila</small></span></li>`);
   const perd = Object.entries(rel.perdidos || {}).map(([k, q]) => `${q} ${item(k).nome}`);

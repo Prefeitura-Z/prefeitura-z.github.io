@@ -218,3 +218,10 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   .exp-barras { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .abas button { padding: 7px 8px; }
 }
+.ronda-config { border: 1px solid #6b5a35; background: #2a2820; border-radius: 6px; padding: 12px; margin-top: 10px; display: grid; gap: 8px; }
+.ronda-config h3 { margin: 0; color: var(--luz); }
+.ronda-config .nota { margin: 0; }
+.ronda-campos { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+.ronda-campos label { display: grid; gap: 4px; font-size: 13px; color: var(--fraco); flex: 1 1 200px; }
+.ronda-campos select { background: var(--carvao); border: 1px solid var(--linha); border-radius: 6px; padding: 8px 10px; }
+.exp-ronda { margin: 0; font-size: 12px; color: var(--fraco); border-top: 1px solid var(--linha); padding-top: 8px; }

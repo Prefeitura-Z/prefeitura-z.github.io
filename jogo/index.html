@@ -89,6 +89,7 @@
       <div><span>Mochila</span><b id="exp-carga-n"></b><i class="barra"><i id="exp-carga"></i></i></div>
       <div><span>Paradas</span><b id="exp-parada-n"></b><i class="barra rota"><i id="exp-parada"></i></i></div>
     </div>
+    <p class="exp-ronda" id="exp-ronda" hidden></p>
     <ol class="exp-feed" id="exp-feed"></ol>
     <div class="exp-pe"><span id="exp-tempo"></span><button type="button" class="botao perigo" id="btn-recuar">Recuar pro abrigo</button></div>
   </div>
@@ -139,7 +140,16 @@
     <div class="painel-topo"><h2 id="rotas-t">Rotas · Quarteirão da Entrada</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
     <p class="atributos" id="rotas-voce"></p>
     <ul class="lista rotas-lista" id="rotas-lista"></ul>
-    <p class="nota" id="rotas-msg" aria-live="polite">A expedição acontece sozinha. Dá pra recuar a qualquer momento e ficar com o que já foi revistado.</p>
+    <form class="ronda-config" id="ronda-config" hidden>
+      <h3 id="ronda-titulo"></h3>
+      <p class="nota" id="ronda-nota"></p>
+      <div class="ronda-campos">
+        <label for="ronda-voltas"><span>Quantas voltas</span><select id="ronda-voltas"></select></label>
+        <label for="ronda-vida"><span>Voltar pro abrigo se a vida ficar abaixo de</span><select id="ronda-vida"><option value="0.3">30%</option><option value="0.5" selected>50%</option><option value="0.7">70%</option></select></label>
+      </div>
+      <button type="submit" class="botao primario" id="btn-ronda">Deixar farmando</button>
+    </form>
+    <p class="nota" id="rotas-msg" aria-live="polite">Na primeira vez em cada rota você acompanha até o fim. Depois dá pra deixar o personagem farmando nela, com o jogo aberto ou fechado.</p>
   </div>
 
   <div class="painel centro-painel medio" id="mochila" role="dialog" aria-labelledby="mochila-t" hidden>

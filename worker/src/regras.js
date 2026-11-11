@@ -1,7 +1,7 @@
 // Prefeitura Z: Depois da Queda — regras do jogo (itens, rotas, inimigos, combate).
 // Tudo aqui é função pura, sem banco e sem relógio: o servidor sorteia uma semente, simula a expedição
 // inteira de uma vez e guarda o resultado. O navegador só assiste. Mudou número aqui? Suba VERSAO.
-export const VERSAO = 1;
+export const VERSAO = 2;
 
 // ---------- itens ----------
 // tipo: material | consumivel | missao | arma | protecao | mochila | ferramenta
@@ -56,7 +56,7 @@ export const ROTAS = {
       { p: [37.5, 11.2], enc: ['errante', 'corredor'], traz: 'registro_rota', trazSe: 'sem_registro' },
     ],
     saque: { sucata: [1, 2], tecido: [0, 1] },
-    marca: 'rota1_concluida',
+    marca: 'rota1_concluida', repete: 'rota1_concluida',
   },
   quarteirao: {
     nome: 'Ronda do Quarteirão', resumo: 'Volta completa pelas duas ruas. Mais errante, mais coisa pra trazer.',
@@ -71,6 +71,7 @@ export const ROTAS = {
       { p: [36.5, 12.6], enc: ['errante', 'corredor'] },
     ],
     saque: { sucata: [1, 3], tecido: [0, 2], pecas: [0, 1] },
+    marca: 'rota2_concluida', repete: 'rota2_concluida',
   },
   entreposto: {
     nome: 'Entreposto do Porteiro', resumo: 'O antigo entreposto da rua de cima tem dono. Ele não deixa ninguém passar.',
@@ -82,6 +83,7 @@ export const ROTAS = {
       { p: [21.5, 4.6], enc: ['porteiro'], primeiraVez: { item: 'machadinha', marca: 'porteiro_vencido' } },
     ],
     saque: { sucata: [1, 3], pecas: [1, 2], peca_eletrica: [0, 1] },
+    repete: 'porteiro_vencido',   // chefe só entra em ronda depois de uma vitória acompanhada
   },
 };
 export const VEL_ANDAR = 1.9;        // células por segundo na rua
@@ -155,7 +157,7 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
   const rota = ROTAS[rotaId];
   const rnd = sorteador(semente), forca = rota.forca || 1;
   const log = [], salvos = [];
-  let t = 0, pos = SAIDA, vida = attrs.vidaMax, carga = 0, xp = 0, paradas = 0;
+  let t = 0, pos = SAIDA, vida = Math.max(1, Math.min(attrs.vidaMax, ctx.vidaInicial || attrs.vidaMax)), carga = 0, xp = 0, paradas = 0;
   const itens = {}, perdidos = {}, marcas = [];
   let equipGanho = null, motivo = 'concluida', ficouParaTras = false;
   const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
@@ -241,9 +243,62 @@ export function resultadoAte(sim, t) {
     motivo: 'recuo', duracao: Math.max(0, Math.floor(t)), paradas: ult ? ult.paradas : 0, totalParadas: sim.final.totalParadas,
     xp: ult ? ult.xp : 0, itens: ult ? ult.itens : {}, equip: ult ? ult.equip : null,
     // marcas de rota concluída não valem no recuo; a do chefe vale se ele já caiu
-    marcas: ult ? ult.marcas.filter(m => m !== 'rota1_concluida') : [],
+    marcas: ult ? ult.marcas.filter(m => !/^rota\d+_concluida$/.test(m)) : [],
     perdidos: {}, ficouParaTras: false, vidaFinal: ult ? ult.vida : sim.final.vidaMax, vidaMax: sim.final.vidaMax,
   };
+}
+
+// ---------- ronda longa (rende com o jogo fechado) ----------
+// A mesma rota repetida, uma volta atrás da outra, com a MESMA simulação da expedição acompanhada.
+// Tudo é decidido na saída: quantas voltas cabem, onde para e por quê. Depois é só o relógio do servidor.
+export const RONDA = {
+  limiteSeg: 8 * 3600,     // no máximo 8 horas por saída, igual pra todo mundo
+  descansoSeg: 240,        // pausa no portão entre uma volta e outra (guarda o saque e respira)
+  descansoCura: 0.4,       // fração da vida máxima recuperada em cada pausa
+  condicaoMin: 20,         // arma ou proteção abaixo disso: volta pra casa
+  vidaMin: [0.3, 0.5, 0.7],
+  ciclosMax: 100,
+  desgaste: 0.3,           // farmando com calma o equipamento gasta bem menos que numa investida
+};
+// base: { xp, origem, equipados: { tipo: { id, item, condicao } }, flags, suprimentos }
+// op: { ciclos, vidaMin }.  Devolve { ciclos: [...], duracao, parada }
+export function simularRonda(rotaId, base, semente, op) {
+  const rnd = sorteador(semente ^ 0x9e3779b9);
+  const equipados = Object.fromEntries(Object.entries(base.equipados || {}).map(([k, e]) => [k, { ...e }]));
+  const pedidos = Math.max(1, Math.min(RONDA.ciclosMax, op.ciclos || RONDA.ciclosMax));
+  let t = 0, xp = base.xp, sup = base.suprimentos, vida = null, parada = 'ciclos';
+  const ciclos = [];
+  while (ciclos.length < pedidos) {
+    if (sup < 1) { parada = 'suprimentos'; break; }
+    if (['arma', 'protecao'].some(k => equipados[k] && equipados[k].condicao < RONDA.condicaoMin)) { parada = 'equipamento'; break; }
+    const attrs = atributos({ xp, origem: base.origem, equipados, ferido: false });
+    const vidaInicial = vida == null ? attrs.vidaMax : Math.min(attrs.vidaMax, Math.round(vida + attrs.vidaMax * RONDA.descansoCura));
+    if (ciclos.length && vidaInicial / attrs.vidaMax < op.vidaMin) { parada = 'vida'; break; }
+    const t0 = ciclos.length ? t + RONDA.descansoSeg : 0;
+    const sementeCiclo = Math.floor(rnd() * 4294967296) >>> 0;
+    const sim = simular(rotaId, attrs, sementeCiclo, { flags: base.flags, temRegistro: true, vidaInicial });
+    if (t0 + sim.duracao > RONDA.limiteSeg) { parada = 'tempo'; break; }
+    const gasto = desgaste(sim.final, { desgaste: attrs.desgaste * RONDA.desgaste });
+    for (const k of Object.keys(equipados)) equipados[k].condicao = Math.max(0, equipados[k].condicao - (gasto[k] || 0));
+    sup--; xp += sim.final.xp; vida = sim.final.vidaFinal; t = t0 + sim.duracao;
+    ciclos.push({ t0, dur: sim.duracao, semente: sementeCiclo, attrs, vidaInicial, motivo: sim.final.motivo, xp: sim.final.xp, itens: sim.final.itens, paradas: sim.final.paradas, gasto });
+    if (sim.final.motivo === 'derrota') { parada = 'derrota'; break; }
+  }
+  return { ciclos, duracao: t, parada };
+}
+// o que já está valendo no instante t: só voltas inteiras contam
+export function rondaAte(ronda, t) {
+  const feitos = ronda.ciclos.filter(c => c.t0 + c.dur <= t);
+  const iniciados = ronda.ciclos.filter(c => c.t0 <= t).length;
+  const itens = {}, gasto = {};
+  let xp = 0, paradas = 0;
+  for (const c of feitos) {
+    xp += c.xp; paradas += c.paradas;
+    for (const [k, q] of Object.entries(c.itens)) itens[k] = (itens[k] || 0) + q;
+    for (const [k, q] of Object.entries(c.gasto)) gasto[k] = (gasto[k] || 0) + q;
+  }
+  const ult = feitos[feitos.length - 1];
+  return { feitos: feitos.length, iniciados, xp, itens, gasto, paradas, derrota: !!ult && ult.motivo === 'derrota' };
 }
 
 // desgaste do equipamento por expedição, em pontos de condição
@@ -263,10 +318,11 @@ export function catalogo() {
   return {
     versao: VERSAO, itens: ITENS, loja: LOJA, receitas: RECEITAS, inimigos: INIMIGOS,
     rotas: Object.fromEntries(Object.entries(ROTAS).map(([id, r]) => [id, {
-      nome: r.nome, resumo: r.resumo, custo: r.custo, requer: r.requer, perigo: r.perigo, chefe: r.chefe || null,
+      nome: r.nome, resumo: r.resumo, custo: r.custo, requer: r.requer, repete: r.repete || null, perigo: r.perigo, chefe: r.chefe || null,
       pontos: r.pontos.map(p => ({ p: p.p, enc: p.enc })), saque: Object.keys(r.saque),
     }])),
     saida: SAIDA, origens: Object.fromEntries(Object.entries(ORIGEM_BONUS).map(([k, v]) => [k, v.txt])),
     reparoPorPonto: CUSTO_REPARO_POR_PONTO, ferimentoSeg: FERIMENTO_SEG,
+    ronda: { limiteSeg: RONDA.limiteSeg, descansoSeg: RONDA.descansoSeg, vidaMin: RONDA.vidaMin, ciclosMax: RONDA.ciclosMax, condicaoMin: RONDA.condicaoMin },
   };
 }

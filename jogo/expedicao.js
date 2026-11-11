@@ -138,7 +138,7 @@ class Expedicao {
 
   // ---------- números pro painel (vida, mochila, parada, tempo, últimos acontecimentos) ----------
   avisar(t, par, perna) {
-    let vida = this.ex.vidaMax, carga = 0, xp = 0, feitas = 0;
+    let vida = this.ex.vidaInicial || this.ex.vidaMax, carga = 0, xp = 0, feitas = 0;
     const feed = [], nomeItem = id => this.cat.itens[id]?.nome || id;
     for (const g of this.golpes) {
       if (g.t > t) break;
@@ -155,15 +155,17 @@ class Expedicao {
     }
     if (this.caiu != null && t >= this.caiu) { vida = 0; feed.push({ t: this.caiu, cls: 'dano', txt: 'Você caiu. Alguém do abrigo vai te buscar.' }); }
     feed.sort((a, b) => a.t - b.t);
+    const espera = Math.max(0, Math.ceil((this.ex.inicio - this.op.agora()) / 1000));
     let fase;
-    if (t >= this.duracao) fase = 'De volta ao portão';
+    if (espera > 0) fase = 'Descansando no portão';
+    else if (t >= this.duracao) fase = 'De volta ao portão';
     else if (perna && perna.volta) fase = this.motivo === 'derrota' ? 'Carregado de volta pro abrigo' : this.motivo === 'mochila' ? 'Mochila cheia: voltando' : 'Voltando pro abrigo';
     else if (par && t >= par.t0 && t < par.fim) fase = t >= par.limpo && !this.vivos.length ? 'Revistando' : (par.ini.some(n => n.chefe) ? 'Enfrentando ' + par.ini.find(n => n.chefe).nome : 'Em combate');
     else fase = `A caminho da parada ${Math.min(feitas + 1, this.totalParadas)}`;
     const h = {
       rota: this.rota.nome, fase, vida, vidaMax: this.ex.vidaMax, carga, capacidade: this.ex.capacidade, xp,
       feitas, total: this.totalParadas, restante: Math.max(0, Math.ceil(this.duracao - t)), voltando: !!(perna && perna.volta) || t >= this.duracao,
-      feed: feed.slice(-4),
+      feed: feed.slice(-4), espera,
     };
     const k = JSON.stringify(h);
     if (k !== this.ultimoHud) { this.ultimoHud = k; this.op.mudou(h); }
