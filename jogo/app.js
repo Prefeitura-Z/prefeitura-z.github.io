@@ -367,7 +367,8 @@ function abrirRotas() {
       <small>${r.pontos.filter(p => p.enc.length).length} paradas · ${esc(inimigos)} · traz ${esc(r.saque.map(k => item(k).nome.toLowerCase()).join(', '))}</small>
       <small>${r.custo ? `Gasta ${r.custo} kit de campo` : 'Não gasta kit de campo'}${falta ? ' · ' + esc(falta) : semKit ? ' · Falta kit de campo: o Wolf vende e a bancada dele faz.' : ''}</small></span>
       <span class="acoes"><button type="button" class="botao ${falta || semKit ? '' : 'primario'}" data-rota="${esc(id)}" ${falta || semKit ? 'disabled' : ''}>${falta ? 'Trancada' : 'Sair pelo portão'}</button>
-      ${r.repete && f[r.repete] ? `<button type="button" class="botao" data-ronda="${esc(id)}" ${e.ferido || !(e.itens.suprimento > 0) ? 'disabled title="Precisa de kit de campo e de estar sem ferimento"' : ''}>Deixar farmando</button>` : ''}</span></li>`;
+      ${r.repete && f[r.repete] ? `<button type="button" class="botao" data-ronda="${esc(id)}" ${e.ferido || (r.custo && !(e.itens.suprimento > 0)) ? 'disabled' : ''}>Deixar farmando</button>` : ''}</span>
+      ${r.repete && f[r.repete] && e.ferido ? '<small class="trava">Ferido não sai pra farmar: use um curativo na Mochila ou espere passar.</small>' : ''}</li>`;
   }).join('');
   $('ronda-config').hidden = true;
   abrirPainel('rotas', $('rotas-lista').querySelector('button:not(:disabled)') || undefined);
@@ -378,8 +379,8 @@ function abrirRonda(id) {
   const r = catalogo.rotas[id], kits = estado.estado.itens.suprimento || 0, R = catalogo.ronda;
   rotaRonda = id;
   $('ronda-titulo').textContent = 'Farmar em ' + r.nome;
-  $('ronda-nota').textContent = `O personagem fica dando voltas nessa rota por até ${R.limiteSeg / 3600} horas, mesmo com o jogo fechado. Ele não volta pro portão entre as voltas: os infectados reaparecem e ele segue lá. Cada kit de campo segura ${R.voltasPorKit} voltas (você tem ${kits}). Ele volta sozinho se acabar o kit, se a vida baixar, se o equipamento ficar no limite ou se cair. Você pode chamar de volta quando quiser.`;
-  $('ronda-voltas').innerHTML = `<option value="${R.ciclosMax}">Até acabar os kits (${kits})</option>` + [1, 2, 3, 5, 10].filter(n => n < kits).map(n => `<option value="${n * R.voltasPorKit}">${n * R.voltasPorKit} voltas (${n} ${n === 1 ? 'kit' : 'kits'})</option>`).join('');
+  $('ronda-nota').textContent = `O personagem fica dando voltas nessa rota por até ${R.limiteSeg / 3600} horas, mesmo com o jogo fechado. Ele não volta pro portão entre as voltas: os infectados reaparecem e ele segue lá. ${r.custo ? `Cada kit de campo segura ${R.voltasPorKit} voltas (você tem ${kits}).` : 'Nessa rota o farm não gasta kit de campo.'} Ele volta sozinho ${r.custo ? 'se acabar o kit, ' : ''}se a vida baixar, se o equipamento ficar no limite ou se cair. Você pode chamar de volta quando quiser.`;
+  $('ronda-voltas').innerHTML = !r.custo ? `<option value="${R.ciclosMax}">Até eu chamar ou algo parar ele</option>` + [10, 30, 60].map(n => `<option value="${n}">${n} voltas</option>`).join('') : `<option value="${R.ciclosMax}">Até acabar os kits (${kits})</option>` + [1, 2, 3, 5, 10].filter(n => n < kits).map(n => `<option value="${n * R.voltasPorKit}">${n * R.voltasPorKit} voltas (${n} ${n === 1 ? 'kit' : 'kits'})</option>`).join('');
   $('ronda-config').hidden = false;
   $('btn-ronda').focus();
 }
@@ -488,7 +489,7 @@ function mostrarRelatorio(rel) {
   li.push(`<li><span><b>+${rel.xp} XP</b>${rel.bonus ? '<small>Inclui o bônus da primeira vez nesta rota</small>' : ''}</span></li>`);
   if (rel.nivelDepois > rel.nivelAntes) li.push(`<li class="destaque"><span><b>Nível ${rel.nivelDepois}</b><small>Mais vida e mais ataque</small></span></li>`);
   for (const [k, q] of Object.entries(rel.itens || {})) li.push(`<li><span><b>${q} × ${esc(item(k).nome)}</b><small>${esc(TIPO[item(k).tipo] || '')}</small></span></li>`);
-  if (farm) li.push(`<li><span><b>${rel.kits} ${rel.kits === 1 ? 'kit de campo gasto' : 'kits de campo gastos'}</b>${rel.kitsDevolvidos ? `<small>${rel.kitsDevolvidos} voltaram pro armazém porque nem foram abertos</small>` : ''}</span></li>`);
+  if (farm && (rel.kits || rel.kitsDevolvidos)) li.push(`<li><span><b>${rel.kits} ${rel.kits === 1 ? 'kit de campo gasto' : 'kits de campo gastos'}</b>${rel.kitsDevolvidos ? `<small>${rel.kitsDevolvidos} voltaram pro armazém porque nem foram abertos</small>` : ''}</span></li>`);
   if (rel.creditos) li.push(`<li><span><b>+${rel.creditos} créditos</b></span></li>`);
   if (rel.equip) li.push(`<li class="destaque"><span><b>${esc(item(rel.equip).nome)}</b><small>${esc(efeito(item(rel.equip)))} · está no seu armazém, equipe na Mochila</small></span></li>`);
   const perd = Object.entries(rel.perdidos || {}).map(([k, q]) => `${q} ${item(k).nome}`);

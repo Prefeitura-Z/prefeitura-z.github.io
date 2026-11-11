@@ -103,7 +103,7 @@ async function fecharRonda(env, did, c, e, sim, recuo, agoraMs, responder) {
   const acabou = agoraMs >= e.fim;
   if (!acabou && !recuo) return responder({ erro: 'Você ainda não voltou.' }, 409);
   const t = seg(), ate = rondaAte(sim, (agoraMs - e.inicio) / 1000), rota = ROTAS[e.rota];
-  const porKit = sim.porKit || 1, kits = kitsDaRonda(ate.iniciados, porKit), devolver = kitsDaRonda(sim.ciclos.length, porKit) - kits;
+  const porKit = sim.porKit || 1, kits = sim.semKit ? 0 : kitsDaRonda(ate.iniciados, porKit), devolver = sim.semKit ? 0 : kitsDaRonda(sim.ciclos.length, porKit) - kits;
   const relatorio = {
     id: e.id, rota: e.rota, nomeRota: rota ? rota.nome : e.rota, tipo: 'ronda', motivo: acabou ? sim.parada : 'chamado',
     fora: Math.round((agoraMs - e.inicio) / 1000), voltas: ate.feitos, voltasPrevistas: sim.ciclos.length, kits, kitsDevolvidos: devolver,
@@ -219,12 +219,12 @@ export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, per
     if (s.expedicao) return responder({ erro: 'Você já está na rua.' }, 409);
     if (!rota.repete || !s.flags[rota.repete]) return erro(env, 400, 'Faça essa rota uma vez acompanhando antes de deixar o personagem farmando nela.');
     if (s.ferido) return erro(env, 400, 'Ferido não sai pra ronda longa. Use um curativo ou espere passar.');
-    if ((s.itens.suprimento || 0) < 1) return erro(env, 400, 'Falta kit de campo pra deixar farmando.');
+    if (rota.custo > 0 && (s.itens.suprimento || 0) < 1) return erro(env, 400, 'Falta kit de campo pra deixar farmando nessa rota. O Wolf vende e a bancada dele faz.');
     const semente = crypto.getRandomValues(new Uint32Array(1))[0];
     const ronda = simularRonda(b.rota, { xp: c.xp, origem: c.origem, equipados: s.equipados, flags: s.flags, suprimentos: s.itens.suprimento || 0 }, semente, { ciclos: pedidos, vidaMin });
     if (!ronda.ciclos.length) return erro(env, 400, 'Seu equipamento está gasto demais pra sair. Passe no Wolf.');
     const n = ronda.kits, id = novoId(), inicio = Date.now(), fim = inicio + ronda.duracao * 1000;
-    const guardado = { tipo: 'ronda', ciclos: ronda.ciclos, parada: ronda.parada, vidaMin, pedidos, porKit: RONDA.voltasPorKit, retorno: ronda.retorno, de: ronda.de,
+    const guardado = { tipo: 'ronda', ciclos: ronda.ciclos, parada: ronda.parada, vidaMin, pedidos, porKit: RONDA.voltasPorKit, semKit: ronda.semKit, retorno: ronda.retorno, de: ronda.de,
       equip: Object.fromEntries(Object.entries(s.equipados).map(([k, e]) => [k, e.id])) };
     // os kits de todas as voltas previstas saem agora; chamar de volta antes devolve os das voltas que nem começaram
     const lote = [

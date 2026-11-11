@@ -284,9 +284,11 @@ export function simularRonda(rotaId, base, semente, op) {
   const equipados = Object.fromEntries(Object.entries(base.equipados || {}).map(([k, e]) => [k, { ...e }]));
   const pedidos = Math.max(1, Math.min(RONDA.ciclosMax, op.ciclos || RONDA.ciclosMax));
   let t = 0, xp = base.xp, sup = base.suprimentos, vida = null, parada = 'ciclos', pos = null;
+  const usaKit = ROTAS[rotaId].custo > 0;
   const ciclos = [];
   while (ciclos.length < pedidos) {
-    const pedeKit = ciclos.length % RONDA.voltasPorKit === 0;
+    // rota que não gasta kit pra sair (a Rua de Cima) também não gasta no farm: sempre dá pra deixar o boneco lá
+    const pedeKit = usaKit && ciclos.length % RONDA.voltasPorKit === 0;
     if (pedeKit && sup < 1) { parada = 'suprimentos'; break; }
     if (['arma', 'protecao'].some(k => equipados[k] && equipados[k].condicao < RONDA.condicaoMin)) { parada = 'equipamento'; break; }
     const attrs = atributos({ xp, origem: base.origem, equipados, ferido: false });
@@ -306,7 +308,7 @@ export function simularRonda(rotaId, base, semente, op) {
   }
   // quem não caiu ainda anda da última parada até o portão
   const retorno = Math.ceil(retornoDe(pos));
-  return { ciclos, duracao: t + retorno, parada, retorno, de: pos, kits: kitsDaRonda(ciclos.length) };
+  return { ciclos, duracao: t + retorno, parada, retorno, de: pos, kits: usaKit ? kitsDaRonda(ciclos.length) : 0, semKit: !usaKit };
 }
 // o que já está valendo no instante t: só voltas inteiras contam
 export function rondaAte(ronda, t) {

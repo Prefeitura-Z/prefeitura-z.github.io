@@ -225,3 +225,5 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .ronda-campos label { display: grid; gap: 4px; font-size: 13px; color: var(--fraco); flex: 1 1 200px; }
 .ronda-campos select { background: var(--carvao); border: 1px solid var(--linha); border-radius: 6px; padding: 8px 10px; }
 .exp-ronda { margin: 0; font-size: 12px; color: var(--fraco); border-top: 1px solid var(--linha); padding-top: 8px; }
+
+.trava { grid-column: 1 / -1; color: #ffb2a6; font-size: 12px; }
