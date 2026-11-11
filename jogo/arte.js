@@ -336,7 +336,7 @@ function quadroPessoa(ap, dir, estado, f) {
   const passo = Math.sin(fase), bob = estado === 'anda' ? Math.round(Math.abs(Math.sin(fase)) * 1) : (estado === 'parado' && f % 4 >= 2 ? 1 : 0);
   const px = (x, y, w, h, cor) => { g.fillStyle = cor; g.fillRect(Math.round(x), Math.round(y), w, h); };
   const zumbi = !!ap.zumbi, atq = estado === 'ataca' ? f : -1, golpe = atq >= 2 && atq <= 3;
-  const cx = PX + (golpe ? lado * 2 : 0), topo = 22 + bob + (zumbi ? 1 : 0);
+  const cx = PX + (golpe && zumbi ? lado * 2 : 0), topo = 22 + bob + (zumbi ? 1 : 0);
   const eq = ap.eq || {}, vArma = EQUIP_VIS[eq.arma], vProt = EQUIP_VIS[eq.protecao], vMoch = EQUIP_VIS[eq.mochila], vFerr = EQUIP_VIS[eq.ferramenta];
 
   // pernas
@@ -394,6 +394,12 @@ function quadroPessoa(ap, dir, estado, f) {
     if (vArma.cabeca) px(x - 1, y - 1, 4, 5, vArma.cabeca);
     if (vArma.lamina) { px(sx > 0 ? x + 1 : x - 4, y, 5, 5, vArma.lamina); px(sx > 0 ? x + 5 : x - 5, y + 1, 1, 3, tom(vArma.lamina, 1.15)); }
   };
+  // haste inclinada, pixel a pixel, da mão até a ponta
+  const haste = (x0, y0, x1, y1) => {
+    const n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0)) || 1;
+    for (let i = 0; i <= n; i++) px(x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * i / n, 2, 2, metal);
+    px(x0, y0, 2, 2, tom(metal, 0.7));   // empunhadura
+  };
   if (zumbi) {
     const sobe = golpe ? -3 : 0, bx = lado > 0 ? tx + tw - 2 : tx - 10;
     if (R.colete && frente) px(tx + 4, ty + 7, tw - 8, 6, '#6a1f1a');
@@ -402,15 +408,35 @@ function quadroPessoa(ap, dir, estado, f) {
     if (ap.machado) { const mx = lado > 0 ? bx + 13 : bx - 3; px(mx, ty - 9 + sobe, 2, 18, '#5a4a38'); px(lado > 0 ? mx + 1 : mx - 5, ty - 9 + sobe, 6, 6, metal); }
   } else if (atq >= 0) {
     // golpe em três tempos: arma no alto, desce pra frente, recolhe
-    if (atq < 2) { px(ladoFrente, ty - 7, 4, 12, R.manga); px(ladoFrente, ty - 10, 4, 3, pele); px(ladoFrente + 1, ty - 24, 2, 15, metal); ponta(ladoFrente + 1, ty - 24, lado); }
-    else if (atq < 4) { const bx = lado > 0 ? ladoFrente + 1 : ladoFrente - 8; px(bx, ty + 3, 11, 4, R.manga); px(lado > 0 ? bx + 11 : bx - 3, ty + 3, 3, 4, pele); px(lado > 0 ? bx + 13 : bx - 15, ty + 5, 13, 2, metal); px(lado > 0 ? bx + 22 : bx - 15, ty + 3, 4, 5, '#ffffff'); ponta(lado > 0 ? bx + 24 : bx - 15, ty + 4, lado); }
-    else { px(ladoFrente, ty + 2, 4, 13, R.manga); px(ladoFrente, ty + 15, 4, 3, pele); px(ladoFrente + lado * 3, ty + 12, 2, 12, metal); ponta(ladoFrente + lado * 3, ty + 20, lado); }
+    // a arma acompanha a mão: armada pra trás no alto, desce na diagonal, termina baixa na frente
+    const mx = ladoFrente + 1;
+    if (atq < 2) {
+      px(ladoFrente, ty - 7, 4, 12, R.manga); px(ladoFrente, ty - 10, 4, 3, pele);
+      const tx1 = mx - lado * (atq === 0 ? 3 : 6), ty1 = ty - 23 + atq;
+      haste(mx, ty - 9, tx1, ty1); ponta(tx1, ty1 - 1, -lado);
+    } else if (atq < 4) {
+      // braço dobrado: o cotovelo fica junto do corpo e o antebraço vai pra frente
+      px(ladoFrente, ty + 2, 4, 8, R.manga);
+      const fx = lado > 0 ? ladoFrente + 3 : ladoFrente - 3, fy = ty + (atq === 2 ? 5 : 7);
+      px(fx, fy, 4, 4, R.manga); const hx0 = lado > 0 ? fx + 4 : fx - 3; px(hx0, fy, 3, 4, pele);
+      const gx = hx0 + (lado > 0 ? 1 : 0), tx1 = gx + lado * 6, ty1 = atq === 2 ? fy - 6 : fy + 9;
+      haste(gx, fy + 1, tx1, ty1); ponta(tx1, ty1 - (atq === 2 ? 2 : 0), lado);
+      if (atq === 3) { px(tx1 - lado * 2, fy - 8, 2, 4, '#ffffff'); px(tx1 + lado, fy - 5, 2, 5, '#ffffff'); px(tx1 + lado * 2, fy, 2, 4, '#ffffff'); }   // rastro do golpe
+    } else {
+      px(ladoFrente, ty + 2, 4, 13, R.manga); px(ladoFrente, ty + 15, 4, 3, pele);
+      const tx1 = mx + lado * 8, ty1 = ty + 23;
+      haste(mx, ty + 16, tx1, ty1); ponta(tx1, ty1, lado);
+    }
   } else {
   px(ladoFrente, ty + 2 + bracoBalanço - trab, 4, 13, R.manga);
   px(ladoFrente, ty + 15 + bracoBalanço - trab, 4, 3, pele);
   if (vProt && vProt.reforco) px(ladoFrente, ty + 9 + bracoBalanço - trab, 4, 5, vProt.reforco);
-  // arma na mão, apoiada no ombro
-  if (vArma && estado !== 'trabalha') { const ax = ladoFrente + 1 + lado, ay = ty - 6 + bracoBalanço; px(ax, ay, 2, 22, metal); ponta(ax, ay, lado); }
+  // arma na mão, carregada baixa e apontando pra frente; acompanha o balanço do braço
+  if (vArma && estado !== 'trabalha') {
+    const gx = ladoFrente + 1, gy = ty + 16 + bracoBalanço, tx1 = gx + lado * 7, ty1 = gy + 9;
+    haste(gx - lado * 2, gy - 3, tx1, ty1); ponta(tx1, ty1, lado);
+    px(ladoFrente, gy - 1, 4, 3, pele);   // a mão fecha por cima do cabo
+  }
   }
   if (estado === 'trabalha') px(ladoFrente + lado * 2, ty + 14 + bracoBalanço - trab, 2, 6, '#8f979c');
 
