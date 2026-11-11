@@ -400,6 +400,7 @@ function entrarNaExpedicao() {
   $('tela-jogo').dataset.modo = 'expedicao';
   $('btn-perto').hidden = true; $('demo-aviso').hidden = true;
   $('exp-hud').hidden = false; $('exp-feed').innerHTML = '';
+  ajustarHudExp();
   const ex = estado.expedicao, farm = ex.tipo === 'ronda';
   textoRecuar = farm ? 'Chamar de volta pro abrigo' : 'Recuar pro abrigo';
   recuoArmado = false; $('btn-recuar').textContent = textoRecuar; $('btn-recuar').disabled = false; $('btn-recuar').hidden = false;
@@ -645,4 +646,12 @@ $('gestao-resultados').onclick = async e => {
 };
 
 iniciar();
+// o painel da expedição fica logo abaixo da ficha, que muda de altura (selo de cargo, objetivo, nome comprido)
+function ajustarHudExp() {
+  const topo = document.querySelector('.hud-topo'), hud = $('exp-hud');
+  if (!topo || !hud) return;
+  hud.style.top = matchMedia('(max-width: 760px)').matches ? '' : Math.round(topo.offsetTop + topo.offsetHeight + 8) + 'px';
+}
+if (window.ResizeObserver) new ResizeObserver(ajustarHudExp).observe(document.querySelector('.hud-topo'));
+addEventListener('resize', ajustarHudExp);
 })();

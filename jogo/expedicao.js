@@ -138,17 +138,17 @@ class Expedicao {
 
   // ---------- números pro painel (vida, mochila, parada, tempo, últimos acontecimentos) ----------
   avisar(t, par, perna) {
-    let vida = this.ex.vidaInicial || this.ex.vidaMax, carga = 0, xp = 0, feitas = 0;
+    let vida = this.ex.vidaInicial || this.ex.vidaMax, carga = 0, xp = 0, feitas = 0, vidaT = -1;
     const feed = [], nomeItem = id => this.cat.itens[id]?.nome || id;
     for (const g of this.golpes) {
       if (g.t > t) break;
       const ini = g.par.ini[g.de === 'j' ? g.em : g.de];
-      if (g.em === 'j') { vida = g.v; feed.push({ t: g.t, cls: 'dano', txt: g.erro ? `${ini.nome} errou` : `${ini.nome} acertou você: ${g.dano}${g.pesado ? ' (golpe pesado)' : ''}` }); }
+      if (g.em === 'j') { vida = g.v; vidaT = g.t; feed.push({ t: g.t, cls: 'dano', txt: g.erro ? `${ini.nome} errou` : `${ini.nome} acertou você: ${g.dano}${g.pesado ? ' (golpe pesado)' : ''}` }); }
       else feed.push({ t: g.t, cls: g.crit ? 'crit' : '', txt: g.erro ? `Você errou ${ini.nome}` : `Você acertou ${ini.nome}: ${g.dano}${g.crit ? ' (crítico)' : ''}${g.v <= 0 ? ' e derrubou' : ''}` });
     }
     for (const s of this.saques) {
       if (s.t > t) break;
-      vida = s.v; carga = s.carga; xp = s.xp; feitas++;
+      if (s.t >= vidaT) { vida = s.v; vidaT = s.t; } carga = s.carga; xp = s.xp; feitas++;
       const lista = Object.entries(s.itens).map(([k, q]) => `${q} ${nomeItem(k)}`);
       if (s.equip) lista.push(nomeItem(s.equip));
       feed.push({ t: s.t, cls: 'saque', txt: lista.length ? `Revistou a parada: ${lista.join(', ')}` : 'Revistou a parada: nada que valha carregar' });
