@@ -265,7 +265,7 @@ export function resultadoAte(sim, t) {
 // Tudo é decidido na saída: quantas voltas cabem, onde para e por quê. Depois é só o relógio do servidor.
 export const RONDA = {
   limiteSeg: 8 * 3600,     // no máximo 8 horas por saída, igual pra todo mundo
-  descansoSeg: 30,         // fôlego entre uma volta e outra, lá na área mesmo, enquanto os infectados voltam a aparecer
+  descansoSeg: 8,          // fôlego entre uma volta e outra, lá na área mesmo, enquanto os infectados voltam a aparecer
   voltasPorKit: 10,        // um kit de campo segura esse tanto de voltas
   descansoCura: 0.4,       // fração da vida máxima recuperada em cada pausa
   condicaoMin: 20,         // arma ou proteção abaixo disso: volta pra casa

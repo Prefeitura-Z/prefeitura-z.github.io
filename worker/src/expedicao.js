@@ -12,11 +12,15 @@ const PREMIO_REGISTRO = { xp: 40, creditos: 40 };
 
 // ---------- leitura ----------
 export async function estadoDoJogador(env, did, c) {
-  const [inv, eq, ex] = await env.DB.batch([
+  // sem "c", o personagem vem na mesma ida ao banco (o que cada resposta de ação precisa)
+  const lote = await env.DB.batch([
+    ...(c ? [] : [env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(did)]),
     env.DB.prepare('SELECT item, qtd FROM game_inventory WHERE discord_id = ? AND qtd > 0').bind(did),
     env.DB.prepare('SELECT id, item, condicao, equipado FROM game_equipment WHERE discord_id = ? ORDER BY criado, id').bind(did),
     env.DB.prepare(`SELECT id, rota, inicio, fim, status, sim FROM game_expeditions WHERE discord_id = ? AND ${ATIVA}`).bind(did),
   ]);
+  if (!c) c = lote.shift().results[0];
+  const [inv, eq, ex] = lote;
   const itens = {}; let creditos = 0;
   for (const r of inv.results) { if (r.item === 'creditos') creditos = r.qtd; else if (ITENS[r.item]) itens[r.item] = r.qtd; }
   const equipamento = eq.results.filter(e => ITENS[e.item]).map(e => ({ id: e.id, item: e.item, condicao: e.condicao, equipado: !!e.equipado }));
@@ -27,7 +31,7 @@ export async function estadoDoJogador(env, did, c) {
   const attrs = atributos({ xp: c.xp, origem: c.origem, equipados, ferido });
   const e = ex.results[0];
   return {
-    creditos, itens, equipamento, equipados, flags, ferido, feridoAte: ferido ? flags.ferido_ate : 0, attrs,
+    personagem: c, creditos, itens, equipamento, equipados, flags, ferido, feridoAte: ferido ? flags.ferido_ate : 0, attrs,
     expedicao: e ? expedicaoPublica(e, attrs, flags) : null,
   };
 }
@@ -167,8 +171,7 @@ export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, per
   const c = await env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(did).first();
   if (!c) return erro(env, 409, 'Crie seu personagem primeiro.');
   const responder = async (extra, status = 200) => {
-    const c2 = await env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(did).first();
-    const s = await estadoDoJogador(env, did, c2);
+    const s = await estadoDoJogador(env, did), c2 = s.personagem;
     return json(env, { ...extra, personagem: personagemPublico(c2), estado: estadoPublico(s), expedicao: s.expedicao, agora: Date.now() }, status);
   };
 

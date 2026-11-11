@@ -534,6 +534,28 @@ $('mochila').onclick = async ev => {
 // o mesmo cálculo do servidor, só pra mostrar o preço; quem decide o valor é ele
 const valorRevenda = q => Math.max(1, Math.floor(item(q.item).compra * catalogo.revenda * (0.5 + 0.5 * q.condicao / 100)));
 let vendaArmada = null;
+const EQUIPA = ['arma', 'protecao', 'mochila', 'ferramenta'];
+// Comprar consumível e vender material mudam a tela na hora e vão pro servidor em fila, um atrás do outro.
+// Quem manda é o servidor: quando a fila esvazia, o que ele respondeu substitui o que a tela mostrou.
+let filaLoja = Promise.resolve(), naFila = 0, falhouFila = false;
+function lojaRapida(d) {
+  const e = estado.estado, def = item(d.item), q = +d.qtd || 1;
+  if (d.loja === 'comprar') { if (e.creditos < def.compra * q) return; e.creditos -= def.compra * q; e.itens[d.item] = (e.itens[d.item] || 0) + q; $('loja-msg').textContent = `${q} × ${def.nome}: comprado.`; }
+  else { if ((e.itens[d.item] || 0) < q) return; e.itens[d.item] -= q; if (!e.itens[d.item]) delete e.itens[d.item]; e.creditos += def.venda * q; $('loja-msg').textContent = `Vendido por ${q * def.venda} créditos.`; }
+  desenharLoja(); atualizarFicha();
+  const chave = novaChave(), corpo = { acao: d.loja, chave, item: d.item, qtd: q };
+  naFila++;
+  filaLoja = filaLoja.then(async () => {
+    let r = null;
+    try { try { r = await api.loja(corpo); } catch (x) { if (x.status !== 0) throw x; r = await api.loja(corpo); } }
+    catch (x) { falhouFila = true; if (x.status === 401) return sessaoAcabou(); $('loja-msg').textContent = x.message; }
+    naFila--;
+    if (naFila > 0) return;
+    // fila vazia: fica valendo o que o servidor disse. Se algo falhou no caminho, busca o estado de novo.
+    if (falhouFila || !r) { falhouFila = false; try { r = await api.eu(); } catch { return; } }
+    if (naFila === 0) { absorver(r); if (painelAberto === 'loja') desenharLoja(); }
+  });
+}
 let abaLoja = 'comprar';
 function desenharLoja() {
   const e = estado.estado, cr = e.creditos;
@@ -541,7 +563,9 @@ function desenharLoja() {
   document.querySelectorAll('#loja-abas [data-aba]').forEach(b => b.setAttribute('aria-selected', b.dataset.aba === abaLoja));
   let h = '';
   if (abaLoja === 'comprar') h = catalogo.loja.map(k => { const d = item(k); return `<li><span><b>${esc(d.nome)}</b><small>${esc([TIPO[d.tipo], efeito(d), d.desc].filter(Boolean).join(' · '))}</small></span>
-    <button type="button" class="botao" data-loja="comprar" data-item="${esc(k)}" ${cr < d.compra ? 'disabled title="Faltam créditos"' : ''}>${d.compra} créditos</button></li>`; }).join('');
+    ${EQUIPA.includes(d.tipo)
+      ? `<button type="button" class="botao" data-loja="comprar" data-item="${esc(k)}" ${cr < d.compra ? 'disabled title="Faltam créditos"' : ''}>${d.compra} créditos</button>`
+      : `<span class="acoes">${[1, 5, 10].map(n => `<button type="button" class="botao" data-loja="comprar" data-item="${esc(k)}" data-qtd="${n}" ${cr < d.compra * n ? 'disabled title="Faltam créditos"' : ''}>${n === 1 ? `${d.compra} créditos` : `${n} por ${d.compra * n}`}</button>`).join('')}</span>`}</li>`; }).join('');
   else if (abaLoja === 'vender') {
     const v = Object.entries(e.itens).filter(([k]) => item(k).venda);
     h = v.length ? v.map(([k, q]) => { const d = item(k); return `<li><span><b>${q} × ${esc(d.nome)}</b><small>${d.venda} créditos cada</small></span><span class="acoes">
@@ -568,6 +592,7 @@ $('loja-lista').onclick = async ev => {
   const b = ev.target.closest('[data-loja]'); if (!b) return;
   const d = b.dataset;
   $('loja-msg').textContent = '';
+  if ((d.loja === 'comprar' && !EQUIPA.includes(item(d.item).tipo)) || d.loja === 'vender') return lojaRapida(d);
   // vender equipamento não tem volta: pede um segundo clique
   if (d.loja === 'venderEquip' && vendaArmada !== d.id) { vendaArmada = d.id; b.textContent = 'Confirmar venda'; setTimeout(() => { if (vendaArmada === d.id) { vendaArmada = null; desenharLoja(); } }, 4000); return; }
   vendaArmada = null;
