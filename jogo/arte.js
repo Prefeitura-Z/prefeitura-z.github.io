@@ -343,8 +343,11 @@ function quadroPessoa(ap, dir, estado, f) {
   const pernaY = 56 + bob, pernaH = PY - pernaY;
   const pa = Math.round(passo * 2), pb = -pa;
   const pernaE = cx - 5 - largo / 2, pernaD = cx + 1 + largo / 2;
-  px(pernaE, pernaY, 4, pernaH - Math.max(0, pa), R.calca); px(pernaE - (frente ? 0 : 0), PY - 3 - Math.max(0, pa), 5, 3, R.bota);
-  px(pernaD, pernaY, 4, pernaH - Math.max(0, pb), tom(R.calca, 0.82)); px(pernaD, PY - 3 - Math.max(0, pb), 5, 3, tom(R.bota, 0.85));
+  // passada: uma perna vai à frente enquanto a outra fica pra trás; a que sobe encolhe
+  const anda = estado === 'anda', avE = anda ? Math.round(Math.cos(fase) * 2) * lado : 0, avD = -avE;
+  const meioE = Math.round(pernaH * 0.5);
+  px(pernaE, pernaY, 4, meioE, R.calca); px(pernaE + avE, pernaY + meioE, 4, pernaH - meioE - Math.max(0, pa), R.calca); px(pernaE + avE, PY - 3 - Math.max(0, pa), 5, 3, R.bota);
+  px(pernaD, pernaY, 4, meioE, tom(R.calca, 0.82)); px(pernaD + avD, pernaY + meioE, 4, pernaH - meioE - Math.max(0, pb), tom(R.calca, 0.82)); px(pernaD + avD, PY - 3 - Math.max(0, pb), 5, 3, tom(R.bota, 0.85));
 
   // braço do fundo (atrás do tronco)
   const tw = 14 + largo, tx = cx - tw / 2, ty = topo + 12;
@@ -477,6 +480,17 @@ function quadroPessoa(ap, dir, estado, f) {
   return o;
 }
 
+// cópia toda clara do quadro, pro clarão de quando alguém leva um golpe
+const cacheSilhueta = new WeakMap();
+function silhueta(q) {
+  let s = cacheSilhueta.get(q);
+  if (!s) {
+    s = document.createElement('canvas'); s.width = q.width; s.height = q.height;
+    const g = s.getContext('2d'); g.drawImage(q, 0, 0); g.globalCompositeOperation = 'source-in'; g.fillStyle = '#fff4e6'; g.fillRect(0, 0, s.width, s.height);
+    cacheSilhueta.set(q, s);
+  }
+  return s;
+}
 const cacheSprites = new Map();
 function folha(ap) {
   const k = JSON.stringify(ap);
@@ -494,5 +508,5 @@ function folha(ap) {
   return s;
 }
 
-PZ.arte = { COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, EQUIP_VIS, QW, QH, PX, PY, DIRS };
+PZ.arte = { COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, silhueta, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, EQUIP_VIS, QW, QH, PX, PY, DIRS };
 })();

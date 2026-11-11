@@ -6,7 +6,11 @@
 const PZ = window.PZ = window.PZ || {};
 const A = PZ.arte;
 
-const DUR_GOLPE = 0.45, DUR_NUMERO = 0.95, DUR_SAQUE = 2.6, REVISTA = 3;
+const DUR_GOLPE = 0.5, DUR_NUMERO = 0.95, DUR_SAQUE = 2.6, REVISTA = 3;
+// o golpe não anda em ritmo igual: arma devagar, desce rápido, recolhe com calma
+const IMPACTO = 0.2;   // segundos entre começar o golpe e ele acertar
+const quadroGolpe = d => { const u = d / DUR_GOLPE; return u < 0.2 ? 0 : u < 0.38 ? 1 : u < 0.46 ? 2 : u < 0.58 ? 3 : u < 0.8 ? 4 : 5; };
+const QUEDA = 0.35, SOME = 1.1;   // inimigo tomba e depois some
 const RUA_Y = 12.5;
 
 class Expedicao {
@@ -91,15 +95,40 @@ class Expedicao {
     for (const q of this.paradas) { if (q.aparece <= t) par = q; else break; }
     m.atores = [];
     this.vivos = [];
+    let tremor = 0; p.clarao = 0;
     if (par && t < par.fim + 1.2) {
       for (const n of par.ini) {
         const morto = t >= n.morre, desde = t - n.morre;
-        if (morto && desde > 0.8) continue;
+        if (morto && desde > SOME) continue;
         let vida = n.vidaMax;
         for (const g of this.golpes) { if (g.t > t) break; if (g.par === par && g.de === 'j' && g.em === n.k) vida = g.v; }
-        const ator = { x: n.x, y: n.y, folha: n.folha, escala: n.escala, dir: PZ.dirDe(p.x - n.x, p.y - n.y) || 'SW', estado: 'parado', quadro: null, alpha: morto ? 1 - desde / 0.8 : 1, afunda: morto ? desde * 14 : 0 };
+        const ator = { x: n.x, y: n.y, folha: n.folha, escala: n.escala, dir: PZ.dirDe(p.x - n.x, p.y - n.y) || 'SW', estado: 'parado', quadro: null, alpha: morto ? Math.min(1, (SOME - desde) / 0.5) : 1 };
+        const vx = n.x - p.x, vy = n.y - p.y, vd = Math.hypot(vx, vy) || 1, mexe = !this.op.reduzir;
+        if (morto) {
+          // tomba pro lado oposto ao jogador
+          const k = Math.min(1, desde / QUEDA);
+          ator.gira = ((n.x - n.y) - (p.x - p.y) >= 0 ? 1 : -1) * k * k * Math.PI / 2;
+        }
+        // levou golpe do jogador: recua um pouco e pisca claro
+        for (const g of this.golpes) {
+          if (g.t > t) break;
+          if (g.par !== par || g.de !== 'j' || g.em !== n.k || g.erro) continue;
+          const d = t - g.t - IMPACTO;
+          if (d >= 0 && d < 0.22) {
+            if (mexe && !morto) { const r = 0.16 * (1 - d / 0.22); ator.x += vx / vd * r; ator.y += vy / vd * r; }
+            ator.clarao = Math.max(ator.clarao || 0, 0.65 * (1 - d / 0.14));
+            if (g.crit) tremor = Math.max(tremor, 2.5 * (1 - d / 0.22));
+          }
+        }
         if (!morto) {
-          for (const tg of n.golpes) { const d = t - tg; if (d >= 0 && d < DUR_GOLPE) { ator.estado = 'ataca'; ator.quadro = Math.min(5, Math.floor(d / DUR_GOLPE * 6)); } }
+          for (const tg of n.golpes) {
+            const d = t - tg;
+            if (d >= 0 && d < DUR_GOLPE) {
+              ator.estado = 'ataca'; ator.quadro = quadroGolpe(d);
+              // avança no jogador na hora de bater
+              if (mexe) { const a = 0.2 * Math.sin(Math.PI * Math.min(1, d / (DUR_GOLPE * 0.8))); ator.x -= vx / vd * a; ator.y -= vy / vd * a; }
+            }
+          }
           this.vivos.push({ n, vida, ator, lutando: t >= par.t0 });
         }
         m.atores.push(ator);
@@ -113,12 +142,29 @@ class Expedicao {
         else for (const g of this.golpes) {
           if (g.t > t) break;
           const d = t - g.t;
-          if (g.de === 'j' && d < DUR_GOLPE) { p.estado = 'ataca'; p.quadro = Math.min(5, Math.floor(d / DUR_GOLPE * 6)); }
+          if (g.de === 'j' && d < DUR_GOLPE) {
+            p.estado = 'ataca'; p.quadro = quadroGolpe(d);
+            // passo à frente junto com o golpe
+            const al = g.par.ini[g.em];
+            if (al && !this.op.reduzir) { const ax = al.x - p.x, ay = al.y - p.y, ad = Math.hypot(ax, ay) || 1, a = 0.18 * Math.sin(Math.PI * Math.min(1, d / (DUR_GOLPE * 0.8))); p.x += ax / ad * a; p.y += ay / ad * a; }
+          }
+        }
+      }
+      // o jogador levou golpe: recua, pisca, e a câmera treme se foi pesado
+      for (const g of this.golpes) {
+        if (g.t > t) break;
+        if (g.par !== par || g.em !== 'j' || g.erro) continue;
+        const d = t - g.t - IMPACTO, de = par.ini[g.de];
+        if (d >= 0 && d < 0.22 && de) {
+          if (!this.op.reduzir && !p.caido) { const ax = p.x - de.x, ay = p.y - de.y, ad = Math.hypot(ax, ay) || 1, r = 0.12 * (1 - d / 0.22); p.x += ax / ad * r; p.y += ay / ad * r; }
+          p.clarao = Math.max(p.clarao, 0.55 * (1 - d / 0.14));
+          if (g.pesado) tremor = Math.max(tremor, 3 * (1 - d / 0.22));
         }
       }
     }
     if (this.caiu != null && t >= this.caiu && (this.voltaT == null || t < this.voltaT)) p.caido = true;
 
+    m.tremor = tremor;
     this.avisar(t, par, perna);
     if (t >= this.duracao && !this.acabou) { this.acabou = true; this.op.fim(); }
   }

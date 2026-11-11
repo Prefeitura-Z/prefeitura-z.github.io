@@ -164,11 +164,10 @@ export async function entregarRegistro(env, did) {
 }
 
 // ---------- rotas HTTP ----------
-export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, personagemPublico) {
+export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, personagemPublico, c) {
   const did = u.discord_id;
   if (pathname === '/game/catalogo' && req.method === 'GET') return json(env, catalogo());
 
-  const c = await env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(did).first();
   if (!c) return erro(env, 409, 'Crie seu personagem primeiro.');
   const responder = async (extra, status = 200) => {
     const s = await estadoDoJogador(env, did), c2 = s.personagem;

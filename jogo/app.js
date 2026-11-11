@@ -526,7 +526,18 @@ $('mochila').onclick = async ev => {
   const b = ev.target.closest('[data-equip], [data-usar]'); if (!b) return;
   $('mochila-msg').textContent = '';
   if (b.dataset.usar) { const r = await pedir(b, $('mochila-msg'), ch => api.usar('curativo', ch)); if (r && !r.erro) $('mochila-msg').textContent = 'Curativo feito. Você está inteiro de novo.'; }
-  else { await pedir(b, $('mochila-msg'), () => api.equipar(b.dataset.equip, b.dataset.tirar === '1')); if (motor && motor.definirAparencia && !estado.expedicao) motor.definirAparencia(aparenciaAtual()); }
+  else {
+    // troca na tela na hora; o servidor confirma por trás e, se recusar, a tela volta pro que ele disser
+    const alvo = estado.estado.equipamento.find(q => q.id === b.dataset.equip), tirar = b.dataset.tirar === '1';
+    const veste = () => { if (motor && motor.definirAparencia && !estado.expedicao) motor.definirAparencia(aparenciaAtual()); };
+    if (alvo && !estado.expedicao) {
+      for (const q of estado.estado.equipamento) if (item(q.item).tipo === item(alvo.item).tipo) q.equipado = false;
+      alvo.equipado = !tirar; desenharMochila(); veste();
+    }
+    const r = await pedir(null, $('mochila-msg'), () => api.equipar(b.dataset.equip, tirar));
+    if (!r || r.erro) { try { absorver(await api.eu()); } catch {} }
+    veste();
+  }
   desenharMochila();
 };
 

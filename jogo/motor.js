@@ -265,7 +265,9 @@ class Motor {
     const g = this.g, z = this.zoom, d = this.dpr;
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.fillStyle = '#1b1f1c'; g.fillRect(0, 0, this.cv.width, this.cv.height);
-    const tx = Math.round((this.W / 2 - this.cam.x * z) * d), ty = Math.round((this.H / 2 - this.cam.y * z) * d);
+    // tremor curto da câmera em golpe pesado ou crítico (desligado com "reduzir movimento")
+    const tr = this.reduzir ? 0 : (this.tremor || 0), trx = tr ? Math.sin(this.t * 90) * tr : 0, try_ = tr ? Math.cos(this.t * 70) * tr * 0.6 : 0;
+    const tx = Math.round((this.W / 2 - (this.cam.x + trx) * z) * d), ty = Math.round((this.H / 2 - (this.cam.y + try_) * z) * d);
     g.setTransform(z * d, 0, 0, z * d, tx, ty);
     g.imageSmoothingEnabled = false;
     g.drawImage(this.chao.canvas, -this.chao.ox, -this.chao.oy);
@@ -303,13 +305,22 @@ class Motor {
         const est = p.estado || (p.anda ? 'anda' : 'parado');
         const q = p.quadro != null ? p.folha[p.dir][est][p.quadro] : this.quadroDe(p.folha, p.dir, est, est === 'anda' ? 10 : est === 'trabalha' ? 6 : 4);
         g.drawImage(q, Math.round(ps.x - A.PX), Math.round(ps.y - A.PY));
+        if (p.clarao > 0 && !this.reduzir) { g.globalAlpha = p.clarao; g.drawImage(A.silhueta(q), Math.round(ps.x - A.PX), Math.round(ps.y - A.PY)); g.globalAlpha = 1; }
       } else if (it.extra) {
         const a = it.extra, c = A.iso(a.x, a.y), e = a.escala || 1;
         if (a.alpha <= 0) continue;
         g.globalAlpha = a.alpha == null ? 1 : a.alpha;
         g.fillStyle = '#00000045'; g.beginPath(); g.ellipse(c.x, c.y, 11 * e, 5 * e, 0, 0, 7); g.fill();
         const q = a.quadro != null ? a.folha[a.dir][a.estado][a.quadro] : this.quadroDe(a.folha, a.dir, a.estado, a.estado === 'anda' ? 7 : 3);
-        g.drawImage(q, Math.round(c.x - A.PX * e), Math.round(c.y - A.PY * e + (a.afunda || 0)), Math.round(A.QW * e), Math.round(A.QH * e));
+        if (a.gira) {
+          // tombando: gira em volta dos pés
+          g.save(); g.translate(Math.round(c.x), Math.round(c.y - 2)); g.rotate(a.gira);
+          g.drawImage(q, Math.round(-A.PX * e), Math.round(-A.PY * e + 2), Math.round(A.QW * e), Math.round(A.QH * e)); g.restore();
+        } else {
+          const dx = Math.round(c.x - A.PX * e), dy = Math.round(c.y - A.PY * e + (a.afunda || 0)), dw = Math.round(A.QW * e), dh = Math.round(A.QH * e);
+          g.drawImage(q, dx, dy, dw, dh);
+          if (a.clarao > 0 && !this.reduzir) { g.globalAlpha = a.clarao * (a.alpha == null ? 1 : a.alpha); g.drawImage(A.silhueta(q), dx, dy, dw, dh); }
+        }
         g.globalAlpha = 1;
       } else if (it.npc) {
         const n = it.npc, c = A.iso(n.px, n.py);
