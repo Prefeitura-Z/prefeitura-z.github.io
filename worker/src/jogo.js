@@ -94,8 +94,9 @@ async function garantirConta(env, u) {
   const r = await env.DB.batch([
     env.DB.prepare('INSERT INTO game_accounts (discord_id, estado, criado) VALUES (?, ?, ?) ON CONFLICT(discord_id) DO NOTHING').bind(u.discord_id, 'ativo', agora()),
     env.DB.prepare('SELECT * FROM game_accounts WHERE discord_id = ?').bind(u.discord_id),
+    env.DB.prepare('SELECT * FROM characters WHERE discord_id = ?').bind(u.discord_id),
   ]);
-  return r[1].results[0];
+  return { ...r[1].results[0], personagem: r[2].results[0] || null };
 }
 
 async function ler(req) { try { return await req.json(); } catch { return null; } }
@@ -144,7 +145,7 @@ export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
   if (conta.estado !== 'ativo') return erro(env, 403, 'Sua conta está suspensa no jogo.');
   // loja, mochila e expedição não dependem do papel: saem antes pra poupar uma consulta
   if (/^\/game\/(catalogo|expedicao\/|equipar|usar|loja)/.test(pathname)) {
-    const r = await rotasExpedicao(req, env, u, pathname, json, erro, ler, personagemPublico);
+    const r = await rotasExpedicao(req, env, u, pathname, json, erro, ler, personagemPublico, conta.personagem);
     if (r) return r;
   }
   const papel = await papelDe(env, u.discord_id);
