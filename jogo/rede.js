@@ -90,6 +90,10 @@ class Presenca {
       corCabelo: A.CABELO[v.corCabelo] ? v.corCabelo : 'c1',
       roupa: A.ROUPA[v.roupa] ? v.roupa : 'jaqueta',
     };
+    if (v.eq && typeof v.eq === 'object') {
+      ap.eq = {};
+      for (const k of ['arma', 'protecao', 'mochila', 'ferramenta']) if (typeof v.eq[k] === 'string' && A.EQUIP_VIS[v.eq[k]]) ap.eq[k] = v.eq[k];
+    }
     const dir = DIRS.has(j.d) ? j.d : 'SE';
     this.outros.set(j.id, {
       id: j.id, nome: String(j.n || 'Sobrevivente').slice(0, 20), papel: typeof j.pp === 'string' ? j.pp : '',
