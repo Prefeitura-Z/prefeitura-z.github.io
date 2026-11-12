@@ -322,7 +322,12 @@ class Motor {
         g.globalAlpha = a.alpha == null ? 1 : a.alpha;
         g.fillStyle = '#00000045'; g.beginPath(); g.ellipse(c.x, c.y, 11 * e, 5 * e, 0, 0, 7); g.fill();
         const q = a.quadro != null ? a.folha[a.dir][a.estado][a.quadro] : this.quadroDe(a.folha, a.dir, a.estado, a.estado === 'anda' ? 7 : 3);
-        if (a.gira) {
+        if (a.vira) {
+          // de patas pro ar: a altura do desenho encolhe até zero e volta espelhada, presa na linha dos pés
+          const sy = 1 - 2 * a.vira, dw = Math.round(A.QW * e), dh = Math.round(A.QH * e);
+          g.save(); g.translate(Math.round(c.x), Math.round(c.y - 4 * e * a.vira)); g.scale(1, sy || 0.01);
+          g.drawImage(q, -Math.round(A.PX * e), -Math.round(A.PY * e), dw, dh); g.restore();
+        } else if (a.gira) {
           // tombando: gira em volta dos pés
           g.save(); g.translate(Math.round(c.x), Math.round(c.y - 2)); g.rotate(a.gira);
           g.drawImage(q, Math.round(-A.PX * e), Math.round(-A.PY * e + 2), Math.round(A.QW * e), Math.round(A.QH * e)); g.restore();
