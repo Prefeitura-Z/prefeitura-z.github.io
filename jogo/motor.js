@@ -33,7 +33,7 @@ class Motor {
     this.estaticos = mundo.OBJ.map(o => {
       if (o.solido) for (let y = o.y; y < o.y + o.d; y++) for (let x = o.x; x < o.x + o.w; x++) this.marcar(x, y);
       // profundidade pelo centro da base: quem está na frente de uma mesa larga fica na frente dela
-      return { ...o, prof: o.x + o.w / 2 + o.y + o.d / 2 + 0.49, caixa: A.caixaTela(o), alto: A.ALTOS.has(o.tipo) };
+      return { ...o, prof: o.x + o.w / 2 + o.y + o.d / 2 + 0.49 + (o.dprof || 0), caixa: A.caixaTela(o), alto: A.ALTOS.has(o.tipo) };
     });
     this.luzes = mundo.OBJ.filter(o => ['poste', 'pilar', 'fogueira', 'mesa'].includes(o.tipo)).map(o => {
       const p = A.iso(o.x + o.w / 2, o.y + o.d / 2), h = A.ALTURA[o.tipo];
@@ -46,6 +46,7 @@ class Motor {
       this.marcar(n.x, n.y);
       return { ...n, px: n.x + 0.5, py: n.y + 0.5, dirBase: n.dir, dirAtual: n.dir, folha: A.folha(A.NPC_AP[n.ap]) };
     });
+    this.bichos = (mundo.BICHOS || []).map((b, i) => ({ ...b, px: (b.area[0] + b.area[2]) / 2 + (i % 3 - 1) * 0.6, py: b.area[3] - 0.4 - (i % 2) * 0.8, tx: 0, ty: 0, espera: 0.1 + i * 0.7, anda: false, fl: i % 2 === 0, t0: i * 1.7 }));
     this.moradores = mundo.MORADORES.map((mo, i) => ({ ...mo, folha: A.folha(A.NPC_AP[mo.ap]), px: mo.rota[0][0] + 0.5, py: mo.rota[0][1] + 0.5, alvo: 1, espera: i * 1.5, dir: 'SE', anda: false }));
 
     this.p = { x: mundo.SPAWN.x, y: mundo.SPAWN.y, dir: mundo.SPAWN.dir, anda: false, caminho: null, preso: 0, aoChegar: null };
@@ -221,6 +222,13 @@ class Motor {
     if (perto !== this.perto) { this.perto = perto; this.op.perto?.(perto); }
     for (const n of this.npcs) n.dirAtual = this.dist(n) < 3.2 && !n.trabalha ? (dirDe(this.p.x - n.px, this.p.y - n.py) || n.dirBase) : n.dirBase;
 
+    for (const b of this.bichos) {
+      if (b.espera > 0) { b.espera -= dt; b.anda = false; if (b.espera <= 0) { const [x0, y0, x1, y1] = b.area; do { b.tx = x0 + Math.random() * (x1 - x0); b.ty = y0 + Math.random() * (y1 - y0); } while (b.evita && Math.floor(b.tx) === b.evita[0] && Math.floor(b.ty) === b.evita[1]); } continue; }
+      const dx = b.tx - b.px, dy = b.ty - b.py, d = Math.hypot(dx, dy);
+      if (d < 0.05) { b.espera = b.tipo === 'cao' ? 2 + Math.random() * 5 : 0.8 + Math.random() * 3; b.anda = false; continue; }
+      const v = Math.min(d, (b.tipo === 'cao' ? 1.4 : 0.7) * dt); b.px += dx / d * v; b.py += dy / d * v; b.anda = true;
+      if (Math.abs(dx - dy) > 0.02) b.fl = dx - dy < 0;
+    }
     for (const mo of this.moradores) {
       if (mo.espera > 0) { mo.espera -= dt; mo.anda = false; continue; }
       const [tx, ty] = mo.rota[mo.alvo], dx = tx + 0.5 - mo.px, dy = ty + 0.5 - mo.py, d = Math.hypot(dx, dy);
@@ -287,6 +295,7 @@ class Motor {
     lista.push({ prof: p.x + p.y + 0.02, ator: 'jogador' });
     for (const n of this.npcs) lista.push({ prof: n.px + n.py, npc: n });
     for (const mo of this.moradores) lista.push({ prof: mo.px + mo.py, mor: mo });
+    for (const b of this.bichos) lista.push({ prof: b.px + b.py, bicho: b });
     for (const o of this.outros.values()) lista.push({ prof: o.px + o.py, mor: o });
     for (const a of this.atores) lista.push({ prof: a.x + a.y, extra: a });
     lista.sort((a, b) => a.prof - b.prof);
@@ -323,6 +332,8 @@ class Motor {
           if (a.clarao > 0 && !this.reduzir) { g.globalAlpha = a.clarao * (a.alpha == null ? 1 : a.alpha); g.drawImage(A.silhueta(q), dx, dy, dw, dh); }
         }
         g.globalAlpha = 1;
+      } else if (it.bicho) {
+        A.desenharBicho(g, it.bicho, tt);
       } else if (it.npc) {
         const n = it.npc, c = A.iso(n.px, n.py);
         this.sombra(g, n.px, n.py);
