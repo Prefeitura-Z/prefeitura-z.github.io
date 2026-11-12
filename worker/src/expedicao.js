@@ -365,13 +365,16 @@ export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, per
           .bind(`loja:${did}:${b.chave}`, did, b.item, seg(), g.bind) : mais(env, did, b.item, q, g),
       ]);
     } else if (b.acao === 'fabricar') {
-      const rec = Object.hasOwn(RECEITAS, b.receita) ? RECEITAS[b.receita] : null, q = inteiro(b.qtd ?? 1, 1, 20);
+      const rec = Object.hasOwn(RECEITAS, b.receita) ? RECEITAS[b.receita] : null, q = rec && rec.equip ? 1 : inteiro(b.qtd ?? 1, 1, 20);
       if (!rec || !q) return erro(env, 400, 'Essa receita não existe.');
       falha = 'Falta material.';
       res = await comRecibo(env, did, 'fabricar', b.chave, { receita: b.receita, qtd: q },
         todas(...Object.entries(rec.gasta).map(([k, n]) => tem(did, k, n * q)), livre), g => [
           ...Object.entries(rec.gasta).map(([k, n]) => menos(env, did, k, n * q, g)),
-          ...Object.entries(rec.faz).map(([k, n]) => mais(env, did, k, n * q, g)),
+          ...(rec.equip
+            ? [env.DB.prepare(`INSERT OR IGNORE INTO game_equipment (id, discord_id, item, condicao, equipado, criado) SELECT ?, ?, ?, 100, 0, ? WHERE ${g.sql}`)
+              .bind(`fab:${did}:${b.chave}`, did, rec.equip, seg(), g.bind)]
+            : Object.entries(rec.faz).map(([k, n]) => mais(env, did, k, n * q, g))),
         ]);
     } else if (b.acao === 'reparar') {
       const eq = await env.DB.prepare('SELECT id, item, condicao FROM game_equipment WHERE id = ? AND discord_id = ?').bind(String(b.id || ''), did).first();

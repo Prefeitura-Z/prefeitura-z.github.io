@@ -1,7 +1,7 @@
 // Prefeitura Z: Depois da Queda — regras do jogo (itens, rotas, inimigos, combate).
 // Tudo aqui é função pura, sem banco e sem relógio: o servidor sorteia uma semente, simula a expedição
 // inteira de uma vez e guarda o resultado. O navegador só assiste. Mudou número aqui? Suba VERSAO.
-export const VERSAO = 4;
+export const VERSAO = 5;
 
 // ---------- itens ----------
 // tipo: material | consumivel | missao | arma | protecao | mochila | ferramenta
@@ -21,6 +21,11 @@ export const ITENS = {
   mochila_lona: { nome: 'Mochila de lona de patrulha', tipo: 'mochila', capacidade: 20, compra: 30, desc: 'Cabe o básico de uma saída curta.' },
   mochila_reforcada: { nome: 'Mochila de patrulha reforçada', tipo: 'mochila', capacidade: 34, compra: 90, desc: 'Armação de alumínio e alça larga.' },
   ferramenta_recuperacao: { nome: 'Ferramenta de recuperação', tipo: 'ferramenta', sucataExtra: 1, compra: 55, desc: 'Pé de cabra curto. Rende mais sucata por parada.' },
+  // feitos na bancada com o que se traz da rua. "valor" é o preço de referência pra revenda (não tem na loja).
+  lanca_vergalhao: { nome: 'Lança de vergalhão', tipo: 'arma', ataque: 17, valor: 140, desc: 'Vergalhão afiado no esmeril, cabo enrolado em fita. Alcança antes de ser alcançado.' },
+  armadura_placas: { nome: 'Colete de placas de sinalização', tipo: 'protecao', defesa: 36, valor: 160, desc: 'Placas de trânsito cortadas e rebitadas por cima de lona.' },
+  mochila_cargueira: { nome: 'Mochila cargueira', tipo: 'mochila', capacidade: 48, valor: 130, desc: 'Armação de carrinho de feira com saco de ráfia duplo.' },
+  kit_desmonte: { nome: 'Kit de desmonte', tipo: 'ferramenta', sucataExtra: 2, valor: 120, desc: 'Serra, alicate e chave de roda numa bolsa de cintura.' },
 };
 export const EQUIPAVEIS = ['arma', 'protecao', 'mochila', 'ferramenta'];
 export const KIT_INICIAL = ['barra_portao', 'jaqueta_ronda', 'mochila_lona'];
@@ -30,6 +35,11 @@ export const LOJA = ['suprimento', 'curativo', 'ferramenta_recuperacao', 'cano_r
 export const RECEITAS = {
   curativo: { nome: 'Curativo de abrigo', gasta: { tecido: 2 }, faz: { curativo: 1 } },
   suprimento: { nome: 'Kit de campo', gasta: { sucata: 3, tecido: 1 }, faz: { suprimento: 1 } },
+  // equipamento: sai um por vez, novo, direto pro armazém
+  lanca_vergalhao: { nome: 'Lança de vergalhão', gasta: { sucata: 40, pecas: 6 }, equip: 'lanca_vergalhao' },
+  armadura_placas: { nome: 'Colete de placas de sinalização', gasta: { sucata: 30, tecido: 12, peca_eletrica: 2 }, equip: 'armadura_placas' },
+  mochila_cargueira: { nome: 'Mochila cargueira', gasta: { tecido: 24, pecas: 4 }, equip: 'mochila_cargueira' },
+  kit_desmonte: { nome: 'Kit de desmonte', gasta: { pecas: 10, peca_eletrica: 3 }, equip: 'kit_desmonte' },
 };
 export const CUSTO_REPARO_POR_PONTO = 0.25;   // créditos por ponto de condição, arredondado pra cima
 // O Wolf recompra equipamento por uma fração do preço da loja, menos ainda se estiver gasto.
@@ -37,8 +47,9 @@ export const CUSTO_REPARO_POR_PONTO = 0.25;   // créditos por ponto de condiç�
 export const REVENDA = 0.3;
 export function valorRevenda(item, condicao) {
   const d = ITENS[item];
-  if (!d || !d.compra || !EQUIPAVEIS.includes(d.tipo)) return 0;
-  return Math.max(1, Math.floor(d.compra * REVENDA * (0.5 + 0.5 * Math.max(0, Math.min(100, condicao)) / 100)));
+  const base = d && (d.compra || d.valor);
+  if (!base || !EQUIPAVEIS.includes(d.tipo)) return 0;
+  return Math.max(1, Math.floor(base * REVENDA * (0.5 + 0.5 * Math.max(0, Math.min(100, condicao)) / 100)));
 }
 export const FERIMENTO_SEG = 600;             // quem cai volta ferido por 10 min (ou até usar curativo)
 
@@ -46,6 +57,7 @@ export const FERIMENTO_SEG = 600;             // quem cai volta ferido por 10 mi
 export const INIMIGOS = {
   errante: { nome: 'Errante', vida: 26, ataque: 5, defesa: 0, cadencia: 2.2, evasao: 0, xp: 8 },
   corredor: { nome: 'Corredor febril', vida: 18, ataque: 4, defesa: 0, cadencia: 1.15, evasao: 0.1, xp: 11 },
+  inchado: { nome: 'Inchado', vida: 70, ataque: 8, defesa: 12, cadencia: 2.8, evasao: 0, xp: 28 },
   porteiro: { nome: 'O Porteiro', vida: 135, ataque: 9, defesa: 25, cadencia: 2.4, evasao: 0, xp: 90, chefe: true, pesadoACada: 4, pesadoFator: 2.2 },
 };
 
@@ -92,6 +104,18 @@ export const ROTAS = {
     ],
     saque: { sucata: [1, 3], pecas: [1, 2], peca_eletrica: [0, 1] },
     repete: 'porteiro_vencido',   // chefe só entra em ronda depois de uma vitória acompanhada
+  },
+  barricada_sul: {
+    nome: 'Barricada do Sul', resumo: 'A rua de baixo acaba numa barricada velha. Atrás dela, os inchados ficam de guarda no que sobrou.',
+    custo: 1, requer: 'porteiro_vencido', perigo: 3, forca: 1.15,
+    pontos: [
+      { p: [12.5, 12.6], enc: ['errante', 'errante'] },
+      { p: [21.5, 16.8], enc: ['corredor', 'corredor'] },
+      { p: [21.5, 20.0], enc: ['errante', 'inchado'] },
+      { p: [21.5, 23.2], enc: ['inchado', 'errante', 'corredor'] },
+    ],
+    saque: { sucata: [2, 4], tecido: [1, 3], pecas: [1, 2], peca_eletrica: [0, 1] },
+    marca: 'rota4_concluida', repete: 'rota4_concluida',
   },
 };
 export const VEL_ANDAR = 1.9;        // células por segundo na rua
