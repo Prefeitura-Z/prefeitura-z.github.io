@@ -66,12 +66,12 @@ obj('tambor', 19, 5); obj('caixas', 23, 5); obj('pneus', 23, 6);
 obj('guarita', 38, 8, 2, 2); obj('antena', 40, 8); obj('sacos', 36, 9); obj('sacos', 37, 9); obj('caixa', 40, 10);
 obj('barricada', 42, 11, 1, 3);
 // rua: carros largados, barricadas e entulho (fora da linha das rotas)
-obj('carro', 5, 13, 2, 1, { cor: '#5a6a72' });
-obj('carro', 26, 11, 2, 1, { cor: '#7a3a2a' });
-obj('carro', 33, 13, 2, 1, { cor: '#8a8468' });
-obj('carro', 22, 9, 1, 2, { cor: '#4a5a4a' });
-obj('carro', 20, 18, 1, 2, { cor: '#6a6a6e' });
-obj('carro', 27, 15, 2, 1, { cor: '#3f5a6a' }); obj('carro', 30, 16, 1, 2, { cor: '#8a5a3e' });
+obj('carro', 5, 13, 2, 1, { cor: '#5a6a72', modelo: 'seda' });
+obj('carro', 26, 11, 2, 1, { cor: '#7a3a2a', modelo: 'hatch' });
+obj('carro', 33, 13, 2, 1, { cor: '#8a8468', modelo: 'picape' });
+obj('carro', 22, 9, 1, 2, { cor: '#d8d3c4', modelo: 'van' });
+obj('carro', 20, 18, 1, 2, { cor: '#6a6a6e', modelo: 'seda' });
+obj('carro', 27, 15, 2, 1, { cor: '#3f5a6a', modelo: 'hatch' }); obj('carro', 30, 16, 1, 2, { cor: '#4a5a4a', modelo: 'picape' });
 obj('barricada', 20, 24, 3, 1);
 obj('tambor', 14, 10); obj('pneus', 18, 14); obj('caixas', 24, 14); obj('tambor', 28, 10); obj('caixa', 11, 14);
 obj('carcaca', 3, 16, 2, 2); obj('pneus', 5, 18); obj('tambor', 2, 19);
