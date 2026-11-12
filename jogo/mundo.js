@@ -32,8 +32,8 @@ const OBJ = [];
 const obj = (tipo, x, y, w = 1, d = 1, extra = {}) => OBJ.push({ tipo, x, y, w, d, solido: true, ...extra });
 
 // muro remendado em volta, um bloco por célula pra ordenar certo
-for (let x = 6; x <= 33; x++) { obj('muro', x, 7); if (x < 17 || x > 21) obj('muro', x, 33); }
-for (let y = 8; y <= 32; y++) { obj('muro', 6, y); obj('muro', 33, y); }
+for (let x = 6; x <= 33; x++) { obj('muro', x, 7, 1, 1, { eixo: 'x' }); if (x < 17 || x > 21) obj('muro', x, 33, 1, 1, { eixo: 'x' }); }
+for (let y = 8; y <= 32; y++) { obj('muro', 6, y, 1, 1, { eixo: 'y' }); obj('muro', 33, y, 1, 1, { eixo: 'y' }); }
 obj('pilar', 17, 33); obj('pilar', 21, 33);
 obj('portao', 18, 33, 3, 1);
 obj('guarita', 22, 34, 2, 2);
