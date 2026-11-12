@@ -221,6 +221,25 @@ class Expedicao {
   // ---------- no chão: anel no alvo, sangue que fica até o fim da parada ----------
   noChao(m, g) {
     const t = this.t;
+    // sacola de saque: cai onde o infectado tombou e voa pro jogador quando ele revista
+    for (const par of this.paradas) {
+      if (t < par.aparece || t > par.fim + 0.1) continue;
+      for (const n of par.ini) {
+        if (!(t >= n.morre + 0.45)) continue;
+        let x = n.x - 0.35, y = n.y + 0.45, esc = 1;
+        const voa = (t - (par.fim - 0.45)) / 0.45;
+        if (voa > 0) { const k = Math.min(1, voa); x += (m.p.x - x) * k; y += (m.p.y - y) * k; esc = 1 - k * 0.7; }
+        const c = A.iso(x, y), cai = Math.min(1, (t - n.morre - 0.45) / 0.18), sobe = Math.round((1 - cai) * 10 + (voa > 0 ? Math.sin(Math.min(1, voa) * Math.PI) * 14 : 0));
+        const bx = Math.round(c.x - 5 * esc), by = Math.round(c.y - 9 * esc - sobe), w = Math.max(3, Math.round(10 * esc)), h = Math.max(3, Math.round(8 * esc));
+        g.fillStyle = '#00000040'; g.beginPath(); g.ellipse(Math.round(c.x), Math.round(c.y), 6 * esc, 2.5 * esc, 0, 0, 7); g.fill();
+        g.fillStyle = '#141412'; g.fillRect(bx - 1, by - 1, w + 2, h + 2);
+        g.fillStyle = '#9B8D66'; g.fillRect(bx, by, w, h); g.fillStyle = '#7a6e4e'; g.fillRect(bx + w - 3, by, 3, h);
+        g.fillStyle = '#c9bc8a'; g.fillRect(bx + 1, by + 1, 2, 2);
+        g.fillStyle = '#5a4a38'; g.fillRect(bx + 2, by - 2, w - 4, 2); g.fillStyle = '#D4AC66'; g.fillRect(bx + Math.floor(w / 2) - 1, by - 3, 2, 2);
+        // brilho piscando pra chamar o olho
+        if (!this.op.reduzir && voa <= 0 && Math.floor(t * 3 + n.k) % 3 === 0) { g.fillStyle = '#fff4e6'; g.fillRect(bx + w + 1, by - 3, 1, 3); g.fillRect(bx + w, by - 2, 3, 1); }
+      }
+    }
     for (const gp of this.golpes) {
       if (gp.t > t) break;
       if (gp.erro) continue;
