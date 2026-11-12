@@ -130,13 +130,15 @@ function desenharChao(mundo) {
   const sq = (x0, y0, x1, y1) => { const a = P(x0, y0), b = P(x1, y0), cc = P(x1, y1), d = P(x0, y1); sg.beginPath(); sg.moveTo(a.x, a.y); sg.lineTo(b.x, b.y); sg.lineTo(cc.x, cc.y); sg.lineTo(d.x, d.y); sg.closePath(); sg.fill(); };
   for (const o of mundo.OBJ || []) {
     const h = o.h || ALTURA[o.tipo] || 20; if (h < 14 || o.tipo === 'placaRua') continue;
-    const L = Math.min(1.9, h / 52);
-    if (o.tipo === 'arvore') { const p = P(o.x + 0.5 + 1.0, o.y + 0.5); sg.beginPath(); sg.ellipse(p.x, p.y, 34, 16, 0, 0, 7); sg.fill(); sq(o.x + 0.45, o.y + 0.42, o.x + 1.3, o.y + 0.58); }
+    const L = Math.min(1.2, h / 95);
+    // sombra da caixa: a base mais a base deslocada pra baixo à direita, ligadas (casco convexo)
+    const proj = (x0, y0, x1, y1, l) => { const k = l * 0.45, pts = [P(x0, y0), P(x1, y0), P(x1 + l, y0 + k), P(x1 + l, y1 + k), P(x0 + l, y1 + k), P(x0, y1)]; sg.beginPath(); pts.forEach((q, i) => i ? sg.lineTo(q.x, q.y) : sg.moveTo(q.x, q.y)); sg.closePath(); sg.fill(); };
+    if (o.tipo === 'arvore') { const p = P(o.x + 0.5 + 0.8, o.y + 0.5 + 0.36); sg.beginPath(); sg.ellipse(p.x, p.y, 30, 14, 0, 0, 7); sg.fill(); }
     else if (o.tipo === 'poste' || o.tipo === 'antena') { sq(o.x + 0.45, o.y + 0.45, o.x + 0.55 + L, o.y + 0.55); sq(o.x + 0.4 + L, o.y + 0.35, o.x + 0.65 + L, o.y + 0.75); }
     else if (o.tipo === 'pneus' || o.tipo === 'tambor') { const p = P(o.x + 0.75, o.y + 0.5); sg.beginPath(); sg.ellipse(p.x, p.y, 14, 7, 0, 0, 7); sg.fill(); }
-    else sq(o.x + 0.05, o.y + 0.05, o.x + o.w + L * 0.9, o.y + o.d - 0.05);
+    else proj(o.x + 0.04, o.y + 0.04, o.x + o.w - 0.04, o.y + o.d - 0.04, L);
   }
-  g.globalAlpha = 0.4; g.drawImage(sc, 0, 0); g.globalAlpha = 1;
+  g.globalAlpha = 0.3; g.filter = 'blur(2px)'; g.drawImage(sc, 0, 0); g.filter = 'none'; g.globalAlpha = 1;
   return { canvas: c, ox, oy };
 }
 
@@ -232,6 +234,27 @@ function veiculo(g, o, r, queimado) {
   // sub-caixa por fração do comprimento (u) e da largura (v), seja o carro deitado em x ou em y
   const sub = (u0, u1, v0, v1, h, c, z) => ao ? caixa(g, bx + bw * u0, by + bd * v0, bw * (u1 - u0), bd * (v1 - v0), h, c, z) : caixa(g, bx + bd * v0 * (bw / bd), by + bd * u0, bw * (v1 - v0), bd * (u1 - u0), h, c, z);
   const lado = ao ? 'esq' : 'dir', ponta = ao ? 'dir' : 'esq';
+  // cabine inclinada de verdade: base larga no capô, teto recuado; lateral e para-brisa são trapézios de vidro
+  const W = (u, v, z) => { const p = ao ? iso(bx + bw * u, by + bd * v) : iso(bx + bw * v, by + bd * u); return { x: p.x, y: p.y - z }; };
+  const poly = (pts, c) => { g.fillStyle = c; g.beginPath(); pts.forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.closePath(); g.fill(); };
+  const linhaV = (a, b, c, l = 1) => { g.strokeStyle = c; g.lineWidth = l; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); };
+  const cabine = (c0, c1, zb, hc, recuoF, recuoT) => {
+    const b = [W(c0, 0.1, zb), W(c1, 0.1, zb), W(c1, 0.9, zb), W(c0, 0.9, zb)];
+    const t = [W(c0 + recuoT, 0.18, zb + hc), W(c1 - recuoF, 0.18, zb + hc), W(c1 - recuoF, 0.82, zb + hc), W(c0 + recuoT, 0.82, zb + hc)];
+    poly([b[3], b[2], t[2], t[3]], vid.esq);                                   // lateral
+    poly([b[1], b[2], t[2], t[1]], vid.dir);                                   // para-brisa
+    if (!queimado) {
+      const m0 = W(c0 + (c1 - c0) * 0.5, 0.9, zb), m1 = W(c0 + recuoT + (c1 - recuoF - c0 - recuoT) * 0.5, 0.82, zb + hc);
+      linhaV(m0, m1, tom(cor, 0.8), 2);                                          // coluna do meio
+      const r0 = W(c1 - (c1 - c0) * 0.1, 0.2, zb + 1), r1 = W(c1 - recuoF * 0.6, 0.4, zb + hc - 2);
+      linhaV(r0, r1, '#ffffff30', 2);                                            // reflexo no para-brisa
+      const s0 = W(c0 + (c1 - c0) * 0.2, 0.9, zb + 2), s1 = W(c0 + (c1 - c0) * 0.3, 0.86, zb + hc - 2);
+      linhaV(s0, s1, '#ffffff22', 1);
+    }
+    linhaV(b[2], t[2], cor, 2); linhaV(b[3], t[3], cor, 2);                      // colunas da frente e de trás
+    poly(t, tom(cor, 1.08));                                                    // teto
+    g.strokeStyle = '#141412aa'; g.lineWidth = 1; g.beginPath(); [b[3], b[2], b[1], t[1], t[0], t[3]].forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.closePath(); g.stroke();
+  };
   const comprimento = mod === 'hatch' ? 0.86 : 1, u0 = (1 - comprimento) / 2, u1 = 1 - u0;
   // rodas com aro (atrás da carroceria)
   const rodas = ao ? [[u0 + 0.18, 1], [u1 - 0.18, 1]] : [[1, u0 + 0.18], [1, u1 - 0.18]];
@@ -253,15 +276,9 @@ function veiculo(g, o, r, queimado) {
   sub(u1 - 0.03, u1 + 0.02, 0.05, 0.95, 5, '#2a2a28', zc - 1);
   if (mod === 'seda' || mod === 'hatch') {
     const c0 = mod === 'seda' ? 0.28 : 0.38, c1 = mod === 'seda' ? 0.74 : 0.9;
-    // cabine em dois degraus pra parecer inclinada: vidro mais largo embaixo, teto recuado em cima
-    sub(c0, c1, 0.07, 0.93, 7, vid, zc + altCorpo);
-    sub(c0 + 0.04, c1 - 0.03, 0.1, 0.9, 7, vid, zc + altCorpo + 7);
-    sub(c0 + 0.07, c1 - 0.05, 0.12, 0.88, 3, cor, zc + altCorpo + 14);
-    if (!queimado) { sub(c0 + 0.45 * (c1 - c0), c0 + 0.5 * (c1 - c0), 0.07, 0.93, 14, tom(cor, 0.8), zc + altCorpo); }   // coluna do meio
+    cabine(c0, c1, zc + altCorpo, 14, mod === 'seda' ? 0.1 : 0.12, mod === 'seda' ? 0.08 : 0.03);
   } else if (mod === 'picape') {
-    sub(0.52, 0.8, 0.07, 0.93, 8, vid, zc + altCorpo);
-    sub(0.54, 0.78, 0.1, 0.9, 7, vid, zc + altCorpo + 8);
-    sub(0.56, 0.76, 0.12, 0.88, 3, cor, zc + altCorpo + 15);
+    cabine(0.52, 0.8, zc + altCorpo, 15, 0.08, 0.02);
     // caçamba com bordas e tralha dentro
     sub(u0 + 0.02, 0.5, 0.04, 0.12, 6, tom(cor, 0.9), zc + altCorpo); sub(u0 + 0.02, 0.5, 0.88, 0.96, 6, tom(cor, 0.9), zc + altCorpo); sub(u0 + 0.02, u0 + 0.06, 0.04, 0.96, 6, tom(cor, 0.9), zc + altCorpo);
     if (!queimado) { sub(0.14, 0.3, 0.25, 0.6, 7, '#7a6448', zc + altCorpo); sub(0.32, 0.44, 0.5, 0.8, 5, '#3f5a6a', zc + altCorpo); }
@@ -284,8 +301,6 @@ function veiculo(g, o, r, queimado) {
     // farol e lanterna
     const PF = (uu0, uu1, vv0, vv1, c) => ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, ponta, uu0, uu1, vv0, vv1, altCorpo + zc, c) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), ponta, uu0, uu1, vv0, vv1, altCorpo + zc, c);
     PF(0.08, 0.26, 0.55, 0.8, '#e8e2c8'); PF(0.74, 0.92, 0.55, 0.8, r() > 0.5 ? '#e8e2c8' : '#3a3a36'); PF(0.3, 0.7, 0.55, 0.75, '#2a2a28');
-    // vidro trincado
-    if (mod !== 'picape' && r() > 0.4) { const c = ao ? iso(bx + bw * 0.5, by + bd) : iso(bx + bw, by + bd * 0.5); g.strokeStyle = '#c8d4d8aa'; g.lineWidth = 1; g.beginPath(); g.moveTo(c.x - 4, c.y - altCorpo - zc - 3); g.lineTo(c.x + 1, c.y - altCorpo - zc - 8); g.lineTo(c.x + 5, c.y - altCorpo - zc - 4); g.moveTo(c.x + 1, c.y - altCorpo - zc - 8); g.lineTo(c.x + 2, c.y - altCorpo - zc - 13); g.stroke(); }
     // retrovisor
     const rv = ao ? iso(bx + bw * 0.72, by + bd + 0.04) : iso(bx + bw + 0.04, by + bd * 0.72); g.fillStyle = '#141412'; g.fillRect(rv.x - 2, rv.y - altCorpo - zc - 4, 4, 3); g.fillStyle = tom(cor, 0.8); g.fillRect(rv.x - 1, rv.y - altCorpo - zc - 3, 2, 1);
   } else {
