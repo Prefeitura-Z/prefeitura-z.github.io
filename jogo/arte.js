@@ -333,7 +333,7 @@ function quadroPessoa(ap, dir, estado, f) {
   const frente = dir === 'SE' || dir === 'SW', lado = dir === 'SE' || dir === 'NE' ? 1 : -1;
   const largo = ap.corpo === 'b' ? 2 : 0;
   const fase = estado === 'anda' ? (f / 8) * Math.PI * 2 : 0;
-  const passo = Math.sin(fase), bob = estado === 'anda' ? Math.round(Math.abs(Math.sin(fase)) * 1) : (estado === 'parado' && f % 4 >= 2 ? 1 : 0);
+  const passo = Math.sin(fase), bob = estado === 'anda' ? Math.round(1 - Math.abs(Math.sin(fase))) : (estado === 'parado' && f % 4 >= 2 ? 1 : 0);
   const px = (x, y, w, h, cor) => { g.fillStyle = cor; g.fillRect(Math.round(x), Math.round(y), w, h); };
   const zumbi = !!ap.zumbi, atq = estado === 'ataca' ? f : -1, golpe = atq >= 2 && atq <= 3;
   const cx = PX + (golpe && zumbi ? lado * 2 : 0), topo = 22 + bob + (zumbi ? 1 : 0);
@@ -344,7 +344,7 @@ function quadroPessoa(ap, dir, estado, f) {
   const pa = Math.round(passo * 2), pb = -pa;
   const pernaE = cx - 5 - largo / 2, pernaD = cx + 1 + largo / 2;
   // passada: uma perna vai à frente enquanto a outra fica pra trás; a que sobe encolhe
-  const anda = estado === 'anda', avE = anda ? Math.round(Math.cos(fase) * 2) * lado : 0, avD = -avE;
+  const anda = estado === 'anda', avE = anda ? -Math.round(Math.cos(fase) * 2.4) * lado : 0, avD = -avE;
   const meioE = Math.round(pernaH * 0.5);
   px(pernaE, pernaY, 4, meioE, R.calca); px(pernaE + avE, pernaY + meioE, 4, pernaH - meioE - Math.max(0, pa), R.calca); px(pernaE + avE, PY - 3 - Math.max(0, pa), 5, 3, R.bota);
   px(pernaD, pernaY, 4, meioE, tom(R.calca, 0.82)); px(pernaD + avD, pernaY + meioE, 4, pernaH - meioE - Math.max(0, pb), tom(R.calca, 0.82)); px(pernaD + avD, PY - 3 - Math.max(0, pb), 5, 3, tom(R.bota, 0.85));

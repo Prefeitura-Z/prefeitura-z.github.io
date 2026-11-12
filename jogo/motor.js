@@ -303,7 +303,7 @@ class Motor {
         this.sombra(g, p.x, p.y);
         if (p.caido) { g.save(); g.translate(Math.round(ps.x), Math.round(ps.y - 6)); g.rotate(Math.PI / 2); g.drawImage(p.folha[p.dir].parado[0], -A.PX, -A.PY + 10); g.restore(); continue; }
         const est = p.estado || (p.anda ? 'anda' : 'parado');
-        const q = p.quadro != null ? p.folha[p.dir][est][p.quadro] : this.quadroDe(p.folha, p.dir, est, est === 'anda' ? 10 : est === 'trabalha' ? 6 : 4);
+        const q = p.quadro != null ? p.folha[p.dir][est][p.quadro] : this.quadroDe(p.folha, p.dir, est, est === 'anda' ? 12 : est === 'trabalha' ? 6 : 4);
         g.drawImage(q, Math.round(ps.x - A.PX), Math.round(ps.y - A.PY));
         if (p.clarao > 0 && !this.reduzir) { g.globalAlpha = p.clarao; g.drawImage(A.silhueta(q), Math.round(ps.x - A.PX), Math.round(ps.y - A.PY)); g.globalAlpha = 1; }
       } else if (it.extra) {
@@ -329,7 +329,7 @@ class Motor {
       } else {
         const mo = it.mor, c = A.iso(mo.px, mo.py);
         this.sombra(g, mo.px, mo.py);
-        g.drawImage(this.quadroDe(mo.folha, mo.dir, mo.anda ? 'anda' : 'parado', mo.anda ? 8 : 4), Math.round(c.x - A.PX), Math.round(c.y - A.PY));
+        g.drawImage(this.quadroDe(mo.folha, mo.dir, mo.anda ? 'anda' : 'parado', mo.anda ? 10 : 4), Math.round(c.x - A.PX), Math.round(c.y - A.PY));
       }
     }
 

@@ -1,7 +1,7 @@
 // Prefeitura Z: Depois da Queda — regras do jogo (itens, rotas, inimigos, combate).
 // Tudo aqui é função pura, sem banco e sem relógio: o servidor sorteia uma semente, simula a expedição
 // inteira de uma vez e guarda o resultado. O navegador só assiste. Mudou número aqui? Suba VERSAO.
-export const VERSAO = 3;
+export const VERSAO = 4;
 
 // ---------- itens ----------
 // tipo: material | consumivel | missao | arma | protecao | mochila | ferramenta
@@ -178,8 +178,11 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
     return cabe;
   };
 
-  for (let i = 0; i < rota.pontos.length; i++) {
-    const pt = rota.pontos[i];
+  // ctx.inverso: faz as paradas da última pra primeira (no farm ele vai e volta pela rota em vez de recomeçar do início)
+  const ordem = rota.pontos.map((_, k) => k);
+  if (ctx.inverso) ordem.reverse();
+  for (let passo = 0; passo < ordem.length; passo++) {
+    const i = ordem[passo], pt = rota.pontos[i];
     andar(pt.p, i);
     if (pt.enc.length) {
       const ini = pt.enc.map((tipo, k) => ({ k, tipo, ...INIMIGOS[tipo], vida: Math.round(INIMIGOS[tipo].vida * forca), ataque: INIMIGOS[tipo].ataque * forca, vidaAtual: Math.round(INIMIGOS[tipo].vida * forca), prox: 0.9 + k * 0.45 + rnd() * 0.4, golpes: 0 }));
@@ -221,7 +224,7 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
       t += TEMPO_REVISTA; paradas++;
       log.push({ t: r1(t), e: 'saque', i, itens: ganho, xp, v: vida, carga, ...(equipGanho && pt.primeiraVez ? { equip: equipGanho } : {}) });
       salvos.push({ t: r1(t), xp, itens: { ...itens }, paradas, vida, equip: equipGanho, marcas: [...marcas] });
-      if (carga >= attrs.capacidade && i < rota.pontos.length - 1) { motivo = 'mochila'; break; }
+      if (carga >= attrs.capacidade && passo < ordem.length - 1) { motivo = 'mochila'; break; }
     }
   }
   if (motivo === 'concluida' && rota.marca) marcas.push(rota.marca);
@@ -265,13 +268,13 @@ export function resultadoAte(sim, t) {
 // Tudo é decidido na saída: quantas voltas cabem, onde para e por quê. Depois é só o relógio do servidor.
 export const RONDA = {
   limiteSeg: 8 * 3600,     // no máximo 8 horas por saída, igual pra todo mundo
-  descansoSeg: 8,          // fôlego entre uma volta e outra, lá na área mesmo, enquanto os infectados voltam a aparecer
+  descansoSeg: 4,          // fôlego entre uma volta e outra, lá na área mesmo, enquanto os infectados voltam a aparecer
   voltasPorKit: 10,        // um kit de campo segura esse tanto de voltas
   descansoCura: 0.4,       // fração da vida máxima recuperada em cada pausa
   condicaoMin: 20,         // arma ou proteção abaixo disso: volta pra casa
   vidaMin: [0.3, 0.5, 0.7],
   ciclosMax: 300,
-  desgaste: 0.1,           // farmando com calma o equipamento gasta bem menos que numa investida
+  desgaste: 0.06,           // farmando com calma o equipamento gasta bem menos que numa investida
 };
 // base: { xp, origem, equipados: { tipo: { id, item, condicao } }, flags, suprimentos }
 // op: { ciclos, vidaMin }.  Devolve { ciclos: [...], duracao, parada, retorno, kits }
@@ -296,13 +299,16 @@ export function simularRonda(rotaId, base, semente, op) {
     if (ciclos.length && vidaInicial / attrs.vidaMax < op.vidaMin) { parada = 'vida'; break; }
     const t0 = ciclos.length ? t + RONDA.descansoSeg : 0;
     const sementeCiclo = Math.floor(rnd() * 4294967296) >>> 0;
-    const sim = simular(rotaId, attrs, sementeCiclo, { flags: base.flags, temRegistro: true, vidaInicial, origem: pos, semVolta: true });
+    // volta ímpar faz a rota ao contrário: começa na parada onde ele já está, sem atravessar a rua de novo
+    const inv = ciclos.length % 2 === 1;
+    const sim = simular(rotaId, attrs, sementeCiclo, { flags: base.flags, temRegistro: true, vidaInicial, origem: pos, semVolta: true, inverso: inv });
     if (t0 + sim.duracao + retornoDe(sim.final.pos) > RONDA.limiteSeg) { parada = 'tempo'; break; }
-    const gasto = desgaste(sim.final, { desgaste: attrs.desgaste * RONDA.desgaste });
+    // no farm o desgaste é fracionado e só arredonda no total: com arredondar volta a volta, toda volta gastava 1 ponto no mínimo
+    const gasto = desgaste(sim.final, { desgaste: attrs.desgaste * RONDA.desgaste }, true);
     for (const k of Object.keys(equipados)) equipados[k].condicao = Math.max(0, equipados[k].condicao - (gasto[k] || 0));
     if (pedeKit) sup--;
     xp += sim.final.xp; vida = sim.final.vidaFinal; t = t0 + sim.duracao;
-    ciclos.push({ de: pos, t0, dur: sim.duracao, semente: sementeCiclo, attrs, vidaInicial, motivo: sim.final.motivo, xp: sim.final.xp, itens: sim.final.itens, paradas: sim.final.paradas, gasto });
+    ciclos.push({ de: pos, inv, t0, dur: sim.duracao, semente: sementeCiclo, attrs, vidaInicial, motivo: sim.final.motivo, xp: sim.final.xp, itens: sim.final.itens, paradas: sim.final.paradas, gasto });
     if (sim.final.motivo === 'derrota') { parada = 'derrota'; pos = null; break; }
     pos = sim.final.pos;
   }
@@ -322,18 +328,19 @@ export function rondaAte(ronda, t) {
     for (const [k, q] of Object.entries(c.gasto)) gasto[k] = (gasto[k] || 0) + q;
   }
   const ult = feitos[feitos.length - 1];
+  for (const k of Object.keys(gasto)) gasto[k] = Math.round(gasto[k]);
   return { feitos: feitos.length, iniciados, xp, itens, gasto, paradas, derrota: !!ult && ult.motivo === 'derrota' };
 }
 
 // desgaste do equipamento por expedição, em pontos de condição
-export function desgaste(final, attrs) {
+export function desgaste(final, attrs, fracao = false) {
   const extra = final.motivo === 'derrota' ? 8 : 0;
-  const m = attrs.desgaste;
+  const m = attrs.desgaste, arred = fracao ? v => Math.round(v * 1000) / 1000 : Math.ceil;
   return {
-    arma: Math.ceil((final.paradas * 1.5 + extra) * m),
-    protecao: Math.ceil((final.paradas * 1 + extra) * m),
-    mochila: Math.ceil((final.paradas * 0.5) * m),
-    ferramenta: Math.ceil((final.paradas * 0.5) * m),
+    arma: arred((final.paradas * 1.5 + extra) * m),
+    protecao: arred((final.paradas * 1 + extra) * m),
+    mochila: arred((final.paradas * 0.5) * m),
+    ferramenta: arred((final.paradas * 0.5) * m),
   };
 }
 
