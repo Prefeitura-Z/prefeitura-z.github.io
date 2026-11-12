@@ -193,7 +193,7 @@ const ALTURA = {
   bancada: 20, gerador: 22, pneus: 16, carcaca: 26, tambor: 22, ferramentas: 42, antena: 120, mesaRadio: 20,
   beliche: 40, cama: 18, armario: 62, barraca: 56, tenda: 76, maca: 14, caixaMedica: 16, tanque: 96, planta: 10,
   quadro: 44, poste: 124, fogueira: 10, banco: 10, cerca: 18, casinha: 22, arvore: 110,
-  bloco: 104, carro: 38, barricada: 22, entulho: 8, placaRua: 40,
+  bloco: 104, carro: 44, barricada: 22, entulho: 8, placaRua: 40,
 };
 
 // caixote de madeira: tábuas, travessa em X e contorno
@@ -218,6 +218,83 @@ function cama(g, x, y, d, z, r, semPe) {
   caixa(g, x + 0.12, y + d * 0.5, 0.76, d * 0.5 - 0.1, 3, cobertor, z + 13);
   placa(g, x + 0.12, y + d * 0.5, 0.76, d * 0.5 - 0.1, 'esq', 0, 1, 0, 1, 3, tom(cobertor, 0.8));
   const F1 = iso(x + 0.12, y + d * 0.5 + 0.15), F2 = iso(x + 0.88, y + d * 0.5 + 0.15); g.strokeStyle = tom(cobertor, 1.25); g.beginPath(); g.moveTo(F1.x, F1.y - z - 16); g.lineTo(F2.x, F2.y - z - 16); g.stroke();
+}
+
+// carro largado: sedã, hatch, picape ou van, com roda de aro, para-choque, farol, lanterna, retrovisor,
+// vidro trincado, ferrugem e amassado. queimado = carcaça preta, sem vidro e sem pneu.
+function veiculo(g, o, r, queimado) {
+  const { x, y, w, d } = o, ao = w >= d;
+  const modelos = ['seda', 'hatch', 'picape', 'van'];
+  const mod = o.modelo || modelos[Math.floor(r() * 4)];
+  const cor = queimado ? '#3a3632' : (o.cor || '#5a6a72');
+  const vid = queimado ? { topo: '#1a1816', esq: '#141210', dir: '#100e0c' } : { topo: '#2c3a40', esq: '#24323a', dir: '#1a262c' };
+  const bx = x + 0.06, by = y + 0.1, bw = w - 0.12, bd = d - 0.2;
+  // sub-caixa por fração do comprimento (u) e da largura (v), seja o carro deitado em x ou em y
+  const sub = (u0, u1, v0, v1, h, c, z) => ao ? caixa(g, bx + bw * u0, by + bd * v0, bw * (u1 - u0), bd * (v1 - v0), h, c, z) : caixa(g, bx + bd * v0 * (bw / bd), by + bd * u0, bw * (v1 - v0), bd * (u1 - u0), h, c, z);
+  const lado = ao ? 'esq' : 'dir', ponta = ao ? 'dir' : 'esq';
+  const comprimento = mod === 'hatch' ? 0.86 : 1, u0 = (1 - comprimento) / 2, u1 = 1 - u0;
+  // rodas com aro (atrás da carroceria)
+  const rodas = ao ? [[u0 + 0.18, 1], [u1 - 0.18, 1]] : [[1, u0 + 0.18], [1, u1 - 0.18]];
+  const furado = !queimado && r() > 0.7;
+  for (const [a, b] of rodas) {
+    const p = ao ? iso(bx + bw * a, by + bd + 0.02) : iso(bx + bw + 0.02, by + bd * b);
+    if (queimado) { g.fillStyle = '#2a2622'; g.fillRect(p.x - 4, p.y - 6, 8, 5); continue; }
+    const ry = furado && a === rodas[0][0] && b === rodas[0][1] ? 5 : 7;
+    g.fillStyle = '#0e0e0e'; g.beginPath(); g.ellipse(p.x, p.y - ry, 8, ry + 1, 0, 0, 7); g.fill();
+    g.fillStyle = '#1e1e1e'; g.beginPath(); g.ellipse(p.x, p.y - ry, 7, ry, 0, 0, 7); g.fill();
+    g.fillStyle = '#7a8084'; g.beginPath(); g.ellipse(p.x, p.y - ry, 3.5, ry * 0.5, 0, 0, 7); g.fill();
+    g.fillStyle = '#b8bec2'; g.fillRect(p.x - 1, p.y - ry - 2, 2, 1);
+  }
+  const altCorpo = mod === 'van' ? 34 : 16, zc = 7;
+  // carroceria
+  sub(u0, u1, 0, 1, altCorpo, cor, zc);
+  sub(u0 + 0.01, u1 - 0.01, 0.04, 0.96, 1, tom(cor, 1.12), zc + altCorpo);   // borda clara do capô e da tampa
+  // faixa escura da saia e para-choques
+  sub(u1 - 0.03, u1 + 0.02, 0.05, 0.95, 5, '#2a2a28', zc - 1);
+  if (mod === 'seda' || mod === 'hatch') {
+    const c0 = mod === 'seda' ? 0.28 : 0.38, c1 = mod === 'seda' ? 0.74 : 0.9;
+    // cabine em dois degraus pra parecer inclinada: vidro mais largo embaixo, teto recuado em cima
+    sub(c0, c1, 0.07, 0.93, 7, vid, zc + altCorpo);
+    sub(c0 + 0.04, c1 - 0.03, 0.1, 0.9, 7, vid, zc + altCorpo + 7);
+    sub(c0 + 0.07, c1 - 0.05, 0.12, 0.88, 3, cor, zc + altCorpo + 14);
+    if (!queimado) { sub(c0 + 0.45 * (c1 - c0), c0 + 0.5 * (c1 - c0), 0.07, 0.93, 14, tom(cor, 0.8), zc + altCorpo); }   // coluna do meio
+  } else if (mod === 'picape') {
+    sub(0.52, 0.8, 0.07, 0.93, 8, vid, zc + altCorpo);
+    sub(0.54, 0.78, 0.1, 0.9, 7, vid, zc + altCorpo + 8);
+    sub(0.56, 0.76, 0.12, 0.88, 3, cor, zc + altCorpo + 15);
+    // caçamba com bordas e tralha dentro
+    sub(u0 + 0.02, 0.5, 0.04, 0.12, 6, tom(cor, 0.9), zc + altCorpo); sub(u0 + 0.02, 0.5, 0.88, 0.96, 6, tom(cor, 0.9), zc + altCorpo); sub(u0 + 0.02, u0 + 0.06, 0.04, 0.96, 6, tom(cor, 0.9), zc + altCorpo);
+    if (!queimado) { sub(0.14, 0.3, 0.25, 0.6, 7, '#7a6448', zc + altCorpo); sub(0.32, 0.44, 0.5, 0.8, 5, '#3f5a6a', zc + altCorpo); }
+  } else {
+    // van: frente com vidro alto, lateral com janela só na cabine
+    sub(u0 + 0.02, u1 - 0.02, 0.06, 0.94, 3, tom(cor, 1.1), zc + altCorpo);
+    // para-brisa na frente e janela da cabine na lateral
+    const hv = altCorpo + zc;
+    ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, ponta, 0.08, 0.92, 0.6, 0.92, hv, vid.esq) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), ponta, 0.08, 0.92, 0.6, 0.92, hv, vid.esq);
+    ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, lado, 0.76, 0.97, 0.6, 0.9, hv, vid.esq) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), lado, 0.76, 0.97, 0.6, 0.9, hv, vid.esq);
+    if (!queimado) ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, lado, 0.08, 0.5, 0.15, 0.5, hv, tom(cor, 0.85)) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), lado, 0.08, 0.5, 0.15, 0.5, hv, tom(cor, 0.85));
+  }
+  if (!queimado) {
+    // friso, maçaneta, ferrugem e amassado na lateral
+    const P = (uu0, uu1, vv0, vv1, c, hh = altCorpo + zc) => ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, lado, uu0, uu1, vv0, vv1, hh, c) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), lado, uu0, uu1, vv0, vv1, hh, c);
+    P(0, 1, 0.5, 0.56, tom(cor, 0.68)); P(0, 1, 0.92, 0.98, tom(cor, 1.18));
+    P(0.42, 0.46, 0.66, 0.7, '#c9c2b0'); P(0.7, 0.74, 0.66, 0.7, '#c9c2b0');
+    P(0.06 + r() * 0.5, 0.3 + r() * 0.5, 0.25, 0.48, '#A65F3D77'); P(0.6, 0.78, 0.35, 0.6, '#00000030');
+    P(0.03, 0.07, 0.2, 0.6, '#24282B');
+    // farol e lanterna
+    const PF = (uu0, uu1, vv0, vv1, c) => ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, ponta, uu0, uu1, vv0, vv1, altCorpo + zc, c) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), ponta, uu0, uu1, vv0, vv1, altCorpo + zc, c);
+    PF(0.08, 0.26, 0.55, 0.8, '#e8e2c8'); PF(0.74, 0.92, 0.55, 0.8, r() > 0.5 ? '#e8e2c8' : '#3a3a36'); PF(0.3, 0.7, 0.55, 0.75, '#2a2a28');
+    // vidro trincado
+    if (mod !== 'picape' && r() > 0.4) { const c = ao ? iso(bx + bw * 0.5, by + bd) : iso(bx + bw, by + bd * 0.5); g.strokeStyle = '#c8d4d8aa'; g.lineWidth = 1; g.beginPath(); g.moveTo(c.x - 4, c.y - altCorpo - zc - 3); g.lineTo(c.x + 1, c.y - altCorpo - zc - 8); g.lineTo(c.x + 5, c.y - altCorpo - zc - 4); g.moveTo(c.x + 1, c.y - altCorpo - zc - 8); g.lineTo(c.x + 2, c.y - altCorpo - zc - 13); g.stroke(); }
+    // retrovisor
+    const rv = ao ? iso(bx + bw * 0.72, by + bd + 0.04) : iso(bx + bw + 0.04, by + bd * 0.72); g.fillStyle = '#141412'; g.fillRect(rv.x - 2, rv.y - altCorpo - zc - 4, 4, 3); g.fillStyle = tom(cor, 0.8); g.fillRect(rv.x - 1, rv.y - altCorpo - zc - 3, 2, 1);
+  } else {
+    // fuligem e ferrugem por cima de tudo
+    const c = iso(x + w / 2, y + d / 2);
+    for (let k = 0; k < 18; k++) { g.fillStyle = ['#A65F3D', '#6a3a2a', '#1a1816', '#5a4a3a'][k % 4]; g.fillRect(Math.round(c.x + (r() - 0.5) * 50), Math.round(c.y - 10 - r() * 22), 2 + Math.floor(r() * 3), 1 + Math.floor(r() * 2)); }
+  }
+  // caco de vidro no chão
+  { const c = iso(x + w / 2, y + d / 2); for (let k = 0; k < 5; k++) { g.fillStyle = '#c8d4d888'; g.fillRect(Math.round(c.x + (r() - 0.5) * 40), Math.round(c.y + 6 + (r() - 0.5) * 12), 2, 1); } }
 }
 
 function desenharObjeto(g, o, t) {
@@ -295,29 +372,7 @@ function desenharObjeto(g, o, t) {
       if (o.topo) { const q = r(); if (q > 0.965) { caixa(g, x + 0.3, y + 0.35, 0.36, 0.28, 9, '#5e6468', h); placa(g, x + 0.3, y + 0.35, 0.36, 0.28, 'esq', 0.15, 0.85, 0.3, 0.7, 9, '#2a2e30'); } else if (q > 0.93) { const c = iso(x + 0.5, y + 0.5); cilindro(g, c.x, c.y - h - 2, 8, 4, 14, '#4e6260'); } else if (q > 0.88) caixa(g, x + 0.42, y + 0.42, 0.16, 0.16, 8, '#3a3a36', h); else if (q > 0.7) { const c = iso(x + 0.5, y + 0.5); g.fillStyle = '#00000022'; g.beginPath(); g.ellipse(c.x + (r() - 0.5) * 16, c.y - h, 10, 4, 0, 0, 7); g.fill(); } }
       break;
     }
-    case 'carro': {
-      // carro largado na escala do boneco: carroceria até a cintura, teto um pouco abaixo da cabeça
-      const cor = o.cor || '#5a6a72', ao = w >= d, vid = { topo: '#2a3438', esq: '#1e2a2e', dir: '#162024' };
-      const bx = x + 0.06, by = y + 0.1, bw = w - 0.12, bd = d - 0.2;
-      // rodas por baixo
-      for (const [a, b] of ao ? [[0.45, d - 0.12], [w - 0.45, d - 0.12]] : [[w - 0.12, 0.45], [w - 0.12, d - 0.45]]) { const p = iso(x + a, y + b); g.fillStyle = '#121212'; g.beginPath(); g.ellipse(p.x, p.y - 6, 7, 7, 0, 0, 7); g.fill(); g.fillStyle = '#4a4a4a'; g.fillRect(p.x - 2, p.y - 8, 3, 3); }
-      caixa(g, bx, by, bw, bd, 14, cor, 6);
-      // capô e porta-malas mais baixos, cabine no meio com vidro
-      const cab = ao ? [bx + bw * 0.28, by + 0.06, bw * 0.48, bd - 0.12] : [bx + 0.06, by + bd * 0.28, bw - 0.12, bd * 0.48];
-      caixa(g, cab[0], cab[1], cab[2], cab[3], 12, vid, 20);
-      caixa(g, cab[0] + (ao ? 0.04 : 0), cab[1] + (ao ? 0 : 0.04), cab[2] - (ao ? 0.08 : 0), cab[3] - (ao ? 0 : 0.08), 3, cor, 32);
-      const f = ao ? 'esq' : 'dir';
-      placa(g, cab[0], cab[1], cab[2], cab[3], f, 0.08, 0.3, 0.25, 0.9, 12, '#ffffff1a');     // reflexo no vidro
-      placa(g, bx, by, bw, bd, f, 0, 1, 0.45, 0.52, 14, tom(cor, 0.7));                         // friso
-      placa(g, bx, by, bw, bd, f, 0.49, 0.51, 0.05, 1, 14, tom(cor, 0.6));                       // linha da porta
-      placa(g, bx, by, bw, bd, f, 0.55, 0.85, 0.2, 0.9, 14, '#A65F3D66');                         // ferrugem
-      placa(g, bx, by, bw, bd, f, 0.1, 0.32, 0.6, 0.85, 14, '#00000033');
-      // farol e lanterna nas pontas
-      const ff = ao ? 'dir' : 'esq';
-      placa(g, bx, by, bw, bd, ff, 0.1, 0.25, 0.4, 0.75, 14, '#d8d0b0'); placa(g, bx, by, bw, bd, ff, 0.75, 0.9, 0.4, 0.75, 14, '#d8d0b0');
-      { const c = iso(x + w / 2, y + d / 2); for (let k = 0; k < 4; k++) { g.fillStyle = '#c8d4d888'; g.fillRect(Math.round(c.x + (r() - 0.5) * 30), Math.round(c.y + 4 + (r() - 0.5) * 10), 2, 1); } }   // caco de vidro no chão
-      break;
-    }
+    case 'carro': veiculo(g, o, r, false); break;
     case 'barricada': { const ao = w >= d;
       for (let k = 0; k < (ao ? w : d) * 2; k++) caixa(g, ao ? x + k * 0.5 + 0.04 : x + 0.3, ao ? y + 0.3 : y + k * 0.5 + 0.04, ao ? 0.42 : 0.4, ao ? 0.4 : 0.42, 10 + (k % 2) * 3, '#9B8D66');
       caixa(g, ao ? x + 0.1 : x + 0.42, ao ? y + 0.42 : y + 0.1, ao ? w - 0.2 : 0.14, ao ? 0.14 : d - 0.2, 4, '#6e5a44', 15);
@@ -428,9 +483,7 @@ function desenharObjeto(g, o, t) {
       break;
     }
     case 'pneus': { const p = iso(x + 0.5, y + 0.5); for (let k = 0; k < 3; k++) { g.fillStyle = '#1e1e1e'; g.beginPath(); g.ellipse(p.x, p.y - k * 5, 13, 6.5, 0, 0, 7); g.fill(); g.fillStyle = '#333'; g.beginPath(); g.ellipse(p.x, p.y - k * 5 - 1, 6, 3, 0, 0, 7); g.fill(); } } break;
-    case 'carcaca': caixa(g, x + 0.1, y + 0.15, w - 0.2, d - 0.3, 14, '#5a6a72', 6); caixa(g, x + 0.5, y + 0.4, w - 1, d - 0.8, 12, '#4c5a62', 20);
-      for (const [a, b] of [[0.4, d - 0.15], [w - 0.4, d - 0.15]]) { const p = iso(x + a, y + b); g.fillStyle = '#151515'; g.beginPath(); g.ellipse(p.x, p.y - 4, 6, 6, 0, 0, 7); g.fill(); }
-      placa(g, x + 0.1, y + 0.15, w - 0.2, d - 0.3, 'esq', 0.1, 0.4, 0.2, 0.9, 20, '#A65F3D99'); break;
+    case 'carcaca': veiculo(g, o, r, true); break;
     case 'tambor': { const p = iso(x + 0.5, y + 0.5); cilindro(g, p.x, p.y, 9, 4.5, h, r() > 0.5 ? '#3f5a6a' : '#7a3a2a'); g.fillStyle = '#00000040'; g.fillRect(p.x - 9, p.y - 8, 18, 2); g.fillRect(p.x - 9, p.y - 16, 18, 2); } break;
     case 'ferramentas': caixa(g, x + 0.05, y + 0.6, w - 0.1, 0.2, h, '#5a4a38');
       for (let k = 0; k < 6; k++) { const p = naFace(x + 0.05, y + 0.6, w - 0.1, 0.2, 'esq', 0.12 + k * 0.15, 0.7, h); g.fillStyle = ['#8f979c', '#A65F3D', '#c9c2b0'][k % 3]; g.fillRect(p.x - 1, p.y - 2, 2, 10); } break;
@@ -649,15 +702,15 @@ const INIMIGO_AP = {
 
 // o que cada equipamento muda no desenho do boneco (ap.eq = { arma, protecao, mochila, ferramenta })
 const EQUIP_VIS = {
-  barra_portao: { haste: '#8f979c' },
-  cano_rebite: { haste: '#7d858a', cabeca: '#4f5559' },
-  machadinha: { haste: '#5a4a38', lamina: '#b9c0c4' },
+  barra_portao: { haste: '#8f979c', forma: 'barra', fita: '#7a3a2a' },
+  cano_rebite: { haste: '#7d858a', cabeca: '#4f5559', forma: 'cano', fita: '#24282B', comp: 1.1 },
+  machadinha: { haste: '#7a5a3e', lamina: '#b9c0c4', forma: 'machado', fita: '#3a2a1e' },
   jaqueta_ronda: { reforco: '#5a3a26' },
   colete_lona: { colete: '#b7a67a' },
   mochila_lona: { bolsa: '#6b7350', alca: '#4c5238' },
   mochila_reforcada: { bolsa: '#4a5560', alca: '#333b44', armacao: '#aab1b5', grande: true },
   ferramenta_recuperacao: { cinto: '#a8443a' },
-  lanca_vergalhao: { haste: '#7a6f5e', bico: '#cfd5d8' },
+  lanca_vergalhao: { haste: '#7a6f5e', bico: '#cfd5d8', forma: 'lanca', fita: '#3f5a6a', comp: 1.4 },
   armadura_placas: { colete: '#8a9298' },
   mochila_cargueira: { bolsa: '#7a6448', alca: '#4a3a28', armacao: '#9aa0a4', grande: true },
   kit_desmonte: { cinto: '#c99a3a' },
@@ -674,25 +727,38 @@ function quadroPessoa(ap, dir, estado, f) {
   const frente = dir === 'SE' || dir === 'SW', lado = dir === 'SE' || dir === 'NE' ? 1 : -1;
   const largo = ap.corpo === 'b' ? 2 : 0;
   const fase = estado === 'anda' ? (f / 8) * Math.PI * 2 : 0;
-  const passo = Math.sin(fase), bob = estado === 'anda' ? Math.round(1 - Math.abs(Math.sin(fase))) : (estado === 'parado' && f % 4 >= 2 ? 1 : 0);
+  const bob = estado === 'anda' ? Math.round(1 - Math.abs(Math.sin(fase))) : (estado === 'parado' && f % 4 >= 2 ? 1 : 0);
+  // a cabeça acompanha o corpo com um pequeno atraso: dá peso à passada
+  const bobCab = estado === 'anda' ? Math.round(1 - Math.abs(Math.sin(fase - 0.7))) : bob;
   const px = (x, y, w, h, cor) => { g.fillStyle = cor; g.fillRect(Math.round(x), Math.round(y), w, h); };
   const zumbi = !!ap.zumbi, atq = estado === 'ataca' ? f : -1, golpe = atq >= 2 && atq <= 3;
   const cx = PX + (golpe && zumbi ? lado * 2 : 0), topo = 22 + bob + (zumbi ? 1 : 0);
   const eq = ap.eq || {}, vArma = EQUIP_VIS[eq.arma], vProt = EQUIP_VIS[eq.protecao], vMoch = EQUIP_VIS[eq.mochila], vFerr = EQUIP_VIS[eq.ferramenta];
 
-  // pernas
+  // pernas: a coxa gira no quadril (meia passada), a canela vai inteira, e o pé que está no ar sobe
   const pernaY = 56 + bob, pernaH = PY - pernaY;
-  const pa = Math.round(passo * 2), pb = -pa;
   const pernaE = cx - 5 - largo / 2, pernaD = cx + 1 + largo / 2;
-  // passada: uma perna vai à frente enquanto a outra fica pra trás; a que sobe encolhe
-  const anda = estado === 'anda', avE = anda ? -Math.round(Math.cos(fase) * 2.4) * lado : 0, avD = -avE;
-  const meioE = Math.round(pernaH * 0.5);
-  px(pernaE, pernaY, 4, meioE, R.calca); px(pernaE + avE, pernaY + meioE, 4, pernaH - meioE - Math.max(0, pa), R.calca); px(pernaE + avE, PY - 3 - Math.max(0, pa), 5, 3, R.bota);
-  px(pernaD, pernaY, 4, meioE, tom(R.calca, 0.82)); px(pernaD + avD, pernaY + meioE, 4, pernaH - meioE - Math.max(0, pb), tom(R.calca, 0.82)); px(pernaD + avD, PY - 3 - Math.max(0, pb), 5, 3, tom(R.bota, 0.85));
+  const anda = estado === 'anda', AMP = 3.4;
+  const avE = anda ? -Math.round(Math.cos(fase) * AMP) * lado : 0, avD = -avE;
+  const sobeE = anda ? Math.round(Math.max(0, Math.sin(fase)) * 2.6) : 0, sobeD = anda ? Math.round(Math.max(0, -Math.sin(fase)) * 2.6) : 0;
+  const meio = Math.round(pernaH * 0.48);
+  const perna = (x0, av, sobe, cor, bota) => {
+    const coxa = Math.round(av / 2);
+    px(x0 + coxa, pernaY, 4, meio + 1, cor);
+    px(x0 + av, pernaY + meio, 4, pernaH - meio - 2 - sobe, cor);
+    if (sobe) px(x0 + Math.round(av * 0.75) + (lado > 0 ? 1 : -1), pernaY + meio - 1, 4, 2, tom(cor, 1.12));   // joelho dobrado
+    // bota: de bico pra frente; no ar o bico aponta pra baixo
+    px(x0 + av + (lado > 0 ? 0 : -1), PY - 3 - sobe, 5, 3, bota);
+    px(x0 + av + (lado > 0 ? 0 : -1), PY - 1 - sobe, 5, 1, tom(bota, 0.7));
+  };
+  // a perna de trás primeiro, mais escura
+  const ordem = lado > 0 ? [[pernaD, avD, sobeD, tom(R.calca, 0.82), tom(R.bota, 0.85)], [pernaE, avE, sobeE, R.calca, R.bota]] : [[pernaE, avE, sobeE, R.calca, R.bota], [pernaD, avD, sobeD, tom(R.calca, 0.82), tom(R.bota, 0.85)]];
+  for (const [x0, av, sb, cor, bt] of ordem) perna(x0, av, sb, cor, bt);
+  const passo = Math.sin(fase), pa = Math.round(passo * 2);
 
   // braço do fundo (atrás do tronco)
   const tw = 14 + largo, tx = cx - tw / 2, ty = topo + 12;
-  const bracoBalanço = estado === 'anda' ? Math.round(-passo * 2) : 0;
+  const bracoBalanço = estado === 'anda' ? Math.round(-passo * 3) : 0;
   const trab = estado === 'trabalha' ? Math.round(Math.sin(f / 6 * Math.PI * 2) * 2) : 0;
   const ladoFundo = lado > 0 ? tx - 3 : tx + tw - 1;
   if (zumbi) { px(lado > 0 ? tx + tw - 3 : tx - 7, ty + 2 + (f % 2), 10, 4, tom(R.manga, 0.75)); px(lado > 0 ? tx + tw + 7 : tx - 10, ty + 2 + (f % 2), 3, 4, tom(pele, 0.8)); }
@@ -732,18 +798,52 @@ function quadroPessoa(ap, dir, estado, f) {
   // braço da frente
   const ladoFrente = lado > 0 ? tx + tw - 1 : tx - 3;
   const metal = vArma ? vArma.haste : '#aab1b5';
-  // ponta da arma: cabeça de rebite ou lâmina. (x, y) é a ponta da haste; sx diz pra que lado a lâmina abre
-  const ponta = (x, y, sx) => {
-    if (!vArma) return;
-    if (vArma.cabeca) px(x - 1, y - 1, 4, 5, vArma.cabeca);
-    if (vArma.bico) { px(x - 1, y - 1, 4, 4, vArma.bico); px(sx > 0 ? x + 3 : x - 2, y, 2, 2, vArma.bico); px(sx > 0 ? x + 5 : x - 3, y + 1, 1, 1, tom(vArma.bico, 1.15)); px(x, y + 2, 2, 2, '#c99a3a'); }
-    if (vArma.lamina) { px(sx > 0 ? x + 1 : x - 4, y, 5, 5, vArma.lamina); px(sx > 0 ? x + 5 : x - 5, y + 1, 1, 3, tom(vArma.lamina, 1.15)); }
-  };
-  // haste inclinada, pixel a pixel, da mão até a ponta
+  // arma desenhada ao longo da direção da haste: cabo enrolado em fita, corpo com brilho e a cabeça certa de cada uma.
+  // haste() desenha da mão até a ponta (esticando as armas longas); ponta() desenha a cabeça na ponta real.
+  let pontaReal = null;
+  const P2 = (x, y, cor) => px(x, y, 2, 2, cor), P1 = (x, y, cor) => px(x, y, 1, 1, cor);
   const haste = (x0, y0, x1, y1) => {
-    const n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0)) || 1;
-    for (let i = 0; i <= n; i++) px(x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * i / n, 2, 2, metal);
-    px(x0, y0, 2, 2, tom(metal, 0.7));   // empunhadura
+    const forma = vArma ? vArma.forma : 'barra', k = vArma && vArma.comp || 1;
+    let dx = x1 - x0, dy = y1 - y0; const L = Math.hypot(dx, dy) || 1; dx /= L; dy /= L;
+    const ext = L * k, ex = x0 + dx * ext, ey = y0 + dy * ext, n = Math.ceil(ext);
+    // perpendicular "pra cima" na tela, pra pôr o brilho de um lado só
+    let vx = -dy, vy = dx; if (vy > 0) { vx = -vx; vy = -vy; }
+    pontaReal = { x: ex, y: ey, dx, dy, vx, vy };
+    const grosso = forma === 'cano' ? 3 : 2, fita = vArma && vArma.fita || '#2a2a26', corpo = metal, claro = tom(metal, 1.3), escuro = tom(metal, 0.7);
+    // pomo atrás da mão
+    P2(x0 - dx * 2, y0 - dy * 2, tom(fita, 0.8));
+    for (let i = 0; i <= n; i++) {
+      const x = x0 + dx * i, y = y0 + dy * i, cabo = i < Math.min(5, n * 0.35);
+      let cor = cabo ? (i % 2 ? fita : tom(fita, 1.3)) : corpo;
+      if (!cabo && forma === 'lanca' && i % 3 === 0) cor = escuro;               // nervura do vergalhão
+      if (!cabo && forma === 'machado') cor = i % 4 === 0 ? tom(corpo, 0.82) : corpo; // veio da madeira
+      px(x, y, grosso, grosso, cor);
+      if (!cabo && i % 2 === 0) P1(x + vx, y + vy, claro);                        // brilho correndo pela haste
+    }
+  };
+  const ponta = () => {
+    if (!vArma || !pontaReal) return;
+    const { x, y, dx, dy, vx, vy } = pontaReal, f = vArma.forma;
+    const at = (u, v) => ({ x: x + dx * u + vx * v, y: y + dy * u + vy * v });
+    if (f === 'cano') {
+      // cabeça de rebites: bola de metal com cravos claros
+      for (let u = -2; u <= 3; u++) for (let v = -3; v <= 3; v++) { if (Math.abs(v) === 3 && (u === -2 || u === 3)) continue; const q = at(u, v); P2(q.x, q.y, v < 0 ? tom(vArma.cabeca, 1.15) : vArma.cabeca); }
+      for (const [u, v] of [[-1, -2], [2, -2], [0, 1], [3, 0], [-1, 3], [2, 3]]) { const q = at(u, v); P2(q.x, q.y, '#c9c2b0'); P1(q.x, q.y, '#f4efe2'); }
+    } else if (f === 'machado') {
+      // lâmina larga pro lado de fora, fio claro e tope atrás
+      const lado2 = -1;
+      for (let u = -2; u <= 3; u++) for (let v = 1; v <= 3 + Math.max(0, u + 1); v++) { const q = at(u, v * lado2); P2(q.x, q.y, v >= 2 + Math.max(0, u + 1) ? '#e8eef0' : vArma.lamina); }
+      for (let u = -1; u <= 2; u++) { const q = at(u, 2); P2(q.x, q.y, tom(vArma.lamina, 0.7)); }
+      const c0 = at(0, 0); P2(c0.x, c0.y, '#3a3a36');
+    } else if (f === 'lanca') {
+      // ponta afiada, amarração de arame e fita colorida
+      for (let u = 0; u <= 5; u++) { const w2 = u < 2 ? 1 : u < 4 ? 0.5 : 0; for (let v = -w2; v <= w2; v += 1) { const q = at(u, v); P2(q.x, q.y, u > 3 ? '#f4f8fa' : vArma.bico); } }
+      for (let u = -3; u <= -1; u++) { const q = at(u, 0); P2(q.x, q.y, u % 2 ? '#c99a3a' : '#8f979c'); }
+    } else {
+      // barra de portão: ponta dobrada em gancho, com a quina gasta e clara
+      for (const [u, v] of [[0, 0], [1, 0], [2, 1], [3, 2], [3, 3]]) { const q = at(u, v); P2(q.x, q.y, metal); }
+      const q = at(3, 3); P1(q.x, q.y, '#e8eef0'); const q2 = at(1, -1); P1(q2.x, q2.y, tom(metal, 1.3));
+    }
   };
   if (zumbi) {
     const sobe = golpe ? -3 : 0, bx = lado > 0 ? tx + tw - 2 : tx - 10;
@@ -788,7 +888,7 @@ function quadroPessoa(ap, dir, estado, f) {
   // pescoço e cabeça: cabeça grande (estilo chibi), 16×14, com sombra do lado direito e brilho no cabelo
   const HL = 16, HA = 14;
   px(cx - 2, topo + 9, 4, 4, tom(pele, 0.85));
-  const hx = cx - HL / 2 + (frente ? lado : 0), hy = topo - 5;
+  const hx = cx - HL / 2 + (frente ? lado : 0), hy = topo - 5 + (bobCab - bob);
   px(hx + 1, hy, HL - 2, HA, pele); px(hx, hy + 1, HL, HA - 3, pele);
   px(hx + (lado > 0 ? HL - 4 : 0), hy + 1, 4, HA - 2, tom(pele, 0.86));
   px(hx + 2, hy + HA - 1, HL - 4, 1, tom(pele, 0.78));                 // queixo
