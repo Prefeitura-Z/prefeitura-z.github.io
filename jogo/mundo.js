@@ -37,7 +37,7 @@ for (let y = 8; y <= 32; y++) { obj('muro', 6, y, 1, 1, { eixo: 'y' }); obj('mur
 obj('pilar', 17, 33); obj('pilar', 21, 33);
 obj('portao', 18, 33, 3, 1);
 obj('guarita', 22, 34, 2, 2);
-obj('sacos', 16, 31); obj('sacos', 22, 31); obj('sacos', 16, 30);
+obj('sacos', 16, 31); obj('sacos', 22, 31); obj('sacos', 16, 30, 1, 1, { eixo: 'y' });
 
 // administração (Prefeito)
 obj('mesa', 10, 11, 3, 1);
@@ -47,7 +47,7 @@ obj('caixa', 13, 13);
 // oficina (Wolf)
 obj('bancada', 27, 11, 3, 1);
 obj('gerador', 25, 9); obj('pneus', 31, 9); obj('pneus', 32, 10);
-obj('carcaca', 30, 12, 2, 2);
+obj('carroOficina', 30, 12, 2, 1, { modelo: 'seda', cor: '#7a6a52', calco: true });
 obj('tambor', 25, 13); obj('tambor', 26, 14);
 obj('ferramentas', 28, 9, 2, 1);
 // central de rádio (Bashar)
@@ -71,9 +71,12 @@ obj('quadro', 19, 15, 2, 1);
 obj('poste', 16, 15); obj('poste', 23, 15); obj('poste', 16, 23); obj('poste', 23, 23);
 obj('fogueira', 22, 21);
 obj('banco', 17, 19, 1, 2); obj('banco', 22, 17, 1, 1);
-// canil (reservado pra quando os cães chegarem)
-obj('cerca', 15, 9); obj('cerca', 16, 9); obj('cerca', 17, 9); obj('cerca', 15, 10); obj('cerca', 15, 11); obj('cerca', 17, 11);
-obj('casinha', 16, 10, 1, 1);
+// galinheiro: cerca de tela em volta, casinha em palafita e porteira virada pra trilha
+for (let x = 15; x <= 17; x++) { obj('cerca', x, 9, 1, 1, { lado: 'n', dprof: -0.9 }); obj('cerca', x, 12, 1, 1, { lado: 's', portao: x === 16 }); }
+for (let y = 9; y <= 12; y++) { obj('cerca', 15, y, 1, 1, { lado: 'w', dprof: -0.9 }); obj('cerca', 17, y, 1, 1, { lado: 'e' }); }
+obj('galinheiro', 16, 10, 1, 1);
+// casinha dos cachorros, perto do portão
+obj('casinha', 24, 30, 1, 1);
 // árvores
 obj('arvore', 14, 24); obj('arvore', 25, 15); obj('arvore', 24, 25);
 const sementes = [[2, 8], [3, 14], [1, 20], [4, 27], [2, 33], [5, 37], [9, 36], [13, 38], [26, 36], [30, 38], [35, 35], [37, 29], [36, 22], [38, 15], [35, 9], [37, 6], [1, 6], [11, 5], [24, 5], [31, 5], [3, 39], [15, 35], [38, 38], [0, 11]];
@@ -90,6 +93,16 @@ const NPCS = [
 const MORADORES = [
   { ap: 'morador1', rota: [[17, 21], [21, 21], [21, 24], [15, 24], [15, 20]] },
   { ap: 'morador2', rota: [[24, 18], [26, 23], [20, 25], [17, 17]] },
+];
+
+// bichos soltos (só ambiente; não bloqueiam): andam sorteando um ponto dentro da área [x0, y0, x1, y1]
+const BICHOS = [
+  { tipo: 'galo', area: [15.3, 9.3, 17.7, 12.7], evita: [16, 10] },
+  { tipo: 'galinha', area: [15.3, 9.3, 17.7, 12.7], evita: [16, 10] },
+  { tipo: 'galinha', area: [15.3, 9.3, 17.7, 12.7], evita: [16, 10], cor: '#b06a3a' },
+  { tipo: 'galinha', area: [15.3, 9.3, 17.7, 12.7], evita: [16, 10] },
+  { tipo: 'cao', area: [15.5, 24.5, 25.5, 30.5], cor: '#b5773c' },
+  { tipo: 'cao', area: [16, 16, 24, 30.5], cor: '#4a403a' },
 ];
 
 const SPAWN = { x: 19.5, y: 31.2, dir: 'NE' };
@@ -166,5 +179,5 @@ const OBJETIVOS = [
   { id: 'T10', titulo: 'Mais longe', texto: 'As próximas áreas chegam nas próximas etapas.', feito: () => false, futuro: true },
 ];
 
-PZ.mundo = { T, LARG, ALT, chao, OBJ, NPCS, MORADORES, SPAWN, DIALOGOS, OBJETIVOS };
+PZ.mundo = { T, LARG, ALT, chao, OBJ, NPCS, MORADORES, BICHOS, SPAWN, DIALOGOS, OBJETIVOS };
 })();

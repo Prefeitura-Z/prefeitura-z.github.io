@@ -192,9 +192,9 @@ function cilindro(g, cx, cy, rx, ry, h, cor) {
 // altura de cada objeto em px e se esconde o personagem (fica translúcido quando ele passa atrás)
 const ALTURA = {
   muro: 70, pilar: 92, portao: 62, guarita: 84, sacos: 14, mesa: 18, arquivo: 46, estante: 58, caixas: 30, caixa: 14,
-  bancada: 20, gerador: 22, pneus: 16, carcaca: 26, tambor: 22, ferramentas: 42, antena: 120, mesaRadio: 20,
+  bancada: 20, gerador: 22, pneus: 16, carcaca: 26, carroOficina: 44, tambor: 22, ferramentas: 42, antena: 120, mesaRadio: 20,
   beliche: 40, cama: 18, armario: 62, barraca: 56, tenda: 76, maca: 14, caixaMedica: 16, tanque: 96, planta: 10,
-  quadro: 44, poste: 124, fogueira: 10, banco: 10, cerca: 18, casinha: 22, arvore: 110,
+  quadro: 44, poste: 124, fogueira: 10, banco: 10, cerca: 18, casinha: 24, galinheiro: 40, arvore: 110,
   bloco: 104, carro: 44, barricada: 22, entulho: 8, placaRua: 40,
 };
 
@@ -262,6 +262,10 @@ function veiculo(g, o, r, queimado) {
   for (const [a, b] of rodas) {
     const p = ao ? iso(bx + bw * a, by + bd + 0.02) : iso(bx + bw + 0.02, by + bd * b);
     if (queimado) { g.fillStyle = '#2a2622'; g.fillRect(p.x - 4, p.y - 6, 8, 5); continue; }
+    if (o.calco) { // sem roda, apoiado em bloco de concreto
+      g.fillStyle = '#141412'; g.fillRect(p.x - 6, p.y - 9, 12, 9); g.fillStyle = '#8a8a82'; g.fillRect(p.x - 5, p.y - 8, 10, 7);
+      g.fillStyle = '#6a6a64'; g.fillRect(p.x - 3, p.y - 6, 2, 3); g.fillRect(p.x + 1, p.y - 6, 2, 3); g.fillStyle = '#a6a69c'; g.fillRect(p.x - 5, p.y - 8, 10, 1); continue;
+    }
     const ry = furado && a === rodas[0][0] && b === rodas[0][1] ? 5 : 7;
     g.fillStyle = '#0e0e0e'; g.beginPath(); g.ellipse(p.x, p.y - ry, 8, ry + 1, 0, 0, 7); g.fill();
     g.fillStyle = '#1e1e1e'; g.beginPath(); g.ellipse(p.x, p.y - ry, 7, ry, 0, 0, 7); g.fill();
@@ -445,16 +449,24 @@ function desenharObjeto(g, o, t) {
     case 'guarita': caixa(g, x, y, w, d, h - 10, '#6c6a60'); caixa(g, x - 0.1, y - 0.1, w + 0.2, d + 0.2, 6, '#4a463e', h - 10);
       placa(g, x, y, w, d, 'esq', 0.2, 0.8, 0.45, 0.75, h - 10, '#1e2224'); placa(g, x, y, w, d, 'esq', 0.25, 0.4, 0.5, 0.7, h - 10, '#D4AC6644'); break;
     case 'sacos': {
-      // sacos de areia empilhados, cada um arredondado com amarra
-      const p0 = iso(x + 0.5, y + 0.5);
-      const saco = (dx, dy, z) => {
-        const cx = Math.round(p0.x + dx), cy = Math.round(p0.y + dy - z);
-        g.fillStyle = '#141412'; g.beginPath(); g.ellipse(cx, cy, 13, 6, -0.46, 0, 7); g.fill();
-        g.fillStyle = '#9B8D66'; g.beginPath(); g.ellipse(cx, cy, 12, 5, -0.46, 0, 7); g.fill();
-        g.fillStyle = '#b8aa80'; g.beginPath(); g.ellipse(cx - 2, cy - 2, 7, 2, -0.46, 0, 7); g.fill();
-        g.fillStyle = '#6e6448'; g.fillRect(cx + 8, cy - 5, 2, 3); g.fillRect(cx - 9, cy + 3, 2, 2);
+      // barreira de sacos de areia: fileiras desencontradas como tijolo, cada saco estufado com a costura e a dobra amarrada
+      // cada saco é um travesseiro: a mesma forma arredondada empilhada de 1 em 1 px, mais estufada no meio
+      const espelho = o.eixo === 'y', c0 = iso(x + 0.5, y + 0.5);
+      const forma = (cx, cy, L, D, k) => { g.beginPath(); g.save(); g.translate(cx, cy); g.transform(32 * k, 16 * k, -32 * k, 16 * k, 0, 0); g.roundRect(-L / 2, -D / 2, L, D, D / 2.1); g.restore(); };
+      const saco = (u, v, z, k) => {
+        const cor = ['#a39370', '#968762', '#ad9d78'][k % 3], H = 7;
+        const p = iso(x + u, y + v), cx = espelho ? 2 * c0.x - p.x : p.x, cy = p.y - z;
+        forma(cx, cy, 0.46, 0.27, 0.9); g.fillStyle = '#141412'; g.fill();
+        for (let i = 0; i <= H; i++) { const f = 0.9 + 0.1 * Math.sin(i / H * Math.PI); forma(cx, cy - i, 0.46, 0.27, f); g.fillStyle = i < 3 ? tom(cor, 0.62) : tom(cor, 0.8); g.fill(); }
+        forma(cx, cy - H - 0.5, 0.42, 0.23, 1); g.fillStyle = cor; g.fill(); g.strokeStyle = '#141412aa'; g.lineWidth = 1; g.stroke();
+        g.fillStyle = tom(cor, 1.25); g.beginPath(); g.ellipse(cx - 2, cy - H - 2, 6, 1.6, espelho ? -0.46 : 0.46, 0, 7); g.fill();
+        const e = espelho ? -1 : 1; g.fillStyle = '#4a3e2a'; g.fillRect(Math.round(cx + e * 8) - 1, Math.round(cy - H + 2), 2, 3);   // ponta amarrada
       };
-      saco(-8, -4, 0); saco(8, 4, 0); saco(0, 0, 8); if (r() > 0.4) saco(-4, -2, 15);
+      // fileiras de trás pra frente, de baixo pra cima, desencontradas como tijolo
+      for (let c = 0; c < 3; c++) {
+        const z = c * 7, n = 3 - c, vs = c === 2 ? [0.5] : [0.36, 0.64];
+        for (const v of vs) for (let i = 0; i < n; i++) saco(0.5 + (i - (n - 1) / 2) * 0.48, v, z, c + i);
+      }
       break;
     }
     case 'mesa': {
@@ -504,6 +516,7 @@ function desenharObjeto(g, o, t) {
     }
     case 'pneus': { const p = iso(x + 0.5, y + 0.5); for (let k = 0; k < 3; k++) { g.fillStyle = '#1e1e1e'; g.beginPath(); g.ellipse(p.x, p.y - k * 5, 13, 6.5, 0, 0, 7); g.fill(); g.fillStyle = '#333'; g.beginPath(); g.ellipse(p.x, p.y - k * 5 - 1, 6, 3, 0, 0, 7); g.fill(); } } break;
     case 'carcaca': veiculo(g, o, r, true); break;
+    case 'carroOficina': veiculo(g, o, r, false); break;
     case 'tambor': { const p = iso(x + 0.5, y + 0.5); cilindro(g, p.x, p.y, 9, 4.5, h, r() > 0.5 ? '#3f5a6a' : '#7a3a2a'); g.fillStyle = '#00000040'; g.fillRect(p.x - 9, p.y - 8, 18, 2); g.fillRect(p.x - 9, p.y - 16, 18, 2); } break;
     case 'ferramentas': caixa(g, x + 0.05, y + 0.6, w - 0.1, 0.2, h, '#5a4a38');
       for (let k = 0; k < 6; k++) { const p = naFace(x + 0.05, y + 0.6, w - 0.1, 0.2, 'esq', 0.12 + k * 0.15, 0.7, h); g.fillStyle = ['#8f979c', '#A65F3D', '#c9c2b0'][k % 3]; g.fillRect(p.x - 1, p.y - 2, 2, 10); } break;
@@ -641,9 +654,55 @@ function desenharObjeto(g, o, t) {
       ao ? caixa(g, x + 0.24, y + 0.06, 0.06, L - 0.12, 12, '#7a5236', 12) : caixa(g, x + 0.06, y + 0.24, L - 0.12, 0.06, 12, '#7a5236', 12);
       break;
     }
-    case 'cerca': caixa(g, x + 0.4, y + 0.4, 0.2, 0.2, h, '#6e5a44'); caixa(g, x + 0.05, y + 0.45, 0.9, 0.1, 3, '#7e6a54', 12); caixa(g, x + 0.45, y + 0.05, 0.1, 0.9, 3, '#7e6a54', 6); break;
-    case 'casinha': caixa(g, x + 0.15, y + 0.15, 0.7, 0.7, 14, '#8a6a46'); { const A = iso(x + 0.15, y + 0.5), B = iso(x + 0.85, y + 0.5); const C = iso(x + 0.85, y + 0.85), D = iso(x + 0.15, y + 0.85);
-      g.fillStyle = COR.ferrugem; g.beginPath(); g.moveTo(D.x, D.y - 14); g.lineTo(C.x, C.y - 14); g.lineTo(B.x, B.y - h); g.lineTo(A.x, A.y - h); g.closePath(); g.fill(); placa(g, x + 0.15, y + 0.15, 0.7, 0.7, 'esq', 0.35, 0.65, 0, 0.6, 14, '#1a1612'); } break;
+    case 'cerca': {
+      // cerca de tela de galinheiro numa aresta da célula: mourões de madeira, tela fina e travessa em cima
+      const lado = o.lado || 'n', H = 18;
+      const [ax, ay, bx2, by2] = lado === 'n' ? [x, y, x + 1, y] : lado === 's' ? [x, y + 1, x + 1, y + 1] : lado === 'w' ? [x, y, x, y + 1] : [x + 1, y, x + 1, y + 1];
+      const P = iso(ax, ay), Q = iso(bx2, by2);
+      if (!o.portao) {
+        g.fillStyle = '#d8d8cc18'; g.beginPath(); g.moveTo(P.x, P.y - 1); g.lineTo(Q.x, Q.y - 1); g.lineTo(Q.x, Q.y - H + 3); g.lineTo(P.x, P.y - H + 3); g.closePath(); g.fill();
+        g.strokeStyle = '#c8c8bc55'; g.lineWidth = 1; g.beginPath();
+        for (let k = 0; k <= 8; k++) { const t0 = k / 8, mx = P.x + (Q.x - P.x) * t0, my = P.y + (Q.y - P.y) * t0; g.moveTo(mx, my - 1); g.lineTo(mx + (Q.x - P.x) / 16, my + (Q.y - P.y) / 16 - H + 3); g.moveTo(mx, my - H + 3); g.lineTo(mx + (Q.x - P.x) / 16, my + (Q.y - P.y) / 16 - 1); }
+        g.stroke();
+      } else { // porteira de ripa
+        g.strokeStyle = '#8a6a46'; g.lineWidth = 2; g.beginPath(); g.moveTo(P.x, P.y - 3); g.lineTo(Q.x, Q.y - 3); g.moveTo(P.x, P.y - H + 4); g.lineTo(Q.x, Q.y - H + 4); g.moveTo(P.x, P.y - 3); g.lineTo(Q.x, Q.y - H + 4); g.stroke();
+      }
+      g.strokeStyle = '#7e6448'; g.lineWidth = 2; g.beginPath(); g.moveTo(P.x, P.y - H + 2); g.lineTo(Q.x, Q.y - H + 2); g.stroke();
+      for (const M of [P, Q]) { g.fillStyle = '#141412'; g.fillRect(Math.round(M.x) - 2, Math.round(M.y) - H - 1, 4, H + 1); g.fillStyle = '#7a5e40'; g.fillRect(Math.round(M.x) - 1, Math.round(M.y) - H, 2, H); g.fillStyle = '#a0825e'; g.fillRect(Math.round(M.x) - 1, Math.round(M.y) - H, 2, 1); }
+      break;
+    }
+    case 'galinheiro': {
+      // casinha das galinhas em palafita, com rampa de ripas e poleiro
+      for (const [px, py] of [[0.12, 0.12], [0.82, 0.12], [0.12, 0.82], [0.82, 0.82]]) caixa(g, x + px, y + py, 0.06, 0.06, 10, '#5a4430');
+      caixa(g, x + 0.1, y + 0.1, 0.8, 0.8, 18, '#8a6a46', 10);
+      for (let k = 1; k < 5; k++) { placa(g, x + 0.1, y + 0.1, 0.8, 0.8, 'esq', 0, 1, k / 5, k / 5 + 0.04, 18 + 10, '#5a443088'); placa(g, x + 0.1, y + 0.1, 0.8, 0.8, 'dir', 0, 1, k / 5, k / 5 + 0.04, 18 + 10, '#5a443088'); }
+      placa(g, x + 0.1, y + 0.1, 0.8, 0.8, 'esq', 0.38, 0.62, 0.36, 0.64, 18 + 10, '#1a1410');   // portinhola
+      { const A = iso(x + 0.02, y + 0.5), B = iso(x + 0.98, y + 0.5), C = iso(x + 0.98, y + 0.98), D = iso(x + 0.02, y + 0.98), E = iso(x + 0.98, y + 0.02), F = iso(x + 0.02, y + 0.02);
+        const T = 28, Tc = 40;
+        g.fillStyle = '#7a3a2a'; g.beginPath(); g.moveTo(D.x, D.y - T); g.lineTo(C.x, C.y - T); g.lineTo(B.x, B.y - Tc); g.lineTo(A.x, A.y - Tc); g.closePath(); g.fill();
+        g.fillStyle = '#5a2a1e'; g.beginPath(); g.moveTo(C.x, C.y - T); g.lineTo(E.x, E.y - T); g.lineTo(B.x, B.y - Tc); g.closePath(); g.fill();
+        g.fillStyle = '#9a4a34'; g.beginPath(); g.moveTo(F.x, F.y - T); g.lineTo(E.x, E.y - T); g.lineTo(B.x, B.y - Tc); g.lineTo(A.x, A.y - Tc); g.closePath(); g.fill();
+        g.strokeStyle = '#141412aa'; g.lineWidth = 1; g.beginPath(); g.moveTo(D.x, D.y - T); g.lineTo(C.x, C.y - T); g.lineTo(E.x, E.y - T); g.lineTo(B.x, B.y - Tc); g.lineTo(A.x, A.y - Tc); g.closePath(); g.stroke(); }
+      { const a0 = naFace(x + 0.1, y + 0.1, 0.8, 0.8, 'esq', 0.5, 0.36, 28), a1 = iso(x + 0.5, y + 1.25); // rampa
+        g.strokeStyle = '#141412'; g.lineWidth = 5; g.beginPath(); g.moveTo(a0.x, a0.y); g.lineTo(a1.x, a1.y); g.stroke();
+        g.strokeStyle = '#9a7a54'; g.lineWidth = 3; g.beginPath(); g.moveTo(a0.x, a0.y); g.lineTo(a1.x, a1.y); g.stroke();
+        g.fillStyle = '#5a4430'; for (let k = 1; k < 4; k++) { const mx = a0.x + (a1.x - a0.x) * k / 4, my = a0.y + (a1.y - a0.y) * k / 4; g.fillRect(Math.round(mx) - 2, Math.round(my), 4, 1); } }
+      break;
+    }
+    case 'casinha': {
+      // casinha de cachorro com telhado de duas águas, porta em arco e tigela
+      caixa(g, x + 0.15, y + 0.2, 0.7, 0.6, 14, '#a07a50');
+      for (let k = 1; k < 4; k++) placa(g, x + 0.15, y + 0.2, 0.7, 0.6, 'dir', 0, 1, k / 4, k / 4 + 0.05, 14, '#6a4c3088');
+      const A = iso(x + 0.1, y + 0.5), B = iso(x + 0.9, y + 0.5), C = iso(x + 0.9, y + 0.85), D = iso(x + 0.1, y + 0.85), E = iso(x + 0.9, y + 0.15), F = iso(x + 0.1, y + 0.15);
+      g.fillStyle = '#3f5a6a'; g.beginPath(); g.moveTo(D.x, D.y - 14); g.lineTo(C.x, C.y - 14); g.lineTo(B.x, B.y - 24); g.lineTo(A.x, A.y - 24); g.closePath(); g.fill();
+      g.fillStyle = '#56788a'; g.beginPath(); g.moveTo(F.x, F.y - 14); g.lineTo(E.x, E.y - 14); g.lineTo(B.x, B.y - 24); g.lineTo(A.x, A.y - 24); g.closePath(); g.fill();
+      g.fillStyle = '#a07a50'; g.beginPath(); g.moveTo(C.x, C.y - 14); g.lineTo(E.x, E.y - 14); g.lineTo(B.x, B.y - 24); g.closePath(); g.fill();
+      g.strokeStyle = '#141412aa'; g.lineWidth = 1; g.beginPath(); g.moveTo(D.x, D.y - 14); g.lineTo(C.x, C.y - 14); g.lineTo(E.x, E.y - 14); g.lineTo(B.x, B.y - 24); g.lineTo(A.x, A.y - 24); g.closePath(); g.stroke();
+      const pt = naFace(x + 0.15, y + 0.2, 0.7, 0.6, 'esq', 0.5, 0, 14);
+      g.fillStyle = '#1a1410'; g.beginPath(); g.ellipse(pt.x, pt.y - 6, 4, 6, 0, Math.PI, 0); g.lineTo(pt.x + 4, pt.y); g.lineTo(pt.x - 4, pt.y); g.closePath(); g.fill();
+      const tg = iso(x + 0.8, y + 0.95); g.fillStyle = '#141412'; g.beginPath(); g.ellipse(tg.x, tg.y - 1, 4, 2, 0, 0, 7); g.fill(); g.fillStyle = '#9a3a2a'; g.beginPath(); g.ellipse(tg.x, tg.y - 1.5, 3, 1.4, 0, 0, 7); g.fill();
+      break;
+    }
     case 'arvore': { const p = iso(x + 0.5, y + 0.5);
       // tronco com raiz e lado na sombra
       g.fillStyle = '#2a2018'; g.fillRect(p.x - 5, p.y - 42, 10, 42); g.fillRect(p.x - 8, p.y - 4, 16, 4);
@@ -980,5 +1039,49 @@ function folha(ap) {
   return s;
 }
 
-PZ.arte = { COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, silhueta, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, EQUIP_VIS, QW, QH, PX, PY, DIRS };
+
+// ---------- bichos do abrigo ----------
+// desenhados direto no canvas, olhando pra esquerda ou direita da tela. b: { tipo, px, py, fl, anda, t0 }
+function desenharBicho(g, b, t) {
+  const c = iso(b.px, b.py), passo = b.anda ? Math.sin(t * (b.tipo === 'cao' ? 16 : 20) + b.t0) : 0;
+  g.save(); g.translate(Math.round(c.x), Math.round(c.y)); const esc = b.tipo === 'cao' ? 1.25 : 1.5; g.scale(b.fl ? -esc : esc, esc);
+  const R = (x, y, w, h, cor) => { g.fillStyle = cor; g.fillRect(x, y, w, h); };
+  if (b.tipo === 'cao') {
+    g.fillStyle = '#00000040'; g.beginPath(); g.ellipse(0, 0, 11, 3.5, 0, 0, 7); g.fill();
+    const cor = b.cor || '#b5773c', esc = tom(cor, 0.7), cla = tom(cor, 1.25), bob = b.anda ? Math.round(Math.abs(passo)) : 0;
+    const ab = b.anda ? Math.round(passo * 2) : 0;
+    R(-8 - ab, -6, 3, 6, '#141412'); R(4 + ab, -6, 3, 6, '#141412');                      // patas do fundo
+    R(-7 - ab, -6, 2, 5, esc); R(5 + ab, -6, 2, 5, esc);
+    R(-10, -13 - bob, 18, 8, '#141412'); R(-9, -12 - bob, 16, 6, cor); R(-9, -12 - bob, 16, 2, cla); R(-6, -7 - bob, 10, 1, cla); // corpo
+    const rabo = b.anda ? Math.round(Math.sin(t * 22) * 2) : Math.round(Math.sin(t * 9) * 1.5);
+    R(-13, -16 - bob + rabo, 4, 3, '#141412'); R(-12, -15 - bob + rabo, 3, 2, cor);
+    R(-6 + ab, -6, 3, 6, '#141412'); R(2 - ab, -6, 3, 6, '#141412'); R(-5 + ab, -6, 2, 5, cor); R(3 - ab, -6, 2, 5, cor); // patas da frente
+    const cab = b.anda ? 0 : Math.round(Math.sin(t * 1.3 + b.t0));
+    R(5, -19 - bob + cab, 8, 8, '#141412'); R(6, -18 - bob + cab, 6, 6, cor); R(11, -15 - bob + cab, 4, 4, '#141412'); R(11, -14 - bob + cab, 3, 2, cla); // cabeça e focinho
+    R(14, -15 - bob + cab, 1, 1, '#141412'); R(9, -16 - bob + cab, 1, 1, '#141412');      // nariz e olho
+    R(5, -20 - bob + cab, 3, 4, esc);                                                    // orelha
+  } else {
+    const galo = b.tipo === 'galo', cor = b.cor || (galo ? '#a4532a' : '#ece6d6'), esc = tom(cor, 0.72), cla = tom(cor, 1.15);
+    const E = (x, y, rx, ry, a, c) => { g.fillStyle = c; g.beginPath(); g.ellipse(x, y, rx, ry, a, 0, 7); g.fill(); };
+    E(0, 0, 6, 2.2, 0, '#00000038');
+    const pa = b.anda ? Math.round(passo) : 0, s = galo ? 1 : 0;
+    R(-1 + pa, -4, 1, 4, '#d8902a'); R(2 - pa, -4, 1, 4, '#d8902a');                      // pernas
+    const bica = !b.anda && Math.sin(t * 2.2 + b.t0) > 0.75;                                 // ciscando
+    const hx = bica ? 6 : 4, hy = bica ? -5 : -12 - s;
+    // contorno: tudo um pouco maior em escuro, depois a cor por cima
+    if (galo) E(-5, -11, 3.6, 5, -0.5, '#141412');
+    E(-4.5, -9, 3, 3.5, -0.6, '#141412'); E(0, -7 - s / 2, 6.2, 4.4 + s / 2, 0, '#141412'); E(hx - 1, hy + 3, 2.6, 4, 0.4, '#141412'); E(hx, hy, 3, 3, 0, '#141412');
+    if (galo) { E(-5, -11, 2.8, 4.2, -0.5, '#2a4a3a'); E(-6, -10, 1.4, 3, -0.3, '#3a2a4a'); }
+    E(-4.5, -9, 2.2, 2.7, -0.6, esc);                                                    // rabo
+    E(0, -7 - s / 2, 5.2, 3.5 + s / 2, 0, cor); E(-1, -8.5 - s / 2, 3.5, 1, 0, cla);        // corpo
+    E(-1, -6.5, 3, 1.8, 0.2, esc);                                                       // asa
+    E(hx - 1, hy + 3, 1.8, 3.2, 0.4, cor); E(hx, hy, 2.2, 2.2, 0, cor);                    // pescoço e cabeça
+    R(hx + 2, hy - 0.5, 2.5, 1.5, '#e0a020');                                            // bico
+    E(hx - 0.5, hy - 2.5 - s / 2, 1.8 + s / 2, 1 + s / 2, 0, '#d03a2a'); R(hx + 1, hy + 1, 1, 1.5 + s, '#d03a2a'); // crista e barbela
+    R(hx + 0.5, hy - 1, 1, 1, '#141412');                                                // olho
+  }
+  g.restore();
+}
+
+PZ.arte = { desenharBicho, COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, silhueta, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, EQUIP_VIS, QW, QH, PX, PY, DIRS };
 })();
