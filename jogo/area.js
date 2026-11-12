@@ -26,7 +26,7 @@ const OBJ = [];
 const obj = (tipo, x, y, w = 1, d = 1, extra = {}) => OBJ.push({ tipo, x, y, w, d, solido: true, ...extra });
 
 // muro do abrigo, com o portão aberto pra rua
-for (let y = 0; y <= 25; y++) if (y < 11 || y > 13) obj('muro', 1, y);
+for (let y = 0; y <= 25; y++) if (y < 11 || y > 13) obj('muro', 1, y, 1, 1, { eixo: 'y' });
 obj('pilar', 1, 10); obj('pilar', 1, 14);
 obj('sacos', 2, 10); obj('sacos', 2, 14);
 
@@ -34,7 +34,7 @@ obj('sacos', 2, 10); obj('sacos', 2, 14);
 function predio(x0, y0, w, d, h, cor, op = {}) {
   for (let y = y0; y < y0 + d; y++) for (let x = x0; x < x0 + w; x++) {
     const sul = y === y0 + d - 1, leste = x === x0 + w - 1;
-    obj('bloco', x, y, 1, 1, { h, cor, sul, leste, topo: !sul && !leste, vitrine: op.vitrine,
+    obj('bloco', x, y, 1, 1, { h, cor, sul, leste, oeste: x === x0, norte: y === y0, topo: !sul && !leste, vitrine: op.vitrine,
       porta: op.porta && sul && x === x0 + Math.floor(w / 2) ? 'esq' : op.portaLeste && leste && y === y0 + Math.floor(d / 2) ? 'dir' : null });
   }
 }
@@ -53,11 +53,11 @@ predio(26, 2, 6, 2, 112, '#5a5550');
 // quadra sudoeste (fica na frente da rua: mais baixa pra não tampar)
 predio(8, 16, 4, 3, 60, '#6e665a', { portaLeste: true });
 predio(13, 15, 5, 3, 60, '#7a5f48');
-predio(3, 21, 6, 3, 112, '#5d6466'); predio(11, 21, 6, 3, 112, '#66604e', { portaLeste: true });
+predio(3, 21, 6, 3, 60, '#5d6466'); predio(11, 21, 6, 3, 112, '#66604e', { portaLeste: true });
 // quadra sudeste
 predio(33, 15, 4, 3, 60, '#5f5a66');
-predio(38, 16, 4, 3, 112, '#6b6258');
-predio(25, 19, 5, 4, 112, '#6e665a'); predio(32, 20, 6, 3, 112, '#5a5550');
+predio(38, 16, 4, 3, 60, '#6b6258');
+predio(25, 19, 5, 4, 60, '#6e665a'); predio(32, 20, 6, 3, 112, '#5a5550');
 // entreposto do Porteiro, no fim da rua de cima
 predio(19, 0, 5, 2, 112, '#4c5258', { vitrine: '#9B8D66' });
 obj('barricada', 19, 3, 1, 2); obj('barricada', 23, 3, 1, 2);
