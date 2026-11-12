@@ -81,4 +81,6 @@ obj('placaRua', 19, 10, 1, 1, { cor: '#74A6A1' }); obj('placaRua', 23, 14, 1, 1,
 for (const [x, y] of [[0, 3], [0, 8], [0, 17], [0, 22], [10, 0], [18, 1], [24, 4], [33, 1], [38, 2], [43, 1], [7, 19], [19, 25], [24, 24], [31, 18], [40, 21], [43, 23], [37, 24], [30, 24], [9, 14], [39, 6]]) obj('arvore', x, y);
 
 PZ.area = { T, LARG, ALT, chao, OBJ, NPCS: [], MORADORES: [], SPAWN: { x: 2.5, y: 12.5, dir: 'SE' }, nome: 'Quarteirão da Entrada' };
+// cada área fica registrada pelo id que o servidor manda em rota.area
+PZ.areas = Object.assign(PZ.areas || {}, { entrada: PZ.area });
 })();

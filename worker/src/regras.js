@@ -1,7 +1,7 @@
 // Prefeitura Z: Depois da Queda — regras do jogo (itens, rotas, inimigos, combate).
 // Tudo aqui é função pura, sem banco e sem relógio: o servidor sorteia uma semente, simula a expedição
 // inteira de uma vez e guarda o resultado. O navegador só assiste. Mudou número aqui? Suba VERSAO.
-export const VERSAO = 5;
+export const VERSAO = 6;
 
 // ---------- itens ----------
 // tipo: material | consumivel | missao | arma | protecao | mochila | ferramenta
@@ -16,6 +16,7 @@ export const ITENS = {
   barra_portao: { nome: 'Barra de portão reforçada', tipo: 'arma', ataque: 6, compra: 30, desc: 'Pesada, feia e confiável.' },
   cano_rebite: { nome: 'Cano com rebite', tipo: 'arma', ataque: 9, compra: 70, desc: 'O Wolf soldou uma cabeça de rebites na ponta.' },
   machadinha: { nome: 'Machadinha do entreposto', tipo: 'arma', ataque: 13, desc: 'Estava na mão do Porteiro. Agora é sua.' },
+  chave_linha: { nome: 'Chave de linha do Maquinista', tipo: 'arma', ataque: 22, desc: 'Chave de apertar trilho, de ferro maciço. O Maquinista não largava dela.' },
   jaqueta_ronda: { nome: 'Jaqueta de ronda remendada', tipo: 'protecao', defesa: 12, compra: 30, desc: 'Couro velho com reforço no antebraço.' },
   colete_lona: { nome: 'Colete de lona dupla', tipo: 'protecao', defesa: 24, compra: 80, desc: 'Duas camadas de lona de caminhão costuradas.' },
   mochila_lona: { nome: 'Mochila de lona de patrulha', tipo: 'mochila', capacidade: 20, compra: 30, desc: 'Cabe o básico de uma saída curta.' },
@@ -58,10 +59,21 @@ export const INIMIGOS = {
   errante: { nome: 'Errante', vida: 26, ataque: 5, defesa: 0, cadencia: 2.2, evasao: 0, xp: 8 },
   corredor: { nome: 'Corredor febril', vida: 18, ataque: 4, defesa: 0, cadencia: 1.15, evasao: 0.1, xp: 11 },
   inchado: { nome: 'Inchado', vida: 70, ataque: 8, defesa: 12, cadencia: 2.8, evasao: 0, xp: 28 },
+  // Feira da Estação
+  feirante: { nome: 'Feirante', vida: 36, ataque: 6, defesa: 4, cadencia: 2.2, evasao: 0, xp: 14 },
+  gritador: { nome: 'Gritador', vida: 24, ataque: 5, defesa: 0, cadencia: 1.0, evasao: 0.15, xp: 15 },
+  ferroviario: { nome: 'Ferroviário', vida: 88, ataque: 10, defesa: 18, cadencia: 2.6, evasao: 0, xp: 36 },
+  maquinista: { nome: 'O Maquinista', vida: 250, ataque: 11, defesa: 30, cadencia: 2.3, evasao: 0, xp: 180, chefe: true, pesadoACada: 3, pesadoFator: 2.1 },
   porteiro: { nome: 'O Porteiro', vida: 135, ataque: 9, defesa: 25, cadencia: 2.4, evasao: 0, xp: 90, chefe: true, pesadoACada: 4, pesadoFator: 2.2 },
 };
 
-// ---------- rotas (todas no Quarteirão da Entrada) ----------
+// ---------- rotas ----------
+// cada área é um mapa no cliente; uns cinco contratos por área, e a próxima abre quando a anterior acaba.
+// Todas as áreas têm a entrada no mesmo ponto (oeste da rua principal), então a saída e a volta são iguais.
+export const AREAS = {
+  entrada: { nome: 'Quarteirão da Entrada' },
+  estacao: { nome: 'Feira da Estação', requer: 'rota4_concluida' },
+};
 // pontos em células do mapa da área; "enc" lista os inimigos da parada. O mapa desenhado no cliente segue estes pontos.
 const SAIDA = [2.5, 12.5];
 export const ROTAS = {
@@ -116,6 +128,70 @@ export const ROTAS = {
     ],
     saque: { sucata: [2, 4], tecido: [1, 3], pecas: [1, 2], peca_eletrica: [0, 1] },
     marca: 'rota4_concluida', repete: 'rota4_concluida',
+  },
+  // ---------- Feira da Estação ----------
+  feira_livre: {
+    area: 'estacao', nome: 'Feira Livre', resumo: 'A feira da avenida virou ponto de encontro dos feirantes. Tem pano e sucata em toda banca.',
+    custo: 1, requer: 'rota4_concluida', perigo: 3, forca: 1.15,
+    pontos: [
+      { p: [8.5, 12.5], enc: ['feirante'] },
+      { p: [12.5, 15.8], enc: ['feirante', 'errante'] },
+      { p: [16.5, 16.2], enc: ['feirante', 'corredor'] },
+      { p: [21.5, 12.5], enc: ['gritador'] },
+      { p: [27.5, 12.6], enc: ['feirante', 'feirante'] },
+    ],
+    saque: { sucata: [2, 4], tecido: [2, 4], pecas: [0, 2] },
+    marca: 'feira_concluida', repete: 'feira_concluida',
+  },
+  cruzamento_linha: {
+    area: 'estacao', nome: 'Cruzamento da Linha', resumo: 'A rua sobe até a passagem de nível. Os ferroviários ainda guardam a cancela.',
+    custo: 1, requer: 'feira_concluida', perigo: 3, forca: 1.2,
+    pontos: [
+      { p: [12.5, 12.5], enc: ['feirante', 'errante'] },
+      { p: [21.5, 8.0], enc: ['gritador', 'gritador'] },
+      { p: [21.5, 4.5], enc: ['ferroviario'] },
+      { p: [29.5, 8.5], enc: ['feirante', 'gritador'] },
+      { p: [36.5, 12.5], enc: ['errante', 'ferroviario'] },
+    ],
+    saque: { sucata: [2, 4], pecas: [1, 3], peca_eletrica: [0, 1] },
+    marca: 'linha_concluida', repete: 'linha_concluida',
+  },
+  plataforma: {
+    area: 'estacao', nome: 'Plataforma Norte', resumo: 'O trem nunca saiu. A plataforma ficou cheia de quem esperava por ele.',
+    custo: 1, requer: 'linha_concluida', perigo: 4, forca: 1.25,
+    pontos: [
+      { p: [21.5, 12.5], enc: ['gritador', 'feirante'] },
+      { p: [26.5, 8.4], enc: ['ferroviario', 'errante'] },
+      { p: [32.5, 8.4], enc: ['gritador', 'gritador', 'corredor'] },
+      { p: [39.5, 8.4], enc: ['ferroviario', 'feirante'] },
+    ],
+    saque: { sucata: [2, 3], tecido: [1, 2], pecas: [1, 3], peca_eletrica: [0, 2] },
+    marca: 'plataforma_concluida', repete: 'plataforma_concluida',
+  },
+  patio_manobras: {
+    area: 'estacao', nome: 'Pátio de Manobras', resumo: 'Entre os vagões parados do pátio sul tem peça boa e infectado grande.',
+    custo: 1, requer: 'plataforma_concluida', perigo: 4, forca: 1.12,
+    pontos: [
+      { p: [21.5, 16.5], enc: ['feirante', 'gritador'] },
+      { p: [21.5, 20.5], enc: ['ferroviario', 'errante'] },
+      { p: [28.5, 20.6], enc: ['ferroviario', 'gritador'] },
+      { p: [35.5, 20.6], enc: ['inchado', 'ferroviario'] },
+      { p: [40.5, 20.6], enc: ['gritador', 'gritador', 'feirante'] },
+    ],
+    saque: { sucata: [3, 5], pecas: [1, 3], peca_eletrica: [1, 2] },
+    marca: 'manobras_concluida', repete: 'manobras_concluida',
+  },
+  cabine_maquinista: {
+    area: 'estacao', nome: 'Cabine do Maquinista', resumo: 'No fim do pátio, a locomotiva tem dono. Ele bate devagar e bate muito.',
+    custo: 1, requer: 'manobras_concluida', perigo: 5, chefe: 'maquinista', forca: 1.2,
+    pontos: [
+      { p: [21.5, 12.5], enc: ['feirante', 'gritador'] },
+      { p: [21.5, 20.5], enc: ['ferroviario', 'ferroviario'] },
+      { p: [31.5, 20.6], enc: ['gritador', 'inchado'] },
+      { p: [40.5, 20.6], enc: ['maquinista'], primeiraVez: { item: 'chave_linha', marca: 'maquinista_vencido' } },
+    ],
+    saque: { sucata: [3, 5], pecas: [2, 3], peca_eletrica: [1, 2] },
+    repete: 'maquinista_vencido',
   },
 };
 export const VEL_ANDAR = 1.9;        // células por segundo na rua
@@ -373,10 +449,10 @@ export function catalogo() {
   return {
     versao: VERSAO, itens: ITENS, loja: LOJA, revenda: REVENDA, receitas: RECEITAS, inimigos: INIMIGOS,
     rotas: Object.fromEntries(Object.entries(ROTAS).map(([id, r]) => [id, {
-      nome: r.nome, resumo: r.resumo, custo: r.custo, requer: r.requer, repete: r.repete || null, perigo: r.perigo, chefe: r.chefe || null,
+      area: r.area || 'entrada', nome: r.nome, resumo: r.resumo, custo: r.custo, requer: r.requer, repete: r.repete || null, perigo: r.perigo, chefe: r.chefe || null,
       pontos: r.pontos.map(p => ({ p: p.p, enc: p.enc })), saque: Object.keys(r.saque),
     }])),
-    saida: SAIDA, origens: Object.fromEntries(Object.entries(ORIGEM_BONUS).map(([k, v]) => [k, v.txt])),
+    areas: AREAS, saida: SAIDA, origens: Object.fromEntries(Object.entries(ORIGEM_BONUS).map(([k, v]) => [k, v.txt])),
     reparoPorPonto: CUSTO_REPARO_POR_PONTO, ferimentoSeg: FERIMENTO_SEG,
     ronda: { limiteSeg: RONDA.limiteSeg, descansoSeg: RONDA.descansoSeg, vidaMin: RONDA.vidaMin, ciclosMax: RONDA.ciclosMax, condicaoMin: RONDA.condicaoMin, voltasPorKit: RONDA.voltasPorKit },
   };
