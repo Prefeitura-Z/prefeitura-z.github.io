@@ -355,7 +355,9 @@ const textoFerido = () => `Você está ferido: vida máxima menor até ${new Dat
 // ---------- rotas (portão) ----------
 const FALTA = { contrato_visto: 'Peça um contrato ao Bashar.', rota1_concluida: 'Conclua a Rua de Cima primeiro.', registro_entregue: 'Entregue o registro de rota ao Bashar.', porteiro_vencido: 'Vença o Porteiro no Entreposto primeiro.',
   rota4_concluida: 'Conclua a Barricada do Sul primeiro.', feira_concluida: 'Conclua a Feira Livre primeiro.', linha_concluida: 'Conclua o Cruzamento da Linha primeiro.',
-  plataforma_concluida: 'Conclua a Plataforma Norte primeiro.', manobras_concluida: 'Conclua o Pátio de Manobras primeiro.' };
+  plataforma_concluida: 'Conclua a Plataforma Norte primeiro.', manobras_concluida: 'Conclua o Pátio de Manobras primeiro.',
+  maquinista_vencido: 'Vença o Maquinista na Feira da Estação primeiro.', cais1_concluida: 'Conclua o Portão do Cais primeiro.', cais2_concluida: 'Conclua a Pilha de Contêineres primeiro.',
+  cais3_concluida: 'Conclua o Pátio do Frigorífico primeiro.', cais4_concluida: 'Conclua o Píer dos Pescadores primeiro.' };
 function abrirRotas() {
   const f = estado.personagem.flags || {}, e = estado.estado;
   $('rotas-voce').innerHTML = linhaVoce() + (e.ferido ? `<span class="ferido">${esc(textoFerido())}</span>` : '');

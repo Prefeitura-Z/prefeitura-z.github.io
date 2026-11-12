@@ -179,7 +179,10 @@ const OBJETIVOS = [
   { id: 'T10', titulo: 'A Feira da Estação', texto: 'A segunda área abriu. No portão, faça a Feira Livre.', feito: f => !!f.feira_concluida },
   { id: 'T11', titulo: 'A linha do trem', texto: 'Faça o Cruzamento da Linha e a Plataforma Norte.', feito: f => !!f.plataforma_concluida },
   { id: 'T12', titulo: 'O dono da locomotiva', texto: 'Passe pelo Pátio de Manobras e vença o Maquinista. Ele bate pesado a cada três golpes.', feito: f => !!f.maquinista_vencido },
-  { id: 'T13', titulo: 'Mais longe', texto: 'A próxima cidade chega nas próximas etapas.', feito: () => false, futuro: true },
+  { id: 'T13', titulo: 'O Cais do Porto', texto: 'A terceira área abriu. Cuidado com os cachorros: correm em bando e mordem rápido.', feito: f => !!f.cais1_concluida },
+  { id: 'T14', titulo: 'O píer', texto: 'Passe pelos contêineres e pelo frigorífico até o Píer dos Pescadores.', feito: f => !!f.cais4_concluida },
+  { id: 'T15', titulo: 'O dono do canil', texto: 'Vença o Mastim no fundo do pátio do frigorífico.', feito: f => !!f.mastim_vencido },
+  { id: 'T16', titulo: 'Mais longe', texto: 'A próxima cidade chega nas próximas etapas.', feito: () => false, futuro: true },
 ];
 
 PZ.mundo = { T, LARG, ALT, chao, OBJ, NPCS, MORADORES, BICHOS, SPAWN, DIALOGOS, OBJETIVOS };

@@ -55,7 +55,7 @@ class Expedicao {
             return {
               k, tipo: n.tipo, nome: def.nome || n.tipo, chefe: !!def.chefe, vidaMax: n.vida, golpes: [], morre: Infinity,
               x: b[0] + u[0] * (1.15 + (k % 2) * 0.3) - u[1] * lado, y: b[1] + u[1] * (1.15 + (k % 2) * 0.3) + u[0] * lado,
-              folha: A.folha(ap), escala: ap.escala || 1,
+              folha: A.folha(ap), escala: ap.escala || 1, bicho: !!ap.quadrupede,
             };
           }),
         };
@@ -109,7 +109,8 @@ class Expedicao {
         if (morto) {
           // tomba pro lado oposto ao jogador
           const k = Math.min(1, desde / QUEDA);
-          ator.gira = ((n.x - n.y) - (p.x - p.y) >= 0 ? 1 : -1) * k * k * Math.PI / 2;
+          // bicho de quatro patas não tomba de lado: vira de barriga pra cima (achata e espelha em volta das patas)
+          if (n.bicho) ator.vira = k; else ator.gira = ((n.x - n.y) - (p.x - p.y) >= 0 ? 1 : -1) * k * k * Math.PI / 2;
         }
         // levou golpe do jogador: recua um pouco e pisca claro
         for (const g of this.golpes) {

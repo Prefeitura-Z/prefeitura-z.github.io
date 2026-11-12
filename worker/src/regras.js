@@ -1,7 +1,7 @@
 // Prefeitura Z: Depois da Queda — regras do jogo (itens, rotas, inimigos, combate).
 // Tudo aqui é função pura, sem banco e sem relógio: o servidor sorteia uma semente, simula a expedição
 // inteira de uma vez e guarda o resultado. O navegador só assiste. Mudou número aqui? Suba VERSAO.
-export const VERSAO = 6;
+export const VERSAO = 7;
 
 // ---------- itens ----------
 // tipo: material | consumivel | missao | arma | protecao | mochila | ferramenta
@@ -16,6 +16,7 @@ export const ITENS = {
   barra_portao: { nome: 'Barra de portão reforçada', tipo: 'arma', ataque: 6, compra: 30, desc: 'Pesada, feia e confiável.' },
   cano_rebite: { nome: 'Cano com rebite', tipo: 'arma', ataque: 9, compra: 70, desc: 'O Wolf soldou uma cabeça de rebites na ponta.' },
   machadinha: { nome: 'Machadinha do entreposto', tipo: 'arma', ataque: 13, desc: 'Estava na mão do Porteiro. Agora é sua.' },
+  gancho_estiva: { nome: 'Gancho de estiva do Mastim', tipo: 'arma', ataque: 27, desc: 'Gancho de puxar fardo, preso na coleira do Mastim. Pesa e não solta.' },
   chave_linha: { nome: 'Chave de linha do Maquinista', tipo: 'arma', ataque: 22, desc: 'Chave de apertar trilho, de ferro maciço. O Maquinista não largava dela.' },
   jaqueta_ronda: { nome: 'Jaqueta de ronda remendada', tipo: 'protecao', defesa: 12, compra: 30, desc: 'Couro velho com reforço no antebraço.' },
   colete_lona: { nome: 'Colete de lona dupla', tipo: 'protecao', defesa: 24, compra: 80, desc: 'Duas camadas de lona de caminhão costuradas.' },
@@ -64,6 +65,11 @@ export const INIMIGOS = {
   gritador: { nome: 'Gritador', vida: 24, ataque: 5, defesa: 0, cadencia: 1.0, evasao: 0.15, xp: 15 },
   ferroviario: { nome: 'Ferroviário', vida: 88, ataque: 10, defesa: 18, cadencia: 2.6, evasao: 0, xp: 36 },
   maquinista: { nome: 'O Maquinista', vida: 250, ataque: 11, defesa: 30, cadencia: 2.3, evasao: 0, xp: 180, chefe: true, pesadoACada: 3, pesadoFator: 2.1 },
+  // Cais do Porto
+  cao_infectado: { nome: 'Cão infectado', vida: 28, ataque: 6, defesa: 0, cadencia: 1.0, evasao: 0.25, xp: 22, bicho: true },
+  estivador: { nome: 'Estivador', vida: 90, ataque: 10, defesa: 16, cadencia: 2.7, evasao: 0, xp: 45 },
+  afogado: { nome: 'Afogado', vida: 120, ataque: 9, defesa: 6, cadencia: 3.1, evasao: 0, xp: 50 },
+  mastim: { nome: 'O Mastim', vida: 290, ataque: 12, defesa: 18, cadencia: 1.6, evasao: 0.1, xp: 260, chefe: true, bicho: true, pesadoACada: 4, pesadoFator: 2.0 },
   porteiro: { nome: 'O Porteiro', vida: 135, ataque: 9, defesa: 25, cadencia: 2.4, evasao: 0, xp: 90, chefe: true, pesadoACada: 4, pesadoFator: 2.2 },
 };
 
@@ -73,6 +79,7 @@ export const INIMIGOS = {
 export const AREAS = {
   entrada: { nome: 'Quarteirão da Entrada' },
   estacao: { nome: 'Feira da Estação', requer: 'rota4_concluida' },
+  porto: { nome: 'Cais do Porto', requer: 'maquinista_vencido' },
 };
 // pontos em células do mapa da área; "enc" lista os inimigos da parada. O mapa desenhado no cliente segue estes pontos.
 const SAIDA = [2.5, 12.5];
@@ -192,6 +199,70 @@ export const ROTAS = {
     ],
     saque: { sucata: [3, 5], pecas: [2, 3], peca_eletrica: [1, 2] },
     repete: 'maquinista_vencido',
+  },
+  // ---------- Cais do Porto ----------
+  portao_cais: {
+    area: 'porto', nome: 'Portão do Cais', resumo: 'A avenida do porto tem cachorro solto. Eles correm em bando e mordem rápido.',
+    custo: 1, requer: 'maquinista_vencido', perigo: 4, forca: 1.0,
+    pontos: [
+      { p: [8.5, 12.5], enc: ['cao_infectado'] },
+      { p: [14.5, 12.5], enc: ['estivador', 'errante'] },
+      { p: [21.5, 12.5], enc: ['cao_infectado', 'cao_infectado'] },
+      { p: [29.5, 12.6], enc: ['estivador', 'feirante'] },
+    ],
+    saque: { sucata: [3, 5], tecido: [1, 3], pecas: [1, 2] },
+    marca: 'cais1_concluida', repete: 'cais1_concluida',
+  },
+  conteineres: {
+    area: 'porto', nome: 'Pilha de Contêineres', resumo: 'Entre os contêineres do cais tem carga lacrada e coisa saindo da água.',
+    custo: 1, requer: 'cais1_concluida', perigo: 4, forca: 1.1,
+    pontos: [
+      { p: [12.5, 12.5], enc: ['cao_infectado', 'errante'] },
+      { p: [21.5, 8.5], enc: ['estivador', 'cao_infectado'] },
+      { p: [21.5, 6.2], enc: ['afogado'] },
+      { p: [28.5, 8.5], enc: ['cao_infectado', 'cao_infectado', 'gritador'] },
+      { p: [35.5, 12.5], enc: ['estivador', 'afogado'] },
+    ],
+    saque: { sucata: [3, 5], pecas: [1, 3], peca_eletrica: [1, 2] },
+    marca: 'cais2_concluida', repete: 'cais2_concluida',
+  },
+  frigorifico: {
+    area: 'porto', nome: 'Pátio do Frigorífico', resumo: 'O pátio do frigorífico virou toca. O cheiro chama cachorro de longe.',
+    custo: 1, requer: 'cais2_concluida', perigo: 4, forca: 1.15,
+    pontos: [
+      { p: [21.5, 12.5], enc: ['cao_infectado', 'feirante'] },
+      { p: [21.5, 16.5], enc: ['estivador', 'estivador'] },
+      { p: [27.5, 17.6], enc: ['afogado', 'cao_infectado'] },
+      { p: [34.5, 17.6], enc: ['cao_infectado', 'cao_infectado', 'cao_infectado'] },
+      { p: [40.5, 17.6], enc: ['estivador', 'afogado'] },
+    ],
+    saque: { sucata: [3, 5], tecido: [2, 3], pecas: [1, 3], peca_eletrica: [0, 2] },
+    marca: 'cais3_concluida', repete: 'cais3_concluida',
+  },
+  pier: {
+    area: 'porto', nome: 'Píer dos Pescadores', resumo: 'O píer comprido entra no mar. Quem caiu na água voltou, e voltou inchado.',
+    custo: 1, requer: 'cais3_concluida', perigo: 5, forca: 1.2,
+    pontos: [
+      { p: [21.5, 12.5], enc: ['cao_infectado', 'cao_infectado'] },
+      { p: [30.5, 12.5], enc: ['afogado', 'estivador'] },
+      { p: [38.5, 12.5], enc: ['afogado', 'afogado'] },
+      { p: [38.5, 8.5], enc: ['cao_infectado', 'cao_infectado', 'estivador'] },
+      { p: [38.5, 4.6], enc: ['afogado', 'ferroviario'] },
+    ],
+    saque: { sucata: [3, 6], pecas: [2, 3], peca_eletrica: [1, 2] },
+    marca: 'cais4_concluida', repete: 'cais4_concluida',
+  },
+  canil_mastim: {
+    area: 'porto', nome: 'Canil do Mastim', resumo: 'No fundo do pátio tem um canil de cerca alta. O que mora lá é do tamanho de um bezerro.',
+    custo: 1, requer: 'cais4_concluida', perigo: 5, chefe: 'mastim', forca: 1.1,
+    pontos: [
+      { p: [21.5, 12.5], enc: ['estivador', 'cao_infectado'] },
+      { p: [21.5, 16.5], enc: ['cao_infectado', 'cao_infectado', 'cao_infectado'] },
+      { p: [30.5, 21.0], enc: ['afogado', 'estivador'] },
+      { p: [40.5, 21.0], enc: ['mastim'], primeiraVez: { item: 'gancho_estiva', marca: 'mastim_vencido' } },
+    ],
+    saque: { sucata: [4, 6], pecas: [2, 3], peca_eletrica: [1, 3] },
+    repete: 'mastim_vencido',
   },
 };
 export const VEL_ANDAR = 1.9;        // células por segundo na rua
