@@ -176,7 +176,10 @@ const OBJETIVOS = [
   { id: 'T07', titulo: 'O dono do entreposto', texto: 'Vença o Porteiro na rota do Entreposto. Vá bem equipado.', feito: f => !!f.porteiro_vencido },
   { id: 'T08', titulo: 'Enquanto você estiver fora', texto: 'No portão, escolha uma rota que você já fez e deixe o personagem farmando nela.', feito: f => !!f.ronda_feita },
   { id: 'T09', titulo: 'A Barricada do Sul', texto: 'Faça a rota da Barricada do Sul. Os inchados aguentam muito: pense em fazer equipamento na bancada do Wolf.', feito: f => !!f.rota4_concluida },
-  { id: 'T10', titulo: 'Mais longe', texto: 'As próximas áreas chegam nas próximas etapas.', feito: () => false, futuro: true },
+  { id: 'T10', titulo: 'A Feira da Estação', texto: 'A segunda área abriu. No portão, faça a Feira Livre.', feito: f => !!f.feira_concluida },
+  { id: 'T11', titulo: 'A linha do trem', texto: 'Faça o Cruzamento da Linha e a Plataforma Norte.', feito: f => !!f.plataforma_concluida },
+  { id: 'T12', titulo: 'O dono da locomotiva', texto: 'Passe pelo Pátio de Manobras e vença o Maquinista. Ele bate pesado a cada três golpes.', feito: f => !!f.maquinista_vencido },
+  { id: 'T13', titulo: 'Mais longe', texto: 'A próxima cidade chega nas próximas etapas.', feito: () => false, futuro: true },
 ];
 
 PZ.mundo = { T, LARG, ALT, chao, OBJ, NPCS, MORADORES, BICHOS, SPAWN, DIALOGOS, OBJETIVOS };

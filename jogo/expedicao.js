@@ -23,7 +23,9 @@ class Expedicao {
     this.preparar();
     this.acabou = false;
     this.ultimoHud = '';
-    this.motor = new PZ.Motor(canvas, PZ.area, {
+    // cada rota diz em que área fica; sem área (ou área que este cliente ainda não tem) cai no Quarteirão
+    this.mapa = (PZ.areas && PZ.areas[this.rota.area]) || PZ.area;
+    this.motor = new PZ.Motor(canvas, this.mapa, {
       aparencia: op.aparencia, reduzir: op.reduzir, assistir: true,
       roteiro: m => this.passo(m), sobre: (m, g) => this.sobre(m, g), chao: (m, g) => this.noChao(m, g),
     });

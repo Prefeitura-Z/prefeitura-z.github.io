@@ -200,6 +200,8 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .lista li > span:first-child { flex: 1 1 220px; }
 .lista .destaque { border-color: #6b5a35; background: #2a2820; }
 .lista .trancada { opacity: .65; border-style: dashed; }
+.lista .area-cab { display: block; border: 0; background: none; padding: 10px 2px 2px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--aviso); }
+.lista .area-cab small { display: block; text-transform: none; letter-spacing: 0; color: inherit; opacity: .8; }
 .lista .botao { padding: 6px 12px; font-size: 13px; }
 .lista .botao:disabled { cursor: not-allowed; }
 .perigo-n { font-style: normal; color: var(--aviso); letter-spacing: 2px; font-size: 12px; }

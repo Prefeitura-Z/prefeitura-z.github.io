@@ -353,16 +353,24 @@ function linhaVoce() {
 const textoFerido = () => `Você está ferido: vida máxima menor até ${new Date(estado.estado.feridoAte * 1000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} ou até usar um curativo.`;
 
 // ---------- rotas (portão) ----------
-const FALTA = { contrato_visto: 'Peça um contrato ao Bashar.', rota1_concluida: 'Conclua a Rua de Cima primeiro.', registro_entregue: 'Entregue o registro de rota ao Bashar.', porteiro_vencido: 'Vença o Porteiro no Entreposto primeiro.' };
+const FALTA = { contrato_visto: 'Peça um contrato ao Bashar.', rota1_concluida: 'Conclua a Rua de Cima primeiro.', registro_entregue: 'Entregue o registro de rota ao Bashar.', porteiro_vencido: 'Vença o Porteiro no Entreposto primeiro.',
+  rota4_concluida: 'Conclua a Barricada do Sul primeiro.', feira_concluida: 'Conclua a Feira Livre primeiro.', linha_concluida: 'Conclua o Cruzamento da Linha primeiro.',
+  plataforma_concluida: 'Conclua a Plataforma Norte primeiro.', manobras_concluida: 'Conclua o Pátio de Manobras primeiro.' };
 function abrirRotas() {
   const f = estado.personagem.flags || {}, e = estado.estado;
   $('rotas-voce').innerHTML = linhaVoce() + (e.ferido ? `<span class="ferido">${esc(textoFerido())}</span>` : '');
+  // agrupadas por área: a área seguinte aparece trancada com o que falta pra abrir
+  const areas = catalogo.areas || { entrada: { nome: 'Quarteirão da Entrada' } };
+  let areaAtual = null;
   $('rotas-lista').innerHTML = Object.entries(catalogo.rotas).map(([id, r]) => {
+    const aid = r.area || 'entrada', A = areas[aid] || { nome: aid };
+    const cab = aid !== areaAtual ? `<li class="area-cab${A.requer && !f[A.requer] ? ' trancada' : ''}"><b>${esc(A.nome)}</b>${A.requer && !f[A.requer] ? `<small>${esc(FALTA[A.requer] || 'Ainda não liberada.')}</small>` : ''}</li>` : '';
+    areaAtual = aid;
     const falta = !f.kit_recebido ? 'Pegue seu kit com o Wolf.' : r.requer && !f[r.requer] ? FALTA[r.requer] || 'Ainda não liberada.' : '';
     const semKit = !falta && r.custo > (e.itens.suprimento || 0);
     const inimigos = [...new Set(r.pontos.flatMap(p => p.enc))].map(k => catalogo.inimigos[k]?.nome || k).join(', ');
-    return `<li class="${falta ? 'trancada' : ''}"><span>
-      <b>${esc(r.nome)}</b> <i class="perigo-n" title="Perigo ${r.perigo} de 3">${'●'.repeat(r.perigo)}${'○'.repeat(3 - r.perigo)}</i>
+    return cab + `<li class="${falta ? 'trancada' : ''}"><span>
+      <b>${esc(r.nome)}</b> <i class="perigo-n" title="Perigo ${r.perigo} de 5">${'●'.repeat(r.perigo)}${'○'.repeat(Math.max(0, 5 - r.perigo))}</i>
       <small>${esc(r.resumo)}</small>
       <small>${r.pontos.filter(p => p.enc.length).length} paradas · ${esc(inimigos)} · traz ${esc(r.saque.map(k => item(k).nome.toLowerCase()).join(', '))}</small>
       <small>${r.custo ? `Gasta ${r.custo} kit de campo` : 'Não gasta kit de campo'}${falta ? ' · ' + esc(falta) : semKit ? ' · Falta kit de campo: o Wolf vende e a bancada dele faz.' : ''}</small></span>
@@ -411,7 +419,8 @@ function entrarNaExpedicao() {
   const ex = estado.expedicao, farm = ex.tipo === 'ronda';
   textoRecuar = farm ? 'Chamar de volta pro abrigo' : 'Recuar pro abrigo';
   recuoArmado = false; $('btn-recuar').textContent = textoRecuar; $('btn-recuar').disabled = false; $('btn-recuar').hidden = false;
-  $('exp-area').textContent = farm ? `Farm · volta ${ex.ronda.volta} de ${ex.ronda.voltas}` : 'Quarteirão da Entrada';
+  const nomeArea = catalogo.areas?.[catalogo.rotas[ex.rota]?.area]?.nome || 'Quarteirão da Entrada';
+  $('exp-area').textContent = farm ? `${nomeArea} · farm, volta ${ex.ronda.volta} de ${ex.ronda.voltas}` : nomeArea;
   $('exp-ronda').hidden = !farm;
   if (farm) {
     const g = Object.entries(ex.ronda.itens).map(([k, q]) => `${q} ${item(k).nome.toLowerCase()}`).join(', ');

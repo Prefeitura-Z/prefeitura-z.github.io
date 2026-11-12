@@ -35,6 +35,9 @@ const CHAO = [
   { base: '#77786f', var: ['#7d7e75', '#70716a', '#84857b'], marca: 'calcada' },
   { base: '#3c3f40', var: ['#404344', '#383b3c', '#434647'], marca: 'faixaX' },
   { base: '#3c3f40', var: ['#404344', '#383b3c', '#434647'], marca: 'faixaY' },
+  { base: '#5d5850', var: ['#635e55', '#57524a', '#69645a'], marca: 'trilho' },
+  { base: '#6a6258', var: ['#706860', '#625a50', '#766e62'], marca: 'pedra' },
+  { base: '#8a8a80', var: ['#8f8f85', '#84847a', '#939389'], marca: 'plataforma' },
 ];
 
 function losango(g, cx, cy) {
@@ -95,6 +98,21 @@ function desenharChao(mundo) {
       if (m !== 'asfalto' && r() > 0.25) { if (m === 'faixaX') { quad(x + 0.15, y + 0.45, x + 0.85, y + 0.55, '#b8a860'); quad(x + 0.15, y + 0.45, x + 0.85, y + 0.48, '#d0c078'); } else { quad(x + 0.45, y + 0.15, x + 0.55, y + 0.85, '#b8a860'); quad(x + 0.45, y + 0.15, x + 0.48, y + 0.85, '#d0c078'); } }
     } else if (m === 'madeira') {
       for (let k = 0; k < 4; k++) { const b = y + k / 4; quad(x, b, x + 1, b + 0.25, tom(st.base, 0.9 + r() * 0.18)); linha(x, b + 0.25, x + 1, b + 0.25, tom(st.base, 0.6)); linha(x, b + 0.02, x + 1, b + 0.02, tom(st.base, 1.12)); const e = r() * 0.8 + 0.1; linha(x + e, b, x + e, b + 0.25, tom(st.base, 0.65)); ponto(x + 0.08, b + 0.12, 1, 1, '#2a2016'); ponto(x + 0.92, b + 0.12, 1, 1, '#2a2016'); }
+    } else if (m === 'trilho') {
+      // brita, dormente de madeira atravessado e dois trilhos correndo em x
+      for (let k = 0; k < 34; k++) { const cor = ['#857f70', '#4a463e', '#9a9484', '#6e685c'][Math.floor(r() * 4)]; ponto(x + r(), y + r(), 2, 1, cor); }
+      for (let k = 0; k < 3; k++) { const u = x + 0.08 + k / 3; quad(u, y + 0.1, u + 0.16, y + 0.9, tom('#5a4430', 0.9 + r() * 0.2)); linha(u, y + 0.1, u, y + 0.9, '#3a2c20'); }
+      for (const v of [0.3, 0.7]) { linha(x, y + v + 0.03, x + 1, y + v + 0.03, '#2a2826', 2); linha(x, y + v, x + 1, y + v, '#8a8c8e', 2); linha(x, y + v - 0.02, x + 1, y + v - 0.02, '#c4c6c8'); }
+    } else if (m === 'pedra') {
+      // paralelepípedo da feira: pedras desencontradas com rejunte de terra
+      for (let j = 0; j < 4; j++) { const off = j % 2 ? 0.125 : 0; for (let i = -1; i < 4; i++) { const a = Math.max(x, x + off + i / 4), b2 = Math.min(x + 1, x + off + (i + 1) / 4); if (b2 <= a) continue; const f = 0.85 + r() * 0.3; quad(a + 0.015, y + j / 4 + 0.02, b2 - 0.015, y + (j + 1) / 4 - 0.02, tom(st.base, f)); linha(a + 0.02, y + j / 4 + 0.03, b2 - 0.02, y + j / 4 + 0.03, tom(st.base, f + 0.14)); } }
+      if (r() > 0.8) { ponto(x + r(), y + r(), 1, 2, VERDE[1]); }
+    } else if (m === 'plataforma') {
+      // laje da plataforma com faixa amarela de borda e piso tátil
+      linha(x, y + 1, x + 1, y + 1, tom(st.base, 0.7)); linha(x + 1, y, x + 1, y + 1, tom(st.base, 0.7));
+      for (let k = 0; k < 14; k++) ponto(x + r(), y + r(), 1, 1, r() > 0.5 ? tom(st.base, 1.1) : tom(st.base, 0.86));
+      if (tipo(x, y - 1) >= 0 && CHAO[tipo(x, y - 1)].marca === 'trilho') { quad(x, y + 0.04, x + 1, y + 0.16, '#c8a83a'); quad(x, y + 0.18, x + 1, y + 0.28, '#a89a6a'); for (let k = 0; k < 8; k++) ponto(x + k / 8 + 0.03, y + 0.22, 1, 1, '#6a6040'); }
+      if (r() > 0.85) { const p = P(x + 0.3 + r() * 0.4, y + 0.4 + r() * 0.4); g.fillStyle = '#3a383422'; g.beginPath(); g.ellipse(p.x, p.y, 9, 4, 0, 0, 7); g.fill(); }
     } else if (m === 'agua') {
       for (let k = 0; k < 8; k++) { const u = r(), v = r(); linha(x + u, y + v, x + Math.min(1, u + 0.18), y + v, r() > 0.5 ? '#5f8a90' : '#3e6670'); }
       if (r() > 0.8) ponto(x + r(), y + r(), 2, 1, '#a8c8d0');
@@ -195,7 +213,7 @@ const ALTURA = {
   bancada: 20, gerador: 22, pneus: 16, carcaca: 26, carroOficina: 44, tambor: 22, ferramentas: 42, antena: 120, mesaRadio: 20,
   beliche: 40, cama: 18, armario: 62, barraca: 56, tenda: 76, maca: 14, caixaMedica: 16, tanque: 96, planta: 10,
   quadro: 44, poste: 124, fogueira: 10, banco: 10, cerca: 18, casinha: 24, galinheiro: 40, arvore: 110,
-  bloco: 104, carro: 44, barricada: 22, entulho: 8, placaRua: 40,
+  bloco: 104, carro: 44, banca: 44, vagao: 58, barricada: 22, entulho: 8, placaRua: 40,
 };
 
 // caixote de madeira: tábuas, travessa em X e contorno
@@ -397,6 +415,60 @@ function desenharObjeto(g, o, t) {
       break;
     }
     case 'carro': veiculo(g, o, r, false); break;
+    case 'banca': {
+      // banca de feira: quatro paus, bancada com pano, caixote de fruta e lona listrada caída de um lado
+      const lona = o.cor || ['#9a3a2a', '#3f5a6a', '#566D4A', '#b08a3a'][Math.floor(r() * 4)];
+      for (const [px, py] of [[0.08, 0.12], [0.86, 0.12], [0.08, 0.8], [0.86, 0.8]]) caixa(g, x + px, y + py, 0.06, 0.06, 40, '#6e5a44');
+      caixa(g, x + 0.1, y + 0.3, 0.8, 0.5, 4, '#7a6048', 14);
+      placa(g, x + 0.1, y + 0.3, 0.8, 0.5, 'esq', 0, 1, -3, 1, 18, tom(lona, 0.8));                       // pano na frente
+      for (let k = 0; k < 3; k++) {
+        const cx = x + 0.16 + k * 0.25; caixote(g, cx, y + 0.38, 0.2, 0.3, 6, 18);
+        const c = iso(cx + 0.1, y + 0.53), fr = ['#c65345', '#d8902a', '#6f8a4a', '#d8c070', '#7a3a5a'][Math.floor(r() * 5)], podre = r() > 0.5;
+        for (let j = 0; j < 6; j++) { g.fillStyle = podre && j % 2 ? '#4a4030' : fr; g.fillRect(Math.round(c.x - 5 + (j % 3) * 3), Math.round(c.y - 26 - Math.floor(j / 3) * 2), 3, 2); }
+      }
+      // lona: plano inclinado de trás (alto) pra frente (baixo), com listra
+      const L = (u, v, z) => { const q = iso(x + u, y + v); return { x: q.x, y: q.y - z }; };
+      const pts = [L(0.02, 0.06, 44), L(0.98, 0.06, 44), L(0.98, 0.92, 36), L(0.02, 0.92, 36)];
+      g.fillStyle = lona; g.beginPath(); pts.forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.closePath(); g.fill();
+      for (let k = 1; k < 6; k += 2) { const a = L(k / 6, 0.06, 44), b = L((k + 1) / 6, 0.06, 44), c = L((k + 1) / 6, 0.92, 36), d = L(k / 6, 0.92, 36); g.fillStyle = '#e8e2d0bb'; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineTo(c.x, c.y); g.lineTo(d.x, d.y); g.closePath(); g.fill(); }
+      { const a = L(0.02, 0.92, 36), b = L(0.98, 0.92, 36); g.fillStyle = tom(lona, 0.7); g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineTo(b.x, b.y + 4); g.lineTo(a.x, a.y + 4); g.closePath(); g.fill(); }   // barra da lona
+      if (r() > 0.6) { const a = L(0.7, 0.92, 32); g.fillStyle = '#141412'; g.fillRect(Math.round(a.x), Math.round(a.y), 6, 3); }                                    // rasgo
+      g.strokeStyle = '#141412aa'; g.lineWidth = 1; g.beginPath(); pts.forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.closePath(); g.stroke();
+      break;
+    }
+    case 'vagao': {
+      // um pedaço de vagão por célula (ordena certo com quem passa do lado). o.ini/o.fim = pontas; o.tipoV: 'passageiro', 'carga', 'loco', 'onibus'
+      const tv = o.tipoV || 'carga', cor = o.cor || '#7a3a2a', bus = tv === 'onibus';
+      const zb = bus ? 8 : 12, hc = bus ? 34 : tv === 'loco' ? 44 : 42, by0 = y + 0.12, bd0 = 0.76;
+      // truque/rodas embaixo
+      if (bus) { if (o.ini || o.fim) { const c = iso(x + 0.5, y + 0.9); g.fillStyle = '#0e0e0e'; g.beginPath(); g.ellipse(c.x, c.y - 6, 7, 6, 0, 0, 7); g.fill(); g.fillStyle = '#5a6064'; g.beginPath(); g.ellipse(c.x, c.y - 6, 3, 2.5, 0, 0, 7); g.fill(); } }
+      else { caixa(g, x + 0.05, y + 0.2, 0.9, 0.6, 5, '#2a2826', 2); if (o.ini || o.fim) for (const u of [0.25, 0.7]) { const c = iso(x + u, y + 0.82); g.fillStyle = '#141412'; g.beginPath(); g.ellipse(c.x, c.y - 5, 5, 4, 0, 0, 7); g.fill(); g.fillStyle = '#4a4c4e'; g.beginPath(); g.ellipse(c.x, c.y - 5, 2.5, 2, 0, 0, 7); g.fill(); } }
+      const x0 = x + (o.ini ? 0.06 : 0), w0 = 1 - (o.ini ? 0.06 : 0) - (o.fim ? 0.06 : 0);
+      CONTORNO.ligado = false;
+      caixa(g, x0, by0, w0, bd0, hc, { topo: tom(cor, 1.15), esq: cor, dir: tom(cor, 0.72) }, zb);
+      CONTORNO.ligado = true;
+      const F = (u0, u1, v0, v1, c) => placa(g, x0, by0, w0, bd0, 'esq', u0, u1, v0, v1, hc + zb, c);
+      if (tv === 'carga') {
+        for (let k = 0; k < 4; k++) F(k / 4 + 0.02, k / 4 + 0.06, 0.25, 1, tom(cor, 0.78));                  // nervuras
+        if (r() > 0.5) { F(0.2, 0.8, 0.28, 0.95, tom(cor, 0.88)); F(0.48, 0.52, 0.3, 0.92, '#2a2826'); }      // porta de correr
+        if (r() > 0.6) F(0.1 + r() * 0.4, 0.5 + r() * 0.4, 0.4, 0.62, ['#c8b23a88', '#e8e2d088', '#3f8a7a88'][Math.floor(r() * 3)]); // pichação
+      } else {
+        const vid = '#1e2a30';
+        F(0, 1, 0.28 + (bus ? 0.04 : 0), 0.34 + (bus ? 0.04 : 0), bus ? '#c8a83a' : '#d8d3c4');            // faixa
+        for (const [a, b2] of bus ? [[0.04, 0.46], [0.54, 0.96]] : [[0.1, 0.4], [0.6, 0.9]]) { F(a, b2, 0.5, 0.86, vid); F(a, a + (b2 - a) * 0.4, 0.82, 0.86, '#ffffff22'); if (r() > 0.65) F(a + 0.05, a + 0.12, 0.55, 0.8, '#3a4a50'); }
+        if (tv === 'loco' && o.fim) { placa(g, x0, by0, w0, bd0, 'dir', 0.15, 0.85, 0.55, 0.85, hc + zb, vid); placa(g, x0, by0, w0, bd0, 'dir', 0.35, 0.65, 0.12, 0.25, hc + zb, '#e8d8a0'); }
+      }
+      F(0, 1, 0, 0.08, '#00000040'); F(r() * 0.6, r() * 0.6 + 0.3, 0.1, 0.4, '#A65F3D55');                    // sujeira e ferrugem
+      if (o.fim && tv !== 'loco') placa(g, x0, by0, w0, bd0, 'dir', 0.3, 0.7, 0.15, 0.85, hc + zb, tom(cor, 0.6));
+      // teto arredondado (vagão de passageiro) ou reto
+      if (tv !== 'carga') caixa(g, x0 + 0.02, by0 + 0.08, w0 - 0.04, bd0 - 0.16, 3, tom(cor, 1.2), hc + zb);
+      // contorno só nas bordas de fora
+      { const A2 = iso(x0, by0), B = iso(x0 + w0, by0), C = iso(x0 + w0, by0 + bd0), D = iso(x0, by0 + bd0), Z = zb, U = hc + zb; const Lx = (a, b2) => { g.moveTo(Math.round(a.x) + 0.5, Math.round(a.y) + 0.5); g.lineTo(Math.round(b2.x) + 0.5, Math.round(b2.y) + 0.5); };
+        const up = (q, z) => ({ x: q.x, y: q.y - z });
+        g.strokeStyle = '#141412aa'; g.lineWidth = 1; g.beginPath(); Lx(up(D, Z), up(C, Z)); Lx(up(D, U), up(C, U)); Lx(up(A2, U), up(B, U));
+        if (o.ini) { Lx(up(D, Z), up(D, U)); Lx(up(A2, U), up(D, U)); } if (o.fim) { Lx(up(C, Z), up(C, U)); Lx(up(B, U), up(C, U)); Lx(up(C, Z), up(B, Z)); Lx(up(B, Z), up(B, U)); } g.stroke(); }
+      break;
+    }
     case 'barricada': { const ao = w >= d;
       for (let k = 0; k < (ao ? w : d) * 2; k++) caixa(g, ao ? x + k * 0.5 + 0.04 : x + 0.3, ao ? y + 0.3 : y + k * 0.5 + 0.04, ao ? 0.42 : 0.4, ao ? 0.4 : 0.42, 10 + (k % 2) * 3, '#9B8D66');
       caixa(g, ao ? x + 0.1 : x + 0.42, ao ? y + 0.42 : y + 0.1, ao ? w - 0.2 : 0.14, ao ? 0.14 : d - 0.2, 4, '#6e5a44', 15);
@@ -733,7 +805,7 @@ function caixaTela(o) {
   if (o.tipo === 'arvore') return { x0: l - 14, x1: rr + 14, y0: top, y1: bot };
   return { x0: l, x1: rr, y0: top, y1: bot };
 }
-const ALTOS = new Set(['muro', 'pilar', 'portao', 'guarita', 'arquivo', 'estante', 'antena', 'beliche', 'armario', 'barraca', 'tenda', 'tanque', 'quadro', 'poste', 'arvore', 'ferramentas', 'caixas', 'bloco']);
+const ALTOS = new Set(['muro', 'pilar', 'portao', 'guarita', 'arquivo', 'estante', 'antena', 'beliche', 'armario', 'barraca', 'tenda', 'tanque', 'quadro', 'poste', 'arvore', 'ferramentas', 'caixas', 'bloco', 'vagao', 'banca']);
 
 // ---------- pessoas ----------
 const PELE = { p1: '#F1C9A5', p2: '#E0A982', p3: '#C68B62', p4: '#A0694A', p5: '#7A4E35', p6: '#5A3826' };
@@ -757,6 +829,10 @@ const ROUPA = {
   errante2: { torso: '#5a6470', detalhe: '#444c56', calca: '#4a4034', bota: '#2a2522', manga: '#8f8a78' },
   corredor: { torso: '#8a4a3e', detalhe: '#6a342c', calca: '#33383B', bota: '#3a2e24', manga: '#b0a590' },
   inchado: { torso: '#7a7462', detalhe: '#5a5648', calca: '#4a4438', bota: '#2a2522', manga: '#a39c86' },
+  feirante: { torso: '#8a7a5a', detalhe: '#c9c2b0', calca: '#3e4f66', bota: '#2a2522', manga: '#c9c2b0', colete: true, coleteCor: '#e0d8c0' },
+  gritador: { torso: '#4a5a70', detalhe: '#34404e', calca: '#5a5446', bota: '#2a2522', manga: '#a0a8b0' },
+  ferroviario: { torso: '#c8642a', detalhe: '#e0d040', calca: '#3a3c40', bota: '#1e1c1a', manga: '#c8642a', colete: true, coleteCor: '#e0d040' },
+  maquinista: { torso: '#3a4e6a', detalhe: '#2a3a50', calca: '#3a4e6a', bota: '#1e1c1a', manga: '#3a4e6a', alcas: true },
   porteiro: { torso: '#3e4a56', detalhe: '#9B8D66', calca: '#2c3238', bota: '#1e1c1a', manga: '#3e4a56', colete: true, coleteCor: '#9B8D66' },
 };
 // aparências prontas dos NPCs (mesmo corpo do jogador, pra mesma escala e pivô)
@@ -777,6 +853,13 @@ const INIMIGO_AP = {
   corredor: [{ corpo: 'a', pele: 'z3', cabelo: 'raspado', corCabelo: 'c1', roupa: 'corredor', zumbi: true }],
   inchado: [{ corpo: 'b', pele: 'z2', cabelo: 'raspado', corCabelo: 'c5', roupa: 'inchado', zumbi: true, escala: 1.2 }],
   porteiro: [{ corpo: 'b', pele: 'z1', cabelo: 'raspado', corCabelo: 'c5', roupa: 'porteiro', zumbi: true, bone: true, machado: true, escala: 1.4 }],
+  feirante: [
+    { corpo: 'b', pele: 'z2', cabelo: 'curto', corCabelo: 'c5', roupa: 'feirante', zumbi: true },
+    { corpo: 'a', pele: 'z1', cabelo: 'coque', corCabelo: 'c3', roupa: 'feirante', zumbi: true },
+  ],
+  gritador: [{ corpo: 'a', pele: 'z3', cabelo: 'longo', corCabelo: 'c1', roupa: 'gritador', zumbi: true }],
+  ferroviario: [{ corpo: 'b', pele: 'z1', cabelo: 'raspado', corCabelo: 'c2', roupa: 'ferroviario', zumbi: true, bone: true, escala: 1.15 }],
+  maquinista: [{ corpo: 'b', pele: 'z2', cabelo: 'raspado', corCabelo: 'c5', roupa: 'maquinista', zumbi: true, bone: true, barba: true, escala: 1.45 }],
 };
 
 // o que cada equipamento muda no desenho do boneco (ap.eq = { arma, protecao, mochila, ferramenta })
@@ -784,6 +867,7 @@ const EQUIP_VIS = {
   barra_portao: { haste: '#8f979c', forma: 'barra', fita: '#7a3a2a' },
   cano_rebite: { haste: '#7d858a', cabeca: '#4f5559', forma: 'cano', fita: '#24282B', comp: 1.1 },
   machadinha: { haste: '#7a5a3e', lamina: '#b9c0c4', forma: 'machado', fita: '#3a2a1e' },
+  chave_linha: { haste: '#5a6064', cabeca: '#3a3e42', forma: 'cano', fita: '#9a3a2a', comp: 1.2 },
   jaqueta_ronda: { reforco: '#5a3a26' },
   colete_lona: { colete: '#b7a67a' },
   mochila_lona: { bolsa: '#6b7350', alca: '#4c5238' },
