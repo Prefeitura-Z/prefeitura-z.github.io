@@ -46,7 +46,7 @@ function expedicaoPublica(e, attrs, flags) {
     if (i < 0) i = cs.length - 1;
     const c = cs[i], ate = rondaAte(sim, t);
     const novo = sim.porKit > 0;   // rondas abertas antes do farm sem volta ao portão seguem do jeito antigo
-    const volta = simular(e.rota, c.attrs, c.semente, { flags, temRegistro: true, vidaInicial: c.vidaInicial, origem: novo ? c.de : null, semVolta: novo });
+    const volta = simular(e.rota, c.attrs, c.semente, { flags, temRegistro: true, vidaInicial: c.vidaInicial, origem: novo ? c.de : null, semVolta: novo, inverso: !!c.inv });
     let log = volta.log, dur = c.dur;
     if (novo && i === cs.length - 1 && sim.retorno > 0 && sim.de) {
       // última volta: depois da revista ele pega o caminho do portão
