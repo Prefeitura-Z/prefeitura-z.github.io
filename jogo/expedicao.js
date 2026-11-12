@@ -10,7 +10,7 @@ const DUR_GOLPE = 0.5, DUR_NUMERO = 0.95, DUR_SAQUE = 2.6, REVISTA = 3;
 // o golpe não anda em ritmo igual: arma devagar, desce rápido, recolhe com calma
 const IMPACTO = 0.2;   // segundos entre começar o golpe e ele acertar
 const quadroGolpe = d => { const u = d / DUR_GOLPE; return u < 0.2 ? 0 : u < 0.38 ? 1 : u < 0.46 ? 2 : u < 0.58 ? 3 : u < 0.8 ? 4 : 5; };
-const QUEDA = 0.35, SOME = 1.1;   // inimigo tomba e depois some
+const QUEDA = 0.35, SOME = 2.2;   // inimigo tomba, fica caído um tempo e some
 const RUA_Y = 12.5;
 
 class Expedicao {
@@ -25,7 +25,7 @@ class Expedicao {
     this.ultimoHud = '';
     this.motor = new PZ.Motor(canvas, PZ.area, {
       aparencia: op.aparencia, reduzir: op.reduzir, assistir: true,
-      roteiro: m => this.passo(m), sobre: (m, g) => this.sobre(m, g),
+      roteiro: m => this.passo(m), sobre: (m, g) => this.sobre(m, g), chao: (m, g) => this.noChao(m, g),
     });
     this.passo(this.motor);
     const ps = A.iso(this.motor.p.x, this.motor.p.y); this.motor.cam.x = ps.x; this.motor.cam.y = ps.y - 30;
@@ -102,7 +102,7 @@ class Expedicao {
         if (morto && desde > SOME) continue;
         let vida = n.vidaMax;
         for (const g of this.golpes) { if (g.t > t) break; if (g.par === par && g.de === 'j' && g.em === n.k) vida = g.v; }
-        const ator = { x: n.x, y: n.y, folha: n.folha, escala: n.escala, dir: PZ.dirDe(p.x - n.x, p.y - n.y) || 'SW', estado: 'parado', quadro: null, alpha: morto ? Math.min(1, (SOME - desde) / 0.5) : 1 };
+        const ator = { x: n.x, y: n.y, folha: n.folha, escala: n.escala, dir: PZ.dirDe(p.x - n.x, p.y - n.y) || 'SW', estado: 'parado', quadro: null, alpha: morto ? Math.min(1, (SOME - desde) / 0.6) : 1 };
         const vx = n.x - p.x, vy = n.y - p.y, vd = Math.hypot(vx, vy) || 1, mexe = !this.op.reduzir;
         if (morto) {
           // tomba pro lado oposto ao jogador
@@ -218,24 +218,88 @@ class Expedicao {
     if (k !== this.ultimoHud) { this.ultimoHud = k; this.op.mudou(h); }
   }
 
-  // ---------- por cima da cena: vida dos inimigos, números de dano, o que foi achado ----------
-  sobre(m, g) {
+  // ---------- no chão: anel no alvo, sangue que fica até o fim da parada ----------
+  noChao(m, g) {
     const t = this.t;
-    g.textAlign = 'center';
-    for (const v of this.vivos) {
-      const s = m.paraTela(v.n.x, v.n.y, 62 * v.n.escala), larg = v.n.chefe ? 84 : 38;
-      if (v.n.chefe || v.lutando) {
-        g.fillStyle = 'rgba(20,22,20,.8)'; g.fillRect(Math.round(s.x - larg / 2 - 1), Math.round(s.y - 1), larg + 2, 7);
-        g.fillStyle = v.n.chefe ? '#D4AC66' : '#C65345'; g.fillRect(Math.round(s.x - larg / 2), Math.round(s.y), Math.round(larg * Math.max(0, v.vida) / v.n.vidaMax), 5);
+    for (const gp of this.golpes) {
+      if (gp.t > t) break;
+      if (gp.erro) continue;
+      const d = t - gp.t - IMPACTO, alvo = gp.em === 'j' ? null : gp.par.ini[gp.em];
+      if (d < 0) continue;
+      const pos = alvo || (gp.par.ini[gp.de] ? m.p : null);
+      if (!pos) continue;
+      // anel que abre embaixo de quem levou o golpe
+      if (d < 0.35 && !this.op.reduzir) {
+        const c = A.iso(pos.x, pos.y), k = d / 0.35, cor = gp.em === 'j' ? '198,83,69' : gp.crit ? '212,172,102' : '241,238,229';
+        g.strokeStyle = `rgba(${cor},${(1 - k) * 0.8})`; g.lineWidth = 2;
+        g.beginPath(); g.ellipse(Math.round(c.x), Math.round(c.y), 8 + k * 16, 4 + k * 8, 0, 0, 7); g.stroke();
       }
-      if (v.n.chefe) { g.font = '600 12px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(20,22,20,.8)'; const w = g.measureText(v.n.nome).width + 12; g.fillRect(Math.round(s.x - w / 2), Math.round(s.y - 22), Math.round(w), 18); g.fillStyle = '#D4AC66'; g.fillText(v.n.nome, s.x, s.y - 9); }
+      // gotas no chão: ficam enquanto a parada dura (só em infectado e no jogador)
+      if (gp.par.fim + 1.2 > t && t >= gp.par.aparece) {
+        const c = A.iso(pos.x, pos.y), sem = (gp.t * 1000) | 0, cor = gp.em === 'j' ? '#6a1f1a' : '#3e3a22';
+        let s = sem || 1; const rnd = () => { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 1000) / 1000; };
+        const n = gp.crit || gp.pesado ? 6 : 3, abre = Math.min(1, d / 0.25);
+        g.fillStyle = cor;
+        for (let i = 0; i < n; i++) g.fillRect(Math.round(c.x + (rnd() - 0.5) * 26 * abre), Math.round(c.y + (rnd() - 0.5) * 10 * abre), 2 + (rnd() > 0.6 ? 1 : 0), 1 + (rnd() > 0.7 ? 1 : 0));
+      }
+    }
+  }
+
+  // ---------- por cima da cena: placas, vida, faíscas, números de dano, o que foi achado ----------
+  sobre(m, g) {
+    const t = this.t, z = m.zoom;
+    g.textAlign = 'center';
+    // faíscas e poeira no ponto do golpe
+    if (!this.op.reduzir) for (const gp of this.golpes) {
+      if (gp.t > t) break;
+      const d = t - gp.t - IMPACTO;
+      if (d < 0 || d > 0.4 || gp.erro) continue;
+      const alvo = gp.em === 'j' ? m.p : gp.par.ini[gp.em]; if (!alvo) continue;
+      const s0 = m.paraTela(alvo.x, alvo.y, 30 * (alvo.escala || 1)), k = d / 0.4;
+      let s = ((gp.t * 7919) | 0) || 3; const rnd = () => { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 1000) / 1000; };
+      const n = gp.crit || gp.pesado ? 12 : 7;
+      for (let i = 0; i < n; i++) {
+        const a = rnd() * 6.28, v = (14 + rnd() * 18) * z, x = s0.x + Math.cos(a) * v * k, y = s0.y + Math.sin(a) * v * k * 0.7 + k * k * 10 * z;
+        const tam = Math.max(1, Math.round(z * (i % 3 === 0 ? 2 : 1.5)));
+        g.globalAlpha = 1 - k; g.fillStyle = i % 3 === 0 ? (gp.em === 'j' ? '#c65345' : '#fff4e6') : (gp.crit ? '#D4AC66' : '#a9a493');
+        g.fillRect(Math.round(x), Math.round(y), tam, tam);
+      }
+      // poeira subindo devagar
+      g.fillStyle = 'rgba(190,185,175,.5)';
+      for (let i = 0; i < 3; i++) { const r = (3 + k * 7) * z; g.globalAlpha = 0.45 * (1 - k); g.fillRect(Math.round(s0.x + (i - 1) * 6 * z - r / 2), Math.round(s0.y + 18 * z - k * 8 * z - r / 2), Math.round(r), Math.round(r)); }
+      g.globalAlpha = 1;
+    }
+    // placa do jogador: nome, nível e vida
+    {
+      const s = m.paraTela(m.p.x, m.p.y, 70), h = JSON.parse(this.ultimoHud || '{}'), nome = this.op.nome || '';
+      if (nome && !m.p.caido) {
+        g.font = '700 11px Inter, system-ui, sans-serif';
+        const txt = `${nome}`, nv = this.op.nivel ? ` Nv ${this.op.nivel}` : '';
+        const w1 = g.measureText(txt).width; g.font = '500 10px Inter, system-ui, sans-serif'; const w2 = g.measureText(nv).width;
+        const larg = Math.max(44, w1 + w2), x0 = Math.round(s.x - (w1 + w2) / 2);
+        g.lineWidth = 3; g.strokeStyle = 'rgba(12,14,12,.85)'; g.textAlign = 'left';
+        g.font = '700 11px Inter, system-ui, sans-serif'; g.strokeText(txt, x0, s.y - 6); g.fillStyle = '#f1eee5'; g.fillText(txt, x0, s.y - 6);
+        g.font = '500 10px Inter, system-ui, sans-serif'; g.strokeText(nv, x0 + w1, s.y - 6); g.fillStyle = '#D4AC66'; g.fillText(nv, x0 + w1, s.y - 6);
+        g.textAlign = 'center';
+        const bw = Math.round(larg * 0.8), vida = h.vida != null ? h.vida : 1, max = h.vidaMax || 1;
+        g.fillStyle = 'rgba(12,14,12,.85)'; g.fillRect(Math.round(s.x - bw / 2 - 1), Math.round(s.y - 1), bw + 2, 5);
+        g.fillStyle = vida / max > 0.35 ? '#7fbf6a' : '#c65345'; g.fillRect(Math.round(s.x - bw / 2), Math.round(s.y), Math.round(bw * Math.max(0, vida) / max), 3);
+      }
+    }
+    for (const v of this.vivos) {
+      const s = m.paraTela(v.n.x, v.n.y, 70 * v.n.escala), larg = v.n.chefe ? 84 : 40;
+      g.fillStyle = 'rgba(12,14,12,.85)'; g.fillRect(Math.round(s.x - larg / 2 - 1), Math.round(s.y - 1), larg + 2, v.n.chefe ? 7 : 5);
+      g.fillStyle = v.n.chefe ? '#D4AC66' : '#C65345'; g.fillRect(Math.round(s.x - larg / 2), Math.round(s.y), Math.round(larg * Math.max(0, v.vida) / v.n.vidaMax), v.n.chefe ? 5 : 3);
+      g.font = v.n.chefe ? '700 12px Inter, system-ui, sans-serif' : '600 10px Inter, system-ui, sans-serif';
+      g.lineWidth = 3; g.strokeStyle = 'rgba(12,14,12,.85)'; g.strokeText(v.n.nome, s.x, s.y - 5);
+      g.fillStyle = v.n.chefe ? '#D4AC66' : '#e8b0a4'; g.fillText(v.n.nome, s.x, s.y - 5);
     }
     for (const gp of this.golpes) {
       if (gp.t > t) break;
       const d = t - gp.t;
       if (d > DUR_NUMERO) continue;
       const noJogador = gp.em === 'j', alvo = noJogador ? m.p : gp.par.ini[gp.em];
-      const s = m.paraTela(alvo.x, alvo.y, 58 * (alvo.escala || 1) + d * 34);
+      const s = m.paraTela(alvo.x, alvo.y, 84 * (alvo.escala || 1) + d * 34);
       g.globalAlpha = Math.min(1, (DUR_NUMERO - d) * 3);
       g.font = gp.crit || gp.pesado ? '700 19px Inter, system-ui, sans-serif' : gp.erro ? '500 12px Inter, system-ui, sans-serif' : '700 15px Inter, system-ui, sans-serif';
       const txt = gp.erro ? 'errou' : `${noJogador ? '−' : ''}${gp.dano}${gp.crit ? '!' : ''}`;
@@ -248,7 +312,7 @@ class Expedicao {
       if (d > DUR_SAQUE) continue;
       const linhas = Object.entries(sq.itens).map(([k, q]) => `+${q} ${this.cat.itens[k]?.nome || k}`);
       if (sq.equip) linhas.push('+ ' + (this.cat.itens[sq.equip]?.nome || sq.equip));
-      const s = m.paraTela(m.p.x, m.p.y, 70 + d * 14);
+      const s = m.paraTela(m.p.x, m.p.y, 92 + d * 14);
       g.globalAlpha = Math.min(1, (DUR_SAQUE - d) * 2);
       g.font = '600 13px Inter, system-ui, sans-serif';
       linhas.forEach((txt, i) => { const y = s.y - (linhas.length - 1 - i) * 16; g.lineWidth = 3; g.strokeStyle = 'rgba(16,18,16,.9)'; g.strokeText(txt, s.x, y); g.fillStyle = '#D4AC66'; g.fillText(txt, s.x, y); });

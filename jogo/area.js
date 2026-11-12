@@ -39,27 +39,27 @@ function predio(x0, y0, w, d, h, cor, op = {}) {
   }
 }
 // quadra noroeste (de frente pra rua principal: fachada sul)
-predio(3, 6, 4, 3, 78, '#6b6258', { porta: true });
-predio(8, 5, 3, 4, 96, '#5d6466', { porta: true });
-predio(12, 7, 3, 2, 50, '#7a5f48', { vitrine: '#A65F3D', porta: true });
-predio(16, 5, 2, 4, 84, '#66604e', { portaLeste: true });
-predio(4, 2, 5, 2, 60, '#5a5550'); predio(11, 2, 6, 2, 70, '#6e665a');
+predio(3, 6, 4, 3, 164, '#6b6258', { porta: true });
+predio(8, 5, 3, 4, 164, '#5d6466', { porta: true });
+predio(12, 7, 3, 2, 112, '#7a5f48', { vitrine: '#A65F3D', porta: true });
+predio(16, 5, 2, 4, 164, '#66604e', { portaLeste: true });
+predio(4, 2, 5, 2, 112, '#5a5550'); predio(11, 2, 6, 2, 112, '#6e665a');
 // quadra nordeste
-predio(25, 6, 3, 3, 88, '#5f5a66', { porta: true });
-predio(29, 7, 4, 2, 52, '#6b6a58', { vitrine: '#566D4A', porta: true });
-predio(34, 3, 2, 3, 70, '#6b6258');
-predio(41, 5, 2, 4, 80, '#5d6466');
-predio(26, 2, 6, 2, 64, '#5a5550');
+predio(25, 6, 3, 3, 164, '#5f5a66', { porta: true });
+predio(29, 7, 4, 2, 112, '#6b6a58', { vitrine: '#566D4A', porta: true });
+predio(34, 3, 2, 3, 112, '#6b6258');
+predio(41, 5, 2, 4, 164, '#5d6466');
+predio(26, 2, 6, 2, 112, '#5a5550');
 // quadra sudoeste (fica na frente da rua: mais baixa pra não tampar)
-predio(8, 16, 4, 3, 44, '#6e665a', { portaLeste: true });
-predio(13, 15, 5, 3, 40, '#7a5f48');
-predio(3, 21, 6, 3, 56, '#5d6466'); predio(11, 21, 6, 3, 60, '#66604e', { portaLeste: true });
+predio(8, 16, 4, 3, 60, '#6e665a', { portaLeste: true });
+predio(13, 15, 5, 3, 60, '#7a5f48');
+predio(3, 21, 6, 3, 112, '#5d6466'); predio(11, 21, 6, 3, 112, '#66604e', { portaLeste: true });
 // quadra sudeste
-predio(33, 15, 4, 3, 42, '#5f5a66');
-predio(38, 16, 4, 3, 46, '#6b6258');
-predio(25, 19, 5, 4, 58, '#6e665a'); predio(32, 20, 6, 3, 62, '#5a5550');
+predio(33, 15, 4, 3, 60, '#5f5a66');
+predio(38, 16, 4, 3, 112, '#6b6258');
+predio(25, 19, 5, 4, 112, '#6e665a'); predio(32, 20, 6, 3, 112, '#5a5550');
 // entreposto do Porteiro, no fim da rua de cima
-predio(19, 0, 5, 2, 66, '#4c5258', { vitrine: '#9B8D66' });
+predio(19, 0, 5, 2, 112, '#4c5258', { vitrine: '#9B8D66' });
 obj('barricada', 19, 3, 1, 2); obj('barricada', 23, 3, 1, 2);
 obj('tambor', 19, 5); obj('caixas', 23, 5); obj('pneus', 23, 6);
 // posto da rua de cima (o que parou de responder)
