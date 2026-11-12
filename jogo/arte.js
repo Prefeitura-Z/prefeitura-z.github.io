@@ -289,6 +289,7 @@ const ROUPA = {
   errante: { torso: '#6c6a5a', detalhe: '#4e4c40', calca: '#3a3c40', bota: '#2a2522', manga: '#6c6a5a' },
   errante2: { torso: '#5a6470', detalhe: '#444c56', calca: '#4a4034', bota: '#2a2522', manga: '#8f8a78' },
   corredor: { torso: '#8a4a3e', detalhe: '#6a342c', calca: '#33383B', bota: '#3a2e24', manga: '#b0a590' },
+  inchado: { torso: '#7a7462', detalhe: '#5a5648', calca: '#4a4438', bota: '#2a2522', manga: '#a39c86' },
   porteiro: { torso: '#3e4a56', detalhe: '#9B8D66', calca: '#2c3238', bota: '#1e1c1a', manga: '#3e4a56', colete: true, coleteCor: '#9B8D66' },
 };
 // aparências prontas dos NPCs (mesmo corpo do jogador, pra mesma escala e pivô)
@@ -307,6 +308,7 @@ const INIMIGO_AP = {
     { corpo: 'a', pele: 'z2', cabelo: 'longo', corCabelo: 'c2', roupa: 'errante2', zumbi: true },
   ],
   corredor: [{ corpo: 'a', pele: 'z3', cabelo: 'raspado', corCabelo: 'c1', roupa: 'corredor', zumbi: true }],
+  inchado: [{ corpo: 'b', pele: 'z2', cabelo: 'raspado', corCabelo: 'c5', roupa: 'inchado', zumbi: true, escala: 1.2 }],
   porteiro: [{ corpo: 'b', pele: 'z1', cabelo: 'raspado', corCabelo: 'c5', roupa: 'porteiro', zumbi: true, bone: true, machado: true, escala: 1.4 }],
 };
 
@@ -320,6 +322,10 @@ const EQUIP_VIS = {
   mochila_lona: { bolsa: '#6b7350', alca: '#4c5238' },
   mochila_reforcada: { bolsa: '#4a5560', alca: '#333b44', armacao: '#aab1b5', grande: true },
   ferramenta_recuperacao: { cinto: '#a8443a' },
+  lanca_vergalhao: { haste: '#7a6f5e', bico: '#cfd5d8' },
+  armadura_placas: { colete: '#8a9298' },
+  mochila_cargueira: { bolsa: '#7a6448', alca: '#4a3a28', armacao: '#9aa0a4', grande: true },
+  kit_desmonte: { cinto: '#c99a3a' },
 };
 
 const QW = 48, QH = 80, PX = 24, PY = 74;
@@ -395,6 +401,7 @@ function quadroPessoa(ap, dir, estado, f) {
   const ponta = (x, y, sx) => {
     if (!vArma) return;
     if (vArma.cabeca) px(x - 1, y - 1, 4, 5, vArma.cabeca);
+    if (vArma.bico) { px(x - 1, y - 1, 4, 4, vArma.bico); px(sx > 0 ? x + 3 : x - 2, y, 2, 2, vArma.bico); px(sx > 0 ? x + 5 : x - 3, y + 1, 1, 1, tom(vArma.bico, 1.15)); px(x, y + 2, 2, 2, '#c99a3a'); }
     if (vArma.lamina) { px(sx > 0 ? x + 1 : x - 4, y, 5, 5, vArma.lamina); px(sx > 0 ? x + 5 : x - 5, y + 1, 1, 3, tom(vArma.lamina, 1.15)); }
   };
   // haste inclinada, pixel a pixel, da mão até a ponta

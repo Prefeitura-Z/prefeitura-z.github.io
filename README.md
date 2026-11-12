@@ -52,6 +52,8 @@ Quem decide tudo é o servidor (`worker/src/regras.js` tem as regras puras; `wor
 - Loja, bancada, reparo e curativo (`POST /game/loja`, `/game/usar`) usam recibo em `game_ledger`: cada clique manda uma `chave`, e o mesmo pedido repetido não cobra nem paga duas vezes.
 - Créditos são moeda só do jogo, ganhos jogando. Não tem compra com dinheiro de verdade, troca entre jogadores nem PRZ Coins.
 - **Farm** (`POST /game/expedicao/ronda`): numa rota já feita, o personagem fica na área por até 8 h, com o jogo aberto ou fechado. Ele não volta pro portão entre as voltas: cada volta começa onde a anterior acabou e os infectados reaparecem. O servidor decide na saída quantas voltas cabem e onde para (kit de campo, vida, equipamento, queda ou tempo). Em rota que gasta kit pra sair, um kit segura 10 voltas (a Rua de Cima não gasta kit nem no farm), só voltas inteiras rendem, kit não aberto volta pro armazém e o fechamento paga uma vez só.
+- **Bancada do Wolf**: além de kit e curativo, faz equipamento com material da rua (lança de vergalhão, colete de placas, mochila cargueira, kit de desmonte). Equipamento sai um por vez, com recibo, e entra no armazém novo.
+- **Barricada do Sul**: quarta rota, liberada depois de vencer o Porteiro, com o Inchado (infectado lento e resistente). Pede equipamento da bancada pra farmar com segurança.
 - **Revenda** (`POST /game/loja` com `acao: venderEquip`): o Wolf recompra equipamento guardado por 30% do preço de loja, menos conforme a condição. Peça sem preço de loja não é vendida.
 - Mudou algum número em `regras.js`? Suba `VERSAO`. Expedições em andamento terminam com o resultado que já estava guardado.
 

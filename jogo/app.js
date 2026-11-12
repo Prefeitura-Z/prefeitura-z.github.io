@@ -353,7 +353,7 @@ function linhaVoce() {
 const textoFerido = () => `Você está ferido: vida máxima menor até ${new Date(estado.estado.feridoAte * 1000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} ou até usar um curativo.`;
 
 // ---------- rotas (portão) ----------
-const FALTA = { contrato_visto: 'Peça um contrato ao Bashar.', rota1_concluida: 'Conclua a Rua de Cima primeiro.', registro_entregue: 'Entregue o registro de rota ao Bashar.' };
+const FALTA = { contrato_visto: 'Peça um contrato ao Bashar.', rota1_concluida: 'Conclua a Rua de Cima primeiro.', registro_entregue: 'Entregue o registro de rota ao Bashar.', porteiro_vencido: 'Vença o Porteiro no Entreposto primeiro.' };
 function abrirRotas() {
   const f = estado.personagem.flags || {}, e = estado.estado;
   $('rotas-voce').innerHTML = linhaVoce() + (e.ferido ? `<span class="ferido">${esc(textoFerido())}</span>` : '');
@@ -592,8 +592,8 @@ function desenharLoja() {
       <button type="button" class="botao" data-loja="reparar" data-id="${esc(q.id)}" ${cr < custo ? 'disabled title="Faltam créditos"' : ''}>Consertar por ${custo}</button></li>`; }).join('')
       : '<li class="vazio">Tudo inteiro. Equipamento gasto bate e protege menos, então volte depois das saídas.</li>';
   } else h = Object.entries(catalogo.receitas).map(([k, r]) => {
-    const pode = Object.entries(r.gasta).every(([m, n]) => (e.itens[m] || 0) >= n);
-    return `<li><span><b>${esc(r.nome)}</b><small>Gasta ${esc(Object.entries(r.gasta).map(([m, n]) => `${n} ${item(m).nome.toLowerCase()} (você tem ${e.itens[m] || 0})`).join(' e '))}</small></span>
+    const pode = Object.entries(r.gasta).every(([m, n]) => (e.itens[m] || 0) >= n), d = r.equip ? item(r.equip) : null;
+    return `<li><span><b>${esc(r.nome)}</b>${d ? `<small>${esc([TIPO[d.tipo], efeito(d), d.desc].filter(Boolean).join(' · '))}</small>` : ''}<small>Gasta ${esc(Object.entries(r.gasta).map(([m, n]) => `${n} ${item(m).nome.toLowerCase()} (você tem ${e.itens[m] || 0})`).join(' e '))}</small></span>
       <button type="button" class="botao" data-loja="fabricar" data-receita="${esc(k)}" ${pode ? '' : 'disabled title="Falta material"'}>Fazer</button></li>`; }).join('');
   $('loja-lista').innerHTML = h;
 }
@@ -610,7 +610,7 @@ $('loja-lista').onclick = async ev => {
   const r = await pedir(b, $('loja-msg'), chave => api.loja({ acao: d.loja, chave, item: d.item, qtd: d.qtd ? +d.qtd : 1, id: d.id, receita: d.receita }));
   if (r && !r.erro) {
     $('loja-msg').textContent = d.loja === 'comprar' ? `${item(d.item).nome}: comprado.${['arma', 'protecao', 'mochila', 'ferramenta'].includes(item(d.item).tipo) ? ' Equipe na Mochila (I).' : ''}`
-      : d.loja === 'venderEquip' ? `${d.nome}: vendido por ${r.total ?? d.valor} créditos.` : d.loja === 'vender' ? `Vendido por ${(+d.qtd) * item(d.item).venda} créditos.` : d.loja === 'reparar' ? 'Consertado.' : 'Feito na bancada.';
+      : d.loja === 'venderEquip' ? `${d.nome}: vendido por ${r.total ?? d.valor} créditos.` : d.loja === 'vender' ? `Vendido por ${(+d.qtd) * item(d.item).venda} créditos.` : d.loja === 'reparar' ? 'Consertado.' : catalogo.receitas[d.receita]?.equip ? 'Feito na bancada. Equipe na Mochila (I).' : 'Feito na bancada.';
   }
   desenharLoja();
 };

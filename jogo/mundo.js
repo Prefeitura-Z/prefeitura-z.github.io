@@ -162,7 +162,8 @@ const OBJETIVOS = [
   { id: 'T06', titulo: 'Nada se perde', texto: 'Venda alguma coisa da rua pro Wolf.', feito: f => !!f.vendeu },
   { id: 'T07', titulo: 'O dono do entreposto', texto: 'Vença o Porteiro na rota do Entreposto. Vá bem equipado.', feito: f => !!f.porteiro_vencido },
   { id: 'T08', titulo: 'Enquanto você estiver fora', texto: 'No portão, escolha uma rota que você já fez e deixe o personagem farmando nela.', feito: f => !!f.ronda_feita },
-  { id: 'T09', titulo: 'Mais longe', texto: 'As próximas áreas chegam nas próximas etapas.', feito: () => false, futuro: true },
+  { id: 'T09', titulo: 'A Barricada do Sul', texto: 'Faça a rota da Barricada do Sul. Os inchados aguentam muito: pense em fazer equipamento na bancada do Wolf.', feito: f => !!f.rota4_concluida },
+  { id: 'T10', titulo: 'Mais longe', texto: 'As próximas áreas chegam nas próximas etapas.', feito: () => false, futuro: true },
 ];
 
 PZ.mundo = { T, LARG, ALT, chao, OBJ, NPCS, MORADORES, SPAWN, DIALOGOS, OBJETIVOS };
