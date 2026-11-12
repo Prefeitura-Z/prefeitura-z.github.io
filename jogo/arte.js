@@ -278,10 +278,15 @@ function veiculo(g, o, r, queimado) {
     const c0 = mod === 'seda' ? 0.28 : 0.38, c1 = mod === 'seda' ? 0.74 : 0.9;
     cabine(c0, c1, zc + altCorpo, 14, mod === 'seda' ? 0.1 : 0.12, mod === 'seda' ? 0.08 : 0.03);
   } else if (mod === 'picape') {
-    cabine(0.52, 0.8, zc + altCorpo, 15, 0.08, 0.02);
-    // caçamba com bordas e tralha dentro
-    sub(u0 + 0.02, 0.5, 0.04, 0.12, 6, tom(cor, 0.9), zc + altCorpo); sub(u0 + 0.02, 0.5, 0.88, 0.96, 6, tom(cor, 0.9), zc + altCorpo); sub(u0 + 0.02, u0 + 0.06, 0.04, 0.96, 6, tom(cor, 0.9), zc + altCorpo);
-    if (!queimado) { sub(0.14, 0.3, 0.25, 0.6, 7, '#7a6448', zc + altCorpo); sub(0.32, 0.44, 0.5, 0.8, 5, '#3f5a6a', zc + altCorpo); }
+    // caçamba funda: fundo escuro, parede do fundo e lateral de trás, tralha, e só depois a lateral da frente e a cabine
+    const zb = zc + altCorpo, cb = tom(cor, 0.9), u2 = 0.5;
+    sub(u0 + 0.02, u2, 0.06, 0.94, 1, queimado ? '#1a1816' : tom(cor, 0.45), zb);
+    sub(u0 + 0.02, u2, 0.04, 0.12, 7, cb, zb);                   // lateral do fundo
+    sub(u0 + 0.02, u0 + 0.07, 0.04, 0.96, 7, cb, zb);            // tampa traseira
+    if (!queimado) { sub(0.12, 0.27, 0.16, 0.48, 8, '#7a6448', zb + 1); sub(0.3, 0.42, 0.2, 0.42, 5, '#3f5a6a', zb + 1); }
+    sub(u2 - 0.04, u2, 0.04, 0.96, 7, cb, zb);                   // parede atrás da cabine
+    sub(u0 + 0.02, u2, 0.88, 0.96, 7, cb, zb);                   // lateral da frente
+    cabine(0.52, 0.82, zb, 16, 0.08, 0.02);
   } else {
     // van: frente com vidro alto, lateral com janela só na cabine
     sub(u0 + 0.02, u1 - 0.02, 0.06, 0.94, 3, tom(cor, 1.1), zc + altCorpo);
