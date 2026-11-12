@@ -52,7 +52,7 @@ function desenharChao(mundo) {
   for (let y = 0; y < ALT; y++) for (let x = 0; x < LARG; x++) {
     const t = chao[y * LARG + x], st = CHAO[t], r = rng(x * 7349 + y * 1931 + t * 17);
     const p = iso(x + 0.5, y + 0.5), cx = Math.round(p.x + ox), cy = Math.round(p.y + oy);
-    g.fillStyle = st.var[Math.floor(r() * st.var.length)];
+    { const q = r(); g.fillStyle = q < 0.5 ? st.base : st.var[Math.floor(q * 7) % st.var.length]; }
     losango(g, cx, cy); g.fill();
     // textura em pixels dentro do losango
     const n = st.marca === 'agua' ? 10 : 34;
@@ -127,11 +127,11 @@ function cilindro(g, cx, cy, rx, ry, h, cor) {
 
 // altura de cada objeto em px e se esconde o personagem (fica translúcido quando ele passa atrás)
 const ALTURA = {
-  muro: 46, pilar: 62, portao: 40, guarita: 58, sacos: 14, mesa: 18, arquivo: 34, estante: 40, caixas: 30, caixa: 14,
+  muro: 70, pilar: 92, portao: 62, guarita: 84, sacos: 14, mesa: 18, arquivo: 46, estante: 58, caixas: 30, caixa: 14,
   bancada: 20, gerador: 22, pneus: 16, carcaca: 26, tambor: 22, ferramentas: 42, antena: 120, mesaRadio: 20,
-  beliche: 40, cama: 12, armario: 44, barraca: 40, tenda: 52, maca: 14, caixaMedica: 16, tanque: 70, planta: 10,
-  quadro: 44, poste: 86, fogueira: 10, banco: 10, cerca: 18, casinha: 22, arvore: 110,
-  bloco: 60, carro: 24, barricada: 22, entulho: 8, placaRua: 40,
+  beliche: 40, cama: 12, armario: 62, barraca: 56, tenda: 76, maca: 14, caixaMedica: 16, tanque: 96, planta: 10,
+  quadro: 44, poste: 124, fogueira: 10, banco: 10, cerca: 18, casinha: 22, arvore: 110,
+  bloco: 104, carro: 38, barricada: 22, entulho: 8, placaRua: 40,
 };
 
 function desenharObjeto(g, o, t) {
@@ -139,30 +139,87 @@ function desenharObjeto(g, o, t) {
   switch (o.tipo) {
     // prédio da rua, uma célula por vez (ordena certo com quem passa). o.sul / o.leste = tem fachada pra rua
     case 'bloco': {
-      caixa(g, x, y, 1, 1, h, o.cor || '#6b6258');
-      const andares = Math.max(1, Math.floor(h / 30));
+      // andar de 52px: porta de 44px, um pouco mais alta que o boneco (56px com a cabeça)
+      const cor = o.cor || '#6b6258', AND = 52, andares = Math.max(1, Math.floor((h - 6) / AND));
+      const teto = { topo: tom(cor, 0.66), esq: cor, dir: tom(cor, 0.72) };
+      caixa(g, x, y, 1, 1, h, teto);
+      // telhado: manta escura com cascalho
+      { const c = iso(x + 0.5, y + 0.5); for (let k = 0; k < 10; k++) { g.fillStyle = r() > 0.5 ? '#55524c' : '#3e3c38'; g.fillRect(Math.round(c.x + (r() - 0.5) * 40), Math.round(c.y - h + (r() - 0.5) * 18), 2, 1); } }
       for (const face of ['esq', 'dir']) {
         if (!(face === 'esq' ? o.sul : o.leste)) continue;
+        const sombraF = face === 'dir' ? 0.72 : 1;
+        // textura: fiadas de tijolo/placa e sujeira subindo do chão
+        for (let v = 6; v < h - 4; v += 6) placa(g, x, y, 1, 1, face, 0, 1, v / h, (v + 1) / h, h, tom(cor, 0.9 * sombraF) + '66');
+        for (let k = 0; k < 14; k++) { const u = r(), v = r(); placa(g, x, y, 1, 1, face, u, Math.min(1, u + 0.04), v, Math.min(1, v + 2 / h), h, (r() > 0.5 ? tom(cor, 1.15) : tom(cor, 0.75)) + '88'); }
+        placa(g, x, y, 1, 1, face, 0, 1, 0, 10 / h, h, '#00000030'); placa(g, x, y, 1, 1, face, 0, 1, 0, 4 / h, h, '#00000030');
         for (let k = 0; k < andares; k++) {
-          const v0 = (k * 30 + 10) / h, v1 = (k * 30 + 25) / h, s = r();
-          if (k === 0 && o.porta === face) { placa(g, x, y, 1, 1, face, 0.3, 0.72, 0, 24 / h, h, '#1c1a18'); placa(g, x, y, 1, 1, face, 0.3, 0.72, 10 / h, 13 / h, h, '#6e5a44'); continue; }
-          if (k === 0 && o.vitrine) { placa(g, x, y, 1, 1, face, 0.08, 0.92, 5 / h, 24 / h, h, '#1e2426'); placa(g, x, y, 1, 1, face, 0.08, 0.92, 25 / h, 29 / h, h, o.vitrine); if (s > 0.5) placa(g, x, y, 1, 1, face, 0.15, 0.6, 9 / h, 20 / h, h, '#6e5a44'); continue; }
-          placa(g, x, y, 1, 1, face, 0.22, 0.78, v0, v1, h, s > 0.82 ? '#D4AC6655' : '#1e2426');
-          if (s < 0.35) { placa(g, x, y, 1, 1, face, 0.22, 0.78, v0 + 3 / h, v0 + 6 / h, h, '#6e5a44'); placa(g, x, y, 1, 1, face, 0.22, 0.78, v0 + 9 / h, v0 + 12 / h, h, '#7a6650'); }
-          else if (s < 0.5) placa(g, x, y, 1, 1, face, 0.22, 0.5, v0, v1, h, '#3a4648');
+          const b0 = k * AND, s = r();
+          // laje entre andares
+          if (k > 0) { placa(g, x, y, 1, 1, face, 0, 1, (b0 - 2) / h, (b0 + 2) / h, h, tom(cor, 1.12 * sombraF)); placa(g, x, y, 1, 1, face, 0, 1, (b0 - 3) / h, (b0 - 2) / h, h, '#00000040'); }
+          if (k === 0 && o.porta === face) {
+            placa(g, x, y, 1, 1, face, 0.26, 0.74, 0, 46 / h, h, tom(cor, 0.6));                  // batente
+            placa(g, x, y, 1, 1, face, 0.3, 0.7, 0, 43 / h, h, '#1c1a18');
+            placa(g, x, y, 1, 1, face, 0.32, 0.5, 2 / h, 40 / h, h, '#4e3e2e');                   // folha entreaberta
+            placa(g, x, y, 1, 1, face, 0.45, 0.48, 18 / h, 22 / h, h, '#a89a58');
+            placa(g, x, y, 1, 1, face, 0.22, 0.78, 46 / h, 49 / h, h, '#A65F3D');                 // toldo
+            continue;
+          }
+          if (k === 0 && o.vitrine) {
+            placa(g, x, y, 1, 1, face, 0.04, 0.96, 4 / h, 38 / h, h, '#2a3032');
+            placa(g, x, y, 1, 1, face, 0.07, 0.93, 6 / h, 36 / h, h, '#1a2022');
+            placa(g, x, y, 1, 1, face, 0.12, 0.2, 18 / h, 34 / h, h, '#ffffff14');
+            if (s > 0.5) { placa(g, x, y, 1, 1, face, 0.15, 0.55, 6 / h, 22 / h, h, '#6e5a44'); placa(g, x, y, 1, 1, face, 0.6, 0.85, 6 / h, 14 / h, h, '#5a4a38'); }
+            else placa(g, x, y, 1, 1, face, 0.5, 0.56, 8 / h, 34 / h, h, '#3a4244');   // vidro quebrado
+            placa(g, x, y, 1, 1, face, 0.02, 0.98, 39 / h, 47 / h, h, o.vitrine);       // letreiro
+            placa(g, x, y, 1, 1, face, 0.1, 0.9, 42 / h, 44 / h, h, tom(o.vitrine, 1.35));
+            continue;
+          }
+          // janela: moldura, vidro, peitoril; umas acesas, umas tapadas com tábua
+          const v0 = (b0 + 18) / h, v1 = (b0 + 42) / h;
+          if (v1 > 1) continue;
+          placa(g, x, y, 1, 1, face, 0.2, 0.8, v0 - 2 / h, v1 + 2 / h, h, tom(cor, 0.62 * sombraF));
+          const acesa = s > 0.8;
+          if (acesa && !o._luzes) (o._novas = o._novas || []).push(naFace(x, y, 1, 1, face, 0.5, (v0 + v1) / 2, h));
+          placa(g, x, y, 1, 1, face, 0.24, 0.76, v0, v1, h, acesa ? '#c9a05a' : '#1e2628');
+          if (acesa) placa(g, x, y, 1, 1, face, 0.24, 0.76, v0, (v0 + v1) / 2, h, '#e0bc72');
+          else placa(g, x, y, 1, 1, face, 0.26, 0.36, (v0 + v1) / 2, v1 - 2 / h, h, '#ffffff12');
+          placa(g, x, y, 1, 1, face, 0.49, 0.51, v0, v1, h, tom(cor, 0.55 * sombraF));          // caixilho
+          placa(g, x, y, 1, 1, face, 0.18, 0.82, v0 - 4 / h, v0 - 1 / h, h, tom(cor, 1.2 * sombraF)); // peitoril
+          if (s < 0.3) { for (let j = 0; j < 3; j++) placa(g, x, y, 1, 1, face, 0.2, 0.8, v0 + (4 + j * 7) / h, v0 + (8 + j * 7) / h, h, j % 2 ? '#7a6650' : '#6e5a44'); }
+          else if (s < 0.42) placa(g, x, y, 1, 1, face, 0.24, 0.5, v0, v1, h, '#3a4648');
+          if (s > 0.55 && s < 0.65 && k > 0) { placa(g, x, y, 1, 1, face, 0.62, 0.86, v0 - 12 / h, v0 - 3 / h, h, '#8a9094'); placa(g, x, y, 1, 1, face, 0.66, 0.82, v0 - 10 / h, v0 - 5 / h, h, '#5a6064'); }  // ar-condicionado
         }
-        if (r() > 0.75) placa(g, x, y, 1, 1, face, 0.05, 0.3, 0, 0.18, h, '#566D4A88');
+        if (r() > 0.7) placa(g, x, y, 1, 1, face, 0.02, 0.35, 0, 0.12 + r() * 0.2, h, '#566D4A77');   // mato subindo
+        if (r() > 0.85) placa(g, x, y, 1, 1, face, 0.15, 0.6, 8 / h, 16 / h, h, ['#C65345aa', '#74A6A1aa', '#D4AC66aa'][Math.floor(r() * 3)]);  // pichação
+        // platibanda: borda clara no alto da fachada
+        placa(g, x, y, 1, 1, face, 0, 1, 1 - 4 / h, 1, h, tom(cor, 1.22 * sombraF));
+        placa(g, x, y, 1, 1, face, 0, 1, 1 - 5 / h, 1 - 4 / h, h, '#00000050');
       }
-      if (o.topo && r() > 0.6) caixa(g, x + 0.3, y + 0.3, 0.4, 0.4, 8, '#4a4a46', h);
+      if (!o._luzes) { o._luzes = o._novas || []; delete o._novas; }
+      if (o.topo) { const q = r(); if (q > 0.92) { caixa(g, x + 0.3, y + 0.35, 0.36, 0.28, 9, '#5e6468', h); placa(g, x + 0.3, y + 0.35, 0.36, 0.28, 'esq', 0.15, 0.85, 0.3, 0.7, 9, '#2a2e30'); } else if (q > 0.86) { const c = iso(x + 0.5, y + 0.5); cilindro(g, c.x, c.y - h - 2, 8, 4, 14, '#4e6260'); } else if (q > 0.78) caixa(g, x + 0.42, y + 0.42, 0.16, 0.16, 8, '#3a3a36', h); else if (q > 0.7) { const c = iso(x + 0.5, y + 0.5); g.fillStyle = '#00000022'; g.beginPath(); g.ellipse(c.x + (r() - 0.5) * 16, c.y - h, 10, 4, 0, 0, 7); g.fill(); } }
       break;
     }
     case 'carro': {
-      const cor = o.cor || '#5a6a72', ao = w >= d;
-      caixa(g, x + 0.08, y + 0.14, w - 0.16, d - 0.28, 11, cor, 5);
-      if (ao) caixa(g, x + 0.5, y + 0.2, w - 1.05, d - 0.4, 9, { topo: tom(cor, 1.1), esq: '#1e2426', dir: '#161a1c' }, 16);
-      else caixa(g, x + 0.2, y + 0.5, w - 0.4, d - 1.05, 9, { topo: tom(cor, 1.1), esq: '#1e2426', dir: '#161a1c' }, 16);
-      for (const [a, b] of ao ? [[0.4, d - 0.14], [w - 0.4, d - 0.14]] : [[w - 0.14, 0.4], [w - 0.14, d - 0.4]]) { const p = iso(x + a, y + b); g.fillStyle = '#131313'; g.beginPath(); g.ellipse(p.x, p.y - 4, 5, 5, 0, 0, 7); g.fill(); g.fillStyle = '#3a3a3a'; g.fillRect(p.x - 1, p.y - 5, 2, 2); }
-      placa(g, x + 0.08, y + 0.14, w - 0.16, d - 0.28, ao ? 'esq' : 'dir', 0.55, 0.9, 0.35, 0.95, 16, '#A65F3D77');
+      // carro largado na escala do boneco: carroceria até a cintura, teto um pouco abaixo da cabeça
+      const cor = o.cor || '#5a6a72', ao = w >= d, vid = { topo: '#2a3438', esq: '#1e2a2e', dir: '#162024' };
+      const bx = x + 0.06, by = y + 0.1, bw = w - 0.12, bd = d - 0.2;
+      // rodas por baixo
+      for (const [a, b] of ao ? [[0.45, d - 0.12], [w - 0.45, d - 0.12]] : [[w - 0.12, 0.45], [w - 0.12, d - 0.45]]) { const p = iso(x + a, y + b); g.fillStyle = '#121212'; g.beginPath(); g.ellipse(p.x, p.y - 6, 7, 7, 0, 0, 7); g.fill(); g.fillStyle = '#4a4a4a'; g.fillRect(p.x - 2, p.y - 8, 3, 3); }
+      caixa(g, bx, by, bw, bd, 14, cor, 6);
+      // capô e porta-malas mais baixos, cabine no meio com vidro
+      const cab = ao ? [bx + bw * 0.28, by + 0.06, bw * 0.48, bd - 0.12] : [bx + 0.06, by + bd * 0.28, bw - 0.12, bd * 0.48];
+      caixa(g, cab[0], cab[1], cab[2], cab[3], 12, vid, 20);
+      caixa(g, cab[0] + (ao ? 0.04 : 0), cab[1] + (ao ? 0 : 0.04), cab[2] - (ao ? 0.08 : 0), cab[3] - (ao ? 0 : 0.08), 3, cor, 32);
+      const f = ao ? 'esq' : 'dir';
+      placa(g, cab[0], cab[1], cab[2], cab[3], f, 0.08, 0.3, 0.25, 0.9, 12, '#ffffff1a');     // reflexo no vidro
+      placa(g, bx, by, bw, bd, f, 0, 1, 0.45, 0.52, 14, tom(cor, 0.7));                         // friso
+      placa(g, bx, by, bw, bd, f, 0.49, 0.51, 0.05, 1, 14, tom(cor, 0.6));                       // linha da porta
+      placa(g, bx, by, bw, bd, f, 0.55, 0.85, 0.2, 0.9, 14, '#A65F3D66');                         // ferrugem
+      placa(g, bx, by, bw, bd, f, 0.1, 0.32, 0.6, 0.85, 14, '#00000033');
+      // farol e lanterna nas pontas
+      const ff = ao ? 'dir' : 'esq';
+      placa(g, bx, by, bw, bd, ff, 0.1, 0.25, 0.4, 0.75, 14, '#d8d0b0'); placa(g, bx, by, bw, bd, ff, 0.75, 0.9, 0.4, 0.75, 14, '#d8d0b0');
+      { const c = iso(x + w / 2, y + d / 2); for (let k = 0; k < 4; k++) { g.fillStyle = '#c8d4d888'; g.fillRect(Math.round(c.x + (r() - 0.5) * 30), Math.round(c.y + 4 + (r() - 0.5) * 10), 2, 1); } }   // caco de vidro no chão
       break;
     }
     case 'barricada': { const ao = w >= d;
@@ -241,7 +298,13 @@ function desenharObjeto(g, o, t) {
     case 'quadro': { caixa(g, x + 0.1, y + 0.4, w - 0.2, 0.2, h, '#5a4a38', 0);
       placa(g, x + 0.1, y + 0.4, w - 0.2, 0.2, 'esq', 0.06, 0.94, 0.3, 0.95, h, '#8a7258');
       for (let k = 0; k < 5; k++) placa(g, x + 0.1, y + 0.4, w - 0.2, 0.2, 'esq', 0.1 + k * 0.17, 0.22 + k * 0.17, 0.45 + (k % 2) * 0.2, 0.7 + (k % 2) * 0.2, h, ['#e8e2d0', '#d4c890', '#c9c2b0'][k % 3]); } break;
-    case 'poste': { const p = iso(x + 0.5, y + 0.5); g.fillStyle = '#3a3a36'; g.fillRect(p.x - 2, p.y - h, 4, h); g.fillRect(p.x - 2, p.y - h, 12, 3); g.fillStyle = COR.luz; g.fillRect(p.x + 6, p.y - h + 3, 6, 3); } break;
+    case 'poste': { const p = iso(x + 0.5, y + 0.5);
+      g.fillStyle = '#1e1e1c'; g.fillRect(p.x - 4, p.y - 6, 8, 6); g.fillRect(p.x - 3, p.y - h - 1, 6, h);
+      g.fillStyle = '#4a4a44'; g.fillRect(p.x - 2, p.y - h, 3, h - 2); g.fillStyle = '#34342f'; g.fillRect(p.x + 1, p.y - h, 1, h - 2);
+      g.fillStyle = '#5a5a52'; g.fillRect(p.x - 3, p.y - 5, 6, 4);
+      g.fillStyle = '#1e1e1c'; g.fillRect(p.x - 1, p.y - h - 1, 16, 4); g.fillStyle = '#4a4a44'; g.fillRect(p.x, p.y - h, 14, 2);
+      g.fillStyle = '#2a2a26'; g.fillRect(p.x + 8, p.y - h + 2, 9, 3); g.fillStyle = COR.luz; g.fillRect(p.x + 9, p.y - h + 5, 7, 2); g.fillStyle = '#f0d8a0'; g.fillRect(p.x + 11, p.y - h + 5, 3, 1);
+      g.fillStyle = '#9B8D66'; g.fillRect(p.x - 2, p.y - 40, 3, 8); } break;
     case 'fogueira': { const p = iso(x + 0.5, y + 0.5); g.fillStyle = '#4a4440'; for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28; g.fillRect(p.x + Math.cos(a) * 12 - 2, p.y + Math.sin(a) * 6 - 2, 4, 3); }
       g.fillStyle = '#2a201a'; g.fillRect(p.x - 7, p.y - 3, 14, 3);
       const f = Math.sin(t * 9) * 1.5; g.fillStyle = '#C65345'; g.beginPath(); g.moveTo(p.x - 6, p.y - 2); g.lineTo(p.x, p.y - 15 - f); g.lineTo(p.x + 6, p.y - 2); g.fill();
@@ -251,10 +314,25 @@ function desenharObjeto(g, o, t) {
     case 'cerca': caixa(g, x + 0.4, y + 0.4, 0.2, 0.2, h, '#6e5a44'); caixa(g, x + 0.05, y + 0.45, 0.9, 0.1, 3, '#7e6a54', 12); caixa(g, x + 0.45, y + 0.05, 0.1, 0.9, 3, '#7e6a54', 6); break;
     case 'casinha': caixa(g, x + 0.15, y + 0.15, 0.7, 0.7, 14, '#8a6a46'); { const A = iso(x + 0.15, y + 0.5), B = iso(x + 0.85, y + 0.5); const C = iso(x + 0.85, y + 0.85), D = iso(x + 0.15, y + 0.85);
       g.fillStyle = COR.ferrugem; g.beginPath(); g.moveTo(D.x, D.y - 14); g.lineTo(C.x, C.y - 14); g.lineTo(B.x, B.y - h); g.lineTo(A.x, A.y - h); g.closePath(); g.fill(); placa(g, x + 0.15, y + 0.15, 0.7, 0.7, 'esq', 0.35, 0.65, 0, 0.6, 14, '#1a1612'); } break;
-    case 'arvore': { const p = iso(x + 0.5, y + 0.5); g.fillStyle = '#4a3a2a'; g.fillRect(p.x - 3, p.y - 40, 6, 40);
-      const sway = Math.sin(t * 0.8 + x) * 1.5;
-      for (const [dx, dy, rr, c] of [[0, -62, 26, '#3f5236'], [-12, -80, 20, '#4a5f3e'], [12, -78, 22, '#566D4A'], [2, -98, 16, '#5f7450']]) { g.fillStyle = c; g.beginPath(); g.arc(p.x + dx + sway, p.y + dy, rr, 0, 7); g.fill(); }
-      g.fillStyle = '#ffffff10'; g.beginPath(); g.arc(p.x - 8 + sway, p.y - 92, 8, 0, 7); g.fill(); } break;
+    case 'arvore': { const p = iso(x + 0.5, y + 0.5);
+      // tronco com raiz e lado na sombra
+      g.fillStyle = '#2a2018'; g.fillRect(p.x - 5, p.y - 42, 10, 42); g.fillRect(p.x - 8, p.y - 4, 16, 4);
+      g.fillStyle = '#5a4430'; g.fillRect(p.x - 4, p.y - 42, 5, 41); g.fillRect(p.x - 7, p.y - 3, 6, 2);
+      g.fillStyle = '#3e2f22'; g.fillRect(p.x + 1, p.y - 42, 3, 41); g.fillRect(p.x + 1, p.y - 3, 6, 2);
+      g.fillStyle = '#6e5640'; g.fillRect(p.x - 3, p.y - 30, 1, 6); g.fillRect(p.x - 2, p.y - 16, 1, 4);
+      const sway = Math.round(Math.sin(t * 0.8 + x) * 1.5);
+      // copa em tufos: contorno escuro, massa, sombra embaixo à direita, brilho em cima à esquerda
+      const tufos = [[0, -60, 24], [-16, -72, 18], [16, -70, 19], [-6, -88, 18], [10, -90, 15], [0, -102, 12], [-20, -56, 13], [20, -55, 13]];
+      const seco = r() > 0.8, base = seco ? ['#4a4a32', '#5a5a3c', '#6e6c48', '#2e2e20'] : ['#2f4a2c', '#3f5f38', '#557a46', '#1c2a1a'];
+      const bola = (cx, cy, rr) => { g.beginPath(); g.arc(Math.round(cx), Math.round(cy), rr, 0, 7); g.fill(); };
+      g.fillStyle = base[3]; for (const [dx, dy, rr] of tufos) bola(p.x + dx + sway, p.y + dy, rr + 2);
+      g.fillStyle = base[0]; for (const [dx, dy, rr] of tufos) bola(p.x + dx + sway, p.y + dy, rr);
+      g.fillStyle = base[1]; for (const [dx, dy, rr] of tufos) bola(p.x + dx + sway - 3, p.y + dy - 3, rr - 4);
+      g.fillStyle = base[2]; for (const [dx, dy, rr] of tufos) if (rr > 13) bola(p.x + dx + sway - 6, p.y + dy - 7, rr * 0.4);
+      // folhas soltas em pixel pra quebrar o contorno redondo
+      for (let k = 0; k < 26; k++) { const a = r() * 6.28, d = 14 + r() * 16; g.fillStyle = r() > 0.5 ? base[2] : base[1]; g.fillRect(Math.round(p.x + sway + Math.cos(a) * d * 1.1), Math.round(p.y - 76 + Math.sin(a) * d), 2, 2); }
+      if (!seco && r() > 0.6) { g.fillStyle = '#c98a3a'; for (let k = 0; k < 4; k++) g.fillRect(Math.round(p.x + sway + (r() - 0.5) * 36), Math.round(p.y - 64 - r() * 34), 2, 2); }
+    } break;
     default: caixa(g, x, y, w, d, h, '#777');
   }
 }
@@ -450,33 +528,43 @@ function quadroPessoa(ap, dir, estado, f) {
   }
   if (estado === 'trabalha') px(ladoFrente + lado * 2, ty + 14 + bracoBalanço - trab, 2, 6, '#8f979c');
 
-  // pescoço e cabeça
-  px(cx - 2, topo + 10, 4, 3, tom(pele, 0.85));
-  const hx = cx - 6 + (frente ? lado : 0), hy = topo - 2;
-  px(hx, hy, 12, 12, pele);
-  px(hx + (lado > 0 ? 9 : 0), hy, 3, 12, tom(pele, 0.85));
+  // pescoço e cabeça: cabeça grande (estilo chibi), 16×14, com sombra do lado direito e brilho no cabelo
+  const HL = 16, HA = 14;
+  px(cx - 2, topo + 9, 4, 4, tom(pele, 0.85));
+  const hx = cx - HL / 2 + (frente ? lado : 0), hy = topo - 5;
+  px(hx + 1, hy, HL - 2, HA, pele); px(hx, hy + 1, HL, HA - 3, pele);
+  px(hx + (lado > 0 ? HL - 4 : 0), hy + 1, 4, HA - 2, tom(pele, 0.86));
+  px(hx + 2, hy + HA - 1, HL - 4, 1, tom(pele, 0.78));                 // queixo
+  if (frente) { px(hx + (lado > 0 ? 0 : HL - 1), hy + 6, 1, 3, tom(pele, 0.8)); px(hx + (lado > 0 ? HL - 1 : 0), hy + 6, 1, 3, tom(pele, 0.7)); }  // orelhas
   // cabelo
-  const est = ap.cabelo;
+  const est = ap.cabelo, brilho = tom(cab, 1.35);
   if (est !== 'raspado') {
-    px(hx - 1, hy - 2, 14, 4, cab);
-    if (!frente) px(hx - 1, hy, 14, est === 'longo' ? 14 : 8, cab);
-    else { px(hx - 1, hy + 1, 2, est === 'longo' ? 12 : 5, cab); px(hx + 11, hy + 1, 2, est === 'longo' ? 12 : 5, cab); }
-    if (est === 'coque') px(hx + 3, hy - 6, 6, 5, cab);
-    if (est === 'moicano') { px(hx + 4, hy - 6, 4, 6, cab); }
-    if (est === 'cacheado') { px(hx - 2, hy - 3, 16, 6, cab); px(hx - 2, hy + 2, 3, 6, cab); px(hx + 11, hy + 2, 3, 6, cab); for (let k = 0; k < 5; k++) px(hx - 1 + k * 3, hy - 4, 2, 1, tom(cab, 1.3)); }
-    if (est === 'longo' && frente) px(hx + (lado > 0 ? -1 : 10), hy + 10, 3, 6, cab);
-  } else px(hx, hy - 1, 12, 3, tom(cab, 1.15));
+    px(hx - 1, hy - 2, HL + 2, 5, cab); px(hx + 1, hy - 3, HL - 2, 2, cab);
+    if (!frente) px(hx - 1, hy, HL + 2, est === 'longo' ? 16 : 10, cab);
+    else {
+      px(hx - 1, hy + 2, 2, est === 'longo' ? 13 : 5, cab); px(hx + HL - 1, hy + 2, 2, est === 'longo' ? 13 : 5, cab);
+      px(hx + (lado > 0 ? 2 : HL - 7), hy + 3, 5, 2, cab);             // franja caindo de um lado
+    }
+    px(hx + (lado > 0 ? 2 : 5), hy - 2, 5, 1, brilho); px(hx + (lado > 0 ? 1 : 9), hy - 1, 3, 1, brilho);
+    if (est === 'coque') { px(hx + 4, hy - 8, 8, 6, cab); px(hx + 5, hy - 8, 3, 1, brilho); }
+    if (est === 'moicano') { px(hx + 6, hy - 8, 4, 7, cab); px(hx + 6, hy - 8, 2, 1, brilho); }
+    if (est === 'cacheado') { px(hx - 2, hy - 4, HL + 4, 7, cab); px(hx - 2, hy + 2, 3, 7, cab); px(hx + HL - 1, hy + 2, 3, 7, cab); for (let k = 0; k < 6; k++) px(hx - 1 + k * 3, hy - 5, 2, 1, brilho); }
+    if (est === 'longo' && frente) px(hx + (lado > 0 ? -1 : HL - 2), hy + 12, 3, 6, cab);
+  } else { px(hx, hy - 1, HL, 3, tom(cab, 1.15)); px(hx + 3, hy - 1, 4, 1, tom(cab, 1.4)); }
   if (frente) {
-    const ox = lado > 0 ? 3 : 1;
-    px(hx + ox + 1, hy + 5, 2, 2, '#1a1612'); px(hx + ox + 6, hy + 5, 2, 2, '#1a1612');
-    px(hx + ox + 3, hy + 9, 3, 1, tom(pele, 0.7));
-    if (zumbi) { px(hx + ox + 1, hy + 4, 3, 3, '#2a2420'); px(hx + ox + 6, hy + 4, 3, 3, '#2a2420'); px(hx + ox + 2, hy + 5, 1, 1, '#e8e2a8'); px(hx + ox + 7, hy + 5, 1, 1, '#e8e2a8'); px(hx + ox + 2, hy + 9, 5, 2, '#6a1f1a'); }
-    if (ap.barba) px(hx + 1, hy + 8, 10, 4, tom(cab, 1.05));
-    if (ap.oculos) { px(hx + ox, hy + 4, 4, 4, '#2a2a2a'); px(hx + ox + 5, hy + 4, 4, 4, '#2a2a2a'); px(hx + ox + 1, hy + 5, 2, 2, '#a8c8d0'); px(hx + ox + 6, hy + 5, 2, 2, '#a8c8d0'); }
+    const ox = lado > 0 ? 4 : 2, oy = hy + 6;
+    // olhos grandes com brilho; boca pequena
+    px(hx + ox, oy, 3, 3, '#1a1612'); px(hx + ox + 6, oy, 3, 3, '#1a1612');
+    px(hx + ox, oy, 1, 1, '#f4efe2'); px(hx + ox + 6, oy, 1, 1, '#f4efe2');
+    px(hx + ox + 3, oy + 5, 3, 1, tom(pele, 0.68));
+    px(hx + ox - 1, oy + 3, 2, 1, tom(pele, 0.93)); px(hx + ox + 8, oy + 3, 2, 1, tom(pele, 0.93));
+    if (zumbi) { px(hx + ox - 1, oy - 1, 5, 5, '#2a2420'); px(hx + ox + 5, oy - 1, 5, 5, '#2a2420'); px(hx + ox + 1, oy + 1, 2, 2, '#e8e2a8'); px(hx + ox + 7, oy + 1, 2, 2, '#e8e2a8'); px(hx + ox + 1, oy + 5, 7, 2, '#6a1f1a'); px(hx + ox + 2, oy + 5, 1, 1, '#d8d0b8'); px(hx + ox + 5, oy + 5, 1, 1, '#d8d0b8'); }
+    if (ap.barba) { px(hx + 1, hy + 10, HL - 2, 4, tom(cab, 1.05)); px(hx + 3, hy + 13, HL - 6, 2, tom(cab, 1.05)); px(hx + ox + 3, oy + 5, 3, 1, tom(cab, 0.7)); }
+    if (ap.oculos) { px(hx + ox - 1, oy - 1, 5, 5, '#2a2a2a'); px(hx + ox + 5, oy - 1, 5, 5, '#2a2a2a'); px(hx + ox, oy, 3, 3, '#a8c8d0'); px(hx + ox + 6, oy, 3, 3, '#a8c8d0'); px(hx + ox, oy, 1, 1, '#eef6f8'); px(hx + ox + 6, oy, 1, 1, '#eef6f8'); px(hx + ox + 4, oy + 1, 1, 1, '#2a2a2a'); }
   }
-  if (ap.bandana) { px(hx - 1, hy - 1, 14, 3, COR.aviso); if (!frente) px(hx + (lado > 0 ? -3 : 12), hy, 3, 4, COR.aviso); }
-  if (ap.bone) { px(hx - 1, hy - 2, 14, 4, '#3e4636'); if (frente) px(hx + (lado > 0 ? 6 : -4), hy + 1, 10, 2, '#2e3428'); }
-  if (ap.fone) { px(hx - 2, hy + 3, 3, 5, '#24282B'); px(hx + 11, hy + 3, 3, 5, '#24282B'); px(hx - 1, hy - 3, 14, 2, '#24282B'); if (frente) px(hx + (lado > 0 ? 11 : -2), hy + 8, 1, 4, '#24282B'); }
+  if (ap.bandana) { px(hx - 1, hy, HL + 2, 3, COR.aviso); px(hx - 1, hy, HL + 2, 1, tom(COR.aviso, 1.2)); if (!frente) px(hx + (lado > 0 ? -3 : HL), hy + 1, 3, 5, COR.aviso); }
+  if (ap.bone) { px(hx - 1, hy - 3, HL + 2, 5, '#3e4636'); px(hx + 2, hy - 3, 5, 1, '#5a6450'); if (frente) px(hx + (lado > 0 ? 7 : -4), hy + 1, 13, 2, '#2e3428'); }
+  if (ap.fone) { px(hx - 2, hy + 4, 3, 6, '#24282B'); px(hx + HL - 1, hy + 4, 3, 6, '#24282B'); px(hx - 1, hy - 4, HL + 2, 2, '#24282B'); if (frente) px(hx + (lado > 0 ? HL - 1 : -2), hy + 10, 1, 4, '#24282B'); }
 
   // contorno escuro pra ler bem em cima de qualquer chão
   const o = document.createElement('canvas'); o.width = QW; o.height = QH;

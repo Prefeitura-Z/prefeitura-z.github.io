@@ -420,6 +420,7 @@ function entrarNaExpedicao() {
   atualizarFicha();
   cena = new PZ.Expedicao($('cena'), {
     expedicao: ex, catalogo, aparencia: aparenciaAtual(), reduzir: !!ajustes.reduzir,
+    nome: estado.personagem.nome, nivel: estado.personagem.nivel,
     agora: agoraServidor, mudou: mostrarExpedicao, fim: () => farm ? proximaVolta(ex) : fecharExpedicao(ex.id, false),
   });
   motor = cena.motor; PZ.motorAtual = motor; PZ.cenaAtual = cena;

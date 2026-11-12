@@ -37,7 +37,7 @@ class Motor {
     });
     this.luzes = mundo.OBJ.filter(o => ['poste', 'pilar', 'fogueira', 'mesa'].includes(o.tipo)).map(o => {
       const p = A.iso(o.x + o.w / 2, o.y + o.d / 2), h = A.ALTURA[o.tipo];
-      return { x: p.x + (o.tipo === 'poste' ? 9 : 0), y: p.y - (o.tipo === 'fogueira' ? 8 : o.tipo === 'mesa' ? h + 6 : h - 2), r: o.tipo === 'fogueira' ? 90 : o.tipo === 'mesa' ? 50 : 70 };
+      return { x: p.x + (o.tipo === 'poste' ? 12 : 0), y: p.y - (o.tipo === 'fogueira' ? 8 : o.tipo === 'mesa' ? h + 6 : o.tipo === 'poste' ? h - 7 : h - 2), r: o.tipo === 'fogueira' ? 90 : o.tipo === 'mesa' ? 50 : 70, chao: o.tipo === 'poste' ? { x: p.x + 12, y: p.y } : null };
     });
     this.fogueira = mundo.OBJ.find(o => o.tipo === 'fogueira');
     this.fumaca = [];
@@ -271,6 +271,7 @@ class Motor {
     g.setTransform(z * d, 0, 0, z * d, tx, ty);
     g.imageSmoothingEnabled = false;
     g.drawImage(this.chao.canvas, -this.chao.ox, -this.chao.oy);
+    if (this.op.chao) this.op.chao(this, g);   // marcas no chão (sangue, anel de golpe), por baixo de todo mundo
 
     if (this.marca) {
       const c = A.iso(this.marca.x + 0.5, this.marca.y + 0.5), a = 1 - this.marca.t / 0.8;
@@ -337,19 +338,36 @@ class Motor {
 
     // luz do dia: ciclo de 8 min, sem nunca ficar escuro demais pra usar os serviços
     const ciclo = this.reduzir ? 0.3 : (Date.now() / 480000) % 1;
-    const noite = Math.max(0, Math.sin(ciclo * Math.PI * 2)) * 0.42;
+    const noite = Math.max(0, Math.sin(ciclo * Math.PI * 2)) * 0.5;
     if (noite > 0.02) {
       g.setTransform(1, 0, 0, 1, 0, 0);
-      g.fillStyle = `rgba(16,22,40,${noite})`; g.fillRect(0, 0, this.cv.width, this.cv.height);
+      g.fillStyle = `rgba(14,20,42,${noite})`; g.fillRect(0, 0, this.cv.width, this.cv.height);
       g.setTransform(z * d, 0, 0, z * d, tx, ty);
       g.globalCompositeOperation = 'lighter';
+      const brilho = (x, y, r, a, cor = '212,172,102', sy = 1) => {
+        if (x + r < vx0 || x - r > vx1 || y + r * sy < vy0 - 100 || y - r * sy > vy1) return;
+        g.save(); g.translate(x, y); g.scale(1, sy);
+        const gr = g.createRadialGradient(0, 0, 1, 0, 0, r);
+        gr.addColorStop(0, `rgba(${cor},${a})`); gr.addColorStop(1, `rgba(${cor},0)`);
+        g.fillStyle = gr; g.fillRect(-r, -r, r * 2, r * 2); g.restore();
+      };
       for (const l of this.luzes) {
-        const gr = g.createRadialGradient(l.x, l.y, 2, l.x, l.y, l.r);
-        gr.addColorStop(0, `rgba(212,172,102,${noite * 0.9})`); gr.addColorStop(1, 'rgba(212,172,102,0)');
-        g.fillStyle = gr; g.fillRect(l.x - l.r, l.y - l.r, l.r * 2, l.r * 2);
+        brilho(l.x, l.y, l.r, noite * 0.9);
+        if (l.chao) brilho(l.chao.x, l.chao.y, 64, noite * 0.55, '222,184,112', 0.5);   // poça de luz no chão
       }
+      // janelas acesas dos prédios
+      for (const o of this.estaticos) if (o._luzes && o._luzes.length) for (const j of o._luzes) { brilho(j.x, j.y, 26, noite * 0.7); brilho(j.x, j.y + 30, 34, noite * 0.18, '222,184,112', 0.6); }
       g.globalCompositeOperation = 'source-over';
     }
+
+    // vinheta: escurece de leve as bordas e puxa o olho pro centro
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    if (!this.vinheta || this.vinheta.w !== this.cv.width || this.vinheta.h !== this.cv.height) {
+      const W = this.cv.width, H = this.cv.height, gr = g.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.hypot(W, H) * 0.56);
+      gr.addColorStop(0, 'rgba(8,10,12,0)'); gr.addColorStop(1, 'rgba(8,10,12,0.42)');
+      this.vinheta = { w: W, h: H, gr };
+    }
+    g.fillStyle = this.vinheta.gr; g.fillRect(0, 0, this.cv.width, this.cv.height);
 
     // nomes em cima dos NPCs (em px de tela, texto nítido)
     g.setTransform(d, 0, 0, d, 0, 0);
