@@ -29,7 +29,7 @@ test('private authenticated bridge returns verified ID with fresh timestamp; old
     method:'POST',headers:{Authorization:'Bearer local-test-only'},body:'V|1\n'
   }),env);
   assert.equal(r.status,200);const text=await r.text();
-  assert.match(text,/^V\|2\|\d{10}\nL\|Ana Maria\nD\|Ana%20Maria\|900000000000000001\nL\|bad\n$/);
+  assert.match(text,/^V\|2\|\d{10}\nL\|Ana Maria\nD\|Ana%20Maria\|900000000000000001\nL\|bad\nEND\|2\|\d{10}\n$/);
   assert(!text.includes('invalid'));assert.equal(text.split('\n')[1].split('|')[1],'Ana Maria');
 });
 test('public root does not expose site links',async()=>{
