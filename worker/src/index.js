@@ -197,9 +197,16 @@ async function ponte(req, env) {
   for (let i = 0; i < ops.length; i += 50) await env.DB.batch(ops.slice(i, i + 50));
 
   const limpa = s => String(s || '').replace(/[|\r\n]/g, ' ');
-  const linhas = ['V|1'];
-  const { results: us } = await env.DB.prepare('SELECT login FROM users WHERE login IS NOT NULL').all();
-  for (const u of us) linhas.push(`L|${limpa(u.login)}`);
+  // Private authenticated response only. Existing Lua consumers keep the original L rows.
+  // The bot can reuse the site-verified identity without another player linking flow.
+  const linhas = [`V|2|${t}`];
+  const { results: us } = await env.DB.prepare('SELECT login, discord_id FROM users WHERE login IS NOT NULL').all();
+  for (const u of us) {
+    if (!u.login) continue;
+    linhas.push(`L|${limpa(u.login)}`);
+    // Identity uses the exact login; delimiter escaping must never alias another player.
+    if (/^[0-9]{17,20}$/.test(u.discord_id)) linhas.push(`D|${encodeURIComponent(u.login)}|${u.discord_id}`);
+  }
   const { results: ps } = await env.DB.prepare("SELECT id, login, listing_id, preco FROM orders WHERE status = 'pendente' ORDER BY criado LIMIT 200").all();
   for (const p of ps) linhas.push(`O|${p.id}|${limpa(p.login)}|${limpa(p.listing_id)}|${p.preco}`);
   return new Response(linhas.join('\n') + '\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
