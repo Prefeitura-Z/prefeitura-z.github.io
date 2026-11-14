@@ -187,7 +187,14 @@ def ponte_site(lua):
             with _sftp.open(destino + ".tmp", "wb") as f:
                 f.write(entrada)
             # Readers must never observe half an identity/order snapshot.
-            _sftp.posix_rename(destino + ".tmp", destino)
+            try:
+                _sftp.posix_rename(destino + ".tmp", destino)
+            except OSError:
+                # Some Pterodactyl SFTP servers reject replacing an existing file.
+                # END|2|timestamp lets the bot reject any incomplete direct write.
+                with _sftp.open(destino, "wb") as f:
+                    f.write(entrada)
+                print("ponte: SFTP sem substituição atômica; snapshot com marcador de conclusão gravado")
         except (PermissionError, IOError) as e:
             print("ponte: sem permissão para gravar no servidor (subusuário precisa de 'Criar' e 'Editar' arquivos):", e)
             return

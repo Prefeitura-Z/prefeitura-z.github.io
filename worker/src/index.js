@@ -209,6 +209,8 @@ async function ponte(req, env) {
   }
   const { results: ps } = await env.DB.prepare("SELECT id, login, listing_id, preco FROM orders WHERE status = 'pendente' ORDER BY criado LIMIT 200").all();
   for (const p of ps) linhas.push(`O|${p.id}|${limpa(p.login)}|${limpa(p.listing_id)}|${p.preco}`);
+  // Reader accepts identities only after the entire snapshot has reached the host.
+  linhas.push(`END|2|${t}`);
   return new Response(linhas.join('\n') + '\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }
 
