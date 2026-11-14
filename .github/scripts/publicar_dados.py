@@ -96,7 +96,29 @@ def causa_simples(c):
     return "Desconhecida"
 
 
-def montar(status_txt, status_em, rank_txt, rank_em, mortes_txt, loja_txt=None, loja_em=None):
+def airdrops_publicos(texto, agora=None):
+    """Allowlist only public drop locations; never player identities or private intel."""
+    t = int((agora or datetime.now(timezone.utc)).timestamp())
+    try:
+        d = json.loads(texto or '{}')
+        gerado = d.get('geradoEm')
+        if type(gerado) is not int or not 0 <= t - gerado <= 900:
+            return {'geradoEm': None, 'ativos': []}
+        ativos = []
+        for a in d.get('ativos', [])[:2]:
+            if not isinstance(a, dict): continue
+            x, y, fim = a.get('x'), a.get('y'), a.get('expiraEm')
+            if any(type(n) is not int for n in (x, y, fim)): continue
+            if not (0 <= x <= 100000 and 0 <= y <= 100000 and t < fim <= t + 86400): continue
+            ativos.append({'id': str(a.get('id', ''))[:80], 'x': x, 'y': y,
+                           'expiraEm': fim, 'zona': str(a.get('zona', ''))[:100],
+                           'risco': max(0, min(3, int(a.get('risco') or 0)))})
+        return {'geradoEm': gerado, 'ativos': ativos}
+    except (ValueError, TypeError, AttributeError):
+        return {'geradoEm': None, 'ativos': []}
+
+
+def montar(status_txt, status_em, rank_txt, rank_em, mortes_txt, loja_txt=None, loja_em=None, airdrops_txt=None):
     status = None
     if status_txt:
         try: status = json.loads(status_txt)
@@ -134,7 +156,7 @@ def montar(status_txt, status_em, rank_txt, rank_em, mortes_txt, loja_txt=None, 
             loja = {"moeda": l.get("moeda") or "PRZcoins", "abas": l.get("abas", []), "em": loja_em}
         except ValueError as e: print("loja inválida:", e)
 
-    return {"versao": 1, "loja": loja, "atualizadoEm": datetime.now(timezone.utc).isoformat(),
+    return {"versao": 1, "loja": loja, "airdrops": airdrops_publicos(airdrops_txt), "atualizadoEm": datetime.now(timezone.utc).isoformat(),
             "statusEm": status_em, "rankingEm": rank_em,
             "status": status, "ranking": ranking, "mortes": mortes}
 
@@ -161,8 +183,11 @@ def ponte_site(lua):
         with urllib.request.urlopen(req, timeout=30) as r:
             entrada = r.read()
         try:
-            with _sftp.open(lua + "/PrefeituraZSiteInbox.txt", "wb") as f:
+            destino = lua + "/PrefeituraZSiteInbox.txt"
+            with _sftp.open(destino + ".tmp", "wb") as f:
                 f.write(entrada)
+            # Readers must never observe half an identity/order snapshot.
+            _sftp.posix_rename(destino + ".tmp", destino)
         except (PermissionError, IOError) as e:
             print("ponte: sem permissão para gravar no servidor (subusuário precisa de 'Criar' e 'Editar' arquivos):", e)
             return
@@ -189,9 +214,10 @@ def main(saida):
     rk, rk_em = ler_arquivo(lua + "/PrefeituraZSiteRankings.json")
     mo, _ = ler_arquivo(lua + "/PrefeituraZPlayerDeaths.log")
     lj, lj_em = ler_arquivo(lua + "/PrefeituraZShopListings.json")
+    ad, _ = ler_arquivo(lua + "/PrefeituraZAirdrops.json")
     if st is None and rk is None and mo is None and lj is None:
         sys.exit(f"Nenhum arquivo encontrado em {lua}. Confira PTERO_LUA_DIR.")
-    d = montar(st, st_em, rk, rk_em, mo, lj, lj_em)
+    d = montar(st, st_em, rk, rk_em, mo, lj, lj_em, ad)
     with open(saida, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, separators=(",", ":"))
     ponte_site(lua)

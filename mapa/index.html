@@ -445,6 +445,10 @@ function drawMarks(){
 }
 
 const ly = id=>document.getElementById(id).checked;
+let airdropLayer=null;
+import('./airdrops.js').then(({initAirdrops})=>{
+  airdropLayer=initAirdrops({draw,w2s,ctx,addHit:h=>hits.push(h),halo,openPopup,esc,flyTo});draw();
+}).catch(e=>console.warn('[PrefeituraZ] AirDrops indisponíveis',e));
 let raf=0;
 function draw(){ if(raf) return; raf=requestAnimationFrame(()=>{raf=0; render();}); }
 function render(){
@@ -463,6 +467,7 @@ function render(){
   if(ly('lyStreets')) drawStreets();
   if(ly('lyCities')) drawCities();
   if(ly('lyMarks')) drawMarks();
+  airdropLayer?.render();
   if(ly('lyFactions')) drawFactions();
   vignette();
   updateScale();
@@ -580,6 +585,7 @@ function clickAt(sx,sy){
     if(Math.hypot(h.x-sx,h.y-sy)<=h.r){
       if(h.type==='fac') return openFaction(h.f);
       if(h.type==='mark') return openMark(h.m);
+      if(h.type==='airdrop') return airdropLayer?.open(h.a);
     }
   }
   closePopup();

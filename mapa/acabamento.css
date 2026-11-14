@@ -21,3 +21,6 @@
   #panel .head{padding-top:11px;padding-bottom:10px}
 }
 @media(prefers-reduced-motion:reduce){#title a.back{transition:none}}
+.airdrops-list { list-style:none; padding:0; margin:4px 0; font-size:12px; }
+.airdrops-list button { width:100%; text-align:left; font:inherit; color:var(--ink); background:var(--paper2); border:1px solid var(--line); border-radius:6px; padding:7px 9px; margin:3px 0; cursor:pointer; }
+.airdrops-list button:hover, .airdrops-list button:focus-visible { outline:2px solid var(--red); outline-offset:1px; }
