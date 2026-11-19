@@ -344,8 +344,10 @@ export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, per
     let res, falha = 'Não deu.';
 
     if (b.acao === 'vender') {
-      const def = Object.hasOwn(ITENS, b.item) ? ITENS[b.item] : null, q = inteiro(b.qtd, 1, 999);
-      if (!def || !def.venda || !q) return erro(env, 400, 'O Wolf não compra isso.');
+      // sem teto baixo: quem farmou muito vende tudo de uma vez (o limite só segura número absurdo)
+      const def = Object.hasOwn(ITENS, b.item) ? ITENS[b.item] : null, q = inteiro(b.qtd, 1, 1000000);
+      if (!def || !def.venda) return erro(env, 400, 'O Wolf não compra isso.');
+      if (!q) return erro(env, 400, 'Quantidade inválida.');
       const total = def.venda * q;
       falha = 'Você não tem tudo isso pra vender.';
       res = await comRecibo(env, did, 'vender', b.chave, { item: b.item, qtd: q, total }, todas(tem(did, b.item, q), livre), g => [
