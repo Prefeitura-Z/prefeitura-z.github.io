@@ -250,149 +250,199 @@ function cama(g, x, y, d, z, r, semPe) {
   const F1 = iso(x + 0.12, y + d * 0.5 + 0.15), F2 = iso(x + 0.88, y + d * 0.5 + 0.15); g.strokeStyle = tom(cobertor, 1.25); g.beginPath(); g.moveTo(F1.x, F1.y - z - 16); g.lineTo(F2.x, F2.y - z - 16); g.stroke();
 }
 
-// carro largado: sedã, hatch, picape ou van, com roda de aro, para-choque, farol, lanterna, retrovisor,
-// vidro trincado, ferrugem e amassado. queimado = carcaça preta, sem vidro e sem pneu.
+// carro largado em malha 3D facetada: a lataria é um "loft" de seções chanfradas ao longo do comprimento,
+// cada face é pintada pela luz que recebe (luz do alto, vindo da esquerda), com cabine de vidro e roda de verdade.
+// modelos: sedã, hatch, picape e van. queimado = carcaça preta, sem vidro e sem pneu.
 function veiculo(g, o, r, queimado) {
   const { x, y, w, d } = o, ao = w >= d;
   const modelos = ['seda', 'hatch', 'picape', 'van'];
   const mod = o.modelo || modelos[Math.floor(r() * 4)];
   const cor = queimado ? '#3a3632' : (o.cor || '#5a6a72');
-  const vid = queimado ? { topo: '#1a1816', esq: '#141210', dir: '#100e0c' } : { topo: '#2c3a40', esq: '#24323a', dir: '#1a262c' };
-  // área quadrada (carcaça de 2x2): o carro fica deitado em x e ocupa o meio, com proporção de carro
-  const quad = w === d, bx = x + 0.06, by = quad ? y + d * 0.24 : y + 0.1, bw = w - 0.12, bd = quad ? d * 0.52 : d - 0.2;
-  // sub-caixa por fração do comprimento (u) e da largura (v), seja o carro deitado em x ou em y
-  const sub = (u0, u1, v0, v1, h, c, z) => ao ? caixa(g, bx + bw * u0, by + bd * v0, bw * (u1 - u0), bd * (v1 - v0), h, c, z) : caixa(g, bx + bd * v0 * (bw / bd), by + bd * u0, bw * (v1 - v0), bd * (u1 - u0), h, c, z);
-  const lado = ao ? 'esq' : 'dir', ponta = ao ? 'dir' : 'esq';
-  // cabine inclinada de verdade: base larga no capô, teto recuado; lateral e para-brisa são trapézios de vidro
-  const W = (u, v, z) => { const p = ao ? iso(bx + bw * u, by + bd * v) : iso(bx + bw * v, by + bd * u); return { x: p.x, y: p.y - z }; };
-  const poly = (pts, c) => { g.fillStyle = c; g.beginPath(); pts.forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.closePath(); g.fill(); };
-  const linhaV = (a, b, c, l = 1) => { g.strokeStyle = c; g.lineWidth = l; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); };
-  const cabine = (c0, c1, zb, hc, recuoF, recuoT) => {
-    const b = [W(c0, 0.1, zb), W(c1, 0.1, zb), W(c1, 0.9, zb), W(c0, 0.9, zb)];
-    const t = [W(c0 + recuoT, 0.18, zb + hc), W(c1 - recuoF, 0.18, zb + hc), W(c1 - recuoF, 0.82, zb + hc), W(c0 + recuoT, 0.82, zb + hc)];
-    poly([b[3], b[2], t[2], t[3]], vid.esq);                                   // lateral
-    poly([b[1], b[2], t[2], t[1]], vid.dir);                                   // para-brisa
-    if (!queimado) {
-      const m0 = W(c0 + (c1 - c0) * 0.5, 0.9, zb), m1 = W(c0 + recuoT + (c1 - recuoF - c0 - recuoT) * 0.5, 0.82, zb + hc);
-      linhaV(m0, m1, tom(cor, 0.8), 2);                                          // coluna do meio
-      const r0 = W(c1 - (c1 - c0) * 0.1, 0.2, zb + 1), r1 = W(c1 - recuoF * 0.6, 0.4, zb + hc - 2);
-      linhaV(r0, r1, '#ffffff30', 2);                                            // reflexo no para-brisa
-      const s0 = W(c0 + (c1 - c0) * 0.2, 0.9, zb + 2), s1 = W(c0 + (c1 - c0) * 0.3, 0.86, zb + hc - 2);
-      linhaV(s0, s1, '#ffffff22', 1);
+  const VIDRO = queimado ? '#141210' : '#2a3a44';
+  // área quadrada (carcaça 2x2): o carro fica deitado em x, no meio, com proporção de carro
+  const quad = w === d, comp = mod === 'hatch' ? 0.86 : 1;
+  const L = (ao ? w : d) - 0.12, Wd = quad ? d * 0.52 : (ao ? d : w) - 0.2;
+  const o0 = ao ? x + 0.06 + L * (1 - comp) / 2 : y + 0.06 + L * (1 - comp) / 2, Lc = L * comp;
+  const lat0 = quad ? y + d * 0.24 : (ao ? y + 0.1 : x + 0.1);
+  // (u ao longo do carro, de trás pra frente; v na largura, 1 = lado que a câmera vê; z em px)
+  const mundo = (u, v) => ao ? [o0 + Lc * u, lat0 + Wd * v] : [lat0 + Wd * v, o0 + Lc * u];
+  const P = (u, v, z) => { const [wx, wy] = mundo(u, v), p = iso(wx, wy); return { x: p.x, y: p.y - z }; };
+  const LUZ = (() => { const l = [-0.15, 0.6, 1], n = Math.hypot(...l); return l.map(c => c / n); })();
+  const V3 = (u, v, z) => { const [wx, wy] = mundo(u, v); return [wx, wy, z / 32]; };
+  const caminho = pts => { g.beginPath(); pts.forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.closePath(); };
+  // pinta uma face (lista de [u,v,z]) se ela olha pra câmera; o centro do sólido decide o lado de fora
+  const face = (pts, base, centro, extra) => {
+    const A = V3(...pts[0]); let n = [0, 0, 0];
+    for (let i = 1; i + 1 < pts.length; i++) {
+      const B = V3(...pts[i]), C = V3(...pts[i + 1]), e1 = [B[0] - A[0], B[1] - A[1], B[2] - A[2]], e2 = [C[0] - A[0], C[1] - A[1], C[2] - A[2]];
+      n = [n[0] + e1[1] * e2[2] - e1[2] * e2[1], n[1] + e1[2] * e2[0] - e1[0] * e2[2], n[2] + e1[0] * e2[1] - e1[1] * e2[0]];
     }
-    linhaV(b[2], t[2], cor, 2); linhaV(b[3], t[3], cor, 2);                      // colunas da frente e de trás
-    poly(t, tom(cor, 1.08));                                                    // teto
-    g.strokeStyle = '#141412aa'; g.lineWidth = 1; g.beginPath(); [b[3], b[2], b[1], t[1], t[0], t[3]].forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.closePath(); g.stroke();
+    const ln = Math.hypot(...n); if (ln < 1e-9) return null; n = n.map(c => c / ln);
+    const m = pts.reduce((s, p) => { const q = V3(...p); return [s[0] + q[0], s[1] + q[1], s[2] + q[2]]; }, [0, 0, 0]).map(c => c / pts.length);
+    const C0 = V3(...centro); if ((m[0] - C0[0]) * n[0] + (m[1] - C0[1]) * n[1] + (m[2] - C0[2]) * n[2] < 0) n = n.map(c => -c);
+    if (n[0] + n[1] + n[2] <= 0.0001) return null;                         // de costas pra câmera
+    const luz = n[0] * LUZ[0] + n[1] * LUZ[1] + n[2] * LUZ[2], f = 0.68 + 0.56 * luz;
+    const tela = pts.map(p => P(...p));
+    g.fillStyle = tom(base, f); caminho(tela); g.fill();
+    if (extra) extra(tela, f, n);
+    return tela;
   };
-  const comprimento = mod === 'hatch' ? 0.86 : 1, u0 = (1 - comprimento) / 2, u1 = 1 - u0;
-  // rodas com aro (atrás da carroceria)
-  const rodas = ao ? [[u0 + 0.18, 1], [u1 - 0.18, 1]] : [[1, u0 + 0.18], [1, u1 - 0.18]];
-  const furado = !queimado && r() > 0.7;
-  for (const [a, b] of rodas) {
-    const p = ao ? iso(bx + bw * a, by + bd + 0.02) : iso(bx + bw + 0.02, by + bd * b);
-    if (queimado) { g.fillStyle = '#2a2622'; g.fillRect(p.x - 4, p.y - 6, 8, 5); continue; }
-    if (o.calco) { // sem roda, apoiado em bloco de concreto
-      g.fillStyle = '#141412'; g.fillRect(p.x - 6, p.y - 9, 12, 9); g.fillStyle = '#8a8a82'; g.fillRect(p.x - 5, p.y - 8, 10, 7);
-      g.fillStyle = '#6a6a64'; g.fillRect(p.x - 3, p.y - 6, 2, 3); g.fillRect(p.x + 1, p.y - 6, 2, 3); g.fillStyle = '#a6a69c'; g.fillRect(p.x - 5, p.y - 8, 10, 1); continue;
+  // loft: seções [u, alto, largura(0..1)] viram anéis chanfrados; liga anel com anel e tampa as pontas
+  const zc = 7;
+  const anel = (u, alto, s, zb = zc) => {
+    const a = 0.5 - s / 2, b = 0.5 + s / 2, zt = zb + alto, zm = Math.max(zb + 4, zt - 5);
+    return [[u, a + 0.05, zb], [u, a, zb + 4], [u, a, zm], [u, a + 0.08, zt], [u, b - 0.08, zt], [u, b, zm], [u, b, zb + 4], [u, b - 0.05, zb]];
+  };
+  const loft = (secoes, corDe, zb = zc) => {
+    const aneis = secoes.map(([u, h, s]) => anel(u, h, s, zb)), cen = [(secoes[0][0] + secoes[secoes.length - 1][0]) / 2, 0.5, zb + 6], faces = [];
+    for (let i = 0; i + 1 < aneis.length; i++) for (let k = 0; k < 8; k++) { const k2 = (k + 1) % 8; faces.push({ pts: [aneis[i][k], aneis[i][k2], aneis[i + 1][k2], aneis[i + 1][k]], i, k }); }
+    faces.push({ pts: aneis[0], ponta: 'tras' }, { pts: aneis[aneis.length - 1].slice().reverse(), ponta: 'frente' });
+    const vis = [];
+    for (const fc of faces) { const t = face(fc.pts, corDe ? corDe(fc) : cor, cen); if (t) vis.push({ ...fc, tela: t }); }
+    return vis;
+  };
+  // perfil de cada modelo: [u, altura da lataria acima da saia, largura]
+  const corpo = {
+    seda: [[0, 12, 0.9], [0.04, 15, 0.98], [0.26, 17, 1], [0.72, 17, 1], [0.93, 13, 0.98], [1, 10, 0.9]],
+    hatch: [[0, 14, 0.9], [0.03, 17, 0.98], [0.7, 17, 1], [0.92, 13, 0.98], [1, 10, 0.9]],
+    picape: [[0, 16, 0.94], [0.02, 18, 1], [0.78, 18, 1], [0.94, 15, 0.98], [1, 11, 0.92]],
+    van: [[0, 32, 0.94], [0.025, 34, 1], [0.8, 34, 1], [0.95, 20, 0.98], [1, 16, 0.92]],
+  }[mod];
+  const altEm = u => { for (let i = 1; i < corpo.length; i++) if (u <= corpo[i][0]) { const [a0, h0] = corpo[i - 1], [a1, h1] = corpo[i]; return h0 + (h1 - h0) * (u - a0) / (a1 - a0); } return corpo[corpo.length - 1][1]; };
+  const rodaU = mod === 'hatch' ? [0.2, 0.8] : mod === 'van' ? [0.18, 0.8] : [0.19, 0.8];
+  const R = 7.5, rU = 0.25 / Lc;                                  // raio do pneu: 7.5px de altura, 0.25 célula no chão
+  const circulo = (uc, v, z0, ru, rz, n = 14) => { const pts = []; for (let k = 0; k < n; k++) { const a = k / n * Math.PI * 2; pts.push(P(uc + Math.cos(a) * ru, v, z0 + Math.sin(a) * rz)); } return pts; };
+
+  // sombra no chão, um pouco maior que o carro e puxada pra direita (luz da esquerda)
+  g.fillStyle = 'rgba(6,8,10,0.38)'; caminho([P(-0.03, -0.05, 0), P(1.05, -0.05, 0), P(1.05, 1.12, 0), P(-0.03, 1.12, 0)]); g.fill();
+  // rodas do lado de lá (só a parte de baixo aparece por baixo da saia)
+  if (!queimado && !o.calco) for (const uc of rodaU) { g.fillStyle = '#0e0e0e'; caminho(circulo(uc, 0.12, R, rU, R)); g.fill(); }
+
+  // sem roda, apoiado em bloco de concreto (desenhado antes: a lataria cobre o alto do bloco)
+  if (o.calco && !queimado) for (const uc of rodaU) for (const vb of [0.12, 0.8]) {
+    const a0 = uc - rU * 0.55, a1 = uc + rU * 0.55, v1 = vb + 0.14, hb = zc + 1, c = [uc, vb + 0.07, 4];
+    face([[a0, v1, 0], [a1, v1, 0], [a1, v1, hb], [a0, v1, hb]], '#8a8a82', c); face([[a1, vb, 0], [a1, v1, 0], [a1, v1, hb], [a1, vb, hb]], '#8a8a82', c);
+    face([[a0, vb, hb], [a1, vb, hb], [a1, v1, hb], [a0, v1, hb]], '#8a8a82', c);
+  }
+  // lataria
+  const lata = loft(corpo, fc => (fc.ponta === 'frente' || fc.ponta === 'tras') ? tom(cor, 0.94) : cor);
+  const ladoVisivel = lata.filter(f => f.k === 1 || f.k === 2).length ? 1 : 0;   // sempre o lado v=1
+  // saia escura entre a lataria e o chão
+  g.fillStyle = '#121212'; caminho([P(0.04, 1, zc - 1), P(0.96, 1, zc - 1), P(0.96, 1, zc + 2), P(0.04, 1, zc + 2)]); g.fill();
+
+  // caçamba da picape: recorta a boca no teto e pinta fundo, paredes de dentro e a tralha lá dentro
+  if (mod === 'picape') {
+    const zt = zc + 18, u0b = 0.035, u1b = 0.5, v0b = 0.1, v1b = 0.9, fundo = zt - 10;
+    g.save(); caminho([P(u0b, v0b, zt), P(u1b, v0b, zt), P(u1b, v1b, zt), P(u0b, v1b, zt)]); g.clip();
+    g.fillStyle = queimado ? '#141210' : tom(cor, 0.42); caminho([P(u0b, v0b, fundo), P(u1b, v0b, fundo), P(u1b, v1b, fundo), P(u0b, v1b, fundo)]); g.fill();
+    g.fillStyle = tom(cor, 0.62); caminho([P(u0b, v0b, fundo), P(u1b, v0b, fundo), P(u1b, v0b, zt), P(u0b, v0b, zt)]); g.fill();   // parede de lá
+    g.fillStyle = tom(cor, 0.5); caminho([P(u0b, v0b, fundo), P(u0b, v1b, fundo), P(u0b, v1b, zt), P(u0b, v0b, zt)]); g.fill();     // tampa traseira
+    for (let k = 1; k < 5; k++) { g.strokeStyle = '#00000040'; g.lineWidth = 1; const a = P(u0b + (u1b - u0b) * k / 5, v0b, fundo), b = P(u0b + (u1b - u0b) * k / 5, v1b, fundo); g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
+    if (!queimado) { loft([[0.1, 9, 0.34], [0.26, 9, 0.34]].map(([u, h, s]) => [u, h, s]), () => '#8a6a46', fundo); }
+    g.restore();
+  }
+
+  // cabine: loft trapezoidal de vidro; teto com a cor do carro e colunas desenhadas por cima das bordas
+  const cab = { seda: [[0.27, 0], [0.4, 14], [0.6, 14], [0.75, 0]], hatch: [[0.05, 0], [0.1, 14], [0.56, 14], [0.72, 0]], picape: [[0.5, 0], [0.505, 15], [0.66, 15], [0.79, 0]], van: null }[mod];
+  const colunas = [];
+  if (cab) {
+    const zb = c => zc + altEm(c);
+    const sec = cab.map(([u, h]) => { const z0 = zb(u), zt = z0 + h, ins = h ? 0.1 : 0.04; return [[u, 0.06, z0], [u, 0.06 + ins, zt], [u, 0.94 - ins, zt], [u, 0.94, z0]]; });
+    const cen = [(cab[0][0] + cab[cab.length - 1][0]) / 2, 0.5, zb(0.5) + 4];
+    for (let i = 0; i + 1 < sec.length; i++) for (let k = 0; k < 3; k++) {
+      const pts = [sec[i][k], sec[i][k + 1], sec[i + 1][k + 1], sec[i + 1][k]], teto = k === 1 && cab[i][1] && cab[i + 1][1];
+      face(pts, teto ? tom(cor, 1.02) : VIDRO, cen, (tela, f) => {
+        if (teto) return;
+        if (!queimado) { // reflexo do céu: faixa clara na diagonal do vidro
+          g.save(); caminho(tela); g.clip();
+          const xs = tela.map(q => q.x), ys = tela.map(q => q.y), x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+          const gr = g.createLinearGradient(x0, y0, x1, y1); gr.addColorStop(0, 'rgba(200,220,230,0.05)'); gr.addColorStop(0.35, 'rgba(200,220,230,0.22)'); gr.addColorStop(0.45, 'rgba(200,220,230,0.04)'); gr.addColorStop(0.6, 'rgba(200,220,230,0.14)'); gr.addColorStop(1, 'rgba(0,0,0,0.1)');
+          g.fillStyle = gr; g.fillRect(x0, y0, x1 - x0, y1 - y0); g.restore();
+        }
+        colunas.push(tela);
+      });
     }
-    const ry = furado && a === rodas[0][0] && b === rodas[0][1] ? 5 : 7;
-    g.fillStyle = '#0e0e0e'; g.beginPath(); g.ellipse(p.x, p.y - ry, 8, ry + 1, 0, 0, 7); g.fill();
-    g.fillStyle = '#1e1e1e'; g.beginPath(); g.ellipse(p.x, p.y - ry, 7, ry, 0, 0, 7); g.fill();
-    g.fillStyle = '#7a8084'; g.beginPath(); g.ellipse(p.x, p.y - ry, 3.5, ry * 0.5, 0, 0, 7); g.fill();
-    g.fillStyle = '#b8bec2'; g.fillRect(p.x - 1, p.y - ry - 2, 2, 1);
+    // colunas e moldura: borda das janelas na cor do carro; coluna do meio na lateral
+    g.strokeStyle = tom(cor, 0.9); g.lineWidth = 1.5; g.lineJoin = 'round';
+    for (const t of colunas) { caminho(t); g.stroke(); }
+    const um = (cab[1][0] + cab[2][0]) / 2, ub = (cab[0][0] + cab[3][0]) / 2;
+    if (mod !== 'picape') { g.lineWidth = 2.5; const a = P(ub, 0.94, zb(ub)), b = P(um, 0.84, zb(um) + cab[1][1]); g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
+    g.lineWidth = 1; g.lineJoin = 'miter';
+    // vidro quebrado em alguns
+    if (!queimado && r() > 0.82) { const q = P(cab[2][0] + 0.03, 0.6, zb(cab[2][0]) + 8); g.strokeStyle = '#c8d4d8aa'; g.beginPath(); for (let k = 0; k < 5; k++) { const a = k * 1.3 + r(); g.moveTo(q.x, q.y); g.lineTo(q.x + Math.cos(a) * 6, q.y + Math.sin(a) * 4); } g.stroke(); }
   }
-  const altCorpo = mod === 'van' ? 34 : 16, zc = 7;
-  // carroceria com perfil: tampa arredondada atrás, capô que desce até o bico (van: para-brisa deitado)
-  const perfil = mod === 'van' ? [[u0, altCorpo - 2], [u0 + 0.03, altCorpo], [u1 - 0.17, altCorpo], [u1 - 0.03, altCorpo - 13], [u1, altCorpo - 15]]
-    : mod === 'picape' ? [[u0, altCorpo - 1], [u1 - 0.2, altCorpo], [u1 - 0.04, altCorpo - 3], [u1, altCorpo - 6]]
-    : [[u0, altCorpo - 4], [u0 + 0.06, altCorpo], [u1 - 0.22, altCorpo], [u1 - 0.05, altCorpo - 4], [u1, altCorpo - 7]];
-  const hAt = u => { for (let i = 1; i < perfil.length; i++) if (u <= perfil[i][0]) { const [a0, h0] = perfil[i - 1], [a1, h1] = perfil[i]; return h0 + (h1 - h0) * (u - a0) / (a1 - a0 || 1); } return perfil[perfil.length - 1][1]; };
-  const hFim = perfil[perfil.length - 1][1];
-  const corLado = ao ? cor : tom(cor, 0.72), corPonta = ao ? tom(cor, 0.72) : cor;
-  const ladoPath = () => { g.beginPath(); perfil.forEach(([u], i) => { const q = W(u, 1, zc); i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y); }); for (let i = perfil.length - 1; i >= 0; i--) { const q = W(perfil[i][0], 1, zc + perfil[i][1]); g.lineTo(q.x, q.y); } g.closePath(); };
-  // saia escura embaixo (o vão entre a lataria e o chão)
-  poly([W(u0 + 0.03, 1, zc - 2), W(u1 - 0.03, 1, zc - 2), W(u1 - 0.03, 1, zc + 2), W(u0 + 0.03, 1, zc + 2)], '#141412');
-  g.fillStyle = corLado; ladoPath(); g.fill();
-  poly([W(u1, 0, zc), W(u1, 1, zc), W(u1, 1, zc + hFim), W(u1, 0, zc + hFim)], corPonta);
-  for (let i = 1; i < perfil.length; i++) {
-    const [a0, h0] = perfil[i - 1], [a1, h1] = perfil[i], desce = h1 < h0 - 0.5, sobe = h1 > h0 + 0.5;
-    const vidro = mod === 'van' && desce && h0 - h1 > 8;
-    const c = vidro ? (queimado ? vid.esq : '#33464e') : desce ? tom(cor, 1.0) : sobe ? tom(cor, 1.22) : tom(cor, 1.12);
-    poly([W(a0, 0, zc + h0), W(a1, 0, zc + h1), W(a1, 1, zc + h1), W(a0, 1, zc + h0)], c);
-    if (vidro && !queimado) linhaV(W(a0 + (a1 - a0) * 0.3, 0.25, zc + h0 - (h0 - h1) * 0.3), W(a0 + (a1 - a0) * 0.6, 0.55, zc + h0 - (h0 - h1) * 0.6), '#ffffff30', 2);
-    if (i > 1) linhaV(W(a0, 0.02, zc + h0), W(a0, 0.98, zc + h0), tom(cor, desce ? 1.3 : 0.85), 1);   // vinco entre os planos
+  // van: para-brisa deitado (o plano inclinado da frente) e janelas da cabine na lateral
+  if (mod === 'van') {
+    const zA = zc + 34, zB = zc + 20;
+    const vid = [[0.8, 0.14, zA], [0.8, 0.86, zA], [0.945, 0.86, zB + 1], [0.945, 0.14, zB + 1]];
+    face(vid, VIDRO, [0.5, 0.5, zc + 10], (tela) => { if (!queimado) { const a = P(0.83, 0.3, zA - 3), b = P(0.92, 0.55, zB + 4); g.strokeStyle = '#ffffff30'; g.lineWidth = 3; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); g.lineWidth = 1; } });
+    g.fillStyle = queimado ? VIDRO : tom(VIDRO, 1.1); caminho([P(0.66, 1, zc + 20), P(0.79, 1, zc + 20), P(0.79, 1, zc + 29), P(0.66, 1, zc + 29)]); g.fill();
+    if (!queimado) { g.fillStyle = tom(cor, 0.82); caminho([P(0.08, 1, zc + 22), P(0.6, 1, zc + 22), P(0.6, 1, zc + 29), P(0.08, 1, zc + 29)]); g.fill();   // faixa
+      g.fillStyle = tom(cor, 1.12); caminho([P(0.06, 0.12, zc + 34), P(0.74, 0.12, zc + 34), P(0.74, 0.88, zc + 34), P(0.06, 0.88, zc + 34)]); g.fill(); }
   }
-  // caixa de roda: arco escuro na lateral e o pneu de novo por cima, metido dentro dele
-  if (!queimado && !o.calco) for (const [a, b] of rodas) {
-    const ua = ao ? a : b, p = W(ua, 1.02, 0);
-    g.save(); ladoPath(); g.clip(); g.fillStyle = '#0a0a0a'; g.beginPath(); g.ellipse(p.x, p.y - 8, 9.5, 9, 0, 0, 7); g.fill();
-    g.strokeStyle = tom(cor, 1.25); g.lineWidth = 1; g.beginPath(); g.ellipse(p.x, p.y - 8, 10.5, 10, 0, Math.PI * 1.08, Math.PI * 1.92); g.stroke(); g.restore();
-    const ry = furado && a === rodas[0][0] && b === rodas[0][1] ? 5 : 7;
-    g.fillStyle = '#1e1e1e'; g.beginPath(); g.ellipse(p.x, p.y - ry, 7, ry, 0, 0, 7); g.fill();
-    g.fillStyle = '#5a6064'; g.beginPath(); g.ellipse(p.x, p.y - ry, 4, ry * 0.58, 0, 0, 7); g.fill();
-    g.fillStyle = '#9aa0a4'; g.beginPath(); g.ellipse(p.x - 0.5, p.y - ry - 0.5, 2.5, ry * 0.36, 0, 0, 7); g.fill();
-    g.fillStyle = '#2a2e30'; g.fillRect(p.x - 1, p.y - ry - 1, 2, 2);
+
+  // caixa de roda + pneu + aro do lado que a câmera vê
+  for (const uc of rodaU) {
+    const base = zc + 1;
+    // arco escuro na lataria
+    g.fillStyle = '#0a0a0a'; const arco = []; for (let k = 0; k <= 10; k++) { const a = Math.PI * k / 10; arco.push(P(uc + Math.cos(a) * rU * 1.3, 1.002, R + Math.sin(a) * R * 1.25)); } caminho(arco); g.fill();
+    if (queimado) { g.fillStyle = '#2a2622'; caminho(circulo(uc, 1, 4, rU * 0.7, 4)); g.fill(); continue; }
+    if (o.calco) continue;
+    const furado = uc === rodaU[0] && r() > 0.7, rz = furado ? R * 0.8 : R;
+    g.fillStyle = '#121212'; caminho(circulo(uc, 0.9, rz, rU, rz)); g.fill();       // banda de rodagem (espessura)
+    g.fillStyle = '#1c1c1c'; caminho(circulo(uc, 1.04, rz, rU, rz)); g.fill();
+    g.fillStyle = '#2a2a2a'; caminho(circulo(uc, 1.045, rz, rU * 0.82, rz * 0.82)); g.fill();
+    g.fillStyle = '#6e767a'; caminho(circulo(uc, 1.05, rz, rU * 0.52, rz * 0.52)); g.fill();   // aro
+    g.fillStyle = '#a8b0b4'; caminho(circulo(uc, 1.05, rz + 0.6, rU * 0.36, rz * 0.3, 10)); g.fill();
+    g.fillStyle = '#3a3e40'; const cc = P(uc, 1.05, rz); g.fillRect(Math.round(cc.x) - 1, Math.round(cc.y) - 1, 2, 2);
   }
-  // para-choques: lâmina escura no bico, um pouco pra fora da lataria
-  sub(u1 - 0.02, u1 + 0.03, 0.03, 0.97, 4, queimado ? '#1a1816' : '#2e2e2c', zc - 1);
-  { g.strokeStyle = '#141412aa'; g.lineWidth = 1; ladoPath(); g.stroke(); }
-  if (mod === 'seda' || mod === 'hatch') {
-    const c0 = mod === 'seda' ? 0.28 : 0.38, c1 = mod === 'seda' ? 0.74 : 0.9;
-    cabine(c0, c1, zc + altCorpo, 14, mod === 'seda' ? 0.1 : 0.12, mod === 'seda' ? 0.08 : 0.03);
-  } else if (mod === 'picape') {
-    // caçamba funda: fundo escuro, parede do fundo e lateral de trás, tralha, e só depois a lateral da frente e a cabine
-    const zb = zc + altCorpo, cb = tom(cor, 0.9), u2 = 0.5;
-    sub(u0 + 0.02, u2, 0.06, 0.94, 1, queimado ? '#1a1816' : tom(cor, 0.45), zb);
-    sub(u0 + 0.02, u2, 0.04, 0.12, 7, cb, zb);                   // lateral do fundo
-    sub(u0 + 0.02, u0 + 0.07, 0.04, 0.96, 7, cb, zb);            // tampa traseira
-    if (!queimado) { sub(0.12, 0.27, 0.16, 0.48, 8, '#7a6448', zb + 1); sub(0.3, 0.42, 0.2, 0.42, 5, '#3f5a6a', zb + 1); }
-    sub(u2 - 0.04, u2, 0.04, 0.96, 7, cb, zb);                   // parede atrás da cabine
-    sub(u0 + 0.02, u2, 0.88, 0.96, 7, cb, zb);                   // lateral da frente
-    cabine(0.52, 0.82, zb, 16, 0.08, 0.02);
-  } else {
-    // van: frente com vidro alto, lateral com janela só na cabine
-    sub(u0 + 0.04, u1 - 0.2, 0.08, 0.92, 2, tom(cor, 1.1), zc + altCorpo);   // bagageiro no teto
-    // janela da cabine na lateral, recortada pelo perfil
-    const hv = altCorpo + zc; g.save(); ladoPath(); g.clip();
-    ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, lado, 0.76, 0.97, 0.6, 0.9, hv, vid.esq) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), lado, 0.76, 0.97, 0.6, 0.9, hv, vid.esq);
-    if (!queimado) ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, lado, 0.08, 0.5, 0.15, 0.5, hv, tom(cor, 0.85)) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), lado, 0.08, 0.5, 0.15, 0.5, hv, tom(cor, 0.85));
-    g.restore();
-  }
+
+  // para-choques: lâminas escuras nas pontas
+  const pc = queimado ? '#1a1816' : '#2c2c2a';
+  loft([[0.985, 5, 0.96], [1.025, 5, 0.96]], () => pc, zc - 2);
+  // frente: farol, grade e pisca
+  const hF = zc + corpo[corpo.length - 1][1], uF = 1.0005, sF = corpo[corpo.length - 1][2], vA = 0.5 - sF / 2, vB = 0.5 + sF / 2;
+  const naFrente = (v0, v1, z0, z1, c) => { g.fillStyle = c; caminho([P(uF, vA + (vB - vA) * v0, z0), P(uF, vA + (vB - vA) * v1, z0), P(uF, vA + (vB - vA) * v1, z1), P(uF, vA + (vB - vA) * v0, z1)]); g.fill(); };
   if (!queimado) {
-    // friso, maçaneta, ferrugem e amassado na lateral
-    g.save(); ladoPath(); g.clip();
-    const P = (uu0, uu1, vv0, vv1, c, hh = altCorpo + zc) => ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, lado, uu0, uu1, vv0, vv1, hh, c) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), lado, uu0, uu1, vv0, vv1, hh, c);
-    P(0, 1, 0.5, 0.56, tom(cor, 0.68)); P(0, 1, 0.92, 0.98, tom(cor, 1.18));
-    P(0.42, 0.46, 0.66, 0.7, '#c9c2b0'); P(0.7, 0.74, 0.66, 0.7, '#c9c2b0');
-    P(0.06 + r() * 0.5, 0.3 + r() * 0.5, 0.25, 0.48, '#A65F3D77'); P(0.6, 0.78, 0.35, 0.6, '#00000030');
-    P(0.03, 0.07, 0.2, 0.6, '#24282B');
-    // lataria: reflexo do céu no alto da lateral e sombra embaixo (dá volume de chapa curva)
-    P(0, 1, 0.84, 0.9, '#ffffff26'); P(0, 1, 0, 0.32, '#00000038'); P(0, 1, 0.32, 0.4, '#00000018');
-    g.restore();
-    // farol e lanterna
-    const PF = (uu0, uu1, vv0, vv1, c) => ao ? placa(g, bx + bw * u0, by, bw * (u1 - u0), bd, ponta, uu0, uu1, vv0, vv1, hFim + zc, c) : placa(g, bx, by + bd * u0, bw, bd * (u1 - u0), ponta, uu0, uu1, vv0, vv1, hFim + zc, c);
-    PF(0.08, 0.26, 0.5, 0.78, '#e8e2c8'); PF(0.74, 0.92, 0.5, 0.78, r() > 0.5 ? '#e8e2c8' : '#3a3a36'); PF(0.3, 0.7, 0.52, 0.72, '#2a2a28'); PF(0.08, 0.26, 0.5, 0.56, '#ffffff');
+    naFrente(0.3, 0.7, hF - 7, hF - 3, '#1e2022');
+    for (let k = 0; k < 3; k++) naFrente(0.32, 0.68, hF - 6.4 + k * 1.2, hF - 6 + k * 1.2, '#3a3e40');
+    const quebrado = r() > 0.6;
+    naFrente(0.06, 0.26, hF - 7, hF - 3, '#e8e2c8'); naFrente(0.06, 0.14, hF - 6, hF - 4, '#ffffff');
+    naFrente(0.74, 0.94, hF - 7, hF - 3, quebrado ? '#2a2a28' : '#e8e2c8'); if (!quebrado) naFrente(0.74, 0.82, hF - 6, hF - 4, '#ffffff');
+    naFrente(0.06, 0.12, hF - 9, hF - 7.5, '#d08a3a'); naFrente(0.88, 0.94, hF - 9, hF - 7.5, '#d08a3a');
+    // placa
+    naFrente(0.4, 0.6, zc + 0.5, zc + 3, '#d8d2c0');
+  }
+  // lateral: vinco da porta, maçaneta, ferrugem, poeira subindo da roda
+  const naLateral = (u0, u1, z0, z1, c) => { g.fillStyle = c; caminho([P(u0, 1.001, z0), P(u1, 1.001, z0), P(u1, 1.001, z1), P(u0, 1.001, z1)]); g.fill(); };
+  const zMeio = u => Math.max(zc + 4, zc + altEm(u) - 5);
+  if (!queimado) {
+    const portas = mod === 'van' ? [0.62] : mod === 'picape' ? [0.52, 0.66] : mod === 'hatch' ? [0.4, 0.68] : [0.36, 0.53, 0.72];
+    g.strokeStyle = tom(cor, 0.62); g.lineWidth = 1;
+    for (const u of portas) { const a = P(u, 1.001, zc + 4), b = P(u, 1.001, zMeio(u)); g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
+    for (let k = 0; k + 1 < portas.length; k++) { const u = portas[k + 1] - 0.05; naLateral(u, u + 0.03, zMeio(u) - 3, zMeio(u) - 2, '#c9c2b0'); }
+    // friso escuro rente à saia e reflexo claro logo abaixo do ombro
+    const fr = []; for (let k = 0; k <= 10; k++) fr.push(P(0.04 + 0.92 * k / 10, 1.001, zc + 5)); for (let k = 10; k >= 0; k--) fr.push(P(0.04 + 0.92 * k / 10, 1.001, zc + 6.5));
+    g.fillStyle = tom(cor, 0.6); caminho(fr); g.fill();
+    const rf = []; for (let k = 0; k <= 10; k++) { const u = 0.05 + 0.9 * k / 10; rf.push(P(u, 1.001, zMeio(u) - 0.5)); } for (let k = 10; k >= 0; k--) { const u = 0.05 + 0.9 * k / 10; rf.push(P(u, 1.001, zMeio(u) - 2)); }
+    g.fillStyle = '#ffffff22'; caminho(rf); g.fill();
+    // ferrugem e lama
+    for (let k = 0; k < 3; k++) { const u = 0.08 + r() * 0.8; naLateral(u, u + 0.04 + r() * 0.06, zc + 4, zc + 6 + r() * 5, '#8a4a2a88'); }
+    for (const uc of rodaU) naLateral(uc - rU * 1.6, uc + rU * 1.6, zc + 2, zc + 7, '#3a302455');
     // retrovisor
-    const rv = ao ? iso(bx + bw * 0.72, by + bd + 0.04) : iso(bx + bw + 0.04, by + bd * 0.72); g.fillStyle = '#141412'; g.fillRect(rv.x - 2, rv.y - altCorpo - zc - 4, 4, 3); g.fillStyle = tom(cor, 0.8); g.fillRect(rv.x - 1, rv.y - altCorpo - zc - 3, 2, 1);
-    // lataria: reflexo do céu no alto da lateral e sombra embaixo (dá volume de chapa curva)
-    // folha seca, poeira e cocô de passarinho no capô, na tampa e no teto: carro parado há meses
+    if (cab || mod === 'van') { const uR = cab ? cab[3][0] - 0.03 : 0.79, zR = zc + (cab ? altEm(uR) + 2 : 26); loft([[uR - 0.02, 4, 0.08], [uR + 0.02, 4, 0.08]].map(([u, h, s]) => [u, h, s]), () => tom(cor, 0.85), zR); const m = P(uR, 1.05, zR + 3); g.fillStyle = '#9aa8ae'; g.fillRect(Math.round(m.x) - 1, Math.round(m.y) - 1, 2, 1); }
+    // folha seca e poeira no capô e no teto: carro parado há meses
     const folhas = ['#8a6a3a', '#a65f3d', '#6a5a30', '#5e7e4a', '#c9c2b0'];
-    const sobre = [[u1 - 0.2, u1 - 0.02], [u0 + 0.02, u0 + 0.2]];
-    for (const [a1, a2] of sobre) for (let k = 0; k < 7; k++) { const uu = a1 + r() * (a2 - a1), q = W(uu, 0.15 + r() * 0.7, zc + hAt(uu) + 1); g.fillStyle = folhas[Math.floor(r() * folhas.length)]; g.fillRect(Math.round(q.x), Math.round(q.y), 2, 1); }
-    { const q = W(u1 - 0.12, 0.3 + r() * 0.4, zc + hAt(u1 - 0.12) + 1); g.fillStyle = '#00000022'; g.beginPath(); g.ellipse(q.x, q.y, 7, 3, 0, 0, 7); g.fill(); }   // marca de poeira
+    for (let k = 0; k < 9; k++) { const u = mod === 'van' ? 0.1 + r() * 0.6 : 0.8 + r() * 0.13, q = P(u, 0.2 + r() * 0.6, zc + altEm(u) + 0.5); g.fillStyle = folhas[Math.floor(r() * folhas.length)]; g.fillRect(Math.round(q.x), Math.round(q.y), 2, 1); }
   } else {
     // fuligem e ferrugem por cima de tudo
-    const c = iso(x + w / 2, y + d / 2);
-    for (let k = 0; k < 18; k++) { g.fillStyle = ['#A65F3D', '#6a3a2a', '#1a1816', '#5a4a3a'][k % 4]; g.fillRect(Math.round(c.x + (r() - 0.5) * 50), Math.round(c.y - 10 - r() * 22), 2 + Math.floor(r() * 3), 1 + Math.floor(r() * 2)); }
+    for (let k = 0; k < 22; k++) { const u = 0.05 + r() * 0.9, q = P(u, 0.2 + r() * 0.8, zc + altEm(u) * r()); g.fillStyle = ['#A65F3D', '#6a3a2a', '#1a1816', '#5a4a3a'][k % 4]; g.fillRect(Math.round(q.x), Math.round(q.y), 2 + Math.floor(r() * 3), 1 + Math.floor(r() * 2)); }
   }
-  // capim crescendo em volta, na frente da roda e da saia (carro largado há tempo)
-  { const VERDES = ['#3a5230', '#4c6a3e', '#5e7e4a', '#6f8a4a'];
-    for (let k = 0; k < 26; k++) {
-      const u = r(), q = ao ? iso(bx + bw * u, by + bd + 0.02 + r() * 0.08) : iso(bx + bw + 0.02 + r() * 0.08, by + bd * u), hh = 2 + Math.floor(r() * 6);
-      g.fillStyle = VERDES[Math.floor(r() * 4)]; g.fillRect(Math.round(q.x), Math.round(q.y) - hh, 1, hh); if (r() > 0.6) g.fillRect(Math.round(q.x) + 1, Math.round(q.y) - hh + 2, 1, hh - 2);
-    } }
-  // caco de vidro no chão
-  { const c = iso(x + w / 2, y + d / 2); for (let k = 0; k < 5; k++) { g.fillStyle = '#c8d4d888'; g.fillRect(Math.round(c.x + (r() - 0.5) * 40), Math.round(c.y + 6 + (r() - 0.5) * 12), 2, 1); } }
+  // contorno: só a silhueta de fora, fininha, pra o carro descolar do chão
+  g.strokeStyle = '#0c0c0c88'; g.lineWidth = 1;
+  for (const f of lata) if (f.k === 3 || f.k === 4 || f.k === 5 || f.ponta) { caminho(f.tela); g.stroke(); break; }
+  // caco de vidro no chão (na rua; no abrigo o carro está na oficina, chão varrido)
+  if (!o.calco) { const c = iso(x + w / 2, y + d / 2); for (let k = 0; k < 5; k++) { g.fillStyle = '#c8d4d888'; g.fillRect(Math.round(c.x + (r() - 0.5) * 40), Math.round(c.y + 8 + (r() - 0.5) * 10), 2, 1); } }
 }
 
 function desenharObjeto(g, o, t) {
