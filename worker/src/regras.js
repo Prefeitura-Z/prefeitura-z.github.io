@@ -1,7 +1,7 @@
 // Prefeitura Z: Depois da Queda — regras do jogo (itens, rotas, inimigos, combate).
 // Tudo aqui é função pura, sem banco e sem relógio: o servidor sorteia uma semente, simula a expedição
 // inteira de uma vez e guarda o resultado. O navegador só assiste. Mudou número aqui? Suba VERSAO.
-export const VERSAO = 7;
+export const VERSAO = 8;
 
 // ---------- itens ----------
 // tipo: material | consumivel | missao | arma | protecao | mochila | ferramenta
@@ -53,6 +53,19 @@ export function valorRevenda(item, condicao) {
   if (!base || !EQUIPAVEIS.includes(d.tipo)) return 0;
   return Math.max(1, Math.floor(base * REVENDA * (0.5 + 0.5 * Math.max(0, Math.min(100, condicao)) / 100)));
 }
+// ---------- lootboxes do servidor (pagas com créditos, entregues no Project Zomboid) ----------
+// "tipo" é o item do mod XsLootBoxes. O mod PrefeituraZComputer (PRZSite_Bridge.lua) só aceita esses 5.
+// Preço alto de propósito: o farm rende muito crédito. Limite de CAIXAS_POR_DIA por conta, em 24 h corridas.
+export const CAIXAS = {
+  comum: { nome: 'Lootbox Comum', tipo: 'XsLootBoxes.LootBox_White', preco: 25000, desc: 'Comida boa pra estrada: salgadinho, granola, peixe seco. Vêm 2 itens.' },
+  incomum: { nome: 'Lootbox Incomum', tipo: 'XsLootBoxes.LootBox_Green', preco: 25000, desc: 'Remédio e primeiros socorros. Vêm 2 itens.' },
+  rara: { nome: 'Lootbox Rara', tipo: 'XsLootBoxes.LootBox_Blue', preco: 100000, desc: 'Uma mochila ou bolsa tática.' },
+  epica: { nome: 'Lootbox Épica', tipo: 'XsLootBoxes.LootBox_Purple', preco: 200000, desc: 'Uma arma branca única do servidor.' },
+  prestigio: { nome: 'Lootbox Prestígio', tipo: 'XsLootBoxes.LootBox_Orange', preco: 300000, desc: 'Um livro de habilidade.' },
+};
+export const CAIXAS_POR_DIA = 1;
+export const CAIXA_EXPIRA_DIAS = 3;   // sem entrar no jogo nesse prazo, os créditos voltam
+
 export const FERIMENTO_SEG = 600;             // quem cai volta ferido por 10 min (ou até usar curativo)
 
 // ---------- inimigos ----------
@@ -525,6 +538,7 @@ export function catalogo() {
     }])),
     areas: AREAS, saida: SAIDA, origens: Object.fromEntries(Object.entries(ORIGEM_BONUS).map(([k, v]) => [k, v.txt])),
     reparoPorPonto: CUSTO_REPARO_POR_PONTO, ferimentoSeg: FERIMENTO_SEG,
+    caixas: CAIXAS, caixasPorDia: CAIXAS_POR_DIA,
     ronda: { limiteSeg: RONDA.limiteSeg, descansoSeg: RONDA.descansoSeg, vidaMin: RONDA.vidaMin, ciclosMax: RONDA.ciclosMax, condicaoMin: RONDA.condicaoMin, voltasPorKit: RONDA.voltasPorKit },
   };
 }
