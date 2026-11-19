@@ -151,7 +151,7 @@ function desenharChao(mundo) {
     const L = Math.min(1.2, h / 95);
     // sombra da caixa: a base mais a base deslocada pra baixo à direita, ligadas (casco convexo)
     const proj = (x0, y0, x1, y1, l) => { const k = l * 0.45, pts = [P(x0, y0), P(x1, y0), P(x1 + l, y0 + k), P(x1 + l, y1 + k), P(x0 + l, y1 + k), P(x0, y1)]; sg.beginPath(); pts.forEach((q, i) => i ? sg.lineTo(q.x, q.y) : sg.moveTo(q.x, q.y)); sg.closePath(); sg.fill(); };
-    if (o.tipo === 'arvore') { const p = P(o.x + 0.5 + 0.8, o.y + 0.5 + 0.36); sg.beginPath(); sg.ellipse(p.x, p.y, 30, 14, 0, 0, 7); sg.fill(); }
+    if (o.tipo === 'arvore') { const p = P(o.x + 0.5 + 0.55, o.y + 0.5 + 0.22), q = P(o.x + 0.5, o.y + 0.5); sg.beginPath(); sg.ellipse(p.x, p.y, 30, 14, 0, 0, 7); sg.fill(); sg.beginPath(); sg.moveTo(q.x - 6, q.y); sg.lineTo(p.x - 20, p.y - 8); sg.lineTo(p.x - 14, p.y + 10); sg.lineTo(q.x + 4, q.y + 3); sg.closePath(); sg.fill(); }
     else if (o.tipo === 'poste' || o.tipo === 'antena') { sq(o.x + 0.45, o.y + 0.45, o.x + 0.55 + L, o.y + 0.55); sq(o.x + 0.4 + L, o.y + 0.35, o.x + 0.65 + L, o.y + 0.75); }
     else if (o.tipo === 'pneus' || o.tipo === 'tambor') { const p = P(o.x + 0.75, o.y + 0.5); sg.beginPath(); sg.ellipse(p.x, p.y, 14, 7, 0, 0, 7); sg.fill(); }
     else proj(o.x + 0.04, o.y + 0.04, o.x + o.w - 0.04, o.y + o.d - 0.04, L);
@@ -161,7 +161,8 @@ function desenharChao(mundo) {
   const ao = document.createElement('canvas'); ao.width = c.width; ao.height = c.height;
   const ag = ao.getContext('2d'); ag.fillStyle = '#05070a';
   for (const o of mundo.OBJ || []) {
-    const h = o.h || ALTURA[o.tipo] || 20; if (h < 10 || o.tipo === 'placaRua' || o.tipo === 'poste' || o.tipo === 'arvore' || o.tipo === 'cerca' || o.tipo === 'barco') continue;
+    if (o.tipo === 'arvore') { const q = P(o.x + 0.5, o.y + 0.5); ag.beginPath(); ag.ellipse(q.x + 2, q.y + 1, 12, 6, 0, 0, 7); ag.fill(); continue; }
+    const h = o.h || ALTURA[o.tipo] || 20; if (h < 10 || o.tipo === 'placaRua' || o.tipo === 'poste' || o.tipo === 'cerca' || o.tipo === 'barco') continue;
     const m = 0.08, a1 = P(o.x - m, o.y - m), b1 = P(o.x + o.w + m, o.y - m), c1 = P(o.x + o.w + m, o.y + o.d + m), d1 = P(o.x - m, o.y + o.d + m);
     ag.beginPath(); ag.moveTo(a1.x, a1.y); ag.lineTo(b1.x, b1.y); ag.lineTo(c1.x, c1.y); ag.lineTo(d1.x, d1.y); ag.closePath(); ag.fill();
   }
@@ -882,17 +883,33 @@ function desenharObjeto(g, o, t) {
       // árvore facetada: cada volume tem lado de luz (esquerda, de onde vem o sol) e lado de sombra, com arestas retas
       const sway = Math.round(Math.sin(t * 0.8 + x) * 1.5);
       const esp = o.especie || (r() > 0.45 ? 'pinheiro' : 'copa');
+      // cada árvore com um tamanho, pra mata não parecer carimbada (escala presa no pé)
+      const esc = o.escala || 0.84 + r() * 0.3; g.save(); g.translate(p.x, p.y); g.scale(esc, esc); g.translate(-p.x, -p.y);
       const tri = (a2, b2, c2, cor) => { g.fillStyle = cor; g.beginPath(); g.moveTo(a2[0], a2[1]); g.lineTo(b2[0], b2[1]); g.lineTo(c2[0], c2[1]); g.closePath(); g.fill(); };
-      // tronco
-      const alto = esp === 'pinheiro' ? 20 : 34;
-      g.fillStyle = '#1e1812'; g.fillRect(p.x - 4, p.y - alto, 8, alto + 1);
-      g.fillStyle = '#5a4430'; g.fillRect(p.x - 3, p.y - alto, 3, alto); g.fillStyle = '#3a2c20'; g.fillRect(p.x, p.y - alto, 3, alto);
+      // base: sombra de contato colada no pé, raízes abrindo e tronco afinando até dentro da copa
+      g.fillStyle = 'rgba(8,10,6,0.42)'; g.beginPath(); g.ellipse(p.x + 2, p.y + 1, 11, 4.5, 0, 0, 7); g.fill();
+      g.fillStyle = 'rgba(8,10,6,0.35)'; g.beginPath(); g.ellipse(p.x + 1, p.y, 7, 3, 0, 0, 7); g.fill();
+      const alto = esp === 'pinheiro' ? 44 : 62, lean = sway * 0.5;
+      const poli = (pts, cor) => { g.fillStyle = cor; g.beginPath(); pts.forEach((q, i) => i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1])); g.closePath(); g.fill(); };
+      const b0 = esp === 'pinheiro' ? 4 : 5, b1 = esp === 'pinheiro' ? 2 : 3;
+      // contorno do tronco
+      poli([[p.x - b0 - 4, p.y + 1], [p.x - b0 - 1, p.y - 4], [p.x - b1 - 1 + lean, p.y - alto], [p.x + b1 + 1 + lean, p.y - alto], [p.x + b0 + 1, p.y - 4], [p.x + b0 + 5, p.y + 2], [p.x, p.y + 3]], '#1e1812');
+      // metade de luz e metade de sombra
+      poli([[p.x - b0 - 3, p.y + 0.5], [p.x - b0, p.y - 4], [p.x - b1 + lean, p.y - alto], [p.x + lean, p.y - alto], [p.x, p.y + 2]], '#5e4832');
+      poli([[p.x, p.y + 2], [p.x + lean, p.y - alto], [p.x + b1 + lean, p.y - alto], [p.x + b0, p.y - 4], [p.x + b0 + 4, p.y + 1.5]], '#3a2c20');
+      // raízes saindo pros lados, rente ao chão
+      poli([[p.x - b0 - 1, p.y - 2], [p.x - b0 - 7, p.y + 2], [p.x - b0 - 2, p.y + 1]], '#4a3826');
+      poli([[p.x + b0, p.y - 2], [p.x + b0 + 8, p.y + 3], [p.x + b0 + 1, p.y + 2]], '#2e2318');
+      poli([[p.x - 1, p.y], [p.x - 3, p.y + 4], [p.x + 2, p.y + 2]], '#3a2c20');
+      // casca: riscos verticais e musgo no pé
+      g.fillStyle = '#2a2018'; for (let k = 0; k < 3; k++) { const yy = p.y - 8 - k * 9 - Math.floor(r() * 4); g.fillRect(p.x - 2 + (k % 2) * 3 + Math.round(lean * (p.y - yy) / alto), yy, 1, 4); }
+      g.fillStyle = '#4a5a30'; g.fillRect(p.x - b0, p.y - 3, 3, 2); g.fillRect(p.x - b0 - 3, p.y, 2, 1);
       if (esp === 'pinheiro') {
         // três a quatro andares de cone, do maior (embaixo) pro menor
         const tons = r() > 0.85 ? ['#6a7a48', '#4e5e36', '#34402a', '#24301e'] : ['#4e6e44', '#3a5634', '#2a4028', '#1a2a1a'];
         const n = 3 + (r() > 0.5 ? 1 : 0), H = 96 + Math.floor(r() * 26);
         for (let k = 0; k < n; k++) {
-          const f = k / n, bw = 30 - f * 18, by = p.y - 14 - f * (H - 30), ty = by - (H - 14) / n - 22, cx = p.x + sway * (f + 0.3);
+          const f = k / n, bw = 30 - f * 18, by = p.y - 20 - f * (H - 34), ty = by - (H - 18) / n - 22, cx = p.x + sway * (f + 0.3);
           const ap = [cx, ty], esq = [cx - bw, by], dir = [cx + bw, by], baixo = [cx + 2, by + bw * 0.32];
           tri([cx - bw - 1, by + 1], [cx + bw + 1, by + 1], [cx, ty - 2], tons[3]);           // contorno
           tri([cx + 2, by + bw * 0.32 + 1], [cx - bw - 1, by + 1], [cx + bw + 1, by + 1], tons[3]);
@@ -904,7 +921,15 @@ function desenharObjeto(g, o, t) {
       } else {
         // copa larga em gomos facetados (poliedros baixos), verde ou ocre de outono
         const outono = r() > 0.6, tons = outono ? ['#b08a44', '#8e6a34', '#644a26', '#2e2212'] : ['#6a8a48', '#4e6e3a', '#36502c', '#1a2614'];
-        const gomos = [[-18, -54, 19], [18, -52, 20], [0, -64, 26], [-9, -84, 21], [13, -82, 18], [2, -100, 14]].map(([a2, b2, c2]) => [a2, b2, c2 + Math.round((r() - 0.5) * 4)]);
+        const gomos = [[-18, -52, 19], [18, -50, 20], [0, -62, 26], [-9, -84, 21], [13, -82, 18], [2, -100, 14]].map(([a2, b2, c2]) => [a2, b2, c2 + Math.round((r() - 0.5) * 4)]);
+        // galhos saindo do tronco pra dentro dos gomos de baixo, e a sombra da copa no alto do tronco
+        g.lineCap = 'round';
+        for (const [dx, dy, lw] of [[-15, -50, 4], [15, -48, 4], [-6, -70, 3], [9, -66, 3]]) {
+          g.strokeStyle = '#1e1812'; g.lineWidth = lw + 2; g.beginPath(); g.moveTo(p.x + lean, p.y - 30 + dy * 0.2); g.lineTo(p.x + dx + sway, p.y + dy); g.stroke();
+          g.strokeStyle = dx < 0 ? '#5e4832' : '#3a2c20'; g.lineWidth = lw; g.beginPath(); g.moveTo(p.x + lean, p.y - 30 + dy * 0.2); g.lineTo(p.x + dx + sway, p.y + dy); g.stroke();
+        }
+        g.lineCap = 'butt';
+        g.fillStyle = 'rgba(10,14,6,0.55)'; g.fillRect(p.x - b1 - 1 + lean, p.y - 44, b1 * 2 + 2, 10);
         // contorno de todos primeiro, pra linha escura ficar só na borda de fora da copa
         for (const [dx, dy, rr] of gomos) { const cx = p.x + dx + sway, cy = p.y + dy; g.fillStyle = tons[3]; g.beginPath(); for (let k = 0; k < 6; k++) { const an = -Math.PI / 2 + k * Math.PI / 3; const q = [cx + Math.cos(an) * (rr + 1.5), cy + Math.sin(an) * (rr + 1.5) * 0.86]; k ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); } g.closePath(); g.fill(); }
         for (const [dx, dy, rr] of gomos) {
@@ -916,6 +941,7 @@ function desenharObjeto(g, o, t) {
           for (const k of ord) tri(c0, v[k], v[(k + 1) % 6], tons[sombra[k]]);
         }
       }
+      g.restore();
     } break;
     default: caixa(g, x, y, w, d, h, '#777');
   }
