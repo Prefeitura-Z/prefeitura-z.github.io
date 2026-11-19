@@ -157,6 +157,15 @@ function desenharChao(mundo) {
     else proj(o.x + 0.04, o.y + 0.04, o.x + o.w - 0.04, o.y + o.d - 0.04, L);
   }
   g.globalAlpha = 0.3; g.filter = 'blur(2px)'; g.drawImage(sc, 0, 0); g.filter = 'none'; g.globalAlpha = 1;
+  // oclusão de contato: escurece o chão colado na base de tudo que é sólido (é o que mais faz parecer que está apoiado)
+  const ao = document.createElement('canvas'); ao.width = c.width; ao.height = c.height;
+  const ag = ao.getContext('2d'); ag.fillStyle = '#05070a';
+  for (const o of mundo.OBJ || []) {
+    const h = o.h || ALTURA[o.tipo] || 20; if (h < 10 || o.tipo === 'placaRua' || o.tipo === 'poste' || o.tipo === 'arvore' || o.tipo === 'cerca' || o.tipo === 'barco') continue;
+    const m = 0.08, a1 = P(o.x - m, o.y - m), b1 = P(o.x + o.w + m, o.y - m), c1 = P(o.x + o.w + m, o.y + o.d + m), d1 = P(o.x - m, o.y + o.d + m);
+    ag.beginPath(); ag.moveTo(a1.x, a1.y); ag.lineTo(b1.x, b1.y); ag.lineTo(c1.x, c1.y); ag.lineTo(d1.x, d1.y); ag.closePath(); ag.fill();
+  }
+  g.globalAlpha = 0.42; g.filter = 'blur(5px)'; g.drawImage(ao, 0, 0); g.filter = 'none'; g.globalAlpha = 1;
   return { canvas: c, ox, oy };
 }
 
@@ -823,23 +832,43 @@ function desenharObjeto(g, o, t) {
       break;
     }
     case 'arvore': { const p = iso(x + 0.5, y + 0.5);
-      // tronco com raiz e lado na sombra
-      g.fillStyle = '#2a2018'; g.fillRect(p.x - 5, p.y - 42, 10, 42); g.fillRect(p.x - 8, p.y - 4, 16, 4);
-      g.fillStyle = '#5a4430'; g.fillRect(p.x - 4, p.y - 42, 5, 41); g.fillRect(p.x - 7, p.y - 3, 6, 2);
-      g.fillStyle = '#3e2f22'; g.fillRect(p.x + 1, p.y - 42, 3, 41); g.fillRect(p.x + 1, p.y - 3, 6, 2);
-      g.fillStyle = '#6e5640'; g.fillRect(p.x - 3, p.y - 30, 1, 6); g.fillRect(p.x - 2, p.y - 16, 1, 4);
+      // árvore facetada: cada volume tem lado de luz (esquerda, de onde vem o sol) e lado de sombra, com arestas retas
       const sway = Math.round(Math.sin(t * 0.8 + x) * 1.5);
-      // copa em tufos: contorno escuro, massa, sombra embaixo à direita, brilho em cima à esquerda
-      const tufos = [[0, -60, 24], [-16, -72, 18], [16, -70, 19], [-6, -88, 18], [10, -90, 15], [0, -102, 12], [-20, -56, 13], [20, -55, 13]];
-      const seco = r() > 0.8, base = seco ? ['#4a4a32', '#5a5a3c', '#6e6c48', '#2e2e20'] : ['#2f4a2c', '#3f5f38', '#557a46', '#1c2a1a'];
-      const bola = (cx, cy, rr) => { g.beginPath(); g.arc(Math.round(cx), Math.round(cy), rr, 0, 7); g.fill(); };
-      g.fillStyle = base[3]; for (const [dx, dy, rr] of tufos) bola(p.x + dx + sway, p.y + dy, rr + 2);
-      g.fillStyle = base[0]; for (const [dx, dy, rr] of tufos) bola(p.x + dx + sway, p.y + dy, rr);
-      g.fillStyle = base[1]; for (const [dx, dy, rr] of tufos) bola(p.x + dx + sway - 3, p.y + dy - 3, rr - 4);
-      g.fillStyle = base[2]; for (const [dx, dy, rr] of tufos) if (rr > 13) bola(p.x + dx + sway - 6, p.y + dy - 7, rr * 0.4);
-      // folhas soltas em pixel pra quebrar o contorno redondo
-      for (let k = 0; k < 26; k++) { const a = r() * 6.28, d = 14 + r() * 16; g.fillStyle = r() > 0.5 ? base[2] : base[1]; g.fillRect(Math.round(p.x + sway + Math.cos(a) * d * 1.1), Math.round(p.y - 76 + Math.sin(a) * d), 2, 2); }
-      if (!seco && r() > 0.6) { g.fillStyle = '#c98a3a'; for (let k = 0; k < 4; k++) g.fillRect(Math.round(p.x + sway + (r() - 0.5) * 36), Math.round(p.y - 64 - r() * 34), 2, 2); }
+      const esp = o.especie || (r() > 0.45 ? 'pinheiro' : 'copa');
+      const tri = (a2, b2, c2, cor) => { g.fillStyle = cor; g.beginPath(); g.moveTo(a2[0], a2[1]); g.lineTo(b2[0], b2[1]); g.lineTo(c2[0], c2[1]); g.closePath(); g.fill(); };
+      // tronco
+      const alto = esp === 'pinheiro' ? 20 : 34;
+      g.fillStyle = '#1e1812'; g.fillRect(p.x - 4, p.y - alto, 8, alto + 1);
+      g.fillStyle = '#5a4430'; g.fillRect(p.x - 3, p.y - alto, 3, alto); g.fillStyle = '#3a2c20'; g.fillRect(p.x, p.y - alto, 3, alto);
+      if (esp === 'pinheiro') {
+        // três a quatro andares de cone, do maior (embaixo) pro menor
+        const tons = r() > 0.85 ? ['#6a7a48', '#4e5e36', '#34402a', '#24301e'] : ['#4e6e44', '#3a5634', '#2a4028', '#1a2a1a'];
+        const n = 3 + (r() > 0.5 ? 1 : 0), H = 96 + Math.floor(r() * 26);
+        for (let k = 0; k < n; k++) {
+          const f = k / n, bw = 30 - f * 18, by = p.y - 14 - f * (H - 30), ty = by - (H - 14) / n - 22, cx = p.x + sway * (f + 0.3);
+          const ap = [cx, ty], esq = [cx - bw, by], dir = [cx + bw, by], baixo = [cx + 2, by + bw * 0.32];
+          tri([cx - bw - 1, by + 1], [cx + bw + 1, by + 1], [cx, ty - 2], tons[3]);           // contorno
+          tri([cx + 2, by + bw * 0.32 + 1], [cx - bw - 1, by + 1], [cx + bw + 1, by + 1], tons[3]);
+          tri(ap, esq, baixo, tons[0]);                                                          // face de luz
+          tri(ap, baixo, dir, tons[2]);                                                          // face de sombra
+          tri(ap, [cx - bw * 0.45, by + bw * 0.1], [cx - bw * 0.1, by + bw * 0.25], tons[1]);   // faceta do meio
+          tri(ap, [cx + bw * 0.5, by + bw * 0.12], [cx + bw * 0.15, by + bw * 0.24], tons[3] + '88');
+        }
+      } else {
+        // copa larga em gomos facetados (poliedros baixos), verde ou ocre de outono
+        const outono = r() > 0.6, tons = outono ? ['#b08a44', '#8e6a34', '#644a26', '#2e2212'] : ['#6a8a48', '#4e6e3a', '#36502c', '#1a2614'];
+        const gomos = [[-18, -54, 19], [18, -52, 20], [0, -64, 26], [-9, -84, 21], [13, -82, 18], [2, -100, 14]].map(([a2, b2, c2]) => [a2, b2, c2 + Math.round((r() - 0.5) * 4)]);
+        // contorno de todos primeiro, pra linha escura ficar só na borda de fora da copa
+        for (const [dx, dy, rr] of gomos) { const cx = p.x + dx + sway, cy = p.y + dy; g.fillStyle = tons[3]; g.beginPath(); for (let k = 0; k < 6; k++) { const an = -Math.PI / 2 + k * Math.PI / 3; const q = [cx + Math.cos(an) * (rr + 1.5), cy + Math.sin(an) * (rr + 1.5) * 0.86]; k ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); } g.closePath(); g.fill(); }
+        for (const [dx, dy, rr] of gomos) {
+          const cx = p.x + dx + sway, cy = p.y + dy, v = [];
+          for (let k = 0; k < 6; k++) { const an = -Math.PI / 2 + k * Math.PI / 3 + (r() - 0.5) * 0.25; v.push([cx + Math.cos(an) * rr, cy + Math.sin(an) * rr * 0.86]); }
+          const c0 = [cx - rr * 0.15, cy - rr * 0.1];
+          // seis triângulos em volta do centro: luz em cima/esquerda, sombra embaixo/direita
+          const ord = [0, 1, 2, 3, 4, 5], sombra = [1, 2, 2, 1, 0, 0];
+          for (const k of ord) tri(c0, v[k], v[(k + 1) % 6], tons[sombra[k]]);
+        }
+      }
     } break;
     default: caixa(g, x, y, w, d, h, '#777');
   }
@@ -1272,5 +1301,20 @@ function desenharBicho(g, b, t) {
   g.restore();
 }
 
-PZ.arte = { desenharBicho, COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, silhueta, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, EQUIP_VIS, QW, QH, PX, PY, DIRS };
+// mata: enche de árvore o gramado "fundo" (grama com grama em volta e sem nada perto), sorteado sempre igual pro mapa.
+// É o que dá o volume de floresta em volta das ruas e do abrigo sem precisar marcar árvore por árvore.
+function mata(mundo, dens = 0.42) {
+  const { LARG, ALT, chao, T } = mundo, ocup = new Uint8Array(LARG * ALT), novas = [];
+  for (const o of mundo.OBJ) for (let y = Math.floor(o.y) - 1; y <= o.y + o.d; y++) for (let x = Math.floor(o.x) - 1; x <= o.x + o.w; x++) if (x >= 0 && y >= 0 && x < LARG && y < ALT) ocup[y * LARG + x] = 1;
+  const r = rng(LARG * 977 + ALT * 131 + mundo.OBJ.length);
+  for (let y = 0; y < ALT; y++) for (let x = 0; x < LARG; x++) {
+    let fundo = true;
+    for (let dy = -1; dy <= 1 && fundo; dy++) for (let dx = -1; dx <= 1; dx++) { const xx = x + dx, yy = y + dy; if (xx < 0 || yy < 0 || xx >= LARG || yy >= ALT) continue; if (chao[yy * LARG + xx] !== T.GRAMA) { fundo = false; break; } }
+    if (!fundo || ocup[y * LARG + x] || r() > dens) continue;
+    novas.push({ tipo: 'arvore', x, y, w: 1, d: 1, solido: true, mata: true });
+    for (let dy = 0; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const xx = x + dx, yy = y + dy; if (xx >= 0 && yy < ALT && xx < LARG) ocup[yy * LARG + xx] = 1; }
+  }
+  return novas;
+}
+PZ.arte = { mata, desenharBicho, COR, TW, TH, HW, HH, iso, tom, desenharChao, desenharObjeto, caixaTela, ALTOS, ALTURA, folha, silhueta, NPC_AP, INIMIGO_AP, PELE, CABELO, ROUPA, EQUIP_VIS, QW, QH, PX, PY, DIRS };
 })();
