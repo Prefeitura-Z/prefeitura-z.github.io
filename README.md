@@ -50,7 +50,7 @@ Quem decide tudo é o servidor (`worker/src/regras.js` tem as regras puras; `wor
 - `POST /game/expedicao/iniciar` sorteia uma semente, simula a rota inteira na hora e guarda o resultado. O navegador recebe o roteiro e só desenha, pela hora do servidor. Recarregar a página continua do mesmo ponto.
 - `POST /game/expedicao/concluir` (depois do fim) ou `/recuar` (antes) entrega o prêmio uma vez só: a expedição passa de `andamento` pra `premiando` e pra `encerrada` dentro do mesmo lote, e um índice único deixa só uma expedição ativa por personagem.
 - Loja, bancada, reparo e curativo (`POST /game/loja`, `/game/usar`) usam recibo em `game_ledger`: cada clique manda uma `chave`, e o mesmo pedido repetido não cobra nem paga duas vezes.
-- Créditos são moeda só do jogo, ganhos jogando. Não tem compra com dinheiro de verdade, troca entre jogadores nem PRZ Coins.
+- Créditos são moeda só do jogo, ganhos jogando. Não tem compra com dinheiro de verdade, troca entre jogadores nem PRZ Coins. A única saída deles pro servidor são as caixas do Prefeito (abaixo).
 - **Farm** (`POST /game/expedicao/ronda`): numa rota já feita, o personagem fica na área por até 8 h, com o jogo aberto ou fechado. Ele não volta pro portão entre as voltas: cada volta começa onde a anterior acabou e os infectados reaparecem. O servidor decide na saída quantas voltas cabem e onde para (kit de campo, vida, equipamento, queda ou tempo). Em rota que gasta kit pra sair, um kit segura 10 voltas (a Rua de Cima não gasta kit nem no farm), só voltas inteiras rendem, kit não aberto volta pro armazém e o fechamento paga uma vez só.
 - **Bancada do Wolf**: além de kit e curativo, faz equipamento com material da rua (lança de vergalhão, colete de placas, mochila cargueira, kit de desmonte). Equipamento sai um por vez, com recibo, e entra no armazém novo.
 - **Barricada do Sul**: quarta rota, liberada depois de vencer o Porteiro, com o Inchado (infectado lento e resistente). Pede equipamento da bancada pra farmar com segurança.
@@ -58,3 +58,14 @@ Quem decide tudo é o servidor (`worker/src/regras.js` tem as regras puras; `wor
 - Mudou algum número em `regras.js`? Suba `VERSAO`. Expedições em andamento terminam com o resultado que já estava guardado.
 
 As áreas de fora do abrigo não têm presença: cada jogador sai sozinho.
+
+## Jogo: caixas pro servidor (lootbox paga com créditos)
+
+No Prefeito, "Caixas pro servidor" vende as 5 lootboxes do mod XsLootBoxes por créditos do jogo e entrega no Project Zomboid.
+
+- Preços e limite ficam em `worker/src/regras.js` (`CAIXAS`, `CAIXAS_POR_DIA`). Hoje: Comum e Incomum 25 mil, Rara 100 mil, Épica 200 mil, Prestígio 300 mil, 1 por conta a cada 24 h.
+- Precisa do personagem do servidor vinculado (Minha conta). Os créditos saem na compra, com recibo em `game_ledger`, e o pedido entra em `orders` com `listing_id` `caixa:<id>`.
+- A ponte manda a caixa pro servidor numa linha `C|pedido|login|item|criado`. Quem entrega é o `PRZSite_Bridge.lua` do PrefeituraZComputer, que só aceita os 5 itens da lista dele e entrega com o jogador online.
+- O mod avisa que sabe entregar com a linha `F|caixas|1`. Sem esse aviso na última hora, o site não vende (aparece "entrega desligada").
+- Recusado pelo servidor, ou 3 dias sem o jogador entrar: os créditos voltam sozinhos. O mod para de entregar meia hora antes do prazo, pra nunca entregar e devolver o mesmo pedido.
+- Testes: `node --test tests/caixas.test.mjs`.

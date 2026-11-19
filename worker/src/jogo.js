@@ -27,6 +27,7 @@ export const ACOES_NPC = {
   prefeito: {
     registro: { marca: 'registrado' },
     armazem: { requer: 'registrado', abre: 'armazem' },
+    caixas: { requer: 'registrado', abre: 'caixas' },
     projetos: { requer: 'registrado', demo: true },
     ajudar: {},
   },
@@ -144,7 +145,7 @@ export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
   const conta = await garantirConta(env, u);
   if (conta.estado !== 'ativo') return erro(env, 403, 'Sua conta está suspensa no jogo.');
   // loja, mochila e expedição não dependem do papel: saem antes pra poupar uma consulta
-  if (/^\/game\/(catalogo|expedicao\/|equipar|usar|loja)/.test(pathname)) {
+  if (/^\/game\/(catalogo|expedicao\/|equipar|usar|loja|caixas)/.test(pathname)) {
     const r = await rotasExpedicao(req, env, u, pathname, json, erro, ler, personagemPublico, conta.personagem);
     if (r) return r;
   }

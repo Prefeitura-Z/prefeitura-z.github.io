@@ -114,12 +114,14 @@ const DIALOGOS = {
     opcoes: [
       { id: 'registro', rotulo: 'Meu registro' },
       { id: 'armazem', rotulo: 'Abrir armazém' },
+      { id: 'caixas', rotulo: 'Caixas pro servidor' },
       { id: 'projetos', rotulo: 'Projetos do abrigo' },
       { id: 'ajudar', rotulo: 'Como posso ajudar?' },
     ],
     respostas: {
       registro: { novo: 'Pronto, seu nome tá no livro. Isso te dá um canto no armazém e lugar na fila da sopa. Passa no Wolf, na oficina, que ele tem um kit separado pra você.', ok: 'Tá registrado desde que chegou. Ninguém some do meu livro.' },
       armazem: { ok: 'O armazém fica aqui atrás. Cada um tem a sua prateleira, e ninguém mexe na dos outros.' },
+      caixas: { ok: 'Tem caravana saindo pro condado. Paga aqui, e a caixa chega na mão do seu sobrevivente lá no servidor. Não é barato.' },
       projetos: { demo: 'Portão novo, gerador e reservatório. Uma coisa de cada vez, com o que vocês trouxerem lá de fora.' },
       ajudar: { ok: 'Fala com o Bashar no rádio. Ele sempre tem alguém pra achar.' },
     },

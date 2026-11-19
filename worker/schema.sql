@@ -117,3 +117,10 @@ CREATE TABLE IF NOT EXISTS game_ledger (
   criado INTEGER NOT NULL
 );
 CREATE INDEX IF NOT EXISTS ledger_dono ON game_ledger(discord_id, criado);
+
+-- ponte com o servidor: o que o mod do servidor anunciou que sabe fazer (ex.: entregar lootbox)
+CREATE TABLE IF NOT EXISTS bridge_state (
+  chave TEXT PRIMARY KEY,
+  valor TEXT,
+  em INTEGER NOT NULL
+);

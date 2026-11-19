@@ -5,6 +5,7 @@
 // Segredos (wrangler secret): DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, SITE_BRIDGE_SECRET, OWNER_DISCORD_ID (dono do jogo)
 
 import { rotasJogo, entrarNaSala, abrigoPublico } from './jogo.js';
+import { CAIXAS, CAIXA_EXPIRA_DIAS } from './regras.js';
 export { SalaAbrigo } from './sala.js';
 
 const SESSAO_DIAS = 30;
@@ -124,7 +125,7 @@ async function callback(req, env) {
 
 async function me(env, u) {
   const { results } = await env.DB.prepare(
-    'SELECT id, item, preco, status, motivo, criado, atualizado FROM orders WHERE discord_id = ? ORDER BY criado DESC LIMIT 20'
+    "SELECT id, item, preco, status, motivo, criado, atualizado FROM orders WHERE discord_id = ? AND listing_id NOT LIKE 'caixa:%' ORDER BY criado DESC LIMIT 20"
   ).bind(u.discord_id).all();
   return json(env, {
     nome: u.nome, avatar: u.avatar, login: u.login,
@@ -149,7 +150,7 @@ async function novoPedido(req, env, u) {
   if (!/^[A-Za-z0-9_.:\-]{1,80}$/.test(listing)) return erro(env, 400, 'Item inválido.');
   const item = String(b.item || '').slice(0, 80);
   const preco = Math.max(0, Math.floor(Number(b.preco) || 0));
-  const pend = await env.DB.prepare("SELECT COUNT(*) AS n, COALESCE(SUM(preco), 0) AS total FROM orders WHERE discord_id = ? AND status = 'pendente'").bind(u.discord_id).first();
+  const pend = await env.DB.prepare("SELECT COUNT(*) AS n, COALESCE(SUM(preco), 0) AS total FROM orders WHERE discord_id = ? AND status = 'pendente' AND listing_id NOT LIKE 'caixa:%'").bind(u.discord_id).first();
   if (pend.n >= MAX_PENDENTES) return erro(env, 429, `Você já tem ${MAX_PENDENTES} pedidos esperando entrega.`);
   if (u.saldo != null && preco + pend.total > u.saldo) return erro(env, 400, pend.n ? 'Saldo insuficiente contando os pedidos que ainda vão ser entregues.' : 'Saldo insuficiente.');
   const id = rand(8);
@@ -174,7 +175,13 @@ async function ponte(req, env) {
   if (!env.SITE_BRIDGE_SECRET || !igual(h, `Bearer ${env.SITE_BRIDGE_SECRET}`)) return new Response('nao', { status: 401 });
   const outbox = await req.text();
   const t = agora();
-  const ops = [];
+  // cada grupo vai inteiro no mesmo lote: o reembolso de uma caixa e a troca de status nunca se separam
+  const grupos = [];
+  const ops = { push: (...o) => grupos.push(o) };
+  // devolve os créditos de uma caixa ainda pendente (roda antes de trocar o status, no mesmo lote)
+  const devolver = (onde, ...binds) => env.DB.prepare(
+    `INSERT INTO game_inventory (discord_id, item, qtd) SELECT discord_id, 'creditos', SUM(preco) FROM orders WHERE status = 'pendente' AND listing_id LIKE 'caixa:%' AND ${onde} GROUP BY discord_id
+     ON CONFLICT(discord_id, item) DO UPDATE SET qtd = qtd + excluded.qtd`).bind(...binds);
   for (const linha of outbox.split('\n')) {
     const c = linha.trim().split('|');
     if (c[0] === 'K' && c.length >= 3) {
@@ -187,14 +194,26 @@ async function ponte(req, env) {
       }
     } else if (c[0] === 'B' && c.length >= 3) {
       ops.push(env.DB.prepare('UPDATE users SET saldo = ?, saldo_em = ? WHERE login = ?').bind(Math.floor(Number(c[2]) || 0), t, c[1]));
+    } else if (c[0] === 'F' && c[1] === 'caixas' && c[2] === '1') {
+      ops.push(env.DB.prepare("INSERT INTO bridge_state (chave, valor, em) VALUES ('caixas', '1', ?) ON CONFLICT(chave) DO UPDATE SET valor = excluded.valor, em = excluded.em").bind(t));
     } else if (c[0] === 'R' && c.length >= 3 && (c[2] === 'entregue' || c[2] === 'recusado')) {
+      if (c[2] === 'recusado') ops.push(devolver('id = ?', c[1]), env.DB.prepare(
+        "UPDATE orders SET status = 'recusado', motivo = ?, atualizado = ? WHERE id = ? AND status = 'pendente' AND listing_id LIKE 'caixa:%'")
+        .bind(`${MOTIVOS[c[3]] || c[3] || 'Não deu pra entregar'}. Os créditos voltaram.`, t, c[1]));
       ops.push(env.DB.prepare("UPDATE orders SET status = ?, motivo = ?, atualizado = ? WHERE id = ? AND status IN ('pendente', 'expirado')")
         .bind(c[2], MOTIVOS[c[3]] || c[3] || '', t, c[1]));
     }
   }
+  const prazoCaixa = t - CAIXA_EXPIRA_DIAS * 86400;
+  ops.push(devolver('criado < ?', prazoCaixa), env.DB.prepare(
+    "UPDATE orders SET status = 'reembolsado', motivo = 'Você não entrou no jogo a tempo. Os créditos voltaram.', atualizado = ? WHERE status = 'pendente' AND listing_id LIKE 'caixa:%' AND criado < ?")
+    .bind(t, prazoCaixa));
   ops.push(env.DB.prepare("UPDATE orders SET status = 'expirado', motivo = 'Você não entrou no jogo a tempo', atualizado = ? WHERE status = 'pendente' AND criado < ?")
     .bind(t, t - EXPIRA_PEDIDO_DIAS * 86400));
-  for (let i = 0; i < ops.length; i += 50) await env.DB.batch(ops.slice(i, i + 50));
+  for (let i = 0, lote = []; i <= grupos.length; i++) {
+    if (i === grupos.length || lote.length + grupos[i].length > 50) { if (lote.length) await env.DB.batch(lote); lote = []; }
+    if (i < grupos.length) lote.push(...grupos[i]);
+  }
 
   const limpa = s => String(s || '').replace(/[|\r\n]/g, ' ');
   // Private authenticated response only. Existing Lua consumers keep the original L rows.
@@ -207,8 +226,13 @@ async function ponte(req, env) {
     // Identity uses the exact login; delimiter escaping must never alias another player.
     if (/^[0-9]{17,20}$/.test(u.discord_id)) linhas.push(`D|${encodeURIComponent(u.login)}|${u.discord_id}`);
   }
-  const { results: ps } = await env.DB.prepare("SELECT id, login, listing_id, preco FROM orders WHERE status = 'pendente' ORDER BY criado LIMIT 200").all();
-  for (const p of ps) linhas.push(`O|${p.id}|${limpa(p.login)}|${limpa(p.listing_id)}|${p.preco}`);
+  const { results: ps } = await env.DB.prepare("SELECT id, login, listing_id, preco, criado FROM orders WHERE status = 'pendente' ORDER BY criado LIMIT 200").all();
+  for (const p of ps) {
+    const cx = String(p.listing_id).startsWith('caixa:') ? CAIXAS[String(p.listing_id).slice(6)] : null;
+    // caixa paga com créditos do jogo: linha própria (C), que só o mod com a lista de caixas entende
+    if (cx) linhas.push(`C|${p.id}|${limpa(p.login)}|${cx.tipo}|${p.criado}`);
+    else if (!String(p.listing_id).startsWith('caixa:')) linhas.push(`O|${p.id}|${limpa(p.login)}|${limpa(p.listing_id)}|${p.preco}`);
+  }
   // Reader accepts identities only after the entire snapshot has reached the host.
   linhas.push(`END|2|${t}`);
   return new Response(linhas.join('\n') + '\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

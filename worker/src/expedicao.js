@@ -1,7 +1,7 @@
 // Prefeitura Z: Depois da Queda — estoque, equipamento, loja do Wolf e expedições.
 // Regra geral: o navegador pede, o servidor decide. Toda mudança de recurso sai num lote (transação) do D1
 // que só vale se a condição ainda for verdadeira dentro do próprio lote, e um clique repetido não conta duas vezes.
-import { ITENS, EQUIPAVEIS, KIT_INICIAL, KIT_SUPRIMENTOS, LOJA, RECEITAS, ROTAS, VERSAO, CUSTO_REPARO_POR_PONTO, FERIMENTO_SEG, valorRevenda,
+import { CAIXAS, CAIXAS_POR_DIA, CAIXA_EXPIRA_DIAS, ITENS, EQUIPAVEIS, KIT_INICIAL, KIT_SUPRIMENTOS, LOJA, RECEITAS, ROTAS, VERSAO, CUSTO_REPARO_POR_PONTO, FERIMENTO_SEG, valorRevenda,
   RONDA, kitsDaRonda, atributos, nivelDe, simular, simularRonda, rondaAte, resultadoAte, desgaste, catalogo } from './regras.js';
 
 const seg = () => Math.floor(Date.now() / 1000);
@@ -410,5 +410,50 @@ export async function rotasExpedicao(req, env, u, pathname, json, erro, ler, per
     return responder({ ok: true, repetido: res === 'repetido' });
   }
 
+  // ----- lootboxes do servidor: paga com créditos aqui, chega no Project Zomboid pela ponte -----
+  if (pathname === '/game/caixas' && req.method === 'GET') return json(env, await vitrineCaixas(env, u));
+  if (pathname === '/game/caixas/comprar' && req.method === 'POST') {
+    const b = await ler(req);
+    if (!chaveValida(b?.chave)) return erro(env, 400, 'Pedido inválido.');
+    const cx = Object.hasOwn(CAIXAS, b.caixa) ? CAIXAS[b.caixa] : null;
+    if (!cx) return erro(env, 400, 'Essa caixa não existe.');
+    if (!JSON.parse(c.flags || '{}').registrado) return erro(env, 400, 'Passe no Prefeito e faça seu registro primeiro.');
+    if (!u.login) return erro(env, 400, 'Vincule seu personagem do servidor em Minha conta antes de comprar.');
+    if (!(await caixasLigadas(env))) return erro(env, 503, 'A entrega no servidor está desligada agora. Tente mais tarde.');
+    const t = seg(), pedido = novoId().slice(0, 16);
+    const limite = { sql: `(SELECT COUNT(*) FROM orders WHERE discord_id = ? AND listing_id LIKE 'caixa:%' AND status IN ('pendente', 'entregue') AND criado > ?) < ?`, binds: [did, t - 86400, CAIXAS_POR_DIA] };
+    const res = await comRecibo(env, did, 'caixa', b.chave, { caixa: b.caixa, preco: cx.preco, pedido }, todas(tem(did, 'creditos', cx.preco), limite), g => [
+      menos(env, did, 'creditos', cx.preco, g),
+      env.DB.prepare(`INSERT INTO orders (id, discord_id, login, listing_id, item, preco, status, motivo, criado, atualizado) SELECT ?, ?, ?, ?, ?, ?, 'pendente', '', ?, ? WHERE ${g.sql}`)
+        .bind(pedido, did, u.login, 'caixa:' + b.caixa, cx.nome, cx.preco, t, t, g.bind),
+    ]);
+    if (res === 'recusado') {
+      const s = await estadoDoJogador(env, did, c);
+      return responder({ erro: (s.creditos || 0) < cx.preco ? 'Faltam créditos.' : `Você já pegou ${CAIXAS_POR_DIA === 1 ? 'sua caixa' : 'suas caixas'} de hoje. Volte amanhã.` }, 400);
+    }
+    return responder({ ok: true, repetido: res === 'repetido', caixas: await vitrineCaixas(env, u) });
+  }
+
   return null;
+}
+
+// O servidor do jogo avisa pela ponte que sabe entregar caixa (linha F|caixas). Sem aviso recente, não vende.
+async function caixasLigadas(env) {
+  const r = await env.DB.prepare("SELECT em FROM bridge_state WHERE chave = 'caixas'").first();
+  return !!r && r.em > seg() - 3600;
+}
+
+async function vitrineCaixas(env, u) {
+  const t = seg();
+  const { results } = await env.DB.prepare(
+    "SELECT id, item, preco, status, motivo, criado, atualizado FROM orders WHERE discord_id = ? AND listing_id LIKE 'caixa:%' ORDER BY criado DESC LIMIT 10"
+  ).bind(u.discord_id).all();
+  const hoje = results.filter(p => (p.status === 'pendente' || p.status === 'entregue') && p.criado > t - 86400);
+  const proxima = hoje.length >= CAIXAS_POR_DIA ? Math.min(...hoje.map(p => p.criado)) + 86400 : 0;
+  return {
+    ligada: await caixasLigadas(env), vinculado: !!u.login, login: u.login || null,
+    porDia: CAIXAS_POR_DIA, expiraDias: CAIXA_EXPIRA_DIAS, proximaEm: proxima,
+    caixas: Object.entries(CAIXAS).map(([id, cx]) => ({ id, nome: cx.nome, preco: cx.preco, desc: cx.desc })),
+    pedidos: results,
+  };
 }

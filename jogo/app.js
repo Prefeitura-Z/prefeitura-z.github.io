@@ -48,6 +48,8 @@ const api = window.PZ_DEMO ? PZ.demoApi() : {
   equipar(id, tirar) { return this.chamar('/game/equipar', { method: 'POST', body: { id, tirar } }); },
   usar(item, chave) { return this.chamar('/game/usar', { method: 'POST', body: { item, chave } }); },
   loja(b) { return this.chamar('/game/loja', { method: 'POST', body: b }); },
+  caixas() { return this.chamar('/game/caixas'); },
+  comprarCaixa(b) { return this.chamar('/game/caixas/comprar', { method: 'POST', body: b }); },
   async bilhete() { return (await this.chamar('/game/presenca/bilhete', { method: 'POST' })).bilhete; },
   salaUrl: API.replace(/^http/, 'ws') + '/game/presenca',
   async sair() { try { await fetch(API + '/logout', { method: 'POST', headers: { Authorization: 'Bearer ' + Token.ler() } }); } catch {} Token.salvar(''); },
@@ -310,7 +312,7 @@ async function escolher(npc, D, op, botao) {
     absorver(r);
     if (r.erro) falar(r.erro, 'Tente de novo');
     else if (!r.ok) falar(r.motivo || 'Agora não.', 'Falta um passo antes');
-    else if (r.abre) { falar(R.ok || '…'); r.abre === 'armazem' ? abrirMochila() : abrirLoja(r.abre.split(':')[1]); }
+    else if (r.abre) { falar(R.ok || '…'); r.abre === 'armazem' ? abrirMochila() : r.abre === 'caixas' ? abrirCaixas() : abrirLoja(r.abre.split(':')[1]); }
     else if (r.novo) falar(R.novo || R.ok || '…');
     else if (r.demo) falar(R.demo || '…', 'Chega numa próxima etapa');
     else falar(R.ok || R.novo || '…');
@@ -625,6 +627,44 @@ $('loja-lista').onclick = async ev => {
       : d.loja === 'venderEquip' ? `${d.nome}: vendido por ${r.total ?? d.valor} créditos.` : d.loja === 'vender' ? `Vendido por ${(+d.qtd) * item(d.item).venda} créditos.` : d.loja === 'reparar' ? 'Consertado.' : catalogo.receitas[d.receita]?.equip ? 'Feito na bancada. Equipe na Mochila (I).' : 'Feito na bancada.';
   }
   desenharLoja();
+};
+
+// ---------- caixas pro servidor (lootbox paga com créditos, entregue no Project Zomboid) ----------
+let caixasInfo = null, caixaArmada = null;
+const STATUS_CAIXA = { pendente: 'A caminho: entra no servidor pra receber', entregue: 'Entregue no servidor', recusado: 'Não entregue, créditos devolvidos', reembolsado: 'Prazo acabou, créditos devolvidos' };
+const milhar = n => Number(n).toLocaleString('pt-BR');
+function desenharCaixas() {
+  const v = caixasInfo, cr = estado.estado.creditos;
+  $('caixas-creditos').textContent = `${milhar(cr)} créditos`;
+  if (!v) { $('caixas-lista').innerHTML = '<li class="vazio">Carregando…</li>'; return; }
+  let aviso = '';
+  if (!v.vinculado) aviso = 'Vincule seu sobrevivente do servidor antes: no site, abra Minha conta, pegue o código e, no jogo, clique com o botão direito no chão em "Vincular conta do site Prefeitura Z".';
+  else if (!v.ligada) aviso = 'A entrega no servidor está desligada agora. Tente mais tarde.';
+  else if (v.proximaEm) aviso = `Você já pegou ${v.porDia === 1 ? 'sua caixa' : 'suas caixas'} de hoje. A próxima libera ${quando(v.proximaEm)}.`;
+  else aviso = `Vai para ${v.login}. Entra no servidor em até ${v.expiraDias} dias, senão os créditos voltam. Limite de ${v.porDia} por dia.`;
+  $('caixas-aviso').textContent = aviso;
+  const trava = !v.vinculado || !v.ligada || v.proximaEm;
+  let h = v.caixas.map(c => `<li><span><b>${esc(c.nome)}</b><small>${esc(c.desc)}</small></span>
+    <button type="button" class="botao" data-caixa="${esc(c.id)}" ${trava ? 'disabled' : cr < c.preco ? 'disabled title="Faltam créditos"' : ''}>${caixaArmada === c.id ? 'Confirmar compra' : `${milhar(c.preco)} créditos`}</button></li>`).join('');
+  if (v.pedidos.length) h += `<li class="vazio">Seus pedidos</li>` + v.pedidos.map(p => `<li><span><b>${esc(p.item)}</b><small>${esc(STATUS_CAIXA[p.status] || p.status)} · ${quando(p.criado)}${p.motivo ? ' · ' + esc(p.motivo) : ''}</small></span><span>${milhar(p.preco)}</span></li>`).join('');
+  $('caixas-lista').innerHTML = h;
+}
+async function abrirCaixas() {
+  caixaArmada = null; $('caixas-msg').textContent = '';
+  desenharCaixas(); abrirPainel('caixas');
+  try { caixasInfo = await api.caixas(); } catch (e) { $('caixas-msg').textContent = e.message; }
+  desenharCaixas();
+}
+$('caixas-lista').onclick = async ev => {
+  const b = ev.target.closest('[data-caixa]'); if (!b) return;
+  const id = b.dataset.caixa;
+  $('caixas-msg').textContent = '';
+  // gasto grande: pede um segundo clique
+  if (caixaArmada !== id) { caixaArmada = id; desenharCaixas(); setTimeout(() => { if (caixaArmada === id) { caixaArmada = null; desenharCaixas(); } }, 4000); return; }
+  caixaArmada = null;
+  const r = await pedir(b, $('caixas-msg'), chave => api.comprarCaixa({ caixa: id, chave }));
+  if (r && !r.erro) { if (r.caixas) caixasInfo = r.caixas; $('caixas-msg').textContent = 'Comprada! Ela chega no seu inventário do servidor em alguns minutos, com você online.'; }
+  desenharCaixas();
 };
 
 // ---------- Bipe ----------
