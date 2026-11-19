@@ -339,11 +339,24 @@ function veiculo(g, o, r, queimado) {
     PF(0.08, 0.26, 0.55, 0.8, '#e8e2c8'); PF(0.74, 0.92, 0.55, 0.8, r() > 0.5 ? '#e8e2c8' : '#3a3a36'); PF(0.3, 0.7, 0.55, 0.75, '#2a2a28');
     // retrovisor
     const rv = ao ? iso(bx + bw * 0.72, by + bd + 0.04) : iso(bx + bw + 0.04, by + bd * 0.72); g.fillStyle = '#141412'; g.fillRect(rv.x - 2, rv.y - altCorpo - zc - 4, 4, 3); g.fillStyle = tom(cor, 0.8); g.fillRect(rv.x - 1, rv.y - altCorpo - zc - 3, 2, 1);
+    // lataria: reflexo do céu no alto da lateral e sombra embaixo (dá volume de chapa curva)
+    P(0, 1, 0.84, 0.9, '#ffffff26'); P(0, 1, 0, 0.32, '#00000038'); P(0, 1, 0.32, 0.4, '#00000018');
+    // folha seca, poeira e cocô de passarinho no capô, na tampa e no teto: carro parado há meses
+    const folhas = ['#8a6a3a', '#a65f3d', '#6a5a30', '#5e7e4a', '#c9c2b0'];
+    const zTop = zc + altCorpo + 1, sobre = [[u1 - 0.2, u1 - 0.02], [u0 + 0.02, u0 + 0.2]];
+    for (const [a1, a2] of sobre) for (let k = 0; k < 7; k++) { const q = W(a1 + r() * (a2 - a1), 0.15 + r() * 0.7, zTop); g.fillStyle = folhas[Math.floor(r() * folhas.length)]; g.fillRect(Math.round(q.x), Math.round(q.y), 2, 1); }
+    { const q = W(u1 - 0.12, 0.3 + r() * 0.4, zTop); g.fillStyle = '#00000022'; g.beginPath(); g.ellipse(q.x, q.y, 7, 3, 0, 0, 7); g.fill(); }   // marca de poeira
   } else {
     // fuligem e ferrugem por cima de tudo
     const c = iso(x + w / 2, y + d / 2);
     for (let k = 0; k < 18; k++) { g.fillStyle = ['#A65F3D', '#6a3a2a', '#1a1816', '#5a4a3a'][k % 4]; g.fillRect(Math.round(c.x + (r() - 0.5) * 50), Math.round(c.y - 10 - r() * 22), 2 + Math.floor(r() * 3), 1 + Math.floor(r() * 2)); }
   }
+  // capim crescendo em volta, na frente da roda e da saia (carro largado há tempo)
+  { const VERDES = ['#3a5230', '#4c6a3e', '#5e7e4a', '#6f8a4a'];
+    for (let k = 0; k < 26; k++) {
+      const u = r(), q = ao ? iso(bx + bw * u, by + bd + 0.02 + r() * 0.08) : iso(bx + bw + 0.02 + r() * 0.08, by + bd * u), hh = 2 + Math.floor(r() * 6);
+      g.fillStyle = VERDES[Math.floor(r() * 4)]; g.fillRect(Math.round(q.x), Math.round(q.y) - hh, 1, hh); if (r() > 0.6) g.fillRect(Math.round(q.x) + 1, Math.round(q.y) - hh + 2, 1, hh - 2);
+    } }
   // caco de vidro no chão
   { const c = iso(x + w / 2, y + d / 2); for (let k = 0; k < 5; k++) { g.fillStyle = '#c8d4d888'; g.fillRect(Math.round(c.x + (r() - 0.5) * 40), Math.round(c.y + 6 + (r() - 0.5) * 12), 2, 1); } }
 }
@@ -367,6 +380,8 @@ function desenharObjeto(g, o, t) {
         if (o.norte) L(up(A), up(B)); if (o.oeste) L(up(A), up(D));
         g.stroke();
       }
+      // telhado: musgo e poça onde a água empoça
+      if (r() > 0.6) { const c = iso(x + 0.3 + r() * 0.4, y + 0.3 + r() * 0.4); g.fillStyle = r() > 0.5 ? '#4a5a3a55' : '#2a343a55'; g.beginPath(); g.ellipse(c.x, c.y - h, 8 + r() * 8, 3 + r() * 3, 0, 0, 7); g.fill(); }
       // telhado: manta escura com cascalho
       { const c = iso(x + 0.5, y + 0.5); for (let k = 0; k < 10; k++) { g.fillStyle = r() > 0.5 ? '#55524c' : '#3e3c38'; g.fillRect(Math.round(c.x + (r() - 0.5) * 40), Math.round(c.y - h + (r() - 0.5) * 18), 2, 1); } }
       for (const face of ['esq', 'dir']) {
@@ -413,6 +428,23 @@ function desenharObjeto(g, o, t) {
           else if (s < 0.42) placa(g, x, y, 1, 1, face, 0.24, 0.5, v0, v1, h, '#3a4648');
           if (s > 0.55 && s < 0.65 && k > 0) { placa(g, x, y, 1, 1, face, 0.62, 0.86, v0 - 12 / h, v0 - 3 / h, h, '#8a9094'); placa(g, x, y, 1, 1, face, 0.66, 0.82, v0 - 10 / h, v0 - 5 / h, h, '#5a6064'); }  // ar-condicionado
         }
+        // luz: o alto da fachada pega mais céu, o pé fica no escuro (gradiente vertical por cima de tudo)
+        { const a1 = naFace(x, y, 1, 1, face, 0, 1, h), b1 = naFace(x, y, 1, 1, face, 1, 1, h), c1 = naFace(x, y, 1, 1, face, 1, 0, h), d1 = naFace(x, y, 1, 1, face, 0, 0, h);
+          const gr = g.createLinearGradient(0, Math.min(a1.y, b1.y), 0, Math.max(c1.y, d1.y));
+          gr.addColorStop(0, 'rgba(255,248,230,0.10)'); gr.addColorStop(0.55, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(8,10,12,0.28)');
+          g.fillStyle = gr; g.beginPath(); g.moveTo(a1.x, a1.y); g.lineTo(b1.x, b1.y); g.lineTo(c1.x, c1.y); g.lineTo(d1.x, d1.y); g.closePath(); g.fill(); }
+        // escorrido de chuva descendo da platibanda
+        for (let k = 0; k < 4; k++) { const u = r(), w2 = 0.015 + r() * 0.03; placa(g, x, y, 1, 1, face, u, Math.min(1, u + w2), 1 - (0.15 + r() * 0.45), 1 - 4 / h, h, '#1a18141c'); }
+        // hera subindo pela parede em algumas colunas
+        if (r() > 0.72) {
+          const VERDES = ['#2f4a2c', '#3f5f38', '#557a46', '#6f8a4a'];
+          let u = 0.1 + r() * 0.8, v = 0; const topo = 0.35 + r() * 0.5;
+          while (v < topo) {
+            const q = naFace(x, y, 1, 1, face, u, v, h);
+            for (let j = 0; j < 3; j++) { g.fillStyle = VERDES[Math.floor(r() * 4)]; g.fillRect(Math.round(q.x + (r() - 0.5) * 8), Math.round(q.y + (r() - 0.5) * 6), 2, 2); }
+            v += 5 / h; u = Math.min(0.95, Math.max(0.05, u + (r() - 0.5) * 0.08));
+          }
+        }
         if (r() > 0.7) placa(g, x, y, 1, 1, face, 0.02, 0.35, 0, 0.12 + r() * 0.2, h, '#566D4A77');   // mato subindo
         if (r() > 0.85) placa(g, x, y, 1, 1, face, 0.15, 0.6, 8 / h, 16 / h, h, ['#C65345aa', '#74A6A1aa', '#D4AC66aa'][Math.floor(r() * 3)]);  // pichação
         // platibanda: borda clara no alto da fachada
@@ -420,6 +452,21 @@ function desenharObjeto(g, o, t) {
         placa(g, x, y, 1, 1, face, 0, 1, 1 - 5 / h, 1 - 4 / h, h, '#00000050');
       }
       if (!o._luzes) { o._luzes = o._novas || []; delete o._novas; }
+      // mureta em volta do telhado: sombra por dentro rente às muretas de trás e a borda da frente em relevo
+      { const pc = { topo: tom(cor, 1.08), esq: tom(cor, 0.95), dir: tom(cor, 0.68) }, E = 0.07, Hm = 6;
+        const A1 = iso(x, y), B1 = iso(x + 1, y), D1 = iso(x, y + 1);
+        if (o.norte) { const a = iso(x, y + E), b = iso(x + 1, y + E), c2 = iso(x + 1, y + 0.32), d2 = iso(x, y + 0.32); const gr = g.createLinearGradient(0, a.y - h, 0, d2.y - h); gr.addColorStop(0, 'rgba(0,0,0,0.3)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.beginPath(); g.moveTo(a.x, a.y - h); g.lineTo(b.x, b.y - h); g.lineTo(c2.x, c2.y - h); g.lineTo(d2.x, d2.y - h); g.closePath(); g.fill(); }
+        if (o.oeste) { const a = iso(x + E, y), b = iso(x + 0.32, y), c2 = iso(x + 0.32, y + 1), d2 = iso(x + E, y + 1); g.fillStyle = 'rgba(0,0,0,0.16)'; g.beginPath(); g.moveTo(a.x, a.y - h); g.lineTo(b.x, b.y - h); g.lineTo(c2.x, c2.y - h); g.lineTo(d2.x, d2.y - h); g.closePath(); g.fill(); }
+        CONTORNO.ligado = false;
+        if (o.norte) caixa(g, x, y, 1, E, Hm, pc, h);
+        if (o.oeste) caixa(g, x, y, E, 1, Hm, pc, h);
+        if (o.sul) caixa(g, x, y + 1 - E, 1, E, Hm, pc, h);
+        if (o.leste) caixa(g, x + 1 - E, y, E, 1, Hm, pc, h);
+        CONTORNO.ligado = true;
+        g.strokeStyle = '#141412aa'; g.lineWidth = 1; g.beginPath();
+        const Lt = (a, b) => { g.moveTo(Math.round(a.x) + 0.5, Math.round(a.y - h - Hm) + 0.5); g.lineTo(Math.round(b.x) + 0.5, Math.round(b.y - h - Hm) + 0.5); };
+        if (o.norte) Lt(A1, B1); if (o.oeste) Lt(A1, D1); if (o.sul) Lt(D1, iso(x + 1, y + 1)); if (o.leste) Lt(B1, iso(x + 1, y + 1));
+        g.stroke(); }
       if (o.topo) { const q = r(); if (q > 0.965) { caixa(g, x + 0.3, y + 0.35, 0.36, 0.28, 9, '#5e6468', h); placa(g, x + 0.3, y + 0.35, 0.36, 0.28, 'esq', 0.15, 0.85, 0.3, 0.7, 9, '#2a2e30'); } else if (q > 0.93) { const c = iso(x + 0.5, y + 0.5); cilindro(g, c.x, c.y - h - 2, 8, 4, 14, '#4e6260'); } else if (q > 0.88) caixa(g, x + 0.42, y + 0.42, 0.16, 0.16, 8, '#3a3a36', h); else if (q > 0.7) { const c = iso(x + 0.5, y + 0.5); g.fillStyle = '#00000022'; g.beginPath(); g.ellipse(c.x + (r() - 0.5) * 16, c.y - h, 10, 4, 0, 0, 7); g.fill(); } }
       break;
     }
