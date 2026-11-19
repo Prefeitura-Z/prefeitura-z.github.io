@@ -418,9 +418,28 @@ function desenharObjeto(g, o, t) {
       if (r() > 0.6) { const c = iso(x + 0.3 + r() * 0.4, y + 0.3 + r() * 0.4); g.fillStyle = r() > 0.5 ? '#4a5a3a55' : '#2a343a55'; g.beginPath(); g.ellipse(c.x, c.y - h, 8 + r() * 8, 3 + r() * 3, 0, 0, 7); g.fill(); }
       // telhado: manta escura com cascalho
       { const c = iso(x + 0.5, y + 0.5); for (let k = 0; k < 10; k++) { g.fillStyle = r() > 0.5 ? '#55524c' : '#3e3c38'; g.fillRect(Math.round(c.x + (r() - 0.5) * 40), Math.round(c.y - h + (r() - 0.5) * 18), 2, 1); } }
+      // relevo da fachada (cornija, marquise, sacada, pilar): caixas de verdade saindo da parede, desenhadas depois da pintura
+      const rel = [];
+      const ressalto = (face, u0, u1, pf, z, hh, c, ordem = 0) => rel.push([ordem, () => face === 'esq' ? caixa(g, x + u0, y + 1, u1 - u0, pf, hh, c, z) : caixa(g, x + 1, y + 1 - u1, pf, u1 - u0, hh, c, z)]);
+      const concreto = sf => ({ topo: tom(cor, 1.25), esq: tom(cor, 1.08 * sf), dir: tom(cor, 0.78 * sf) });
+      // guarda-corpo da sacada: pilaretes e corrimão na borda de fora da laje
+      const grade = (face, u0, u1, pf, z) => rel.push([2, () => {
+        const P = (u, e, zz) => face === 'esq' ? iso(x + u0 + (u1 - u0) * u, y + 1 + e) : iso(x + 1 + e, y + 1 - u0 - (u1 - u0) * u);
+        const L = (a, b, za, zb, c, lw = 1) => { g.strokeStyle = c; g.lineWidth = lw; g.beginPath(); g.moveTo(a.x, a.y - za); g.lineTo(b.x, b.y - zb); g.stroke(); };
+        const fer = '#2a2c2c', topo = z + 13;
+        for (let k = 0; k <= 8; k++) { const q = P(k / 8, pf, 0); L(q, q, z + 2, topo, fer); }
+        L(P(0, 0, 0), P(0, pf, 0), topo, topo, fer, 2); L(P(1, 0, 0), P(1, pf, 0), topo, topo, fer, 2);
+        L(P(0, 0.02, 0), P(0, pf, 0), z + 2, topo, fer); L(P(1, 0.02, 0), P(1, pf, 0), z + 2, topo, fer);
+        L(P(0, pf, 0), P(1, pf, 0), topo, topo, '#4a4c4c', 2);
+        if (r() > 0.5) { const q = P(0.25 + r() * 0.4, pf * 0.5, 0); g.fillStyle = '#5a4a3a'; g.fillRect(q.x - 3, q.y - z - 9, 6, 7); g.fillStyle = '#4e6e3a'; g.fillRect(q.x - 4, q.y - z - 13, 8, 4); }  // vaso
+      }]);
       for (const face of ['esq', 'dir']) {
         if (!(face === 'esq' ? o.sul : o.leste)) continue;
         const sombraF = face === 'dir' ? 0.72 : 1;
+        // pilar nas quinas do prédio
+        if (face === 'esq' && o.oeste) rel.push([3, () => caixa(g, x - 0.03, y + 1 - 0.08, 0.1, 0.12, h, concreto(1), 0)]);
+        if (face === 'esq' && o.leste) rel.push([3, () => caixa(g, x + 1 - 0.08, y + 1 - 0.08, 0.12, 0.12, h, concreto(1), 0)]);
+        if (face === 'dir' && o.norte) rel.push([3, () => caixa(g, x + 1 - 0.08, y - 0.03, 0.12, 0.1, h, concreto(1), 0)]);
         // textura: fiadas de tijolo/placa e sujeira subindo do chão
         for (let v = 6; v < h - 4; v += 6) placa(g, x, y, 1, 1, face, 0, 1, v / h, (v + 1) / h, h, tom(cor, 0.9 * sombraF) + '66');
         for (let k = 0; k < 14; k++) { const u = r(), v = r(); placa(g, x, y, 1, 1, face, u, Math.min(1, u + 0.04), v, Math.min(1, v + 2 / h), h, (r() > 0.5 ? tom(cor, 1.15) : tom(cor, 0.75)) + '88'); }
@@ -428,13 +447,15 @@ function desenharObjeto(g, o, t) {
         for (let k = 0; k < andares; k++) {
           const b0 = k * AND, s = r();
           // laje entre andares
-          if (k > 0) { placa(g, x, y, 1, 1, face, 0, 1, (b0 - 2) / h, (b0 + 2) / h, h, tom(cor, 1.12 * sombraF)); placa(g, x, y, 1, 1, face, 0, 1, (b0 - 3) / h, (b0 - 2) / h, h, '#00000040'); }
+          if (k > 0) { placa(g, x, y, 1, 1, face, 0, 1, (b0 - 6) / h, (b0 - 2) / h, h, '#00000030'); if (!(k === 1 && (o.vitrine || o.porta === face))) ressalto(face, 0, 1, 0.045, b0 - 2, 4, concreto(sombraF)); }
           if (k === 0 && o.porta === face) {
             placa(g, x, y, 1, 1, face, 0.26, 0.74, 0, 46 / h, h, tom(cor, 0.6));                  // batente
             placa(g, x, y, 1, 1, face, 0.3, 0.7, 0, 43 / h, h, '#1c1a18');
             placa(g, x, y, 1, 1, face, 0.32, 0.5, 2 / h, 40 / h, h, '#4e3e2e');                   // folha entreaberta
             placa(g, x, y, 1, 1, face, 0.45, 0.48, 18 / h, 22 / h, h, '#a89a58');
-            placa(g, x, y, 1, 1, face, 0.22, 0.78, 46 / h, 49 / h, h, '#A65F3D');                 // toldo
+            // marquise de concreto sobre a porta, com a sombra dela na parede
+            placa(g, x, y, 1, 1, face, 0.14, 0.86, 36 / h, 47 / h, h, '#00000038');
+            ressalto(face, 0.1, 0.9, 0.24, 48, 3, concreto(sombraF), 1);
             continue;
           }
           if (k === 0 && o.vitrine) {
@@ -445,6 +466,8 @@ function desenharObjeto(g, o, t) {
             else placa(g, x, y, 1, 1, face, 0.5, 0.56, 8 / h, 34 / h, h, '#3a4244');   // vidro quebrado
             placa(g, x, y, 1, 1, face, 0.02, 0.98, 39 / h, 47 / h, h, o.vitrine);       // letreiro
             placa(g, x, y, 1, 1, face, 0.1, 0.9, 42 / h, 44 / h, h, tom(o.vitrine, 1.35));
+            placa(g, x, y, 1, 1, face, 0, 1, 30 / h, 38 / h, h, '#00000030');
+            ressalto(face, 0, 1, 0.2, 48, 3, concreto(sombraF), 1);                   // marquise corrida da loja
             continue;
           }
           // janela: moldura, vidro, peitoril; umas acesas, umas tapadas com tábua
@@ -460,6 +483,7 @@ function desenharObjeto(g, o, t) {
           placa(g, x, y, 1, 1, face, 0.18, 0.82, v0 - 4 / h, v0 - 1 / h, h, tom(cor, 1.2 * sombraF)); // peitoril
           if (s < 0.3) { for (let j = 0; j < 3; j++) placa(g, x, y, 1, 1, face, 0.2, 0.8, v0 + (4 + j * 7) / h, v0 + (8 + j * 7) / h, h, j % 2 ? '#7a6650' : '#6e5a44'); }
           else if (s < 0.42) placa(g, x, y, 1, 1, face, 0.24, 0.5, v0, v1, h, '#3a4648');
+          if (k > 0 && s >= 0.42 && s < 0.55) { placa(g, x, y, 1, 1, face, 0.12, 0.88, (b0 + 2) / h, (b0 + 14) / h, h, '#00000028'); ressalto(face, 0.12, 0.88, 0.24, b0 + 14, 3, concreto(sombraF), 1); grade(face, 0.12, 0.88, 0.24, b0 + 17); }
           if (s > 0.55 && s < 0.65 && k > 0) { placa(g, x, y, 1, 1, face, 0.62, 0.86, v0 - 12 / h, v0 - 3 / h, h, '#8a9094'); placa(g, x, y, 1, 1, face, 0.66, 0.82, v0 - 10 / h, v0 - 5 / h, h, '#5a6064'); }  // ar-condicionado
         }
         // luz: o alto da fachada pega mais céu, o pé fica no escuro (gradiente vertical por cima de tudo)
@@ -485,6 +509,7 @@ function desenharObjeto(g, o, t) {
         placa(g, x, y, 1, 1, face, 0, 1, 1 - 4 / h, 1, h, tom(cor, 1.22 * sombraF));
         placa(g, x, y, 1, 1, face, 0, 1, 1 - 5 / h, 1 - 4 / h, h, '#00000050');
       }
+      rel.sort((a, b) => a[0] - b[0]); CONTORNO.ligado = false; for (const [, f2] of rel) f2(); CONTORNO.ligado = true;
       if (!o._luzes) { o._luzes = o._novas || []; delete o._novas; }
       // mureta em volta do telhado: sombra por dentro rente às muretas de trás e a borda da frente em relevo
       { const pc = { topo: tom(cor, 1.08), esq: tom(cor, 0.95), dir: tom(cor, 0.68) }, E = 0.07, Hm = 6;
