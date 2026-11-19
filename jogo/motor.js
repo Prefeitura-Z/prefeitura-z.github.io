@@ -27,6 +27,7 @@ class Motor {
     this.pausado = false;
     this.teclas = new Set();
     this.t = 0;
+    if (!mundo._mata) { mundo.OBJ.push(...A.mata(mundo)); mundo._mata = true; }
     this.chao = A.desenharChao(mundo);
     this.solido = new Uint8Array(mundo.LARG * mundo.ALT);
     for (let i = 0; i < this.solido.length; i++) if (mundo.chao[i] === mundo.T.AGUA) this.solido[i] = 1;
@@ -269,6 +270,61 @@ class Motor {
     return fs[Math.max(0, Math.floor(this.t * ritmo)) % fs.length];
   }
 
+  // textura de névoa que repete sem emenda: manchas macias sorteadas, copiadas nas bordas do ladrilho
+  texturaNevoa(sem, n, rMin, rMax) {
+    const W = 512, H = 256, c = document.createElement('canvas'); c.width = W; c.height = H;
+    const g = c.getContext('2d');
+    let s = sem; const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    for (let i = 0; i < n; i++) {
+      const x = rnd() * W, y = rnd() * H, r = rMin + rnd() * (rMax - rMin), a = 0.25 + rnd() * 0.5;
+      for (const dx of [-W, 0, W]) for (const dy of [-H, 0, H]) {
+        const gr = g.createRadialGradient(x + dx, y + dy, 0, x + dx, y + dy, r);
+        gr.addColorStop(0, `rgba(255,255,255,${a})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = gr; g.save(); g.translate(x + dx, y + dy); g.scale(1, 0.5); g.translate(-(x + dx), -(y + dy));
+        g.fillRect(x + dx - r, y + dy - r, r * 2, r * 2); g.restore();
+      }
+    }
+    return c;
+  }
+  atmosfera(g, z, d) {
+    const W = this.cv.width, H = this.cv.height, t = this.reduzir ? 0 : this.t;
+    const ciclo = this.reduzir ? 0.3 : (Date.now() / 480000) % 1, noite = Math.max(0, Math.sin(ciclo * Math.PI * 2));
+    const cor = noite > 0.3 ? '120,132,150' : '196,202,200';
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    // 1) neblina de distância: o alto da tela é mais longe no isométrico, então fica mais lavado
+    if (!this.neblina || this.neblina.h !== H || this.neblina.cor !== cor) {
+      const gr = g.createLinearGradient(0, 0, 0, H);
+      gr.addColorStop(0, `rgba(${cor},0.30)`); gr.addColorStop(0.45, `rgba(${cor},0.08)`); gr.addColorStop(1, `rgba(${cor},0)`);
+      this.neblina = { h: H, cor, gr };
+    }
+    g.fillStyle = this.neblina.gr; g.fillRect(0, 0, W, H);
+    // 2) névoa em duas camadas presas ao mundo: a de baixo anda com a câmera, a de cima corre um pouco mais (paralaxe)
+    if (!this.nevoas) this.nevoas = [this.texturaNevoa(7, 26, 50, 120), this.texturaNevoa(91, 14, 80, 170)];
+    const tinta = (tex, k) => {
+      const key = cor + k;
+      this._tint = this._tint || {};
+      if (!this._tint[key]) { const c = document.createElement('canvas'); c.width = tex.width; c.height = tex.height; const cg = c.getContext('2d'); cg.drawImage(tex, 0, 0); cg.globalCompositeOperation = 'source-in'; cg.fillStyle = `rgb(${cor})`; cg.fillRect(0, 0, c.width, c.height); this._tint[key] = c; }
+      return this._tint[key];
+    };
+    const camadas = [{ k: 0, par: 1, vento: 6, alfa: 0.20 + noite * 0.08, esc: 1 }, { k: 1, par: 1.35, vento: 11, alfa: 0.12 + noite * 0.06, esc: 1.6 }];
+    for (const c of camadas) {
+      const tex = tinta(this.nevoas[c.k], c.k), e = z * d * c.esc, tw = tex.width * e, th = tex.height * e;
+      const ox = -((this.cam.x * z * d * c.par + t * c.vento * d) % tw) - tw, oy = -((this.cam.y * z * d * c.par + t * c.vento * 0.3 * d) % th) - th;
+      g.globalAlpha = c.alfa; g.imageSmoothingEnabled = true;
+      for (let y = oy; y < H; y += th) for (let x = ox; x < W; x += tw) g.drawImage(tex, x, y, tw, th);
+    }
+    g.globalAlpha = 1; g.imageSmoothingEnabled = false;
+    // 3) poeira e cinza boiando no ar, bem fina (some com "reduzir movimento")
+    if (!this.reduzir) {
+      if (!this.poeira) { this.poeira = []; for (let i = 0; i < 46; i++) this.poeira.push({ x: Math.random(), y: Math.random(), v: 0.4 + Math.random(), f: Math.random() * 6.3, r: Math.random() > 0.8 ? 2 : 1 }); }
+      g.fillStyle = noite > 0.3 ? 'rgba(220,210,170,0.45)' : 'rgba(235,230,215,0.35)';
+      for (const q of this.poeira) {
+        const x = ((q.x * W + t * 9 * q.v * d - this.cam.x * z * d * 0.2) % W + W) % W, y = ((q.y * H + Math.sin(t * 0.6 + q.f) * 10 * d - this.cam.y * z * d * 0.2) % H + H) % H;
+        g.fillRect(Math.round(x), Math.round(y), q.r * d, q.r * d);
+      }
+    }
+  }
+
   desenhar() {
     const g = this.g, z = this.zoom, d = this.dpr;
     g.setTransform(1, 0, 0, 1, 0, 0);
@@ -351,6 +407,10 @@ class Motor {
     }
 
     for (const f of this.fumaca) { const a = Math.max(0, 0.35 - f.t / 10); g.fillStyle = `rgba(190,185,175,${a})`; const r = 3 + f.t * 3; g.fillRect(Math.round(f.x - r / 2), Math.round(f.y - r / 2), Math.round(r), Math.round(r)); }
+
+    // clima: névoa em camadas, neblina de distância e poeira no ar (dá profundidade ao isométrico)
+    this.atmosfera(g, z, d);
+    g.setTransform(z * d, 0, 0, z * d, tx, ty);
 
     // luz do dia: ciclo de 8 min, sem nunca ficar escuro demais pra usar os serviços
     const ciclo = this.reduzir ? 0.3 : (Date.now() / 480000) % 1;
