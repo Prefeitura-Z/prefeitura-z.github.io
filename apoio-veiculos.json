@@ -11,15 +11,33 @@
           "versoes": [
             {
               "id": "Base.89trooper",
-              "nome": "Normal"
+              "nome": "Normal",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 75
+                }
+              ]
             },
             {
               "id": "Base.89trooperRS",
-              "nome": "RS"
+              "nome": "RS",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 100
+                }
+              ]
             },
             {
               "id": "Base.89trooperOP",
-              "nome": "OP"
+              "nome": "OP",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 75
+                }
+              ]
             }
           ]
         },
@@ -30,19 +48,63 @@
           "versoes": [
             {
               "id": "Base.82porsche911sc",
-              "nome": "SC"
+              "nome": "SC",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 25
+                },
+                {
+                  "nome": "Compartimentos traseiros",
+                  "capacidade": 20,
+                  "quantidade": 2
+                }
+              ]
             },
             {
               "id": "Base.82porsche911turbo",
-              "nome": "Turbo"
+              "nome": "Turbo",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 25
+                },
+                {
+                  "nome": "Compartimentos traseiros",
+                  "capacidade": 20,
+                  "quantidade": 2
+                }
+              ]
             },
             {
               "id": "Base.82porsche911targa",
-              "nome": "Targa"
+              "nome": "Targa",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 25
+                },
+                {
+                  "nome": "Compartimentos traseiros",
+                  "capacidade": 20,
+                  "quantidade": 2
+                }
+              ]
             },
             {
               "id": "Base.82porsche911rwb",
-              "nome": "RWB"
+              "nome": "RWB",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 25
+                },
+                {
+                  "nome": "Compartimentos traseiros",
+                  "capacidade": 20,
+                  "quantidade": 2
+                }
+              ]
             }
           ]
         }
@@ -57,11 +119,23 @@
           "versoes": [
             {
               "id": "Base.67gt500",
-              "nome": "GT500"
+              "nome": "GT500",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 65
+                }
+              ]
             },
             {
               "id": "Base.67gt500e",
-              "nome": "Eleanor"
+              "nome": "Eleanor",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 63
+                }
+              ]
             }
           ]
         },
@@ -72,11 +146,28 @@
           "versoes": [
             {
               "id": "Base.83gmcG1500lwb",
-              "nome": "G1500"
+              "nome": "G1500",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 220
+                }
+              ]
             },
             {
               "id": "Base.83gmcG1500aTeam",
-              "nome": "A-Team"
+              "nome": "A-Team",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 220
+                },
+                {
+                  "nome": "Compartimentos internos",
+                  "capacidade": 50,
+                  "quantidade": 2
+                }
+              ]
             }
           ]
         }
@@ -91,15 +182,41 @@
           "versoes": [
             {
               "id": "Base.63beetle",
-              "nome": "Normal"
+              "nome": "Normal",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 27
+                },
+                {
+                  "nome": "Compartimento interno",
+                  "capacidade": 35
+                }
+              ]
             },
             {
               "id": "Base.63beetleHP",
-              "nome": "HP"
+              "nome": "HP",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 27
+                }
+              ]
             },
             {
               "id": "Base.63beetleBuggy",
-              "nome": "Buggy"
+              "nome": "Buggy",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 27
+                },
+                {
+                  "nome": "Compartimento interno",
+                  "capacidade": 35
+                }
+              ]
             }
           ]
         },
@@ -110,19 +227,68 @@
           "versoes": [
             {
               "id": "Base.63Type2Van",
-              "nome": "Normal"
+              "nome": "Normal",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 50
+                },
+                {
+                  "nome": "Compartimentos sob os bancos",
+                  "capacidade": 15,
+                  "quantidade": 4
+                }
+              ]
             },
             {
               "id": "Base.63Type2VanHippie",
-              "nome": "Hippie"
+              "nome": "Hippie",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 50
+                },
+                {
+                  "nome": "Compartimentos sob os bancos",
+                  "capacidade": 15,
+                  "quantidade": 4
+                }
+              ]
             },
             {
               "id": "Base.63Type2VanMilitary",
-              "nome": "Militar"
+              "nome": "Militar",
+              "armazenamento": [
+                {
+                  "nome": "Caçamba",
+                  "capacidade": 80
+                },
+                {
+                  "nome": "Compartimentos sob os bancos",
+                  "capacidade": 15,
+                  "quantidade": 2
+                }
+              ]
             },
             {
               "id": "Base.63Type2VanApocalypse",
-              "nome": "Apocalypse"
+              "nome": "Apocalypse",
+              "armazenamento": [
+                {
+                  "nome": "Compartimento interno",
+                  "capacidade": 50
+                },
+                {
+                  "nome": "Caixas de ferramentas",
+                  "capacidade": 15,
+                  "quantidade": 2
+                },
+                {
+                  "nome": "Compartimentos sob os bancos",
+                  "capacidade": 15,
+                  "quantidade": 2
+                }
+              ]
             }
           ]
         }
@@ -137,11 +303,23 @@
           "versoes": [
             {
               "id": "Base.92nissanGTR",
-              "nome": "Volante à direita"
+              "nome": "Volante à direita",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 50
+                }
+              ]
             },
             {
               "id": "Base.92nissanGTRlhd",
-              "nome": "Volante à esquerda"
+              "nome": "Volante à esquerda",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 50
+                }
+              ]
             }
           ]
         },
@@ -152,23 +330,78 @@
           "versoes": [
             {
               "id": "Base.93fordF350",
-              "nome": "Cabine dupla"
+              "nome": "Cabine dupla",
+              "armazenamento": [
+                {
+                  "nome": "Caçamba",
+                  "capacidade": 115
+                }
+              ]
             },
             {
               "id": "Base.93fordF350dually",
-              "nome": "Dually"
+              "nome": "Dually",
+              "armazenamento": [
+                {
+                  "nome": "Caçamba",
+                  "capacidade": 155
+                }
+              ]
             },
             {
               "id": "Base.93fordF350CCflatBed",
-              "nome": "Plataforma com cabine dupla"
+              "nome": "Plataforma com cabine dupla",
+              "armazenamento": [
+                {
+                  "nome": "Plataforma",
+                  "capacidade": 205
+                },
+                {
+                  "nome": "Compartimentos laterais",
+                  "capacidade": 25,
+                  "quantidade": 2
+                }
+              ]
             },
             {
               "id": "Base.93fordF350SCflatBed",
-              "nome": "Plataforma com cabine simples"
+              "nome": "Plataforma com cabine simples",
+              "armazenamento": [
+                {
+                  "nome": "Plataforma",
+                  "capacidade": 205
+                },
+                {
+                  "nome": "Compartimentos laterais",
+                  "capacidade": 25,
+                  "quantidade": 2
+                }
+              ]
             },
             {
               "id": "Base.93fordF350utility",
-              "nome": "Utilitária"
+              "nome": "Utilitária",
+              "armazenamento": [
+                {
+                  "nome": "Caçamba",
+                  "capacidade": 100
+                },
+                {
+                  "nome": "Compartimentos laterais",
+                  "capacidade": 10,
+                  "quantidade": 4
+                },
+                {
+                  "nome": "Compartimentos laterais traseiros",
+                  "capacidade": 20,
+                  "quantidade": 2
+                },
+                {
+                  "nome": "Compartimentos laterais dianteiros",
+                  "capacidade": 30,
+                  "quantidade": 2
+                }
+              ]
             }
           ]
         }
@@ -183,7 +416,17 @@
           "versoes": [
             {
               "id": "Base.SemiTruck",
-              "nome": "Cabine Alta"
+              "nome": "Cabine Alta",
+              "armazenamento": [
+                {
+                  "nome": "Baú esquerdo",
+                  "capacidade": 20
+                },
+                {
+                  "nome": "Baú direito",
+                  "capacidade": 20
+                }
+              ]
             }
           ]
         },
@@ -194,11 +437,23 @@
           "versoes": [
             {
               "id": "Base.49powerWagon",
-              "nome": "Cabine dupla"
+              "nome": "Cabine dupla",
+              "armazenamento": [
+                {
+                  "nome": "Caçamba",
+                  "capacidade": 100
+                }
+              ]
             },
             {
               "id": "Base.49powerWagonPA",
-              "nome": "Apocalypse"
+              "nome": "Apocalypse",
+              "armazenamento": [
+                {
+                  "nome": "Caçamba",
+                  "capacidade": 100
+                }
+              ]
             }
           ]
         }
@@ -213,11 +468,23 @@
           "versoes": [
             {
               "id": "Base.67chevyImpalaSedanS",
-              "nome": "Sedan"
+              "nome": "Sedan",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 76
+                }
+              ]
             },
             {
               "id": "Base.67chevyImpalaBaby",
-              "nome": "Baby"
+              "nome": "Baby",
+              "armazenamento": [
+                {
+                  "nome": "Porta-malas",
+                  "capacidade": 76
+                }
+              ]
             }
           ]
         },
@@ -228,7 +495,8 @@
           "versoes": [
             {
               "id": "Base.SemiTruckLite",
-              "nome": "Cabine Dia"
+              "nome": "Cabine Dia",
+              "armazenamento": []
             }
           ]
         }

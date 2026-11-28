@@ -4,6 +4,7 @@
   --concreto: #6f7471; --texto: #e7e1d3; --fraco: #a9a493;
   --ferrugem: #a65f3d; --lona: #9b8d66; --vegetacao: #566d4a; --luz: #d4ac66; --aviso: #c65345; --radio: #74a6a1;
   --mono: 'IBM Plex Mono', ui-monospace, monospace; --titulo: 'Anton', Impact, sans-serif; --corpo: 'Inter', system-ui, sans-serif;
+  --altura-rodape: calc(24px + env(safe-area-inset-bottom));
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -25,7 +26,8 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .botao.perigo, button.perigo { border-color: #7c3b33; color: #ffb2a6; }
 .botao:disabled { opacity: .6; cursor: progress; }
 
-.tela { position: fixed; inset: 0; }
+.tela { position: fixed; inset: 0 0 var(--altura-rodape); }
+.direitos-site { position: fixed; inset: auto 0 0; height: var(--altura-rodape); display: grid; place-items: center; padding: 0 8px env(safe-area-inset-bottom); background: var(--carvao); border-top: 1px solid var(--linha); color: var(--fraco); text-align: center; font-size: 11px; }
 .centro { display: grid; place-content: center; text-align: center; gap: 12px; color: var(--fraco); font-family: var(--mono); }
 
 /* capa */

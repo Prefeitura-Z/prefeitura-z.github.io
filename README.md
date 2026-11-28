@@ -16,6 +16,8 @@ Em `apoio-veiculos.json`, `inicio` guarda a data e o horário da primeira rotaç
 
 Cada versão usa o identificador completo do script do jogo, como `Base.89trooperRS`, e tem um catálogo em `apoio-veiculos/<id>/catalogo.json`. O código `P01`, `P02` e assim por diante serve para navegar na vitrine. O pedido copiado leva o nome original da textura para a equipe identificar a pintura.
 
+Preencha `armazenamento` de cada versão com os compartimentos de carga de série e suas capacidades-base declaradas nos scripts do veículo e dos seus templates. Informe `quantidade` para agrupar compartimentos iguais. Use uma lista vazia quando a versão não tiver compartimento de carga de série. Os valores são nas unidades do jogo, antes de ajustes na condição das peças, acessórios e bônus de personagem.
+
 Para atualizar o catálogo, use a mesma versão dos arquivos de mods do servidor. O plano de importação é um objeto JSON que mapeia a pasta de cada mod de veículo para a lista de IDs daquele mod, por exemplo `{ "89trooper": ["Base.89trooperRS"] }`. O importador lê as pinturas do script do veículo e as inclusões do Prefeitura Vehicle Skins. Rode em uma pasta temporária para conferir o catálogo e as imagens antes de copiar as subpastas dos veículos para o site.
 
 ```sh

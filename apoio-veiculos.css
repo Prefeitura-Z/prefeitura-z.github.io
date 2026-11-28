@@ -14,6 +14,11 @@ p.apoio-prazo{background:var(--surface2);border:1px solid var(--border);padding:
 .apoio-label-versao{display:block;margin-bottom:14px;font-size:.875rem}
 .apoio-versao{display:block;width:100%;margin-top:5px;padding:9px 32px 9px 12px;border:1px solid var(--border);border-radius:2px;background:var(--bg);color:var(--text);font:inherit;font-size:1rem}
 .apoio-versao:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.apoio-carga{margin-bottom:14px;padding:10px 12px;border:1px solid var(--border);background:var(--surface2);font-size:.875rem}
+.apoio-carga p{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;color:var(--text);line-height:1.45;margin:0}
+.apoio-carga strong{color:var(--ok)}
+.apoio-carga ul{display:flex;flex-wrap:wrap;gap:3px 16px;list-style:none;margin:5px 0 0;padding:0;color:var(--muted)}
+.apoio-carga ul:empty{display:none}
 .apoio-imagem{margin:0;background:var(--bg);border:1px solid var(--border)}
 .apoio-imagem img{display:block;width:100%;aspect-ratio:12/7;object-fit:contain;background:#20231f}
 .apoio-imagem figcaption{padding:8px 12px;font-size:.875rem;color:var(--muted);overflow-wrap:anywhere}

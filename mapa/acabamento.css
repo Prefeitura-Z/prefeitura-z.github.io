@@ -24,3 +24,13 @@
 .airdrops-list { list-style:none; padding:0; margin:4px 0; font-size:12px; }
 .airdrops-list button { width:100%; text-align:left; font:inherit; color:var(--ink); background:var(--paper2); border:1px solid var(--line); border-radius:6px; padding:7px 9px; margin:3px 0; cursor:pointer; }
 .airdrops-list button:hover, .airdrops-list button:focus-visible { outline:2px solid var(--red); outline-offset:1px; }
+:root{--altura-rodape:24px}
+.direitos-site{position:fixed;inset:auto 0 0;height:var(--altura-rodape);display:grid;place-items:center;padding:0 8px;background:var(--paper);border-top:1px solid var(--line);font-size:11px;text-align:center;z-index:5}
+#coords,#zoom{bottom:calc(14px + var(--altura-rodape))}
+#scale{bottom:calc(86px + var(--altura-rodape))}
+#toast{bottom:calc(20px + var(--altura-rodape))}
+@media(max-width:700px){
+  #panel{bottom:calc(70px + var(--altura-rodape))}
+  #coords,#zoom{bottom:calc(10px + var(--altura-rodape))}
+  #scale{bottom:calc(76px + var(--altura-rodape))}
+}

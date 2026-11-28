@@ -3,6 +3,7 @@ const DURACAO = 14 * DIA;
 const FUSO = 'America/Sao_Paulo';
 const POR_PAGINA = 8;
 const moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+const numero = new Intl.NumberFormat('pt-BR');
 const data = new Intl.DateTimeFormat('pt-BR', {
   timeZone: FUSO, day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit',
 });
@@ -40,6 +41,8 @@ function montarOferta(modelo, oferta, encerra, ticketDiscord) {
   campo('.apoio-valor').textContent = textoValor(oferta);
 
   const versoes = campo('.apoio-versao');
+  const cargaTotal = campo('.apoio-carga strong');
+  const compartimentos = campo('.apoio-carga ul');
   const galeria = campo('.apoio-galeria');
   const busca = campo('input');
   const contagem = campo('.apoio-contagem');
@@ -110,6 +113,20 @@ function montarOferta(modelo, oferta, encerra, ticketDiscord) {
   async function carregarVersao() {
     const requisicao = ++carga;
     versao = oferta.versoes.find(v => v.id === versoes.value);
+    const armazenamento = versao.armazenamento;
+    compartimentos.replaceChildren();
+    if (armazenamento?.length) {
+      const total = armazenamento.reduce((soma, parte) => soma + parte.capacidade * (parte.quantidade ?? 1), 0);
+      cargaTotal.textContent = numero.format(total) + ' de capacidade';
+      for (const { nome, capacidade, quantidade } of armazenamento) {
+        const parte = document.createElement('li');
+        const valor = numero.format(capacidade);
+        parte.textContent = nome + ' · ' + (quantidade ? quantidade + ' × ' : '') + valor;
+        compartimentos.append(parte);
+      }
+    } else {
+      cargaTotal.textContent = armazenamento ? 'Sem compartimento de carga' : 'Capacidade a confirmar';
+    }
     galeria.hidden = true;
     pedido.hidden = true;
     mensagem.textContent = 'Carregando pinturas…';

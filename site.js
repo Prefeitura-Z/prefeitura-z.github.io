@@ -35,7 +35,7 @@ const icone = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" s
       <a class="account" id="topo-conta" href="conta.html" data-conta${pg === 'conta' ? ' aria-current="page"' : ''}>${icone('users')} <span>Minha conta</span> ${icone('chevron')}</a>`;
   }
   const rod = document.getElementById('rodape');
-  if (rod) rod.innerHTML = `<span>PREFEITURA <b>Z</b><span class="footer-dash">/</span>A cidade continua.</span><small>Comunidade de Project Zomboid · Não afiliada à The Indie Stone.</small>`;
+  if (rod) rod.innerHTML = `<span>PREFEITURA <b>Z</b><span class="footer-dash">/</span>A cidade continua.</span><small>© 2026 Prefeitura Z. Todos os direitos reservados.<br>Comunidade de Project Zomboid · Não afiliada à The Indie Stone.</small>`;
 })();
 
 document.querySelectorAll('[data-discord]').forEach(a => {

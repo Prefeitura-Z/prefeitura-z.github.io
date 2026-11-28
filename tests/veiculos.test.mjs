@@ -30,6 +30,11 @@ test('todas as ofertas agendadas têm preço, versões e prévias disponíveis',
       assert.ok(Number.isInteger(oferta.valorCentavos) && oferta.valorCentavos > 0);
       assert.ok(oferta.versoes.length > 0);
       for (const versao of oferta.versoes) {
+        assert.ok(Array.isArray(versao.armazenamento));
+        for (const parte of versao.armazenamento) {
+          assert.ok(parte.nome && Number.isInteger(parte.capacidade) && parte.capacidade > 0);
+          assert.ok(parte.quantidade === undefined || Number.isInteger(parte.quantidade) && parte.quantidade > 1);
+        }
         const raiz = new URL('../apoio-veiculos/' + versao.id + '/', import.meta.url);
         const catalogo = JSON.parse(readFileSync(new URL('catalogo.json', raiz)));
         assert.equal(catalogo.id, versao.id);
