@@ -38,15 +38,15 @@ class Expedicao {
   preparar() {
     const log = [...this.ex.log].sort((a, b) => a.t - b.t);
     this.duracao = log.length ? log[log.length - 1].t : 0;
-    this.pernas = []; this.paradas = []; this.golpes = []; this.saques = [];
+    this.pernas = []; this.paradas = []; this.golpes = []; this.saques = []; this.sinais = []; this.curas = []; this.sinalT = null;
     this.caiu = null; this.motivo = 'concluida';
     let par = null;
     for (const e of log) {
-      if (e.e === 'ir') this.pernas.push({ t: e.t, d: e.d, pts: [e.de, e.para], n: e.n });
-      else if (e.e === 'volta') { this.pernas.push({ t: e.t, d: e.d, pts: this.caminhoVolta(e.de, e.para), volta: true }); this.motivo = e.motivo; this.voltaT = e.t; }
+      if (e.e === 'ir') this.pernas.push({ t: e.t, d: e.d, pts: e.pts || [e.de, e.para], n: e.n });
+      else if (e.e === 'volta') { this.pernas.push({ t: e.t, d: e.d, pts: e.pts || this.caminhoVolta(e.de, e.para), volta: true }); this.motivo = e.motivo; this.voltaT = e.t; }
       else if (e.e === 'enc') {
         const perna = this.pernas[this.pernas.length - 1];
-        const [a, b] = perna.pts, dl = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, u = [(b[0] - a[0]) / dl, (b[1] - a[1]) / dl];
+        const [a, b] = perna.pts.slice(-2), dl = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, u = [(b[0] - a[0]) / dl, (b[1] - a[1]) / dl];
         par = {
           i: e.i, t0: e.t, aparece: perna.t, fim: Infinity, limpo: Infinity,
           ini: e.ini.map((n, k) => {
@@ -60,7 +60,9 @@ class Expedicao {
           }),
         };
         this.paradas.push(par);
-      } else if (e.e === 'atk' && par) {
+      } else if (e.e === 'sinal' && par) this.sinais.push({ ...e, par });
+      else if (e.e === 'cura' && par) this.curas.push({ ...e, par });
+      else if (e.e === 'atk' && par) {
         const g = { ...e, par };
         this.golpes.push(g);
         if (e.de !== 'j') par.ini[e.de]?.golpes.push(e.t);
@@ -104,8 +106,16 @@ class Expedicao {
         if (morto && desde > SOME) continue;
         let vida = n.vidaMax;
         for (const g of this.golpes) { if (g.t > t) break; if (g.par === par && g.de === 'j' && g.em === n.k) vida = g.v; }
+        for (const c of this.curas) if (c.t <= t && c.par === par && c.k === n.k && !this.golpes.some(g => g.par === par && g.em === n.k && g.t > c.t && g.t <= t)) vida = c.v;
         const ator = { x: n.x, y: n.y, folha: n.folha, escala: n.escala, dir: PZ.dirDe(p.x - n.x, p.y - n.y) || 'SW', estado: 'parado', quadro: null, alpha: morto ? Math.min(1, (SOME - desde) / 0.6) : 1 };
         const vx = n.x - p.x, vy = n.y - p.y, vd = Math.hypot(vx, vy) || 1, mexe = !this.op.reduzir;
+        const sinalPredador = this.sinais.findLast(s => s.t <= t && s.par === par && s.k === n.k && s.anim);
+        if (sinalPredador && !morto && mexe) {
+          const d = t - sinalPredador.t, escala = sinalPredador.anim === 'recuar' ? 0.48 : sinalPredador.anim === 'perseguir' ? -0.43 : 0;
+          const passo = d < 1.2 ? escala * Math.sin(d * Math.PI / 1.2) : 0;
+          ator.x += vx / vd * passo; ator.y += vy / vd * passo;
+          if (passo) ator.estado = 'anda';
+        }
         if (morto) {
           // tomba pro lado oposto ao jogador
           const k = Math.min(1, desde / QUEDA);
@@ -203,6 +213,11 @@ class Expedicao {
       feed.push({ t: s.t, cls: 'saque', txt: lista.length ? `Revistou a parada: ${lista.join(', ')}` : 'Revistou a parada: nada que valha carregar' });
     }
     if (this.caiu != null && t >= this.caiu) { vida = 0; feed.push({ t: this.caiu, cls: 'dano', txt: 'Você caiu. Alguém do abrigo vai te buscar.' }); }
+    const sinal = this.sinais.findLast(s => s.t <= t && s.par === par && t < s.par.fim && t - s.t < 6);
+    if (sinal && this.sinalT !== sinal) {
+      this.sinalT = sinal;
+      if (t - sinal.t < 0.5 && sinal.som) this.op.som?.(sinal.som);
+    }
     feed.sort((a, b) => a.t - b.t);
     const espera = Math.max(0, Math.ceil((this.ex.inicio - this.op.agora()) / 1000));
     let fase;
@@ -215,7 +230,7 @@ class Expedicao {
     const h = {
       rota: this.rota.nome, fase, vida, vidaMax: this.ex.vidaMax, carga, capacidade: this.ex.capacidade, xp,
       feitas, total: this.totalParadas, restante: Math.max(0, Math.ceil(this.duracao - t)), voltando: !!(perna && perna.volta) || (t >= this.duracao && !segue),
-      feed: feed.slice(-4), espera,
+      feed: feed.slice(-4), espera, sinal: sinal ? { txt: sinal.txt, cor: sinal.cor } : null,
     };
     const k = JSON.stringify(h);
     if (k !== this.ultimoHud) { this.ultimoHud = k; this.op.mudou(h); }
@@ -271,6 +286,20 @@ class Expedicao {
   sobre(m, g) {
     const t = this.t, z = m.zoom;
     g.textAlign = 'center';
+    for (const marco of this.mapa.marcos || []) {
+      const d = Math.hypot(m.p.x - marco.x, m.p.y - marco.y);
+      if (d > 7) continue;
+      const p = m.paraTela(marco.x, marco.y, 36);
+      g.font = '600 12px system-ui';
+      g.strokeStyle = '#161719'; g.lineWidth = 4; g.strokeText(marco.texto, p.x, p.y);
+      g.fillStyle = '#f5dec1'; g.fillText(marco.texto, p.x, p.y);
+    }
+    const sinal = this.sinalT;
+    if (sinal && t < sinal.par.fim && t - sinal.t < 2.4) {
+      const alvo = sinal.par.ini[sinal.k], p = m.paraTela(alvo.x, alvo.y, 18);
+      g.strokeStyle = sinal.cor; g.lineWidth = 2;
+      g.beginPath(); g.ellipse(p.x, p.y + 18, 15 * z, 7 * z, 0, 0, 7); g.stroke();
+    }
     // faíscas e poeira no ponto do golpe
     if (!this.op.reduzir) for (const gp of this.golpes) {
       if (gp.t > t) break;

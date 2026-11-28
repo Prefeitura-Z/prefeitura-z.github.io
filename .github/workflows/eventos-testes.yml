@@ -1,7 +1,7 @@
-name: Testar vínculos e AirDrops
+name: Testar site e Depois da Queda
 on:
   pull_request:
-    paths: ["worker/**", "mapa/**", ".github/scripts/**", "tests/**", ".github/workflows/eventos-testes.yml"]
+    paths: ["worker/**", "jogo/**", "mapa/**", ".github/scripts/**", "tests/**", ".github/workflows/eventos-testes.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,5 +16,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: node --test tests/eventos.test.mjs
+      - run: node --test tests/*.test.mjs
       - run: python -m unittest discover -s tests -p test_airdrops.py -v

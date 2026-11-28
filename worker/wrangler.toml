@@ -9,6 +9,7 @@ mode = "smart"
 
 [vars]
 SITE = "https://prefeitura-z.github.io"
+TICKET_ORIGEM_PRECO = "1250000"
 
 [[d1_databases]]
 binding = "DB"

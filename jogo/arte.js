@@ -219,6 +219,7 @@ function cilindro(g, cx, cy, rx, ry, h, cor) {
 
 // altura de cada objeto em px e se esconde o personagem (fica translúcido quando ele passa atrás)
 const ALTURA = {
+  transformador: 46, comporta: 60, marcaEco: 3,
   muro: 70, pilar: 92, portao: 62, guarita: 84, sacos: 14, mesa: 18, arquivo: 46, estante: 58, caixas: 30, caixa: 14,
   bancada: 20, gerador: 22, pneus: 16, carcaca: 26, carroOficina: 44, tambor: 22, ferramentas: 42, antena: 120, mesaRadio: 20,
   beliche: 40, cama: 18, armario: 62, barraca: 56, tenda: 76, maca: 14, caixaMedica: 16, tanque: 96, planta: 10,
@@ -256,7 +257,7 @@ function cama(g, x, y, d, z, r, semPe) {
 function veiculo(g, o, r, queimado) {
   const { x, y, w, d } = o, ao = w >= d;
   const modelos = ['seda', 'hatch', 'picape', 'van'];
-  const mod = o.modelo || modelos[Math.floor(r() * 4)];
+  const mod = o.modelo || (Math.max(w, d) >= 3 && w !== d ? 'caminhao' : modelos[Math.floor(r() * 4)]);
   const cor = queimado ? '#3a3632' : (o.cor || '#5a6a72');
   const VIDRO = queimado ? '#141210' : '#2a3a44';
   // área quadrada (carcaça 2x2): o carro fica deitado em x, no meio, com proporção de carro
@@ -265,7 +266,10 @@ function veiculo(g, o, r, queimado) {
   const o0 = ao ? x + 0.06 + L * (1 - comp) / 2 : y + 0.06 + L * (1 - comp) / 2, Lc = L * comp;
   const lat0 = quad ? y + d * 0.24 : (ao ? y + 0.1 : x + 0.1);
   // (u ao longo do carro, de trás pra frente; v na largura, 1 = lado que a câmera vê; z em px)
-  const mundo = (u, v) => ao ? [o0 + Lc * u, lat0 + Wd * v] : [lat0 + Wd * v, o0 + Lc * u];
+  const mundo = (u, v) => {
+    const eixo = o0 + Lc * (o.reverso ? 1 - u : u);
+    return ao ? [eixo, lat0 + Wd * v] : [lat0 + Wd * v, eixo];
+  };
   const P = (u, v, z) => { const [wx, wy] = mundo(u, v), p = iso(wx, wy); return { x: p.x, y: p.y - z }; };
   const LUZ = (() => { const l = [-0.15, 0.6, 1], n = Math.hypot(...l); return l.map(c => c / n); })();
   const V3 = (u, v, z) => { const [wx, wy] = mundo(u, v); return [wx, wy, z / 32]; };
@@ -288,7 +292,7 @@ function veiculo(g, o, r, queimado) {
     return tela;
   };
   // loft: seções [u, alto, largura(0..1)] viram anéis chanfrados; liga anel com anel e tampa as pontas
-  const zc = 7;
+  const zc = mod === 'caminhao' ? 11 : 7;
   const anel = (u, alto, s, zb = zc) => {
     const a = 0.5 - s / 2, b = 0.5 + s / 2, zt = zb + alto, zm = Math.max(zb + 4, zt - 5);
     return [[u, a + 0.05, zb], [u, a, zb + 4], [u, a, zm], [u, a + 0.08, zt], [u, b - 0.08, zt], [u, b, zm], [u, b, zb + 4], [u, b - 0.05, zb]];
@@ -297,20 +301,19 @@ function veiculo(g, o, r, queimado) {
     const aneis = secoes.map(([u, h, s]) => anel(u, h, s, zb)), cen = [(secoes[0][0] + secoes[secoes.length - 1][0]) / 2, 0.5, zb + 6], faces = [];
     for (let i = 0; i + 1 < aneis.length; i++) for (let k = 0; k < 8; k++) { const k2 = (k + 1) % 8; faces.push({ pts: [aneis[i][k], aneis[i][k2], aneis[i + 1][k2], aneis[i + 1][k]], i, k }); }
     faces.push({ pts: aneis[0], ponta: 'tras' }, { pts: aneis[aneis.length - 1].slice().reverse(), ponta: 'frente' });
-    const vis = [];
-    for (const fc of faces) { const t = face(fc.pts, corDe ? corDe(fc) : cor, cen); if (t) vis.push({ ...fc, tela: t }); }
-    return vis;
+    for (const fc of faces) face(fc.pts, corDe ? corDe(fc) : cor, cen);
   };
   // perfil de cada modelo: [u, altura da lataria acima da saia, largura]
   const corpo = {
+    caminhao: [[0, 13, 0.88], [0.04, 15, 1], [0.64, 15, 1], [0.67, 30, 0.99], [0.88, 30, 0.99], [0.96, 19, 0.95], [1, 17, 0.94]],
     seda: [[0, 12, 0.9], [0.04, 15, 0.98], [0.26, 17, 1], [0.72, 17, 1], [0.93, 13, 0.98], [1, 10, 0.9]],
     hatch: [[0, 14, 0.9], [0.03, 17, 0.98], [0.7, 17, 1], [0.92, 13, 0.98], [1, 10, 0.9]],
     picape: [[0, 16, 0.94], [0.02, 18, 1], [0.78, 18, 1], [0.94, 15, 0.98], [1, 11, 0.92]],
     van: [[0, 32, 0.94], [0.025, 34, 1], [0.8, 34, 1], [0.95, 20, 0.98], [1, 16, 0.92]],
   }[mod];
   const altEm = u => { for (let i = 1; i < corpo.length; i++) if (u <= corpo[i][0]) { const [a0, h0] = corpo[i - 1], [a1, h1] = corpo[i]; return h0 + (h1 - h0) * (u - a0) / (a1 - a0); } return corpo[corpo.length - 1][1]; };
-  const rodaU = mod === 'hatch' ? [0.2, 0.8] : mod === 'van' ? [0.18, 0.8] : [0.19, 0.8];
-  const R = 7.5, rU = 0.25 / Lc;                                  // raio do pneu: 7.5px de altura, 0.25 célula no chão
+  const rodaU = mod === 'caminhao' ? [0.17, 0.32, 0.82] : mod === 'hatch' ? [0.23, 0.78] : [0.19, 0.81];
+  const R = mod === 'caminhao' ? 9.6 : 7.5, rU = (mod === 'caminhao' ? 0.29 : 0.22) / Lc;                                  // raio do pneu: 7.5px de altura, 0.25 célula no chão
   const circulo = (uc, v, z0, ru, rz, n = 14) => { const pts = []; for (let k = 0; k < n; k++) { const a = k / n * Math.PI * 2; pts.push(P(uc + Math.cos(a) * ru, v, z0 + Math.sin(a) * rz)); } return pts; };
 
   // sombra no chão, um pouco maior que o carro e puxada pra direita (luz da esquerda)
@@ -325,8 +328,7 @@ function veiculo(g, o, r, queimado) {
     face([[a0, vb, hb], [a1, vb, hb], [a1, v1, hb], [a0, v1, hb]], '#8a8a82', c);
   }
   // lataria
-  const lata = loft(corpo, fc => (fc.ponta === 'frente' || fc.ponta === 'tras') ? tom(cor, 0.94) : cor);
-  const ladoVisivel = lata.filter(f => f.k === 1 || f.k === 2).length ? 1 : 0;   // sempre o lado v=1
+  loft(corpo, fc => (fc.ponta === 'frente' || fc.ponta === 'tras') ? tom(cor, 0.94) : cor);
   // saia escura entre a lataria e o chão
   g.fillStyle = '#121212'; caminho([P(0.04, 1, zc - 1), P(0.96, 1, zc - 1), P(0.96, 1, zc + 2), P(0.04, 1, zc + 2)]); g.fill();
 
@@ -381,16 +383,27 @@ function veiculo(g, o, r, queimado) {
       g.fillStyle = tom(cor, 1.12); caminho([P(0.06, 0.12, zc + 34), P(0.74, 0.12, zc + 34), P(0.74, 0.88, zc + 34), P(0.06, 0.88, zc + 34)]); g.fill(); }
   }
 
+  if (mod === 'caminhao') {
+    loft([[0.025, 21, 0.97], [0.61, 21, 0.97]], () => queimado ? cor : '#515951', zc + 14);
+    const pintar = (pts, cor) => { g.fillStyle = cor; caminho(pts.map(p => P(...p))); g.fill(); };
+    pintar([[0.73, 0.99, zc + 18], [0.88, 0.99, zc + 18], [0.87, 0.94, zc + 27], [0.73, 0.94, zc + 27]], VIDRO);
+    if (!o.reverso) pintar([[0.8805, 0.14, zc + 29.9], [0.8805, 0.86, zc + 29.9], [0.95, 0.86, zc + 20.8], [0.95, 0.14, zc + 20.8]], VIDRO);
+    for (let k = 1; k <= 5; k++) {
+      const u = k * 0.095;
+      pintar([[u, 0.987, zc + 17], [u + 0.012, 0.987, zc + 17], [u + 0.012, 0.987, zc + 29], [u, 0.987, zc + 29]], '#858a71');
+    }
+  }
   // caixa de roda + pneu + aro do lado que a câmera vê
   for (const uc of rodaU) {
-    const base = zc + 1;
     // arco escuro na lataria
-    g.fillStyle = '#0a0a0a'; const arco = []; for (let k = 0; k <= 10; k++) { const a = Math.PI * k / 10; arco.push(P(uc + Math.cos(a) * rU * 1.3, 1.002, R + Math.sin(a) * R * 1.25)); } caminho(arco); g.fill();
+    g.fillStyle = '#080909'; const arco = [P(uc + rU * 1.24, 0.995, zc - 1)];
+    for (let k = 0; k <= 12; k++) { const a = Math.PI * k / 12; arco.push(P(uc + Math.cos(a) * rU * 1.24, 0.995, R + Math.sin(a) * R * 1.23)); }
+    arco.push(P(uc - rU * 1.24, 0.995, zc - 1)); caminho(arco); g.fill();
     if (queimado) { g.fillStyle = '#2a2622'; caminho(circulo(uc, 1, 4, rU * 0.7, 4)); g.fill(); continue; }
     if (o.calco) continue;
     const furado = uc === rodaU[0] && r() > 0.7, rz = furado ? R * 0.8 : R;
     g.fillStyle = '#121212'; caminho(circulo(uc, 0.9, rz, rU, rz)); g.fill();       // banda de rodagem (espessura)
-    g.fillStyle = '#1c1c1c'; caminho(circulo(uc, 1.04, rz, rU, rz)); g.fill();
+    g.fillStyle = '#1c1c1c'; caminho(circulo(uc, 1.025, rz, rU, rz)); g.fill();
     g.fillStyle = '#2a2a2a'; caminho(circulo(uc, 1.045, rz, rU * 0.82, rz * 0.82)); g.fill();
     g.fillStyle = '#6e767a'; caminho(circulo(uc, 1.05, rz, rU * 0.52, rz * 0.52)); g.fill();   // aro
     g.fillStyle = '#a8b0b4'; caminho(circulo(uc, 1.05, rz + 0.6, rU * 0.36, rz * 0.3, 10)); g.fill();
@@ -399,11 +412,18 @@ function veiculo(g, o, r, queimado) {
 
   // para-choques: lâminas escuras nas pontas
   const pc = queimado ? '#1a1816' : '#2c2c2a';
-  loft([[0.985, 5, 0.96], [1.025, 5, 0.96]], () => pc, zc - 2);
+  const paraChoque = o.reverso ? [[-0.025, 5, 0.96], [0.015, 5, 0.96]] : [[0.985, 5, 0.96], [1.025, 5, 0.96]];
+  loft(paraChoque, () => pc, zc - 2);
   // frente: farol, grade e pisca
   const hF = zc + corpo[corpo.length - 1][1], uF = 1.0005, sF = corpo[corpo.length - 1][2], vA = 0.5 - sF / 2, vB = 0.5 + sF / 2;
   const naFrente = (v0, v1, z0, z1, c) => { g.fillStyle = c; caminho([P(uF, vA + (vB - vA) * v0, z0), P(uF, vA + (vB - vA) * v1, z0), P(uF, vA + (vB - vA) * v1, z1), P(uF, vA + (vB - vA) * v0, z1)]); g.fill(); };
-  if (!queimado) {
+  if (!queimado && o.reverso) {
+    for (const v of [0.14, 0.73]) {
+      g.fillStyle = '#9b3935';
+      caminho([P(0, v, zc + 5), P(0, v + 0.13, zc + 5), P(0, v + 0.13, zc + 9), P(0, v, zc + 9)]); g.fill();
+    }
+  }
+  if (!queimado && !o.reverso) {
     naFrente(0.3, 0.7, hF - 7, hF - 3, '#1e2022');
     for (let k = 0; k < 3; k++) naFrente(0.32, 0.68, hF - 6.4 + k * 1.2, hF - 6 + k * 1.2, '#3a3e40');
     const quebrado = r() > 0.6;
@@ -422,13 +442,16 @@ function veiculo(g, o, r, queimado) {
     for (const u of portas) { const a = P(u, 1.001, zc + 4), b = P(u, 1.001, zMeio(u)); g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
     for (let k = 0; k + 1 < portas.length; k++) { const u = portas[k + 1] - 0.05; naLateral(u, u + 0.03, zMeio(u) - 3, zMeio(u) - 2, '#c9c2b0'); }
     // friso escuro rente à saia e reflexo claro logo abaixo do ombro
-    const fr = []; for (let k = 0; k <= 10; k++) fr.push(P(0.04 + 0.92 * k / 10, 1.001, zc + 5)); for (let k = 10; k >= 0; k--) fr.push(P(0.04 + 0.92 * k / 10, 1.001, zc + 6.5));
-    g.fillStyle = tom(cor, 0.6); caminho(fr); g.fill();
+    const folga = rU * 1.24;
+    const travessas = [0.04, ...rodaU.flatMap(u => [u - folga, u + folga]), 0.96];
+    for (let k = 0; k + 1 < travessas.length; k += 2) {
+      if (travessas[k] < travessas[k + 1]) naLateral(travessas[k], travessas[k + 1], zc + 5, zc + 6.5, tom(cor, 0.6));
+    }
     const rf = []; for (let k = 0; k <= 10; k++) { const u = 0.05 + 0.9 * k / 10; rf.push(P(u, 1.001, zMeio(u) - 0.5)); } for (let k = 10; k >= 0; k--) { const u = 0.05 + 0.9 * k / 10; rf.push(P(u, 1.001, zMeio(u) - 2)); }
     g.fillStyle = '#ffffff22'; caminho(rf); g.fill();
     // ferrugem e lama
     for (let k = 0; k < 3; k++) { const u = 0.08 + r() * 0.8; naLateral(u, u + 0.04 + r() * 0.06, zc + 4, zc + 6 + r() * 5, '#8a4a2a88'); }
-    for (const uc of rodaU) naLateral(uc - rU * 1.6, uc + rU * 1.6, zc + 2, zc + 7, '#3a302455');
+    for (const uc of rodaU) naLateral(uc + rU * 1.25, uc + rU * 1.65, zc + 2, zc + 7, '#3a302455');
     // retrovisor
     if (cab || mod === 'van') { const uR = cab ? cab[3][0] - 0.03 : 0.79, zR = zc + (cab ? altEm(uR) + 2 : 26); loft([[uR - 0.02, 4, 0.08], [uR + 0.02, 4, 0.08]].map(([u, h, s]) => [u, h, s]), () => tom(cor, 0.85), zR); const m = P(uR, 1.05, zR + 3); g.fillStyle = '#9aa8ae'; g.fillRect(Math.round(m.x) - 1, Math.round(m.y) - 1, 2, 1); }
     // folha seca e poeira no capô e no teto: carro parado há meses
@@ -438,9 +461,6 @@ function veiculo(g, o, r, queimado) {
     // fuligem e ferrugem por cima de tudo
     for (let k = 0; k < 22; k++) { const u = 0.05 + r() * 0.9, q = P(u, 0.2 + r() * 0.8, zc + altEm(u) * r()); g.fillStyle = ['#A65F3D', '#6a3a2a', '#1a1816', '#5a4a3a'][k % 4]; g.fillRect(Math.round(q.x), Math.round(q.y), 2 + Math.floor(r() * 3), 1 + Math.floor(r() * 2)); }
   }
-  // contorno: só a silhueta de fora, fininha, pra o carro descolar do chão
-  g.strokeStyle = '#0c0c0c88'; g.lineWidth = 1;
-  for (const f of lata) if (f.k === 3 || f.k === 4 || f.k === 5 || f.ponta) { caminho(f.tela); g.stroke(); break; }
   // caco de vidro no chão (na rua; no abrigo o carro está na oficina, chão varrido)
   if (!o.calco) { const c = iso(x + w / 2, y + d / 2); for (let k = 0; k < 5; k++) { g.fillStyle = '#c8d4d888'; g.fillRect(Math.round(c.x + (r() - 0.5) * 40), Math.round(c.y + 8 + (r() - 0.5) * 10), 2, 1); } }
 }
@@ -577,6 +597,29 @@ function desenharObjeto(g, o, t) {
         if (o.norte) Lt(A1, B1); if (o.oeste) Lt(A1, D1); if (o.sul) Lt(D1, iso(x + 1, y + 1)); if (o.leste) Lt(B1, iso(x + 1, y + 1));
         g.stroke(); }
       if (o.topo) { const q = r(); if (q > 0.965) { caixa(g, x + 0.3, y + 0.35, 0.36, 0.28, 9, '#5e6468', h); placa(g, x + 0.3, y + 0.35, 0.36, 0.28, 'esq', 0.15, 0.85, 0.3, 0.7, 9, '#2a2e30'); } else if (q > 0.93) { const c = iso(x + 0.5, y + 0.5); cilindro(g, c.x, c.y - h - 2, 8, 4, 14, '#4e6260'); } else if (q > 0.88) caixa(g, x + 0.42, y + 0.42, 0.16, 0.16, 8, '#3a3a36', h); else if (q > 0.7) { const c = iso(x + 0.5, y + 0.5); g.fillStyle = '#00000022'; g.beginPath(); g.ellipse(c.x + (r() - 0.5) * 16, c.y - h, 10, 4, 0, 0, 7); g.fill(); } }
+      break;
+    }
+    case 'transformador': {
+      caixa(g, x + .1, y + .14, w - .18, d - .25, 28, '#596766');
+      for (let i = 0; i < 3; i++) {
+        const px = x + (i + 0.55) * w / 3;
+        caixa(g, px, y + .39, .14, .23, 17, '#82755b', 28);
+        for (let z = 30; z <= 44; z += 5) caixa(g, px - .06, y + .34, .26, .34, 2, '#c5b78e', z);
+      }
+      break;
+    }
+    case 'comporta': {
+      caixa(g, x, y, w, d, 19, '#445757');
+      for (let i = 0; i < w; i++) caixa(g, x + i + .2, y + 1, .55, .48, 34, '#62777a', 19);
+      caixa(g, x, y + 1, w, .49, 6, '#7e6943', 52);
+      break;
+    }
+    case 'marcaEco': {
+      const p = iso(x + .5, y + .5);
+      g.strokeStyle = '#e3ddcebb'; g.lineWidth = 2;
+      g.beginPath(); g.ellipse(p.x, p.y, 12, 5, 0, 0, 7);
+      g.moveTo(p.x - 15, p.y + 5); g.lineTo(p.x + 11, p.y - 6);
+      g.moveTo(p.x + 3, p.y + 7); g.lineTo(p.x + 15, p.y - 1); g.stroke();
       break;
     }
     case 'carro': veiculo(g, o, r, false); break;
@@ -1062,7 +1105,7 @@ function caixaTela(o) {
   if (o.tipo === 'arvore') return { x0: l - 14, x1: rr + 14, y0: top, y1: bot };
   return { x0: l, x1: rr, y0: top, y1: bot };
 }
-const ALTOS = new Set(['muro', 'pilar', 'portao', 'guarita', 'arquivo', 'estante', 'antena', 'beliche', 'armario', 'barraca', 'tenda', 'tanque', 'quadro', 'poste', 'arvore', 'ferramentas', 'caixas', 'bloco', 'vagao', 'banca', 'conteiner', 'guindaste']);
+const ALTOS = new Set(['transformador', 'comporta', 'muro', 'pilar', 'portao', 'guarita', 'arquivo', 'estante', 'antena', 'beliche', 'armario', 'barraca', 'tenda', 'tanque', 'quadro', 'poste', 'arvore', 'ferramentas', 'caixas', 'bloco', 'vagao', 'banca', 'conteiner', 'guindaste']);
 
 // ---------- pessoas ----------
 const PELE = { p1: '#F1C9A5', p2: '#E0A982', p3: '#C68B62', p4: '#A0694A', p5: '#7A4E35', p6: '#5A3826' };
@@ -1082,6 +1125,13 @@ const ROUPA = {
   morador1: { torso: '#7a6a8a', detalhe: '#5a4a6a', calca: '#3E4F66', bota: '#2a2522', manga: '#7a6a8a' },
   morador2: { torso: '#8a7a4a', detalhe: '#6a5a34', calca: '#4a3e34', bota: '#2a2522', manga: '#8a7a4a' },
   // infectados
+  sentinela: { torso: '#695a36', detalhe: '#ebb968', calca: '#3b4140', bota: '#2a2522', manga: '#8a7766', colete: true, coleteCor: '#c69f55' },
+  blindado: { torso: '#465356', detalhe: '#809498', calca: '#333c3e', bota: '#242827', manga: '#697274', colete: true, coleteCor: '#71898e' },
+  vigia: { torso: '#7d573a', detalhe: '#e8ad51', calca: '#484132', bota: '#252623', manga: '#9c6e36', colete: true, coleteCor: '#b57f44' },
+  riscador: { torso: '#5d465f', detalhe: '#d9b8cf', calca: '#38313d', bota: '#242227', manga: '#745872' },
+  interno: { torso: '#9c8a83', detalhe: '#685159', calca: '#58515f', bota: '#2b252c', manga: '#998084' },
+  zelador: { torso: '#625466', detalhe: '#b294ad', calca: '#373341', bota: '#2e2934', manga: '#826d7f', avental: true },
+  costureiro: { torso: '#405b61', detalhe: '#90b4ab', calca: '#304248', bota: '#25363a', manga: '#58696e' },
   errante: { torso: '#6c6a5a', detalhe: '#4e4c40', calca: '#3a3c40', bota: '#2a2522', manga: '#6c6a5a' },
   errante2: { torso: '#5a6470', detalhe: '#444c56', calca: '#4a4034', bota: '#2a2522', manga: '#8f8a78' },
   corredor: { torso: '#8a4a3e', detalhe: '#6a342c', calca: '#33383B', bota: '#3a2e24', manga: '#b0a590' },
@@ -1107,6 +1157,15 @@ const NPC_AP = {
 };
 // infectados da rua. "escala" aumenta o desenho inteiro (o chefe é maior)
 const INIMIGO_AP = {
+  sentinela_ruido: [{ corpo: 'a', pele: 'z3', cabelo: 'moicano', corCabelo: 'c1', roupa: 'sentinela', zumbi: true }],
+  blindado_patio: [{ corpo: 'b', pele: 'z1', cabelo: 'raspado', corCabelo: 'c1', roupa: 'blindado', bone: true, zumbi: true, escala: 1.24 }],
+  vigia_rede: [{ corpo: 'b', pele: 'z2', cabelo: 'raspado', corCabelo: 'c5', roupa: 'vigia', bone: true, machado: true, zumbi: true, escala: 1.58 }],
+  riscador: [{ corpo: 'a', pele: 'p3', cabelo: 'longo', corCabelo: 'c1', roupa: 'riscador', capuz: true }],
+  interno: [{ corpo: 'b', pele: 'z3', cabelo: 'cacheado', corCabelo: 'c1', roupa: 'interno', zumbi: true, escala: 1.27 }],
+  zelador_ala: [{ corpo: 'b', pele: 'z2', cabelo: 'longo', corCabelo: 'c5', roupa: 'zelador', capuz: true, machado: true, escala: 1.6 }],
+  rasante: [{ quadrupede: true, cor: '#345759', predador: true, escala: 1.22 }],
+  costureiro: [{ corpo: 'b', pele: 'z1', cabelo: 'coque', corCabelo: 'c5', roupa: 'costureiro', capuz: true, escala: 1.32 }],
+  matriarca: [{ quadrupede: true, cor: '#463956', predador: true, escala: 1.95 }],
   errante: [
     { corpo: 'b', pele: 'z1', cabelo: 'curto', corCabelo: 'c1', roupa: 'errante', zumbi: true },
     { corpo: 'a', pele: 'z2', cabelo: 'longo', corCabelo: 'c2', roupa: 'errante2', zumbi: true },
@@ -1129,6 +1188,14 @@ const INIMIGO_AP = {
 
 // o que cada equipamento muda no desenho do boneco (ap.eq = { arma, protecao, mochila, ferramenta })
 const EQUIP_VIS = {
+  faca_cabos: { haste: '#a5bbbc', forma: 'lanca', fita: '#483933', comp: 0.7 },
+  malho_isolado: { haste: '#a58768', cabeca: '#d9a263', forma: 'cano', fita: '#3a3a2d', comp: 1.3 },
+  lamina_comporta: { haste: '#698786', bico: '#c8e8eb', forma: 'lanca', fita: '#353e55', comp: 1.35 },
+  perfurador_knox: { haste: '#555c60', bico: '#dabe82', forma: 'lanca', fita: '#828475', comp: 1.3 },
+  colete_dieletrico: { colete: '#c89143' }, capa_filtro: { colete: '#897485' }, couraca_pressao: { colete: '#5f888d' },
+  bolsa_reles: { bolsa: '#9d754c', alca: '#59412c' }, mochila_silencio: { bolsa: '#4a4157', alca: '#51435b' },
+  cargueira_knox: { bolsa: '#446974', alca: '#304b56', armacao: '#93bab9', grande: true },
+  sonda_reles: { cinto: '#d5c06d' }, chave_industrial: { cinto: '#639fa7' },
   barra_portao: { haste: '#8f979c', forma: 'barra', fita: '#7a3a2a' },
   cano_rebite: { haste: '#7d858a', cabeca: '#4f5559', forma: 'cano', fita: '#24282B', comp: 1.1 },
   machadinha: { haste: '#7a5a3e', lamina: '#b9c0c4', forma: 'machado', fita: '#3a2a1e' },
@@ -1349,6 +1416,12 @@ function quadroPessoa(ap, dir, estado, f) {
     if (ap.oculos) { px(hx + ox - 1, oy - 1, 5, 5, '#2a2a2a'); px(hx + ox + 5, oy - 1, 5, 5, '#2a2a2a'); px(hx + ox, oy, 3, 3, '#a8c8d0'); px(hx + ox + 6, oy, 3, 3, '#a8c8d0'); px(hx + ox, oy, 1, 1, '#eef6f8'); px(hx + ox + 6, oy, 1, 1, '#eef6f8'); px(hx + ox + 4, oy + 1, 1, 1, '#2a2a2a'); }
   }
   if (ap.bandana) { px(hx - 1, hy, HL + 2, 3, COR.aviso); px(hx - 1, hy, HL + 2, 1, tom(COR.aviso, 1.2)); if (!frente) px(hx + (lado > 0 ? -3 : HL), hy + 1, 3, 5, COR.aviso); }
+  if (ap.capuz) {
+    px(hx - 3, hy - 4, HL + 6, 4, '#302a38');
+    px(hx - 3, hy, 4, 13, '#383040');
+    px(hx + HL - 1, hy, 4, 13, '#2e2833');
+    if (!frente) px(hx, hy, HL, 10, '#393044');
+  }
   if (ap.bone) { px(hx - 1, hy - 3, HL + 2, 5, '#3e4636'); px(hx + 2, hy - 3, 5, 1, '#5a6450'); if (frente) px(hx + (lado > 0 ? 7 : -4), hy + 1, 13, 2, '#2e3428'); }
   if (ap.fone) { px(hx - 2, hy + 4, 3, 6, '#24282B'); px(hx + HL - 1, hy + 4, 3, 6, '#24282B'); px(hx - 1, hy - 4, HL + 2, 2, '#24282B'); if (frente) px(hx + (lado > 0 ? HL - 1 : -2), hy + 10, 1, 4, '#24282B'); }
 
@@ -1400,6 +1473,13 @@ function quadroCao(ap, dir, estado, f) {
   if (boca) { px(ox + 40, hy + 7, 1, 1, '#e8e0c8'); px(ox + 43, hy + 7, 1, 1, '#e8e0c8'); px(ox + 41, hy + 7 + boca, 1, 1, '#e8e0c8'); }
   px(ox + 41, hy + 8 + boca, 6, 2, pelo);
   if (!boca && f % 2 === 0) px(ox + 42, hy + 10, 1, 3, '#c8d0b088');              // baba
+  if (ap.predador) {
+    for (let k = 0; k < 4; k++) {
+      px(ox + 12 + k * 4, hy - 3 - (k % 2), 3, 7, tom(ap.cor, 1.46));
+      px(ox + 13 + k * 4, hy - 5 - (k % 2), 1, 3, '#8aa69e');
+    }
+    px(ox + 40, hy + 7, 4, 1, '#d9e6ac');
+  }
   if (ap.coleira) { px(ox + 30, hy + 8, 7, 2, '#3a2a20'); for (let k = 0; k < 3; k++) px(ox + 30 + k * 3, hy + 7, 1, 1, '#c8ccd0'); }
   // contorno escuro igual ao dos bonecos
   const o = document.createElement('canvas'); o.width = QW; o.height = QH;

@@ -414,10 +414,10 @@ class Motor {
 
     // luz do dia: ciclo de 8 min, sem nunca ficar escuro demais pra usar os serviços
     const ciclo = this.reduzir ? 0.3 : (Date.now() / 480000) % 1;
-    const noite = Math.max(0, Math.sin(ciclo * Math.PI * 2)) * 0.5;
+    const noite = this.m.ambiente?.escuro ?? Math.max(0, Math.sin(ciclo * Math.PI * 2)) * 0.5;
     if (noite > 0.02) {
       g.setTransform(1, 0, 0, 1, 0, 0);
-      g.fillStyle = `rgba(14,20,42,${noite})`; g.fillRect(0, 0, this.cv.width, this.cv.height);
+      g.fillStyle = `rgba(${this.m.ambiente?.cor || '14,20,42'},${noite})`; g.fillRect(0, 0, this.cv.width, this.cv.height);
       g.setTransform(z * d, 0, 0, z * d, tx, ty);
       g.globalCompositeOperation = 'lighter';
       const brilho = (x, y, r, a, cor = '212,172,102', sy = 1) => {
@@ -442,6 +442,12 @@ class Motor {
       const W = this.cv.width, H = this.cv.height, gr = g.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.hypot(W, H) * 0.56);
       gr.addColorStop(0, 'rgba(8,10,12,0)'); gr.addColorStop(1, 'rgba(8,10,12,0.42)');
       this.vinheta = { w: W, h: H, gr };
+    }
+    if (this.m.ambiente?.nevoa) {
+      const nevoa = g.createLinearGradient(0, 0, 0, this.cv.height);
+      nevoa.addColorStop(0, `rgba(181,184,190,${this.m.ambiente.nevoa})`);
+      nevoa.addColorStop(0.68, 'rgba(181,184,190,0)');
+      g.fillStyle = nevoa; g.fillRect(0, 0, this.cv.width, this.cv.height);
     }
     g.fillStyle = this.vinheta.gr; g.fillRect(0, 0, this.cv.width, this.cv.height);
 

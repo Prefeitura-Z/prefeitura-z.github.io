@@ -87,3 +87,7 @@ No Prefeito, "Caixas pro servidor" vende as 5 lootboxes do mod XsLootBoxes por c
 - O mod avisa que sabe entregar com a linha `F|caixas|1`. Sem esse aviso na última hora, o site não vende (aparece "entrega desligada").
 - Recusado pelo servidor, ou 3 dias sem o jogador entrar: os créditos voltam sozinhos. O mod para de entregar meia hora antes do prazo, pra nunca entregar e devolver o mesmo pedido.
 - Testes: `node --test tests/caixas.test.mjs`.
+
+## Expansão de Depois da Queda
+
+Veja a [prévia local, o balanço e a homologação](docs/expansao-depois-da-queda.md).

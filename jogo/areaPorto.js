@@ -59,11 +59,11 @@ predio(24, 23, 19, 2, 112, '#8a8a84', { porta: true });
 for (let x = 39; x <= 43; x++) obj('cerca', x, 19, 1, 1, { lado: 'n', dprof: -0.9, portao: x === 40, h: 26 });
 for (const y of [19, 20, 22]) obj('cerca', 39, y, 1, 1, { lado: 'w', dprof: -0.9, h: 26 });
 obj('casinha', 42, 22); obj('caixas', 25, 21); obj('pneus', 33, 15); obj('tambor', 30, 22); obj('caixa', 36, 22);
-obj('carro', 26, 20, 2, 1, { cor: '#d8d3c4', modelo: 'van' });
+obj('carro', 26, 21, 2, 1, { cor: '#d8d3c4', modelo: 'van' });
 
 // avenida
 obj('carro', 25, 13, 2, 1, { cor: '#5a6a72', modelo: 'seda' });
-obj('carro', 11, 10, 2, 1, { cor: '#4a5a4a', modelo: 'picape' });
+obj('carro', 10, 9, 2, 1, { cor: '#4a5a4a', modelo: 'picape' });
 for (const [x, y] of [[5, 13], [16, 11], [26, 11], [34, 12], [42, 12], [22, 15], [19, 8], [27, 8], [37, 9], [12, 17], [28, 18], [35, 21]]) obj('entulho', x, y, 1, 1, { solido: false });
 for (const [x, y] of [[6, 10], [14, 14], [26, 10], [34, 14], [42, 10], [19, 16], [23, 19]]) obj('poste', x, y);
 obj('placaRua', 19, 10, 1, 1, { cor: '#3f5a6a' }); obj('placaRua', 23, 14, 1, 1, { cor: '#9B8D66' });

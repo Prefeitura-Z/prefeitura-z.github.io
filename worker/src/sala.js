@@ -31,7 +31,18 @@ export class SalaAbrigo extends DurableObject {
 
   async fetch(req) {
     // quantos estão no abrigo agora (número público, mostrado no site)
-    if (new URL(req.url).pathname === '/contar') {
+    const path = new URL(req.url).pathname;
+    if (path === '/suspender' && req.method === 'POST') {
+      const { alvo } = await req.json();
+      for (const ws of this.ctx.getWebSockets()) {
+        const a = ws.deserializeAttachment();
+        if (a?.did !== alvo || a.fora) continue;
+        this.sair(ws, a);
+        try { ws.close(4003, 'Conta suspensa no jogo.'); } catch {}
+      }
+      return new Response(null, { status: 204 });
+    }
+    if (path === '/contar') {
       let n = 0;
       for (const ws of this.ctx.getWebSockets()) { const a = ws.deserializeAttachment(); if (a && !a.fora) n++; }
       return Response.json({ n });

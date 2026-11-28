@@ -231,3 +231,32 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .exp-ronda { margin: 0; font-size: 12px; color: var(--fraco); border-top: 1px solid var(--linha); padding-top: 8px; }
 
 .trava { grid-column: 1 / -1; color: #ffb2a6; font-size: 12px; }
+
+#mochila .painel-topo { position: sticky; top: -12px; z-index: 1; background: var(--painel, #20231e); }
+.ficha-mochila { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: center; }
+.ficha-mochila canvas { width: 76px; height: 114px; background: #232521; border: 1px solid var(--linha); border-radius: 8px; image-rendering: pixelated; }
+.ficha-mochila h3 { margin: 2px 0 8px; color: var(--texto); }
+.ficha-mochila progress { width: 100%; height: 10px; accent-color: var(--luz); }
+.ficha-mochila .nota { margin: 4px 0 7px; }
+.espacos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.espacos > li { align-items: start; }
+.filtros-estoque { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; margin: 10px 0; }
+.filtros-estoque .campo { flex: 1 1 140px; margin: 0; }
+.filtros-estoque input, .filtros-estoque select, .gestao-operacao input, .gestao-operacao select, #ticket select { width: 100%; min-height: 38px; }
+.estoque-grupo h4 { margin: 12px 0 5px; color: var(--luz); }
+#mochila .botao, #ticket .botao, #gestao-fichas .botao { min-height: 42px; }
+.exp-sinal { margin: 0; padding: 7px 9px; background: #151a20; border-left: 3px solid currentColor; font-size: 13px; }
+.exp-som { justify-self: start; padding: 4px 9px; font-size: 12px; }
+#gestao-ficha { margin-top: 12px; }
+#gestao-ficha details, #gestao-auditoria details { width: 100%; }
+#gestao-ficha summary, #gestao-auditoria summary { cursor: pointer; padding: 5px 0; overflow-wrap: anywhere; }
+.gestao-operacao { display: grid; gap: 8px; margin: 10px 0; }
+.gestao-operacao .campo { margin: 0; }
+.gestao-operacao .acoes { align-items: start; }
+.gestao-progresso, .gestao-alteracao { overflow-wrap: anywhere; }
+#ticket-conteudo .acoes { margin-top: 12px; }
+@media (max-width: 540px) {
+  .espacos { grid-template-columns: 1fr; }
+  .ficha-mochila { grid-template-columns: 58px minmax(0, 1fr); gap: 9px; }
+  .ficha-mochila canvas { width: 58px; height: 87px; }
+}

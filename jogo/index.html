@@ -12,7 +12,7 @@
 <title>Depois da Queda — Prefeitura Z</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="jogo.css?v=20261128-2">
+<link rel="stylesheet" href="jogo.css?v=expansao-9">
 </head>
 <body data-tela="tela-carregando">
 
@@ -90,7 +90,9 @@
       <div><span>Paradas</span><b id="exp-parada-n"></b><i class="barra rota"><i id="exp-parada"></i></i></div>
     </div>
     <p class="exp-ronda" id="exp-ronda" hidden></p>
+    <p class="exp-sinal" id="exp-sinal" role="status" hidden></p>
     <ol class="exp-feed" id="exp-feed"></ol>
+    <button type="button" id="exp-som" class="botao exp-som" aria-pressed="false">Ativar sinais sonoros</button>
     <div class="exp-pe"><span id="exp-tempo"></span><button type="button" class="botao perigo" id="btn-recuar">Recuar pro abrigo</button></div>
   </div>
   <p class="demo-aviso" id="demo-aviso" hidden>Prévia visual: sem login e sem salvar no servidor</p>
@@ -109,6 +111,7 @@
 
   <div class="painel lateral" id="bipe" role="dialog" aria-labelledby="bipe-t" hidden>
     <div class="painel-topo"><h2 id="bipe-t">Bipe</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <button type="button" class="botao" id="bipe-rotas" hidden>Ver rotas</button>
     <ol class="bipe-lista" id="bipe-lista"></ol>
   </div>
 
@@ -154,14 +157,33 @@
 
   <div class="painel centro-painel medio" id="mochila" role="dialog" aria-labelledby="mochila-t" hidden>
     <div class="painel-topo"><h2 id="mochila-t">Mochila e armazém</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
-    <p class="atributos" id="mochila-voce"></p>
-    <div class="xp"><span id="mochila-xp-n"></span><i class="barra rota"><i id="mochila-xp"></i></i></div>
-    <p class="ferido" id="mochila-ferido" hidden></p>
-    <h3>Equipamento</h3>
-    <ul class="lista" id="mochila-equip"></ul>
-    <h3>Guardado no armazém</h3>
-    <ul class="lista" id="mochila-itens"></ul>
+    <div class="ficha-mochila">
+      <canvas id="mochila-retrato" width="96" height="144" aria-hidden="true"></canvas>
+      <div><h3 id="mochila-nome"></h3>
+        <p class="atributos" id="mochila-voce"></p>
+        <div class="xp"><span id="mochila-xp-n"></span><progress id="mochila-xp" max="100" aria-label="Progresso de nível"></progress></div>
+        <p class="nota" id="mochila-carga"></p><p class="ferido" id="mochila-ferido"></p>
+      </div>
+    </div>
+    <h3>Equipado</h3>
+    <ul class="lista espacos" id="mochila-espacos"></ul>
+    <h3>Armazém do abrigo</h3>
+    <div class="filtros-estoque">
+      <label class="campo">Buscar item<input id="mochila-busca" type="search" autocomplete="off"></label>
+      <label class="campo">Categoria<select id="mochila-filtro">
+        <option value="">Todas</option><option value="equip">Equipamento</option><option value="consumivel">Consumíveis</option>
+        <option value="material">Materiais</option><option value="missao">Missão e troféus</option>
+      </select></label>
+    </div>
+    <p class="nota" id="mochila-trava" hidden>Consulte o armazém durante a saída. Volte ao abrigo para equipar ou usar itens.</p>
+    <div id="mochila-itens"></div>
     <p class="nota" id="mochila-msg" aria-live="polite"></p>
+  </div>
+
+  <div class="painel centro-painel medio" id="ticket" role="dialog" aria-labelledby="ticket-t" hidden>
+    <div class="painel-topo"><h2 id="ticket-t">Ticket de Troca de Classe</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <div id="ticket-conteudo"></div>
+    <p id="ticket-msg" class="nota" role="status"></p>
   </div>
 
   <div class="painel centro-painel medio" id="loja" role="dialog" aria-labelledby="loja-t" hidden>
@@ -190,7 +212,12 @@
   </div>
 
   <div class="painel centro-painel largo" id="gestao" role="dialog" aria-labelledby="gestao-t" hidden>
-    <div class="painel-topo"><h2 id="gestao-t">Gestão · Equipe</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <div class="painel-topo"><h2 id="gestao-t">Gestão</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">Esc</button></div>
+    <section id="gestao-fichas" hidden>
+      <button type="button" id="gestao-eu" class="botao primario">Meu personagem</button>
+      <div id="gestao-ficha"></div>
+      <p id="gestao-ficha-msg" class="nota" role="status"></p>
+    </section>
     <div class="gestao-grade">
       <section id="gestao-busca">
         <h3>Dar ou tirar acesso</h3>
@@ -203,6 +230,11 @@
         <h3>Equipe atual</h3>
         <ul class="lista" id="gestao-equipe"></ul>
         <h3>Auditoria</h3>
+        <div id="gestao-audit-filtros" class="filtros-estoque" hidden>
+          <label class="campo">ID da conta<input id="gestao-audit-alvo" inputmode="numeric"></label>
+          <label class="campo">Ação<select id="gestao-audit-acao"></select></label>
+          <button type="button" id="gestao-audit-filtrar" class="botao">Filtrar</button>
+        </div>
         <ul class="lista" id="gestao-auditoria"></ul>
       </section>
     </div>
@@ -211,14 +243,15 @@
 
 <footer class="direitos-site">© 2026 Prefeitura Z. Todos os direitos reservados.</footer>
 
-<script src="mundo.js"></script>
-<script src="arte.js"></script>
-<script src="area.js"></script>
-<script src="areaEstacao.js"></script>
-<script src="areaPorto.js"></script>
-<script src="motor.js"></script>
-<script src="expedicao.js"></script>
+<script src="mundo.js?v=expansao-9"></script>
+<script src="arte.js?v=expansao-9"></script>
+<script src="area.js?v=expansao-9"></script>
+<script src="areaEstacao.js?v=expansao-9"></script>
+<script src="areaPorto.js?v=expansao-9"></script>
+<script src="areaExpansao.js?v=expansao-9"></script>
+<script src="motor.js?v=expansao-9"></script>
+<script src="expedicao.js?v=expansao-9"></script>
 <script src="rede.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=expansao-9"></script>
 </body>
 </html>

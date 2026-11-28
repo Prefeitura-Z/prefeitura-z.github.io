@@ -5,32 +5,10 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { DatabaseSync } from 'node:sqlite';
 import { registerHooks } from 'node:module';
+import { d1 } from './helpers/d1.mjs';
 registerHooks({ resolve(s, c, n) { return s === 'cloudflare:workers' ? { url: 'data:text/javascript,export class DurableObject {}', shortCircuit: true } : n(s, c); } });
 const { default: api } = await import('../worker/src/index.js');
 const { CAIXAS } = await import('../worker/src/regras.js');
-
-function d1(db) {
-  const stmt = (sql) => {
-    let args = [];
-    const o = {
-      bind(...a) { args = a; return o; },
-      first() { return db.prepare(sql).get(...args) ?? null; },
-      all() { return { results: db.prepare(sql).all(...args) }; },
-      run() {
-        if (/^\s*SELECT/i.test(sql)) return { results: db.prepare(sql).all(...args), meta: { changes: 0 } };
-        const r = db.prepare(sql).run(...args); return { results: [], meta: { changes: Number(r.changes) } };
-      },
-    };
-    return o;
-  };
-  return {
-    prepare: stmt,
-    async batch(list) {
-      db.exec('BEGIN');
-      try { const r = list.map(s => s.run()); db.exec('COMMIT'); return r; } catch (e) { db.exec('ROLLBACK'); throw e; }
-    },
-  };
-}
 
 async function montar() {
   const db = new DatabaseSync(':memory:');

@@ -53,6 +53,7 @@ jobs:
           fi
           sed -i "s/COLOCADO_PELO_DEPLOY/$ID/" wrangler.toml
           npx wrangler d1 execute prz-site --remote --file schema.sql -y
+          npx wrangler d1 migrations apply prz-site --remote
       - name: Publicar
         if: steps.seg.outputs.pular != '1'
         # Segredos passados por variável de ambiente: assim caracteres como $ " ` não são alterados pelo shell.

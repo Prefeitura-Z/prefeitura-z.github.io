@@ -77,7 +77,7 @@ for (let k = 0; k < 6; k++) obj('vagao', 9 + k, 19, 1, 1, { tipoV: 'onibus', cor
 
 // avenida: carros e entulho fora da linha das rotas
 obj('carro', 30, 13, 2, 1, { cor: '#8a8468', modelo: 'picape' });
-obj('carro', 40, 13, 2, 1, { cor: '#5a6a72', modelo: 'seda' });
+obj('carro', 38, 13, 2, 1, { cor: '#5a6a72', modelo: 'seda' });
 obj('carro', 22, 23, 1, 2, { cor: '#7a3a2a', modelo: 'hatch' });
 obj('carro', 9, 10, 2, 1, { cor: '#4a5a4a', modelo: 'van' });
 for (const [x, y] of [[6, 13], [14, 11], [25, 11], [33, 12], [42, 12], [22, 15], [20, 9], [27, 9], [35, 9], [11, 16], [26, 20], [33, 21], [39, 17]]) obj('entulho', x, y, 1, 1, { solido: false });

@@ -1,7 +1,9 @@
 // Prefeitura Z: Depois da Queda — regras do jogo (itens, rotas, inimigos, combate).
 // Tudo aqui é função pura, sem banco e sem relógio: o servidor sorteia uma semente, simula a expedição
 // inteira de uma vez e guarda o resultado. O navegador só assiste. Mudou número aqui? Suba VERSAO.
-export const VERSAO = 8;
+import { AREAS_NOVAS, ITENS_NOVOS, RECEITAS_NOVAS, INIMIGOS_NOVOS, ROTAS_NOVAS, ARCO, trilhaExpansao } from './expansao.js';
+
+export const VERSAO = 9;
 
 // ---------- itens ----------
 // tipo: material | consumivel | missao | arma | protecao | mochila | ferramenta
@@ -28,12 +30,13 @@ export const ITENS = {
   armadura_placas: { nome: 'Colete de placas de sinalização', tipo: 'protecao', defesa: 36, valor: 160, desc: 'Placas de trânsito cortadas e rebitadas por cima de lona.' },
   mochila_cargueira: { nome: 'Mochila cargueira', tipo: 'mochila', capacidade: 48, valor: 130, desc: 'Armação de carrinho de feira com saco de ráfia duplo.' },
   kit_desmonte: { nome: 'Kit de desmonte', tipo: 'ferramenta', sucataExtra: 2, valor: 120, desc: 'Serra, alicate e chave de roda numa bolsa de cintura.' },
+  ...ITENS_NOVOS,
 };
 export const EQUIPAVEIS = ['arma', 'protecao', 'mochila', 'ferramenta'];
 export const KIT_INICIAL = ['barra_portao', 'jaqueta_ronda', 'mochila_lona'];
 export const KIT_SUPRIMENTOS = 3;
 // o que o Wolf vende e o que dá pra fabricar na bancada dele
-export const LOJA = ['suprimento', 'curativo', 'ferramenta_recuperacao', 'cano_rebite', 'colete_lona', 'mochila_reforcada', 'barra_portao', 'jaqueta_ronda', 'mochila_lona'];
+export const LOJA = ['suprimento', 'curativo', 'ferramenta_recuperacao', 'cano_rebite', 'colete_lona', 'mochila_reforcada', 'barra_portao', 'jaqueta_ronda', 'mochila_lona', 'faca_cabos', 'bolsa_reles'];
 export const RECEITAS = {
   curativo: { nome: 'Curativo de abrigo', gasta: { tecido: 2 }, faz: { curativo: 1 } },
   suprimento: { nome: 'Kit de campo', gasta: { sucata: 3, tecido: 1 }, faz: { suprimento: 1 } },
@@ -42,8 +45,10 @@ export const RECEITAS = {
   armadura_placas: { nome: 'Colete de placas de sinalização', gasta: { sucata: 30, tecido: 12, peca_eletrica: 2 }, equip: 'armadura_placas' },
   mochila_cargueira: { nome: 'Mochila cargueira', gasta: { tecido: 24, pecas: 4 }, equip: 'mochila_cargueira' },
   kit_desmonte: { nome: 'Kit de desmonte', gasta: { pecas: 10, peca_eletrica: 3 }, equip: 'kit_desmonte' },
+  ...RECEITAS_NOVAS,
 };
-export const CUSTO_REPARO_POR_PONTO = 0.25;   // créditos por ponto de condição, arredondado pra cima
+export const CUSTO_REPARO_POR_PONTO = 0.25;
+export const reparoPorPonto = item => Math.max(CUSTO_REPARO_POR_PONTO, (ITENS[item]?.compra || ITENS[item]?.valor || 0) * 0.002);   // créditos por ponto de condição, arredondado pra cima
 // O Wolf recompra equipamento por uma fração do preço da loja, menos ainda se estiver gasto.
 // Sem preço de loja (o que só sai de chefe) ele não compra. Consertar pra revender nunca compensa.
 export const REVENDA = 0.3;
@@ -84,6 +89,7 @@ export const INIMIGOS = {
   afogado: { nome: 'Afogado', vida: 120, ataque: 9, defesa: 6, cadencia: 3.1, evasao: 0, xp: 50 },
   mastim: { nome: 'O Mastim', vida: 290, ataque: 12, defesa: 18, cadencia: 1.6, evasao: 0.1, xp: 260, chefe: true, bicho: true, pesadoACada: 4, pesadoFator: 2.0 },
   porteiro: { nome: 'O Porteiro', vida: 135, ataque: 9, defesa: 25, cadencia: 2.4, evasao: 0, xp: 90, chefe: true, pesadoACada: 4, pesadoFator: 2.2 },
+  ...INIMIGOS_NOVOS,
 };
 
 // ---------- rotas ----------
@@ -93,6 +99,7 @@ export const AREAS = {
   entrada: { nome: 'Quarteirão da Entrada' },
   estacao: { nome: 'Feira da Estação', requer: 'rota4_concluida' },
   porto: { nome: 'Cais do Porto', requer: 'maquinista_vencido' },
+  ...AREAS_NOVAS,
 };
 // pontos em células do mapa da área; "enc" lista os inimigos da parada. O mapa desenhado no cliente segue estes pontos.
 const SAIDA = [2.5, 12.5];
@@ -277,14 +284,20 @@ export const ROTAS = {
     saque: { sucata: [4, 6], pecas: [2, 3], peca_eletrica: [1, 3] },
     repete: 'mastim_vencido',
   },
+  ...ROTAS_NOVAS,
 };
 export const VEL_ANDAR = 1.9;        // células por segundo na rua
 const TEMPO_REVISTA = 3;           // segundos revistando depois de cada parada
 const RESPIRO = 6;                   // vida recuperada depois de cada parada vencida
 
 // ---------- progressão ----------
-export const NIVEL_MAX = 30;
-export const xpParaSubir = L => Math.round(100 * Math.pow(L, 1.55));
+export const NIVEL_MAX = 60;
+export const xpParaSubir = L => L < 30 ? Math.round(100 * L ** 1.55)
+  : 4800 + Math.floor((L - 30) / 10) * 1200 + (L - 30) % 10 * 160;
+export const XP_NIVEIS = Object.freeze(Array.from({ length: NIVEL_MAX }, (_, i) => i).reduce((valores, i) => {
+  valores.push(i === 0 ? 0 : valores[i - 1] + xpParaSubir(i));
+  return valores;
+}, []));
 export function nivelDe(xpTotal) {
   let L = 1, resto = Math.max(0, Math.floor(xpTotal || 0));
   while (L < NIVEL_MAX && resto >= xpParaSubir(L)) { resto -= xpParaSubir(L); L++; }
@@ -313,11 +326,16 @@ export function atributos({ xp, origem, equipados, ferido }) {
     vidaMax: ferido ? Math.round(vidaCheia * 0.75) : vidaCheia,
     ataque: Math.round(6 + nivel + (arma ? arma.def.ataque * arma.f : 0)),
     defesa: Math.round(prot ? prot.def.defesa * prot.f : 0),
-    cadencia: 1.6, precisao: 0, evasao: 0.03 + (b.evasao || 0),
+    cadencia: arma?.def.cadencia || 1.6, precisao: 0,
+    evasao: 0.03 + (b.evasao || 0) + (prot?.def.evasao || 0) * (prot?.f || 1),
+    penetracao: Math.round((arma?.def.penetracao || 0) * (arma?.f || 1)),
+    isolamento: (prot?.def.isolamento || 0) * (prot?.f || 1) + (ferr?.def.isolamento || 0) * (ferr?.f || 1),
+    alerta: moch?.def.alerta || 0,
+    recupera: ferr?.def.recupera, extra: ferr?.def.extra || 0,
     critico: 0.08, criticoFator: 1.6,
     capacidade: (moch ? moch.def.capacidade : 6) + (b.capacidade || 0),
     sucataExtra: ferr ? ferr.def.sucataExtra : 0,
-    respiro: RESPIRO + (b.respiro || 0),
+    respiro: RESPIRO + (b.respiro || 0) + (moch?.def.respiro || 0),
     desgaste: b.desgaste || 1,
     ferido: !!ferido,
   };
@@ -335,7 +353,8 @@ const r1 = v => Math.round(v * 10) / 10;
 function golpe(rnd, atq, alvo, fator = 1) {
   const chance = limitar(0.9 + (atq.precisao || 0) - (alvo.evasao || 0), 0.6, 0.98);
   if (rnd() > chance) return { erro: 1, dano: 0 };
-  const reducao = limitar(alvo.defesa / (alvo.defesa + 100), 0, 0.7);
+  const defesa = Math.max(0, alvo.defesa - (atq.penetracao || 0));
+  const reducao = limitar(defesa / (defesa + 100), 0, 0.7);
   // variação de 15% pra cima ou pra baixo: sem ela, um ponto de ataque a mais mudava tudo de uma vez
   let dano = Math.max(1, atq.ataque * fator * (1 - reducao) * (0.85 + rnd() * 0.3));
   const crit = atq.critico && rnd() < atq.critico;
@@ -348,12 +367,20 @@ function golpe(rnd, atq, alvo, fator = 1) {
 export function simular(rotaId, attrs, semente, ctx = {}) {
   const rota = ROTAS[rotaId];
   const rnd = sorteador(semente), forca = rota.forca || 1;
-  const log = [], salvos = [];
+  const log = [], salvos = [], sinais = [];
   let t = 0, pos = ctx.origem || SAIDA, vida = Math.max(1, Math.min(attrs.vidaMax, ctx.vidaInicial || attrs.vidaMax)), carga = 0, xp = 0, paradas = 0;
   const itens = {}, perdidos = {}, marcas = [];
-  let equipGanho = null, motivo = 'concluida', ficouParaTras = false;
-  const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
-  const andar = (para, n) => { const d = r1(dist(pos, para) / VEL_ANDAR); log.push({ t: r1(t), e: 'ir', n, de: pos, para, d }); t += d; pos = para; };
+  let equipGanho = null, primeira = 0, motivo = 'concluida', ficouParaTras = false;
+  const mover = (para, e, vel, extra) => {
+    const pts = rota.nivel ? trilhaExpansao(pos, para) : [pos, para];
+    const d = r1(distanciaTrilha(pts) / vel);
+    log.push({ t: r1(t), e, de: pos, para, d, ...(rota.nivel ? { pts } : {}), ...extra });
+    t += d; pos = para;
+  };
+  const avisar = (n, tc, txt, cor, som, anim) => {
+    const aviso = { t: r1(t + tc), e: 'sinal', k: n.k, txt, cor, som, ...(anim ? { anim } : {}) };
+    log.push(aviso); sinais.push(aviso);
+  };
   const pegar = (item, q) => {
     if (ITENS[item].tipo === 'missao') { itens[item] = (itens[item] || 0) + q; return q; }   // item de missão não ocupa mochila
     const cabe = Math.max(0, Math.min(q, attrs.capacidade - carga));
@@ -367,10 +394,14 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
   if (ctx.inverso) ordem.reverse();
   for (let passo = 0; passo < ordem.length; passo++) {
     const i = ordem[passo], pt = rota.pontos[i];
-    andar(pt.p, i);
+    mover(pt.p, 'ir', VEL_ANDAR, { n: i });
     if (pt.enc.length) {
       const ini = pt.enc.map((tipo, k) => ({ k, tipo, ...INIMIGOS[tipo], vida: Math.round(INIMIGOS[tipo].vida * forca), ataque: INIMIGOS[tipo].ataque * forca, vidaAtual: Math.round(INIMIGOS[tipo].vida * forca), prox: 0.9 + k * 0.45 + rnd() * 0.4, golpes: 0 }));
       log.push({ t: r1(t), e: 'enc', i, ini: ini.map(n => ({ tipo: n.tipo, vida: n.vida })) });
+      for (const n of ini) {
+        if (n.comportamento === 'caca') avisar(n, 0, 'Água parada. O predador arma uma emboscada.', '#afe9e7', 'agua', 'emboscar');
+        if (n.comportamento === 'blindagem') avisar(n, 0, 'Placas cerradas. A penetração abre caminho.', '#d8b780');
+      }
       let proxJ = 0.5, tc = 0, vivos = ini.length;
       while (vivos > 0 && vida > 0) {
         // quem age primeiro: o jogador ou o inimigo vivo com o menor relógio
@@ -381,13 +412,61 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
           const alvo = ini.find(n => n.vidaAtual > 0);
           const g = golpe(rnd, attrs, alvo);
           alvo.vidaAtual = Math.max(0, alvo.vidaAtual - g.dano);
+          if (alvo.comportamento === 'blindagem' && !alvo.placaQuebrada && attrs.penetracao >= 16 && alvo.vidaAtual > 0 && alvo.vidaAtual <= alvo.vida / 2) {
+            alvo.placaQuebrada = true;
+            alvo.defesa = Math.max(0, alvo.defesa - 18);
+            alvo.prox += 0.6;
+            avisar(alvo, tc, 'Uma placa cedeu. O infectado perde a guarda.', '#d8b780');
+          }
+          if (alvo.tipo === 'matriarca' && !alvo.encurralada && alvo.vidaAtual > 0 && alvo.vidaAtual <= alvo.vida / 2) {
+            alvo.encurralada = true;
+            alvo.cadencia *= 0.85;
+            avisar(alvo, tc, 'A comporta vibra. A Matriarca encurralada encurta a retirada.', '#d6d0ff', 'grave');
+          }
+          if (alvo.comportamento === 'sirene' && alvo.vidaAtual > 0) {
+            const fase = alvo.vidaAtual / alvo.vida < 0.35 ? 2 : alvo.vidaAtual / alvo.vida < 0.7 ? 1 : 0;
+            if (fase !== (alvo.fase || 0)) {
+              alvo.fase = fase;
+              alvo.defesa = fase === 1 ? 78 : 20;
+              alvo.cadencia = fase === 1 ? 2.5 : 1.15;
+              avisar(alvo, tc, fase === 1 ? 'Sirene grave. O Zelador fecha a guarda.' : 'Dois tons agudos. O Zelador abre a guarda e avança mais rápido.', '#e3b0cc', fase === 1 ? 'grave' : 'agudo');
+            }
+          }
           log.push({ t: r1(t + tc), e: 'atk', de: 'j', em: alvo.k, ...g, v: alvo.vidaAtual });
           if (alvo.vidaAtual <= 0) { vivos--; xp += alvo.xp; log.push({ t: r1(t + tc + 0.25), e: 'cai', k: alvo.k }); }
           proxJ += attrs.cadencia;
         } else {
           quem.golpes++;
-          const pesado = quem.pesadoACada && quem.golpes % quem.pesadoACada === 0;
-          const g = golpe(rnd, quem, attrs, pesado ? quem.pesadoFator : 1);
+          let pesado = quem.pesadoACada && quem.golpes % quem.pesadoACada === 0;
+          let fator = pesado ? quem.pesadoFator : 1;
+          if (quem.comportamento === 'alerta' && quem.golpes === 2 + (attrs.alerta || 0)) {
+            avisar(quem, tc, 'A sentinela disparou o alarme. Os infectados aceleram.', '#ffbd80', 'alarme');
+            for (const n of ini) n.cadencia *= 0.8;
+          }
+          if (quem.comportamento === 'ritual' && quem.golpes === 3 + (attrs.alerta || 0)) {
+            avisar(quem, tc, 'O traço se fechou. Aliados recuperam vida e ganham defesa.', '#e3b0cc', 'grave');
+            for (const n of ini) if (n !== quem && n.vidaAtual > 0) {
+              n.defesa += 12;
+              n.vidaAtual = Math.min(n.vida, n.vidaAtual + 25);
+              log.push({ t: r1(t + tc), e: 'cura', k: n.k, v: n.vidaAtual });
+            }
+          }
+          if (quem.comportamento === 'surto') {
+            const fase = quem.golpes % 4;
+            pesado = fase === 0 || fase === 2;
+            if (fase === 1) avisar(quem, tc, 'Luzes âmbar. O próximo ataque é pesado.', '#ffc579', 'alarme');
+            if (fase === 3) avisar(quem, tc, 'Luzes azuis. O próximo ataque é um surto. Isolamento reduz o dano.', '#8fd8ff', 'agudo');
+            fator = fase === 0 ? 2.55 * (1 - (attrs.isolamento || 0)) : fase === 2 ? 1.65 : 0.8;
+          }
+          if (quem.comportamento === 'caca') {
+            const fase = quem.golpes % 4;
+            pesado = fase === 1 || fase === 2;
+            fator = fase === 1 ? 1.65 : fase === 2 ? 1.30 : 0.46;
+            quem.evasao = INIMIGOS[quem.tipo].evasao + (fase === 3 ? 0.11 : 0);
+            if (fase === 1) avisar(quem, tc, 'Ondas sem vento. A emboscada vira perseguição.', '#afe9e7', 'agua', 'perseguir');
+            if (fase === 3) avisar(quem, tc, 'O canal silenciou. O predador recua antes de emboscar de novo.', '#afe9e7', 'grave', 'recuar');
+          }
+          const g = golpe(rnd, quem, attrs, fator);
           vida = Math.max(0, vida - g.dano);
           log.push({ t: r1(t + tc), e: 'atk', de: quem.k, em: 'j', ...g, ...(pesado ? { pesado: 1 } : {}), v: vida });
           quem.prox += quem.cadencia;
@@ -400,14 +479,19 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
       for (const [item, [a, b]] of Object.entries(rota.saque)) {
         let q = a + Math.floor(rnd() * (b - a + 1));
         if (item === 'sucata') q += attrs.sucataExtra;
+        if (item === attrs.recupera) q += attrs.extra;
         if (q > 0) { const c = pegar(item, q); if (c) ganho[item] = c; }
       }
       if (pt.traz && !(pt.trazSe === 'sem_registro' && ctx.temRegistro)) { pegar(pt.traz, 1); ganho[pt.traz] = 1; }
-      if (pt.primeiraVez && !(ctx.flags && ctx.flags[pt.primeiraVez.marca])) { equipGanho = pt.primeiraVez.item; marcas.push(pt.primeiraVez.marca); }
+      if (pt.primeiraVez && !ctx.ronda && !ctx.flags?.[pt.primeiraVez.marca]) {
+        const { item, marca, trofeu } = pt.primeiraVez;
+        equipGanho = item; marcas.push(marca); primeira = rota.primeira || 0;
+        if (trofeu) ganho[trofeu] = pegar(trofeu, 1);
+      }
       const cura = Math.min(attrs.respiro, attrs.vidaMax - vida); vida += cura;
       t += TEMPO_REVISTA; paradas++;
       log.push({ t: r1(t), e: 'saque', i, itens: ganho, xp, v: vida, carga, ...(equipGanho && pt.primeiraVez ? { equip: equipGanho } : {}) });
-      salvos.push({ t: r1(t), xp, itens: { ...itens }, paradas, vida, equip: equipGanho, marcas: [...marcas] });
+      salvos.push({ t: r1(t), xp, itens: { ...itens }, paradas, vida, equip: equipGanho, primeira, marcas: [...marcas] });
       if (carga >= attrs.capacidade && passo < ordem.length - 1) { motivo = 'mochila'; break; }
     }
   }
@@ -416,9 +500,7 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
   // a volta acaba na última revista e a próxima começa dali mesmo. Só quem cai é carregado de volta.
   const ficou = pos;
   if (!ctx.semVolta || motivo === 'derrota') {
-    const dv = r1(dist(pos, SAIDA) / (motivo === 'derrota' ? VEL_ANDAR * 0.7 : VEL_ANDAR * 1.25));
-    log.push({ t: r1(t), e: 'volta', de: pos, para: SAIDA, d: dv, motivo });
-    t += dv;
+    mover(SAIDA, 'volta', motivo === 'derrota' ? VEL_ANDAR * 0.7 : VEL_ANDAR * 1.25, { motivo });
   }
   const duracao = Math.ceil(t);
   log.push({ t: duracao, e: 'fim', motivo });
@@ -428,7 +510,8 @@ export function simular(rotaId, attrs, semente, ctx = {}) {
     // quem cai fica só com o que já tinha revistado e não leva o prêmio da parada em que caiu
     xp: motivo === 'derrota' ? (ult ? ult.xp : 0) : xp,
     itens: motivo === 'derrota' ? (ult ? ult.itens : {}) : itens,
-    equip: equipGanho, marcas, perdidos, ficouParaTras,
+    equip: equipGanho, marcas, perdidos, ficouParaTras, sinais,
+    creditos: (motivo === 'concluida' ? (ctx.ronda ? rota.creditosRonda : rota.creditos) || 0 : 0) + primeira,
     vidaFinal: vida, vidaMax: attrs.vidaMax, pos: ficou,
   };
   return { duracao, log, salvos, final };
@@ -443,6 +526,7 @@ export function resultadoAte(sim, t) {
     xp: ult ? ult.xp : 0, itens: ult ? ult.itens : {}, equip: ult ? ult.equip : null,
     // marcas de rota concluída não valem no recuo; a do chefe vale se ele já caiu
     marcas: ult ? ult.marcas.filter(m => !/^rota\d+_concluida$/.test(m)) : [],
+    creditos: ult?.primeira || 0, sinais: (sim.final.sinais || []).filter(s => s.t <= t),
     perdidos: {}, ficouParaTras: false, vidaFinal: ult ? ult.vida : sim.final.vidaMax, vidaMax: sim.final.vidaMax,
   };
 }
@@ -465,7 +549,9 @@ export const RONDA = {
 // O personagem não volta pro portão entre as voltas: cada volta começa onde a anterior acabou e os infectados
 // renascem nas paradas. Só no fim (ou se cair) ele faz o caminho de volta, que entra em "retorno".
 export const kitsDaRonda = (voltas, porKit = RONDA.voltasPorKit) => Math.ceil(voltas / porKit);
-export function retornoDe(pos) { return pos ? r1(Math.hypot(pos[0] - SAIDA[0], pos[1] - SAIDA[1]) / (VEL_ANDAR * 1.25)) : 0; }
+const distanciaTrilha = pts => pts.slice(1).reduce((d, p, i) => d + Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]), 0);
+export const caminhoRetorno = (rota, pos) => ROTAS[rota]?.nivel ? trilhaExpansao(pos, SAIDA) : [pos, SAIDA];
+export function retornoDe(pos, rota) { return pos ? r1(distanciaTrilha(caminhoRetorno(rota, pos)) / (VEL_ANDAR * 1.25)) : 0; }
 export function simularRonda(rotaId, base, semente, op) {
   const rnd = sorteador(semente ^ 0x9e3779b9);
   const equipados = Object.fromEntries(Object.entries(base.equipados || {}).map(([k, e]) => [k, { ...e }]));
@@ -485,19 +571,19 @@ export function simularRonda(rotaId, base, semente, op) {
     const sementeCiclo = Math.floor(rnd() * 4294967296) >>> 0;
     // volta ímpar faz a rota ao contrário: começa na parada onde ele já está, sem atravessar a rua de novo
     const inv = ciclos.length % 2 === 1;
-    const sim = simular(rotaId, attrs, sementeCiclo, { flags: base.flags, temRegistro: true, vidaInicial, origem: pos, semVolta: true, inverso: inv });
-    if (t0 + sim.duracao + retornoDe(sim.final.pos) > RONDA.limiteSeg) { parada = 'tempo'; break; }
+    const sim = simular(rotaId, attrs, sementeCiclo, { flags: base.flags, temRegistro: true, vidaInicial, origem: pos, semVolta: true, inverso: inv, ronda: true });
+    if (t0 + sim.duracao + retornoDe(sim.final.pos, rotaId) > RONDA.limiteSeg) { parada = 'tempo'; break; }
     // no farm o desgaste é fracionado e só arredonda no total: com arredondar volta a volta, toda volta gastava 1 ponto no mínimo
     const gasto = desgaste(sim.final, { desgaste: attrs.desgaste * RONDA.desgaste }, true);
     for (const k of Object.keys(equipados)) equipados[k].condicao = Math.max(0, equipados[k].condicao - (gasto[k] || 0));
     if (pedeKit) sup--;
     xp += sim.final.xp; vida = sim.final.vidaFinal; t = t0 + sim.duracao;
-    ciclos.push({ de: pos, inv, t0, dur: sim.duracao, semente: sementeCiclo, attrs, vidaInicial, motivo: sim.final.motivo, xp: sim.final.xp, itens: sim.final.itens, paradas: sim.final.paradas, gasto });
+    ciclos.push({ de: pos, inv, t0, dur: sim.duracao, semente: sementeCiclo, attrs, vidaInicial, motivo: sim.final.motivo, xp: sim.final.xp, itens: sim.final.itens, creditos: sim.final.creditos, ...(usaKit && ROTAS[rotaId].nivel ? { sinais: [...new Set(sim.final.sinais.map(s => s.txt))] } : {}), paradas: sim.final.paradas, gasto });
     if (sim.final.motivo === 'derrota') { parada = 'derrota'; pos = null; break; }
     pos = sim.final.pos;
   }
   // quem não caiu ainda anda da última parada até o portão
-  const retorno = Math.ceil(retornoDe(pos));
+  const retorno = Math.ceil(retornoDe(pos, rotaId));
   return { ciclos, duracao: t + retorno, parada, retorno, de: pos, kits: usaKit ? kitsDaRonda(ciclos.length) : 0, semKit: !usaKit };
 }
 // o que já está valendo no instante t: só voltas inteiras contam
@@ -505,15 +591,17 @@ export function rondaAte(ronda, t) {
   const feitos = ronda.ciclos.filter(c => c.t0 + c.dur <= t);
   const iniciados = ronda.ciclos.filter(c => c.t0 <= t).length;
   const itens = {}, gasto = {};
-  let xp = 0, paradas = 0;
+  const sinais = new Set();
+  let xp = 0, paradas = 0, creditos = 0;
   for (const c of feitos) {
-    xp += c.xp; paradas += c.paradas;
+    xp += c.xp; paradas += c.paradas; creditos += c.creditos || 0;
+    for (const sinal of c.sinais || []) sinais.add(sinal);
     for (const [k, q] of Object.entries(c.itens)) itens[k] = (itens[k] || 0) + q;
     for (const [k, q] of Object.entries(c.gasto)) gasto[k] = (gasto[k] || 0) + q;
   }
   const ult = feitos[feitos.length - 1];
   for (const k of Object.keys(gasto)) gasto[k] = Math.round(gasto[k]);
-  return { feitos: feitos.length, iniciados, xp, itens, gasto, paradas, derrota: !!ult && ult.motivo === 'derrota' };
+  return { feitos: feitos.length, iniciados, xp, creditos, itens, gasto, paradas, sinais: [...sinais].map(txt => ({ txt })), derrota: !!ult && ult.motivo === 'derrota' };
 }
 
 // desgaste do equipamento por expedição, em pontos de condição
@@ -531,13 +619,14 @@ export function desgaste(final, attrs, fracao = false) {
 // o que o navegador precisa pra desenhar e explicar (sem nada secreto)
 export function catalogo() {
   return {
-    versao: VERSAO, itens: ITENS, loja: LOJA, revenda: REVENDA, receitas: RECEITAS, inimigos: INIMIGOS,
+    versao: VERSAO, xpNiveis: XP_NIVEIS, requisitos: ARCO, itens: ITENS, loja: LOJA, revenda: REVENDA, receitas: RECEITAS, inimigos: INIMIGOS,
     rotas: Object.fromEntries(Object.entries(ROTAS).map(([id, r]) => [id, {
       area: r.area || 'entrada', nome: r.nome, resumo: r.resumo, custo: r.custo, requer: r.requer, repete: r.repete || null, perigo: r.perigo, chefe: r.chefe || null,
+      nivel: r.nivel || 1, creditos: r.creditos || 0, creditosRonda: r.creditosRonda || 0, primeira: r.primeira || 0, bonusXp: r.bonusXp || 0,
       pontos: r.pontos.map(p => ({ p: p.p, enc: p.enc })), saque: Object.keys(r.saque),
     }])),
     areas: AREAS, saida: SAIDA, origens: Object.fromEntries(Object.entries(ORIGEM_BONUS).map(([k, v]) => [k, v.txt])),
-    reparoPorPonto: CUSTO_REPARO_POR_PONTO, ferimentoSeg: FERIMENTO_SEG,
+    reparoPorPonto: CUSTO_REPARO_POR_PONTO, reparoItens: Object.fromEntries(Object.keys(ITENS).filter(k => EQUIPAVEIS.includes(ITENS[k].tipo)).map(k => [k, reparoPorPonto(k)])), ferimentoSeg: FERIMENTO_SEG,
     caixas: CAIXAS, caixasPorDia: CAIXAS_POR_DIA,
     ronda: { limiteSeg: RONDA.limiteSeg, descansoSeg: RONDA.descansoSeg, vidaMin: RONDA.vidaMin, ciclosMax: RONDA.ciclosMax, condicaoMin: RONDA.condicaoMin, voltasPorKit: RONDA.voltasPorKit },
   };

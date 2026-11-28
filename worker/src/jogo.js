@@ -3,6 +3,7 @@
 // O proprietário vem do segredo OWNER_DISCORD_ID; os outros papéis ficam em role_assignments com auditoria.
 
 import { nivelDe, ITENS } from './regras.js';
+import { gestaoPersonagem } from './gestao.js';
 import { rotasExpedicao, estadoDoJogador, estadoPublico, darKit, entregarRegistro } from './expedicao.js';
 
 const agora = () => Math.floor(Date.now() / 1000);
@@ -28,7 +29,8 @@ export const ACOES_NPC = {
     registro: { marca: 'registrado' },
     armazem: { requer: 'registrado', abre: 'armazem' },
     caixas: { requer: 'registrado', abre: 'caixas' },
-    projetos: { requer: 'registrado', demo: true },
+    projetos: { requer: 'registrado' },
+    ticket: { requer: 'registrado', abre: 'ticket' },
     ajudar: {},
   },
   wolf: {
@@ -42,11 +44,13 @@ export const ACOES_NPC = {
   bashar: {
     trabalho: { requer: 'kit_recebido', marca: 'contrato_visto' },
     entregar: { requer: 'contrato_visto', especial: 'registro' },
-    ativos: { requer: 'contrato_visto' },
+    ativos: { requer: 'contrato_visto', abre: 'rotas' },
+    sinal: { requer: 'mastim_vencido', marca: 'sinal_aceito' },
     regiao: {},
   },
 };
 const MOTIVO_REQUER = {
+  mastim_vencido: 'Vença o Mastim no Cais do Porto. Depois eu te passo o chamado da subestação.',
   registrado: 'Passe no Prefeito e faça seu registro primeiro.',
   kit_recebido: 'Pegue seu kit com o Wolf antes de sair.',
   contrato_visto: 'Peça um trabalho ao Bashar primeiro.',
@@ -145,7 +149,7 @@ export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
   const conta = await garantirConta(env, u);
   if (conta.estado !== 'ativo') return erro(env, 403, 'Sua conta está suspensa no jogo.');
   // loja, mochila e expedição não dependem do papel: saem antes pra poupar uma consulta
-  if (/^\/game\/(catalogo|expedicao\/|equipar|usar|loja|caixas)/.test(pathname)) {
+  if (/^\/game\/(catalogo|expedicao\/|equipar|usar|loja|caixas|ticket)/.test(pathname)) {
     const r = await rotasExpedicao(req, env, u, pathname, json, erro, ler, personagemPublico, conta.personagem);
     if (r) return r;
   }
@@ -211,8 +215,8 @@ export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
     if (acao.marca && !flags[acao.marca]) {
       flags[acao.marca] = agora();
       // versão evita que duas abas sobrescrevam flags uma da outra
-      const up = await env.DB.prepare('UPDATE characters SET flags = ?, versao = versao + 1, atualizado = ? WHERE discord_id = ? AND versao = ?')
-        .bind(JSON.stringify(flags), agora(), u.discord_id, c.versao).run();
+      const up = await env.DB.prepare('UPDATE characters SET flags = ?, versao = versao + 1, atualizado = ? WHERE discord_id = ? AND versao = ? AND EXISTS (SELECT 1 FROM game_accounts WHERE discord_id = ? AND estado = \'ativo\')')
+        .bind(JSON.stringify(flags), agora(), u.discord_id, c.versao, u.discord_id).run();
       if (!up.meta.changes) return erro(env, 409, 'Seu personagem mudou em outra aba. Tente de novo.');
       if (acao.marca === 'kit_recebido') {
         await darKit(env, u.discord_id);
@@ -228,6 +232,12 @@ export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
   if (pathname.startsWith('/game/admin/')) {
     if (!pode.verGestao(papel)) return erro(env, 403, 'Você não tem acesso à gestão.');
 
+    if (['/game/admin/personagem', '/game/admin/historico'].includes(pathname)) {
+      if (!pode.gerirEquipe(papel)) return erro(env, 403, 'Apenas o proprietário pode acessar esta operação.');
+      const resposta = await gestaoPersonagem(req, env, u, pathname, json, erro, ler, personagemPublico);
+      if (resposta) return resposta;
+    }
+
     if (pathname === '/game/admin/equipe' && req.method === 'GET') {
       const { results: equipe } = await env.DB.prepare(
         `SELECT r.id, r.discord_id, r.papel, r.criado, r.autor, r.motivo, u.nome FROM role_assignments r
@@ -235,7 +245,7 @@ export async function rotasJogo(req, env, u, pathname, json, erro, hmac) {
       const { results: auditoria } = await env.DB.prepare(
         `SELECT a.*, ua.nome AS ator_nome, ut.nome AS alvo_nome FROM admin_audit a
          LEFT JOIN users ua ON ua.discord_id = a.ator LEFT JOIN users ut ON ut.discord_id = a.alvo
-         ORDER BY a.criado DESC LIMIT 50`).all();
+         WHERE a.acao IN ('conceder_papel', 'revogar_papel') ORDER BY a.criado DESC LIMIT 50`).all();
       return json(env, { equipe, auditoria, podeGerir: pode.gerirEquipe(papel) });
     }
 

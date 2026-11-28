@@ -115,6 +115,7 @@ const DIALOGOS = {
       { id: 'registro', rotulo: 'Meu registro' },
       { id: 'armazem', rotulo: 'Abrir armazém' },
       { id: 'caixas', rotulo: 'Caixas pro servidor' },
+      { id: 'ticket', rotulo: 'Ticket de Troca de Classe' },
       { id: 'projetos', rotulo: 'Projetos do abrigo' },
       { id: 'ajudar', rotulo: 'Como posso ajudar?' },
     ],
@@ -122,7 +123,11 @@ const DIALOGOS = {
       registro: { novo: 'Pronto, seu nome tá no livro. Isso te dá um canto no armazém e lugar na fila da sopa. Passa no Wolf, na oficina, que ele tem um kit separado pra você.', ok: 'Tá registrado desde que chegou. Ninguém some do meu livro.' },
       armazem: { ok: 'O armazém fica aqui atrás. Cada um tem a sua prateleira, e ninguém mexe na dos outros.' },
       caixas: { ok: 'Tem caravana saindo pro condado. Paga aqui, e a caixa chega na mão do seu sobrevivente lá no servidor. Não é barato.' },
-      projetos: { demo: 'Portão novo, gerador e reservatório. Uma coisa de cada vez, com o que vocês trouxerem lá de fora.' },
+      projetos: { ok: f => f.matriarca_vencida ? 'O selo abriu a última comporta. Mandamos gente para medir a água. A Vigília mantém a passagem segura.'
+        : f.zelador_vencido ? 'O caderno lista três bombeamentos por noite. Bashar achou os canais de Knox no mapa antigo. Vá pela drenagem.'
+        : f.vigia_vencido ? 'Seu sinal chegou. A placa aponta um repetidor na clínica. Gravei uma mensagem para quem ainda estiver lá.'
+        : 'O rádio caiu. Se o Bashar escutar alguém, vai precisar de relés. Passe lá depois do Cais do Porto.' },
+      ticket: { ok: 'O ticket fica no seu nome. Aqui no abrigo, você escolhe uma nova Origem quando estiver pronto.' },
       ajudar: { ok: 'Fala com o Bashar no rádio. Ele sempre tem alguém pra achar.' },
     },
   },
@@ -142,7 +147,7 @@ const DIALOGOS = {
       vender: { ok: 'Põe na bancada que eu avalio.' },
       reparar: { ok: 'Deixa eu ver o estrago.' },
       fabricar: { ok: 'A bancada é sua. Só não me deixa parafuso espalhado.' },
-      dica: { ok: 'Mochila cheia volta pra casa. Quem insiste com mochila cheia não volta.' },
+      dica: { ok: 'Traga relés para eu montar isolamento. Os filtros da clínica viram proteção leve. As ligas de Knox aguentam desmontagem pesada.' },
     },
   },
   bashar: {
@@ -151,12 +156,14 @@ const DIALOGOS = {
       { id: 'trabalho', rotulo: 'Tenho algum trabalho?' },
       { id: 'entregar', rotulo: 'Entregar o registro' },
       { id: 'ativos', rotulo: 'Ver contratos ativos' },
+      { id: 'sinal', rotulo: 'Aceitar o chamado da subestação' },
       { id: 'regiao', rotulo: 'Informações da região' },
     ],
     respostas: {
       trabalho: { novo: 'O posto da rua de cima parou de responder faz dois dias. Anotei o contrato no seu Bipe. O guarda abre o portão quando a rota estiver pronta.', ok: 'Seu contrato tá no Bipe. Não tem pressa, mas também não tem eternidade.' },
       entregar: { novo: 'Então o posto caiu faz dias e ninguém avisou. Isso muda a ronda. Toma, é o combinado. E fica esperto: o registro fala de alguém trancado no entreposto da rua de cima.', ok: 'Já tenho o registro. Agora o problema é o entreposto.' },
-      ativos: { ok: 'O posto da rua de cima, a ronda do quarteirão e o entreposto. O guarda do portão tem o mapa.' },
+      ativos: { ok: 'O guarda tem o mapa. Cada contrato indica a próxima rota, os infectados e o que você pode trazer.' },
+      sinal: { novo: 'Desde que o Mastim caiu, ouvimos um chamado entre os cortes do rádio. Vá ao pátio, recupere os relés e traga o sinal de volta. O contrato está no portão.', ok: 'O contrato do rádio está no mapa do portão.' },
       regiao: { ok: 'Quarteirão da Entrada: muito errante e pouca coisa boa. Dá sucata leve e tecido, pra quem tiver paciência.' },
     },
   },
@@ -184,7 +191,11 @@ const OBJETIVOS = [
   { id: 'T13', titulo: 'O Cais do Porto', texto: 'A terceira área abriu. Cuidado com os cachorros: correm em bando e mordem rápido.', feito: f => !!f.cais1_concluida },
   { id: 'T14', titulo: 'O píer', texto: 'Passe pelos contêineres e pelo frigorífico até o Píer dos Pescadores.', feito: f => !!f.cais4_concluida },
   { id: 'T15', titulo: 'O dono do canil', texto: 'Vença o Mastim no fundo do pátio do frigorífico.', feito: f => !!f.mastim_vencido },
-  { id: 'T16', titulo: 'Mais longe', texto: 'A próxima cidade chega nas próximas etapas.', feito: () => false, futuro: true },
+  { id: 'sinal', titulo: 'Um chamado entre os cortes', texto: 'Fale com o Bashar sobre o sinal da subestação.', feito: f => !!f.sinal_aceito, expansao: true },
+  { id: 'rede', titulo: 'Restabelecer o sinal', texto: 'Recupere os relés, mapeie a rede e vença o Vigia na Sala de Comando.', feito: f => !!f.vigia_vencido, expansao: true },
+  { id: 'sirene', titulo: 'A frequência da clínica', texto: 'Siga as marcas na neblina até o Zelador e recupere o caderno da sirene.', feito: f => !!f.zelador_vencido, expansao: true },
+  { id: 'comporta', titulo: 'Água para a União da Margem', texto: 'Explore Knox e vença a Matriarca na Comporta.', feito: f => !!f.matriarca_vencida, expansao: true },
+  { id: 'vigilia', titulo: 'Vigília das Comportas', texto: 'Faça a vigília e habilite rondas de manutenção do reservatório.', feito: f => !!f.ronda_knox_feita, expansao: true },
 ];
 
 PZ.mundo = { T, LARG, ALT, chao, OBJ, NPCS, MORADORES, BICHOS, SPAWN, DIALOGOS, OBJETIVOS };
