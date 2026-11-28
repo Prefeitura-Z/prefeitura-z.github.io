@@ -1,0 +1,145 @@
+{
+  "id": "Base.67chevyImpalaSedanS",
+  "skins": [
+    {
+      "nome": "Tuxedo Black",
+      "codigo": "P01",
+      "textura": "Vehicles_67chevyImpala_Shell_tuxedoBlack",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Bolero Red",
+      "codigo": "P02",
+      "textura": "Vehicles_67chevyImpala_Shell_boleroRed",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Butternut Yellow",
+      "codigo": "P03",
+      "textura": "Vehicles_67chevyImpala_Shell_butternutYellow",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Deepwater Blue",
+      "codigo": "P04",
+      "textura": "Vehicles_67chevyImpala_Shell_deepwaterBlue",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Ermine White",
+      "codigo": "P05",
+      "textura": "Vehicles_67chevyImpala_Shell_ermineWhite",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Granda Gold",
+      "codigo": "P06",
+      "textura": "Vehicles_67chevyImpala_Shell_grandaGold",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Madera Maroon",
+      "codigo": "P07",
+      "textura": "Vehicles_67chevyImpala_Shell_maderaMaroon",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Marina Blue",
+      "codigo": "P08",
+      "textura": "Vehicles_67chevyImpala_Shell_marinaBlue",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Mountain Green",
+      "codigo": "P09",
+      "textura": "Vehicles_67chevyImpala_Shell_mountainGreen",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Sierra Fawn",
+      "codigo": "P10",
+      "textura": "Vehicles_67chevyImpala_Shell_sierraFawn",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Tuxedo Black Enferrujado",
+      "codigo": "P11",
+      "textura": "Vehicles_67chevyImpala_Shell_tuxedoBlack_Enferrujado",
+      "imagem": "P11.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Bolero Red Enferrujado",
+      "codigo": "P12",
+      "textura": "Vehicles_67chevyImpala_Shell_boleroRed_Enferrujado",
+      "imagem": "P12.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Butternut Yellow Enferrujado",
+      "codigo": "P13",
+      "textura": "Vehicles_67chevyImpala_Shell_butternutYellow_Enferrujado",
+      "imagem": "P13.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Deepwater Blue Enferrujado",
+      "codigo": "P14",
+      "textura": "Vehicles_67chevyImpala_Shell_deepwaterBlue_Enferrujado",
+      "imagem": "P14.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Ermine White Enferrujado",
+      "codigo": "P15",
+      "textura": "Vehicles_67chevyImpala_Shell_ermineWhite_Enferrujado",
+      "imagem": "P15.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Granda Gold Enferrujado",
+      "codigo": "P16",
+      "textura": "Vehicles_67chevyImpala_Shell_grandaGold_Enferrujado",
+      "imagem": "P16.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Madera Maroon Enferrujado",
+      "codigo": "P17",
+      "textura": "Vehicles_67chevyImpala_Shell_maderaMaroon_Enferrujado",
+      "imagem": "P17.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Marina Blue Enferrujado",
+      "codigo": "P18",
+      "textura": "Vehicles_67chevyImpala_Shell_marinaBlue_Enferrujado",
+      "imagem": "P18.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Mountain Green Enferrujado",
+      "codigo": "P19",
+      "textura": "Vehicles_67chevyImpala_Shell_mountainGreen_Enferrujado",
+      "imagem": "P19.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Sierra Fawn Enferrujado",
+      "codigo": "P20",
+      "textura": "Vehicles_67chevyImpala_Shell_sierraFawn_Enferrujado",
+      "imagem": "P20.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

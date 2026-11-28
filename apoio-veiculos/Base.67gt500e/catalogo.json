@@ -1,0 +1,208 @@
+{
+  "id": "Base.67gt500e",
+  "skins": [
+    {
+      "nome": "Gun Metal Gray",
+      "codigo": "P01",
+      "textura": "Vehicles_67gt500e_Shell_gunMetalGray",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Gun Metal Gray stripes",
+      "codigo": "P02",
+      "textura": "Vehicles_67gt500e_Shell_gunMetalGray_stripes",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Alpine White",
+      "codigo": "P03",
+      "textura": "Vehicles_67gt500e_Shell_alpineWhite",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Alpine White stripes",
+      "codigo": "P04",
+      "textura": "Vehicles_67gt500e_Shell_alpineWhite_stripes",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Black Cherry",
+      "codigo": "P05",
+      "textura": "Vehicles_67gt500e_Shell_blackCherry",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Black Cherry stripes",
+      "codigo": "P06",
+      "textura": "Vehicles_67gt500e_Shell_blackCherry_stripes",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Candy Apple Red",
+      "codigo": "P07",
+      "textura": "Vehicles_67gt500e_Shell_candyAppleRed",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Candy Apple Red stripes",
+      "codigo": "P08",
+      "textura": "Vehicles_67gt500e_Shell_candyAppleRed_stripes",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Dark Green",
+      "codigo": "P09",
+      "textura": "Vehicles_67gt500e_Shell_darkGreen",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Dark Green stripes",
+      "codigo": "P10",
+      "textura": "Vehicles_67gt500e_Shell_darkGreen_stripes",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Forest Green",
+      "codigo": "P11",
+      "textura": "Vehicles_67gt500e_Shell_forestGreen",
+      "imagem": "P11.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Forest Green stripes",
+      "codigo": "P12",
+      "textura": "Vehicles_67gt500e_Shell_forestGreen_stripes",
+      "imagem": "P12.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Gun Metal Blue",
+      "codigo": "P13",
+      "textura": "Vehicles_67gt500e_Shell_gunMetalBlue",
+      "imagem": "P13.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Gun Metal Blue stripes",
+      "codigo": "P14",
+      "textura": "Vehicles_67gt500e_Shell_gunMetalBlue_stripes",
+      "imagem": "P14.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Midnight Blue",
+      "codigo": "P15",
+      "textura": "Vehicles_67gt500e_Shell_midnightBlue",
+      "imagem": "P15.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Midnight Blue stripes",
+      "codigo": "P16",
+      "textura": "Vehicles_67gt500e_Shell_midnightBlue_stripes",
+      "imagem": "P16.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Velvet",
+      "codigo": "P17",
+      "textura": "Vehicles_67gt500e_Shell_velvet",
+      "imagem": "P17.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Velvet stripes",
+      "codigo": "P18",
+      "textura": "Vehicles_67gt500e_Shell_velvet_stripes",
+      "imagem": "P18.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Cadiastands",
+      "codigo": "P19",
+      "textura": "Vehicles_67gt500e_Shell_cadiastands",
+      "imagem": "P19.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Death Race",
+      "codigo": "P20",
+      "textura": "Vehicles_67gt500e_Shell_DeathRace",
+      "imagem": "P20.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Defendersofterra",
+      "codigo": "P21",
+      "textura": "Vehicles_67gt500e_Shell_defendersofterra",
+      "imagem": "P21.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Eco Boost99",
+      "codigo": "P22",
+      "textura": "Vehicles_67gt500e_Shell_EcoBoost99",
+      "imagem": "P22.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Eco Boost WBFord",
+      "codigo": "P23",
+      "textura": "Vehicles_67gt500e_Shell_EcoBoostWBFord",
+      "imagem": "P23.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Eco Boost WGFord",
+      "codigo": "P24",
+      "textura": "Vehicles_67gt500e_Shell_EcoBoostWGFord",
+      "imagem": "P24.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Eco Boost WRFord",
+      "codigo": "P25",
+      "textura": "Vehicles_67gt500e_Shell_EcoBoostWRFord",
+      "imagem": "P25.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Evangelion",
+      "codigo": "P26",
+      "textura": "Vehicles_67gt500e_Shell_Evangelion",
+      "imagem": "P26.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Monster Ford",
+      "codigo": "P27",
+      "textura": "Vehicles_67gt500e_Shell_MonsterFord",
+      "imagem": "P27.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "USAFlag",
+      "codigo": "P28",
+      "textura": "Vehicles_67gt500e_Shell_USAFlag",
+      "imagem": "P28.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Worldeater",
+      "codigo": "P29",
+      "textura": "Vehicles_67gt500e_Shell_worldeater",
+      "imagem": "P29.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "id": "Base.82porsche911rwb",
+  "skins": [
+    {
+      "nome": "Dark Blue",
+      "codigo": "P01",
+      "textura": "Vehicles_82porsche911rwb_Shell_darkBlue",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Fossoil Racing",
+      "codigo": "P02",
+      "textura": "Vehicles_82porsche911rwb_Shell_fossoilRacing",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Gray",
+      "codigo": "P03",
+      "textura": "Vehicles_82porsche911rwb_Shell_gray",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Orange",
+      "codigo": "P04",
+      "textura": "Vehicles_82porsche911rwb_Shell_orange",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Red",
+      "codigo": "P05",
+      "textura": "Vehicles_82porsche911rwb_Shell_red",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Black Dragon",
+      "codigo": "P06",
+      "textura": "Vehicles_82porsche911rwb_Shell_BlackDragon",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Cyan Pool",
+      "codigo": "P07",
+      "textura": "Vehicles_82porsche911rwb_Shell_CyanPool",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Cyberpunk",
+      "codigo": "P08",
+      "textura": "Vehicles_82porsche911rwb_Shell_Cyberpunk",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "GOLDEN",
+      "codigo": "P09",
+      "textura": "Vehicles_82porsche911rwb_Shell_GOLDEN",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Green Blue",
+      "codigo": "P10",
+      "textura": "Vehicles_82porsche911rwb_Shell_GreenBlue",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Luna",
+      "codigo": "P11",
+      "textura": "Vehicles_82porsche911rwb_Shell_Luna",
+      "imagem": "P11.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Mc Queen",
+      "codigo": "P12",
+      "textura": "Vehicles_82porsche911rwb_Shell_McQueen",
+      "imagem": "P12.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pale Camo",
+      "codigo": "P13",
+      "textura": "Vehicles_82porsche911rwb_Shell_PaleCamo",
+      "imagem": "P13.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pink Bambi",
+      "codigo": "P14",
+      "textura": "Vehicles_82porsche911rwb_Shell_PinkBambi",
+      "imagem": "P14.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pink Leopard",
+      "codigo": "P15",
+      "textura": "Vehicles_82porsche911rwb_Shell_PinkLeopard",
+      "imagem": "P15.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Purple14",
+      "codigo": "P16",
+      "textura": "Vehicles_82porsche911rwb_Shell_Purple14",
+      "imagem": "P16.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Purple Geo",
+      "codigo": "P17",
+      "textura": "Vehicles_82porsche911rwb_Shell_PurpleGeo",
+      "imagem": "P17.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pzero",
+      "codigo": "P18",
+      "textura": "Vehicles_82porsche911rwb_Shell_Pzero",
+      "imagem": "P18.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Sera Black",
+      "codigo": "P19",
+      "textura": "Vehicles_82porsche911rwb_Shell_SeraBlack",
+      "imagem": "P19.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Silver Pink",
+      "codigo": "P20",
+      "textura": "Vehicles_82porsche911rwb_Shell_SilverPink",
+      "imagem": "P20.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "53",
+      "codigo": "P21",
+      "textura": "Vehicles_82porsche911sc_Shell_53",
+      "imagem": "P21.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "911",
+      "codigo": "P22",
+      "textura": "Vehicles_82porsche911sc_Shell_911",
+      "imagem": "P22.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "964",
+      "codigo": "P23",
+      "textura": "Vehicles_82porsche911sc_Shell_964",
+      "imagem": "P23.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Blue Toon",
+      "codigo": "P24",
+      "textura": "Vehicles_82porsche911sc_Shell_BlueToon",
+      "imagem": "P24.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Bolt Flame",
+      "codigo": "P25",
+      "textura": "Vehicles_82porsche911sc_Shell_BoltFlame",
+      "imagem": "P25.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Capybara",
+      "codigo": "P26",
+      "textura": "Vehicles_82porsche911sc_Shell_Capybara",
+      "imagem": "P26.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Gradient",
+      "codigo": "P27",
+      "textura": "Vehicles_82porsche911sc_Shell_Gradient",
+      "imagem": "P27.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Marlboro",
+      "codigo": "P28",
+      "textura": "Vehicles_82porsche911sc_Shell_Marlboro",
+      "imagem": "P28.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Mixed Color",
+      "codigo": "P29",
+      "textura": "Vehicles_82porsche911sc_Shell_MixedColor",
+      "imagem": "P29.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Multi Power",
+      "codigo": "P30",
+      "textura": "Vehicles_82porsche911sc_Shell_MultiPower",
+      "imagem": "P30.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pastel1",
+      "codigo": "P31",
+      "textura": "Vehicles_82porsche911sc_Shell_Pastel1",
+      "imagem": "P31.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pastel2",
+      "codigo": "P32",
+      "textura": "Vehicles_82porsche911sc_Shell_Pastel2",
+      "imagem": "P32.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pastel3",
+      "codigo": "P33",
+      "textura": "Vehicles_82porsche911sc_Shell_Pastel3",
+      "imagem": "P33.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pink Red",
+      "codigo": "P34",
+      "textura": "Vehicles_82porsche911sc_Shell_PinkRed",
+      "imagem": "P34.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Polkadot",
+      "codigo": "P35",
+      "textura": "Vehicles_82porsche911sc_Shell_Polkadot",
+      "imagem": "P35.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Toon Orange",
+      "codigo": "P36",
+      "textura": "Vehicles_82porsche911sc_Shell_ToonOrange",
+      "imagem": "P36.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Volume09",
+      "codigo": "P37",
+      "textura": "Vehicles_82porsche911sc_Shell_Volume09",
+      "imagem": "P37.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

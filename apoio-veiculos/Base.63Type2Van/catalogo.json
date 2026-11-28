@@ -1,0 +1,138 @@
+{
+  "id": "Base.63Type2Van",
+  "skins": [
+    {
+      "nome": "Red",
+      "codigo": "P01",
+      "textura": "Vehicles_63Type2Van_Shell_red",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Bahama Blue",
+      "codigo": "P02",
+      "textura": "Vehicles_63Type2Van_Shell_bahamaBlue",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Anthracite",
+      "codigo": "P03",
+      "textura": "Vehicles_63Type2Van_Shell_anthracite",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Java Green",
+      "codigo": "P04",
+      "textura": "Vehicles_63Type2Van_Shell_javaGreen",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Panama Beige",
+      "codigo": "P05",
+      "textura": "Vehicles_63Type2Van_Shell_panamaBeige",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pearl White",
+      "codigo": "P06",
+      "textura": "Vehicles_63Type2Van_Shell_pearlWhite",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Rust Red",
+      "codigo": "P07",
+      "textura": "Vehicles_63Type2Van_Shell_rustRed",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Sea Blue",
+      "codigo": "P08",
+      "textura": "Vehicles_63Type2Van_Shell_seaBlue",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Yellow",
+      "codigo": "P09",
+      "textura": "Vehicles_63Type2Van_Shell_yellow",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Gtasa",
+      "codigo": "P10",
+      "textura": "Vehicles_63Type2Van_Shell_gtasa",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Big Chief Raw Steel",
+      "codigo": "P11",
+      "textura": "PRZ_BigChief_63Type2Van_RawSteel",
+      "imagem": "P11.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Big Chief Petrol Cream",
+      "codigo": "P12",
+      "textura": "PRZ_BigChief_63Type2Van_PetrolCream",
+      "imagem": "P12.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)gtasa",
+      "codigo": "P13",
+      "textura": "Vehicles_63Type2Van_Shell_(5)gtasa",
+      "imagem": "P13.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Mothership",
+      "codigo": "P14",
+      "textura": "Vehicles_63Type2Van_Shell_(5)Mothership",
+      "imagem": "P14.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Orange Green",
+      "codigo": "P15",
+      "textura": "Vehicles_63Type2Van_Shell_(5)Orange_Green",
+      "imagem": "P15.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Beach",
+      "codigo": "P16",
+      "textura": "Vehicles_63Type2Van_Shell_Beach",
+      "imagem": "P16.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Bolt",
+      "codigo": "P17",
+      "textura": "Vehicles_63Type2Van_Shell_Bolt",
+      "imagem": "P17.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Flower Power",
+      "codigo": "P18",
+      "textura": "Vehicles_63Type2Van_Shell_FlowerPower",
+      "imagem": "P18.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Toon Rust",
+      "codigo": "P19",
+      "textura": "Vehicles_63Type2Van_Shell_ToonRust",
+      "imagem": "P19.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

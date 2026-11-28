@@ -1,0 +1,243 @@
+{
+  "id": "Base.63beetle",
+  "skins": [
+    {
+      "nome": "Anthracite",
+      "codigo": "P01",
+      "textura": "Vehicles_63beetle_Shell_anthracite",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Bahama blue",
+      "codigo": "P02",
+      "textura": "Vehicles_63beetle_Shell_bahama_blue",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Panama beige",
+      "codigo": "P03",
+      "textura": "Vehicles_63beetle_Shell_panama_beige",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pearl white",
+      "codigo": "P04",
+      "textura": "Vehicles_63beetle_Shell_pearl_white",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Rust red",
+      "codigo": "P05",
+      "textura": "Vehicles_63beetle_Shell_rust_red",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Sea blue",
+      "codigo": "P06",
+      "textura": "Vehicles_63beetle_Shell_sea_blue",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Yellow",
+      "codigo": "P07",
+      "textura": "Vehicles_63beetle_Shell_yellow",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Herbie",
+      "codigo": "P08",
+      "textura": "Vehicles_63beetle_Shell_herbie",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Flowers",
+      "codigo": "P09",
+      "textura": "Vehicles_63beetle_Shell_flowers",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Big Chief Raw Steel",
+      "codigo": "P10",
+      "textura": "PRZ_BigChief_63beetle_RawSteel",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Big Chief Burgundy",
+      "codigo": "P11",
+      "textura": "PRZ_BigChief_63beetle_Burgundy",
+      "imagem": "P11.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Flame Black Kit",
+      "codigo": "P12",
+      "textura": "Vehicles_63beetle_Shell_(5)Flame_Black_Kit",
+      "imagem": "P12.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Flame Red Kit",
+      "codigo": "P13",
+      "textura": "Vehicles_63beetle_Shell_(5)Flame_Red_Kit",
+      "imagem": "P13.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Flame Red Kit Windows",
+      "codigo": "P14",
+      "textura": "Vehicles_63beetle_Shell_(5)Flame_Red_Kit_Windows",
+      "imagem": "P14.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Flame Yellow Kit",
+      "codigo": "P15",
+      "textura": "Vehicles_63beetle_Shell_(5)Flame_Yellow_Kit",
+      "imagem": "P15.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Orange Purple blend",
+      "codigo": "P16",
+      "textura": "Vehicles_63beetle_Shell_(5)Orange_Purple_blend",
+      "imagem": "P16.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Black92",
+      "codigo": "P17",
+      "textura": "Vehicles_63beetle_Shell_Black92",
+      "imagem": "P17.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Blossom",
+      "codigo": "P18",
+      "textura": "Vehicles_63beetle_Shell_Blossom",
+      "imagem": "P18.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Blue38",
+      "codigo": "P19",
+      "textura": "Vehicles_63beetle_Shell_Blue38",
+      "imagem": "P19.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Blue Rust",
+      "codigo": "P20",
+      "textura": "Vehicles_63beetle_Shell_BlueRust",
+      "imagem": "P20.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Flower",
+      "codigo": "P21",
+      "textura": "Vehicles_63beetle_Shell_Flower",
+      "imagem": "P21.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Gold93",
+      "codigo": "P22",
+      "textura": "Vehicles_63beetle_Shell_Gold93",
+      "imagem": "P22.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Greek",
+      "codigo": "P23",
+      "textura": "Vehicles_63beetle_Shell_Greek",
+      "imagem": "P23.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Love",
+      "codigo": "P24",
+      "textura": "Vehicles_63beetle_Shell_Love",
+      "imagem": "P24.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Planet Fire",
+      "codigo": "P25",
+      "textura": "Vehicles_63beetle_Shell_PlanetFire",
+      "imagem": "P25.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Protest",
+      "codigo": "P26",
+      "textura": "Vehicles_63beetle_Shell_Protest",
+      "imagem": "P26.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Red White",
+      "codigo": "P27",
+      "textura": "Vehicles_63beetle_Shell_RedWhite",
+      "imagem": "P27.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Rust",
+      "codigo": "P28",
+      "textura": "Vehicles_63beetle_Shell_Rust",
+      "imagem": "P28.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Rust Danger",
+      "codigo": "P29",
+      "textura": "Vehicles_63beetle_Shell_RustDanger",
+      "imagem": "P29.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Shark",
+      "codigo": "P30",
+      "textura": "Vehicles_63beetle_Shell_Shark",
+      "imagem": "P30.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Strips Fire",
+      "codigo": "P31",
+      "textura": "Vehicles_63beetle_Shell_StripsFire",
+      "imagem": "P31.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Tiger",
+      "codigo": "P32",
+      "textura": "Vehicles_63beetle_Shell_Tiger",
+      "imagem": "P32.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "White53",
+      "codigo": "P33",
+      "textura": "Vehicles_63beetle_Shell_White53",
+      "imagem": "P33.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "White Flower",
+      "codigo": "P34",
+      "textura": "Vehicles_63beetle_Shell_WhiteFlower",
+      "imagem": "P34.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

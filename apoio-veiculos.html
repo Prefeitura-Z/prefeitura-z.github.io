@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Veja os veículos da rotação de apoio à Prefeitura Z, conheça as pinturas disponíveis e peça pelo Discord.">
+<meta name="theme-color" content="#111411">
+<link rel="icon" href="img/brasao.png">
+<title>Veículos de apoio — Prefeitura Z</title>
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="apoio-veiculos.css">
+</head>
+<body>
+<header id="topo" data-pagina="loja"></header>
+
+<main class="page-main apoio-main">
+  <a class="apoio-voltar" href="loja.html">Loja PRZcoins</a>
+  <div class="apoio-intro">
+    <div class="page-intro">
+      <h1>Veículos <em>de apoio</em></h1>
+      <p>Escolha o veículo e a pintura da rotação. Abra um ticket no Discord para combinar a doação e a entrega no servidor.</p>
+    </div>
+    <p class="apoio-prazo" id="apoio-prazo" hidden></p>
+  </div>
+  <p id="apoio-estado" role="status">Carregando a rotação…</p>
+  <div class="apoio-ofertas" id="apoio-ofertas" aria-label="Ofertas da rotação"></div>
+  <template id="apoio-modelo">
+    <article class="apoio-card">
+      <div class="apoio-card-topo">
+        <div><p class="apoio-tipo"></p><h2></h2></div>
+        <strong class="apoio-valor"></strong>
+      </div>
+      <label class="apoio-label-versao">Versão do veículo<select class="apoio-versao"></select></label>
+      <div class="apoio-galeria" hidden>
+        <figure class="apoio-imagem">
+          <img alt="" hidden>
+          <figcaption></figcaption>
+        </figure>
+        <div class="apoio-pinturas">
+          <label>Buscar pintura<input type="search" placeholder="Nome ou código" autocomplete="off"></label>
+          <p class="apoio-contagem" role="status"></p>
+          <div class="apoio-skins" role="group" aria-label="Pinturas"></div>
+          <div class="apoio-paginacao" hidden>
+            <button type="button" class="button secondary">Anteriores</button>
+            <button type="button" class="button secondary">Próximas</button>
+          </div>
+        </div>
+      </div>
+      <p class="apoio-mensagem" role="status">Carregando pinturas…</p>
+      <div class="apoio-pedido" hidden>
+        <button type="button" class="button secondary apoio-copiar">Copiar pedido</button>
+        <a class="button primary apoio-ticket" target="_blank" rel="noopener"></a>
+      </div>
+    </article>
+  </template>
+  <noscript>Ative o JavaScript para consultar a rotação e as pinturas dos veículos.</noscript>
+</main>
+
+<footer id="rodape"></footer>
+<script src="site.js"></script>
+<script type="module" src="apoio-veiculos.mjs"></script>
+</body>
+</html>

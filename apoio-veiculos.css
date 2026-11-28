@@ -1,0 +1,47 @@
+.apoio-main{max-width:1240px;margin-inline:auto;padding-inline:var(--gut)}
+.apoio-voltar{display:inline-block;color:var(--accent);font-size:.875rem;font-weight:600;margin-bottom:24px}
+.apoio-voltar:hover{text-decoration:underline}
+.apoio-intro{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.apoio-intro h1{margin-bottom:12px}
+.apoio-intro p{margin:0;font-size:1rem}
+p.apoio-prazo{background:var(--surface2);border:1px solid var(--border);padding:12px 16px;color:var(--ok);font-size:.875rem;min-width:max-content}
+.apoio-ofertas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.apoio-card{background:var(--surface);border:1px solid var(--border);padding:20px;min-width:0}
+.apoio-card-topo{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}
+.apoio-tipo{margin:0 0 4px;font-size:.875rem}
+.apoio-card h2{margin:0;overflow-wrap:anywhere}
+.apoio-valor{color:var(--accent);white-space:nowrap;font-size:1.125rem}
+.apoio-label-versao{display:block;margin-bottom:14px;font-size:.875rem}
+.apoio-versao{display:block;width:100%;margin-top:5px;padding:9px 32px 9px 12px;border:1px solid var(--border);border-radius:2px;background:var(--bg);color:var(--text);font:inherit;font-size:1rem}
+.apoio-versao:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.apoio-imagem{margin:0;background:var(--bg);border:1px solid var(--border)}
+.apoio-imagem img{display:block;width:100%;aspect-ratio:12/7;object-fit:contain;background:#20231f}
+.apoio-imagem figcaption{padding:8px 12px;font-size:.875rem;color:var(--muted);overflow-wrap:anywhere}
+.apoio-pinturas{margin-top:16px}
+.apoio-pinturas label{display:block;font-size:.875rem}
+.apoio-pinturas input{display:block;width:100%;margin-top:5px;padding:9px 12px;border:1px solid var(--border);border-radius:2px;background:var(--bg);color:var(--text);font:inherit;font-size:1rem}
+.apoio-pinturas input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.apoio-contagem,.apoio-mensagem{margin:10px 0;font-size:.875rem}
+.apoio-skins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.apoio-skins button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center;text-align:left;min-height:44px;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:2px;padding:6px 9px;font-size:.875rem;overflow-wrap:anywhere}
+.apoio-skins button:hover,.apoio-skins button[aria-pressed="true"]{border-color:var(--accent)}
+.apoio-skins button[aria-pressed="true"]{background:var(--surface2);color:var(--accent)}
+.apoio-skin-ref{font-family:var(--mono);font-size:.8125rem;color:var(--muted)}
+.apoio-paginacao,.apoio-pedido{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.apoio-pedido{border-top:1px solid var(--border);padding-top:16px}
+.apoio-card .button,.loja-apoio .button{font-size:.875rem;min-height:44px}
+.apoio-card p.apoio-mensagem:empty{display:none}
+.loja-apoio{justify-content:space-between;align-items:center;flex-wrap:wrap}
+.loja-apoio div{flex:1 1 230px}
+.loja-apoio h2{margin:0 0 4px;font-size:1.125rem}
+.loja-apoio p{margin:0}
+.notice.loja-apoio .primary{color:#1d2119}
+@media(max-width:800px){
+  .apoio-ofertas{grid-template-columns:1fr}
+  .apoio-intro{flex-direction:column;align-items:start}
+  p.apoio-prazo{min-width:0}
+}
+@media(max-width:430px){
+  .apoio-card{padding:14px}
+  .apoio-card-topo{flex-wrap:wrap;align-items:start;gap:8px}
+}

@@ -1,0 +1,40 @@
+{
+  "id": "Base.89trooperOP",
+  "skins": [
+    {
+      "nome": "Green",
+      "codigo": "P01",
+      "textura": "Vehicles_89trooperOP_Shell_Green",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pewter",
+      "codigo": "P02",
+      "textura": "Vehicles_89trooperOP_Shell_Pewter",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Red",
+      "codigo": "P03",
+      "textura": "Vehicles_89trooperOP_Shell_Red",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "White",
+      "codigo": "P04",
+      "textura": "Vehicles_89trooperOP_Shell_White",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Black",
+      "codigo": "P05",
+      "textura": "Vehicles_89trooperOP_Shell_Black",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

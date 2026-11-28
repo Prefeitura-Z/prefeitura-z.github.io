@@ -10,6 +10,22 @@ Settings → Pages → Source: "Deploy from a branch" → branch `main`, pasta `
 `mapa/preview.jpg` e `img/preview-mapa.jpg` são as imagens que aparece quando o link é colado no Discord.
 A URL do `og:image` já aponta para https://prefeitura-z.github.io/mapa/preview.jpg.
 
+## Vitrine de veículos de apoio
+
+Em `apoio-veiculos.json`, `inicio` guarda a data e o horário da primeira rotação com fuso explícito. A ordem em `rotacoes` determina a troca automática de dois itens a cada 14 dias. Acrescente o par seguinte ao fim da fila. Os valores usam centavos de real e o endereço em `ticketDiscord` leva ao canal de abertura de tickets.
+
+Cada versão usa o identificador completo do script do jogo, como `Base.89trooperRS`, e tem um catálogo em `apoio-veiculos/<id>/catalogo.json`. O código `P01`, `P02` e assim por diante serve para navegar na vitrine. O pedido copiado leva o nome original da textura para a equipe identificar a pintura.
+
+Para atualizar o catálogo, use a mesma versão dos arquivos de mods do servidor. O plano de importação é um objeto JSON que mapeia a pasta de cada mod de veículo para a lista de IDs daquele mod, por exemplo `{ "89trooper": ["Base.89trooperRS"] }`. O importador lê as pinturas do script do veículo e as inclusões do Prefeitura Vehicle Skins. Rode em uma pasta temporária para conferir o catálogo e as imagens antes de copiar as subpastas dos veículos para o site.
+
+```sh
+node tools/importar-skins-veiculos.mjs PASTA_MODS 42.22 plano.json PASTA_TEMPORARIA --fontes
+blender -b --python-exit-code 1 --python tools/renderizar-pinturas.py -- PASTA_MODS PASTA_TEMPORARIA/fontes-render.json tools/modelos-pinturas.json
+node --test tests/veiculos.test.mjs
+```
+
+O modo `--fontes` gera o catálogo para as prévias 3D, o manifesto temporário e os caminhos que o Blender 5.3 usará para renderizar. A montagem em `tools/modelos-pinturas.json` aponta para as malhas originais e os componentes de cada modelo. Importe sem `--fontes` para usar a própria textura como prévia, com essa indicação na legenda. Copie somente as subpastas dos veículos para `apoio-veiculos/`.
+
 ## Abrir dentro do Discord (Activity)
 
 O site já está pronto para rodar como Discord Activity: as fontes ficam no próprio site e,

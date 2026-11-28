@@ -1,0 +1,40 @@
+{
+  "id": "Base.49powerWagonPA",
+  "skins": [
+    {
+      "nome": "Silver",
+      "codigo": "P01",
+      "textura": "Vehicles_49powerWagonPA_Shell_silver",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Copper",
+      "codigo": "P02",
+      "textura": "Vehicles_49powerWagonPA_Shell_copper",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Coal",
+      "codigo": "P03",
+      "textura": "Vehicles_49powerWagonPA_Shell_coal",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Flames",
+      "codigo": "P04",
+      "textura": "Vehicles_49powerWagonPA_Shell_Flames",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Toxic",
+      "codigo": "P05",
+      "textura": "Vehicles_49powerWagonPA_Shell_Toxic",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

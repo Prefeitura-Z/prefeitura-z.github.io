@@ -1,0 +1,19 @@
+{
+  "id": "Base.67chevyImpalaBaby",
+  "skins": [
+    {
+      "nome": "Baby",
+      "codigo": "P01",
+      "textura": "Vehicles_67chevyImpala_Shell_Baby",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Baby Enferrujado",
+      "codigo": "P02",
+      "textura": "Vehicles_67chevyImpala_Shell_baby_Enferrujado",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

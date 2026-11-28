@@ -1,0 +1,229 @@
+{
+  "id": "Base.63beetleHP",
+  "skins": [
+    {
+      "nome": "Deep ocean blue",
+      "codigo": "P01",
+      "textura": "Vehicles_63beetleHP_Shell_deep_ocean_blue",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Yellow",
+      "codigo": "P02",
+      "textura": "Vehicles_63beetleHP_Shell_yellow",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Green",
+      "codigo": "P03",
+      "textura": "Vehicles_63beetleHP_Shell_green",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Purple green",
+      "codigo": "P04",
+      "textura": "Vehicles_63beetleHP_Shell_purple_green",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Shark gray",
+      "codigo": "P05",
+      "textura": "Vehicles_63beetleHP_Shell_shark_gray",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Urban camo",
+      "codigo": "P06",
+      "textura": "Vehicles_63beetleHP_Shell_urban_camo",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Flame Black Kit",
+      "codigo": "P07",
+      "textura": "Vehicles_63beetle_Shell_(5)Flame_Black_Kit",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Flame Red Kit",
+      "codigo": "P08",
+      "textura": "Vehicles_63beetle_Shell_(5)Flame_Red_Kit",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Flame Red Kit Windows",
+      "codigo": "P09",
+      "textura": "Vehicles_63beetle_Shell_(5)Flame_Red_Kit_Windows",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Flame Yellow Kit",
+      "codigo": "P10",
+      "textura": "Vehicles_63beetle_Shell_(5)Flame_Yellow_Kit",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Orange Purple blend",
+      "codigo": "P11",
+      "textura": "Vehicles_63beetle_Shell_(5)Orange_Purple_blend",
+      "imagem": "P11.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Blue camo",
+      "codigo": "P12",
+      "textura": "Vehicles_63beetleHP_Shell_Blue_camo",
+      "imagem": "P12.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Blue Moon",
+      "codigo": "P13",
+      "textura": "Vehicles_63beetleHP_Shell_BlueMoon",
+      "imagem": "P13.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Castrol85",
+      "codigo": "P14",
+      "textura": "Vehicles_63beetleHP_Shell_Castrol85",
+      "imagem": "P14.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Champion67",
+      "codigo": "P15",
+      "textura": "Vehicles_63beetleHP_Shell_Champion67",
+      "imagem": "P15.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Charizard",
+      "codigo": "P16",
+      "textura": "Vehicles_63beetleHP_Shell_Charizard",
+      "imagem": "P16.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Ditto",
+      "codigo": "P17",
+      "textura": "Vehicles_63beetleHP_Shell_Ditto",
+      "imagem": "P17.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Green camo",
+      "codigo": "P18",
+      "textura": "Vehicles_63beetleHP_Shell_Green_camo",
+      "imagem": "P18.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "GSON",
+      "codigo": "P19",
+      "textura": "Vehicles_63beetleHP_Shell_GSON",
+      "imagem": "P19.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Gulf34",
+      "codigo": "P20",
+      "textura": "Vehicles_63beetleHP_Shell_Gulf34",
+      "imagem": "P20.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Honey Comb",
+      "codigo": "P21",
+      "textura": "Vehicles_63beetleHP_Shell_HoneyComb",
+      "imagem": "P21.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Jigglypuff",
+      "codigo": "P22",
+      "textura": "Vehicles_63beetleHP_Shell_jigglypuff",
+      "imagem": "P22.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Long Pink",
+      "codigo": "P23",
+      "textura": "Vehicles_63beetleHP_Shell_LongPink",
+      "imagem": "P23.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Lootgoblin",
+      "codigo": "P24",
+      "textura": "Vehicles_63beetleHP_Shell_lootgoblin",
+      "imagem": "P24.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Marlboro49",
+      "codigo": "P25",
+      "textura": "Vehicles_63beetleHP_Shell_Marlboro49",
+      "imagem": "P25.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Martini80",
+      "codigo": "P26",
+      "textura": "Vehicles_63beetleHP_Shell_Martini80",
+      "imagem": "P26.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "NBC",
+      "codigo": "P27",
+      "textura": "Vehicles_63beetleHP_Shell_NBC",
+      "imagem": "P27.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Pikachu",
+      "codigo": "P28",
+      "textura": "Vehicles_63beetleHP_Shell_Pikachu",
+      "imagem": "P28.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Rainbow",
+      "codigo": "P29",
+      "textura": "Vehicles_63beetleHP_Shell_Rainbow",
+      "imagem": "P29.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Red camo",
+      "codigo": "P30",
+      "textura": "Vehicles_63beetleHP_Shell_Red_camo",
+      "imagem": "P30.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Squirtle",
+      "codigo": "P31",
+      "textura": "Vehicles_63beetleHP_Shell_Squirtle",
+      "imagem": "P31.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Tokepi",
+      "codigo": "P32",
+      "textura": "Vehicles_63beetleHP_Shell_Tokepi",
+      "imagem": "P32.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

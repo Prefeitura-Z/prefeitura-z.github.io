@@ -1,0 +1,238 @@
+{
+  "ticketDiscord": "https://discord.com/channels/1419331126274556078/1540111844402925688",
+  "inicio": "2026-11-28T12:13:00Z",
+  "rotacoes": [
+    {
+      "ofertas": [
+        {
+          "nome": "Isuzu Trooper ’89",
+          "tipo": "Carro",
+          "valorCentavos": 2500,
+          "versoes": [
+            {
+              "id": "Base.89trooper",
+              "nome": "Normal"
+            },
+            {
+              "id": "Base.89trooperRS",
+              "nome": "RS"
+            },
+            {
+              "id": "Base.89trooperOP",
+              "nome": "OP"
+            }
+          ]
+        },
+        {
+          "nome": "Porsche 911 ’82",
+          "tipo": "Carro",
+          "valorCentavos": 2500,
+          "versoes": [
+            {
+              "id": "Base.82porsche911sc",
+              "nome": "SC"
+            },
+            {
+              "id": "Base.82porsche911turbo",
+              "nome": "Turbo"
+            },
+            {
+              "id": "Base.82porsche911targa",
+              "nome": "Targa"
+            },
+            {
+              "id": "Base.82porsche911rwb",
+              "nome": "RWB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ofertas": [
+        {
+          "nome": "Shelby GT500 ’67",
+          "tipo": "Carro",
+          "valorCentavos": 3500,
+          "versoes": [
+            {
+              "id": "Base.67gt500",
+              "nome": "GT500"
+            },
+            {
+              "id": "Base.67gt500e",
+              "nome": "Eleanor"
+            }
+          ]
+        },
+        {
+          "nome": "GMC Vandura ’83",
+          "tipo": "Van",
+          "valorCentavos": 3500,
+          "versoes": [
+            {
+              "id": "Base.83gmcG1500lwb",
+              "nome": "G1500"
+            },
+            {
+              "id": "Base.83gmcG1500aTeam",
+              "nome": "A-Team"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ofertas": [
+        {
+          "nome": "Volkswagen Fusca ’63",
+          "tipo": "Carro",
+          "valorCentavos": 2500,
+          "versoes": [
+            {
+              "id": "Base.63beetle",
+              "nome": "Normal"
+            },
+            {
+              "id": "Base.63beetleHP",
+              "nome": "HP"
+            },
+            {
+              "id": "Base.63beetleBuggy",
+              "nome": "Buggy"
+            }
+          ]
+        },
+        {
+          "nome": "Volkswagen Kombi ’63",
+          "tipo": "Van",
+          "valorCentavos": 3000,
+          "versoes": [
+            {
+              "id": "Base.63Type2Van",
+              "nome": "Normal"
+            },
+            {
+              "id": "Base.63Type2VanHippie",
+              "nome": "Hippie"
+            },
+            {
+              "id": "Base.63Type2VanMilitary",
+              "nome": "Militar"
+            },
+            {
+              "id": "Base.63Type2VanApocalypse",
+              "nome": "Apocalypse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ofertas": [
+        {
+          "nome": "Nissan Skyline GT-R ’92",
+          "tipo": "Carro",
+          "valorCentavos": 3500,
+          "versoes": [
+            {
+              "id": "Base.92nissanGTR",
+              "nome": "Volante à direita"
+            },
+            {
+              "id": "Base.92nissanGTRlhd",
+              "nome": "Volante à esquerda"
+            }
+          ]
+        },
+        {
+          "nome": "Ford F-350 ’93",
+          "tipo": "Caminhonete",
+          "valorCentavos": 3500,
+          "versoes": [
+            {
+              "id": "Base.93fordF350",
+              "nome": "Cabine dupla"
+            },
+            {
+              "id": "Base.93fordF350dually",
+              "nome": "Dually"
+            },
+            {
+              "id": "Base.93fordF350CCflatBed",
+              "nome": "Plataforma com cabine dupla"
+            },
+            {
+              "id": "Base.93fordF350SCflatBed",
+              "nome": "Plataforma com cabine simples"
+            },
+            {
+              "id": "Base.93fordF350utility",
+              "nome": "Utilitária"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ofertas": [
+        {
+          "nome": "W900 Cabine Alta",
+          "tipo": "Caminhão",
+          "valorCentavos": 4500,
+          "versoes": [
+            {
+              "id": "Base.SemiTruck",
+              "nome": "Cabine Alta"
+            }
+          ]
+        },
+        {
+          "nome": "Dodge Power Wagon ’49",
+          "tipo": "Caminhonete",
+          "valorCentavos": 3500,
+          "versoes": [
+            {
+              "id": "Base.49powerWagon",
+              "nome": "Cabine dupla"
+            },
+            {
+              "id": "Base.49powerWagonPA",
+              "nome": "Apocalypse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ofertas": [
+        {
+          "nome": "Chevrolet Impala ’67",
+          "tipo": "Carro",
+          "valorCentavos": 3000,
+          "versoes": [
+            {
+              "id": "Base.67chevyImpalaSedanS",
+              "nome": "Sedan"
+            },
+            {
+              "id": "Base.67chevyImpalaBaby",
+              "nome": "Baby"
+            }
+          ]
+        },
+        {
+          "nome": "W900 Cabine Dia",
+          "tipo": "Caminhão",
+          "valorCentavos": 4500,
+          "versoes": [
+            {
+              "id": "Base.SemiTruckLite",
+              "nome": "Cabine Dia"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

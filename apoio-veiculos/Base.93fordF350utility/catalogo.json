@@ -1,0 +1,47 @@
+{
+  "id": "Base.93fordF350utility",
+  "skins": [
+    {
+      "nome": "White",
+      "codigo": "P01",
+      "textura": "Vehicles_93fordF350utility_Shell_white",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Black",
+      "codigo": "P02",
+      "textura": "Vehicles_93fordF350utility_Shell_black",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Red",
+      "codigo": "P03",
+      "textura": "Vehicles_93fordF350utility_Shell_red",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Yellow",
+      "codigo": "P04",
+      "textura": "Vehicles_93fordF350utility_Shell_yellow",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Green",
+      "codigo": "P05",
+      "textura": "Vehicles_93fordF350utility_Shell_green",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Blue",
+      "codigo": "P06",
+      "textura": "Vehicles_93fordF350utility_Shell_blue",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "id": "Base.67gt500",
+  "skins": [
+    {
+      "nome": "Alpine White",
+      "codigo": "P01",
+      "textura": "Vehicles_67gt500_Shell_alpineWhite",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Alpine White stripes",
+      "codigo": "P02",
+      "textura": "Vehicles_67gt500_Shell_alpineWhite_stripes",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Candy Apple Red",
+      "codigo": "P03",
+      "textura": "Vehicles_67gt500_Shell_candyAppleRed",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Candy Apple Red stripes",
+      "codigo": "P04",
+      "textura": "Vehicles_67gt500_Shell_candyAppleRed_stripes",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Forest Green",
+      "codigo": "P05",
+      "textura": "Vehicles_67gt500_Shell_forestGreen",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Forest Green stripes",
+      "codigo": "P06",
+      "textura": "Vehicles_67gt500_Shell_forestGreen_stripes",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Lime Gold",
+      "codigo": "P07",
+      "textura": "Vehicles_67gt500_Shell_limeGold",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Lime Gold stripes",
+      "codigo": "P08",
+      "textura": "Vehicles_67gt500_Shell_limeGold_stripes",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Midnight Blue",
+      "codigo": "P09",
+      "textura": "Vehicles_67gt500_Shell_midnightBlue",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Midnight Blue stripes",
+      "codigo": "P10",
+      "textura": "Vehicles_67gt500_Shell_midnightBlue_stripes",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Black",
+      "codigo": "P11",
+      "textura": "Vehicles_67gt500_Shell_black",
+      "imagem": "P11.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Dominator",
+      "codigo": "P12",
+      "textura": "Vehicles_67gt500_Shell_Dominator",
+      "imagem": "P12.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Eco Boost66",
+      "codigo": "P13",
+      "textura": "Vehicles_67gt500_Shell_EcoBoost66",
+      "imagem": "P13.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Nascar1Blue",
+      "codigo": "P14",
+      "textura": "Vehicles_67gt500_Shell_Nascar1Blue",
+      "imagem": "P14.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Radioactive",
+      "codigo": "P15",
+      "textura": "Vehicles_67gt500_Shell_Radioactive",
+      "imagem": "P15.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

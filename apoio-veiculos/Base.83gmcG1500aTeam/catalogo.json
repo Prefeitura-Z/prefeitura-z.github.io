@@ -1,0 +1,26 @@
+{
+  "id": "Base.83gmcG1500aTeam",
+  "skins": [
+    {
+      "nome": "ATeam",
+      "codigo": "P01",
+      "textura": "Vehicles_83gmcGseriesVans_Shell_ATeam",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Big Chief Raw Steel",
+      "codigo": "P02",
+      "textura": "PRZ_BigChief_83gmcVandura_RawSteel",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Big Chief Graphite Copper",
+      "codigo": "P03",
+      "textura": "PRZ_BigChief_83gmcVandura_GraphiteCopper",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

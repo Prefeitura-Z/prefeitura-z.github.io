@@ -1,0 +1,110 @@
+{
+  "id": "Base.SemiTruck",
+  "skins": [
+    {
+      "nome": "Vehicles r Semi Truck white",
+      "codigo": "P01",
+      "textura": "vehicles_rSemiTruck_white",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck Black",
+      "codigo": "P02",
+      "textura": "vehicles_rSemiTruck_Black",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck red",
+      "codigo": "P03",
+      "textura": "vehicles_rSemiTruck_red",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck blue",
+      "codigo": "P04",
+      "textura": "vehicles_rSemiTruck_blue",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck Caspian Blue",
+      "codigo": "P05",
+      "textura": "vehicles_rSemiTruck_CaspianBlue",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck yellow",
+      "codigo": "P06",
+      "textura": "vehicles_rSemiTruck_yellow",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck Green",
+      "codigo": "P07",
+      "textura": "vehicles_rSemiTruck_Green",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck USMCgreen",
+      "codigo": "P08",
+      "textura": "vehicles_rSemiTruck_USMCgreen",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck blue purple",
+      "codigo": "P09",
+      "textura": "vehicles_rSemiTruck_blue_purple",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck bronze",
+      "codigo": "P10",
+      "textura": "vehicles_rSemiTruck_bronze",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck blue amber",
+      "codigo": "P11",
+      "textura": "vehicles_rSemiTruck_blue_amber",
+      "imagem": "P11.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck blue crimson",
+      "codigo": "P12",
+      "textura": "vehicles_rSemiTruck_blue_crimson",
+      "imagem": "P12.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck blue lime",
+      "codigo": "P13",
+      "textura": "vehicles_rSemiTruck_blue_lime",
+      "imagem": "P13.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck skyblue",
+      "codigo": "P14",
+      "textura": "vehicles_rSemiTruck_skyblue",
+      "imagem": "P14.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Vehicles r Semi Truck blue neon pink",
+      "codigo": "P15",
+      "textura": "vehicles_rSemiTruck_blue_neon_pink",
+      "imagem": "P15.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}

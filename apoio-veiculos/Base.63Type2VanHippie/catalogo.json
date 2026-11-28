@@ -1,0 +1,75 @@
+{
+  "id": "Base.63Type2VanHippie",
+  "skins": [
+    {
+      "nome": "Mothership",
+      "codigo": "P01",
+      "textura": "Vehicles_63Type2VanHippie_Shell_mothership",
+      "imagem": "P01.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Flowers",
+      "codigo": "P02",
+      "textura": "Vehicles_63Type2VanHippie_Shell_flowers",
+      "imagem": "P02.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Flowers2",
+      "codigo": "P03",
+      "textura": "Vehicles_63Type2VanHippie_Shell_flowers2",
+      "imagem": "P03.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)gtasa",
+      "codigo": "P04",
+      "textura": "Vehicles_63Type2Van_Shell_(5)gtasa",
+      "imagem": "P04.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Mothership",
+      "codigo": "P05",
+      "textura": "Vehicles_63Type2Van_Shell_(5)Mothership",
+      "imagem": "P05.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "(5)Orange Green",
+      "codigo": "P06",
+      "textura": "Vehicles_63Type2Van_Shell_(5)Orange_Green",
+      "imagem": "P06.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Flower",
+      "codigo": "P07",
+      "textura": "Vehicles_63Type2VanHippie_Shell_Flower",
+      "imagem": "P07.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Love Bus",
+      "codigo": "P08",
+      "textura": "Vehicles_63Type2VanHippie_Shell_LoveBus",
+      "imagem": "P08.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Party People",
+      "codigo": "P09",
+      "textura": "Vehicles_63Type2VanHippie_Shell_PartyPeople",
+      "imagem": "P09.jpg",
+      "tipoImagem": "render"
+    },
+    {
+      "nome": "Rainbow Weed",
+      "codigo": "P10",
+      "textura": "Vehicles_63Type2VanHippie_Shell_RainbowWeed",
+      "imagem": "P10.jpg",
+      "tipoImagem": "render"
+    }
+  ]
+}
